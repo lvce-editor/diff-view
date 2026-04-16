@@ -1,5 +1,5 @@
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceControlVirtualDom.ts'
 
 export const renderItems = (oldState: DiffViewState, newState: DiffViewState): any => {

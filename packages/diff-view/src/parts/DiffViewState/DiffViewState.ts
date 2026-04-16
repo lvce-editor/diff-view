@@ -28,8 +28,8 @@ export interface DiffViewState {
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly items: readonly unknown[]
-  readonly maxLineY: number
   readonly maxInputLines: number
+  readonly maxLineY: number
   readonly merge: readonly unknown[]
   readonly minimumSliderSize: number
   readonly minLineY: number

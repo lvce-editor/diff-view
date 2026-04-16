@@ -14,6 +14,6 @@ test('sendMessagePortToExtensionHostWorker', async (): Promise<void> => {
   await sendMessagePortToExtensionHostWorker(port)
 
   expect(mockRpc.invocations).toEqual([
-    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', RpcId.SourceControlWorker],
+    ['SendMessagePortToExtensionHostWorker.sendMessagePortToExtensionHostWorker', port, 'HandleMessagePort.handleMessagePort2', RpcId.diffViewWorker],
   ])
 })

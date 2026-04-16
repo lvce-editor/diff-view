@@ -7,6 +7,6 @@ export const instantiations = 3000
 
 export const instantiationsPath = join(root, 'packages', 'diff-view')
 
-export const workerPath = join(root, '.tmp/dist/dist/sourceControlWorkerMain.js')
+export const workerPath = join(root, '.tmp/dist/dist/diffViewWorkerMain.js')
 
 export const playwrightPath = import.meta.resolve('../../e2e/node_modules/playwright/index.mjs')

@@ -13,7 +13,7 @@ export const getRemoteUrl = (path) => {
 
 const nodeModulesPath = join(root, 'packages', 'server', 'node_modules')
 
-const fileSearchWorkerPath = join(root, '.tmp', 'dist', 'dist', 'sourceControlWorkerMain.js')
+const fileSearchWorkerPath = join(root, '.tmp', 'dist', 'dist', 'diffViewWorkerMain.js')
 
 const serverStaticPath = join(nodeModulesPath, '@lvce-editor', 'static-server', 'static')
 
@@ -28,10 +28,10 @@ const rendererWorkerMainPath = join(serverStaticPath, commitHash, 'packages', 'r
 
 const content = await readFile(rendererWorkerMainPath, 'utf-8')
 const remoteUrl = getRemoteUrl(fileSearchWorkerPath)
-if (!content.includes('// const sourceControlWorkerUrl = ')) {
-  const occurrence = `const sourceControlWorkerUrl = \`\${assetDir}/packages/diff-view/dist/sourceControlWorkerMain.js\``
-  const replacement = `// const sourceControlWorkerUrl = \`\${assetDir}/packages/diff-view/dist/sourceControlWorkerMain.js\`
-const sourceControlWorkerUrl = \`${remoteUrl}\``
+if (!content.includes('// const diffViewWorkerUrl = ')) {
+  const occurrence = `const diffViewWorkerUrl = \`\${assetDir}/packages/diff-view/dist/diffViewWorkerMain.js\``
+  const replacement = `// const diffViewWorkerUrl = \`\${assetDir}/packages/diff-view/dist/diffViewWorkerMain.js\`
+const diffViewWorkerUrl = \`${remoteUrl}\``
 
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerMainPath, newContent)

@@ -6,13 +6,13 @@ import { rollup, type RollupOptions } from 'rollup'
 import { root } from './root.ts'
 
 const options: RollupOptions = {
-  input: join(root, 'packages/diff-view/src/sourceControlWorkerMain.ts'),
+  input: join(root, 'packages/diff-view/src/diffViewWorkerMain.ts'),
   preserveEntrySignatures: 'strict',
   treeshake: {
     propertyReadSideEffects: false,
   },
   output: {
-    file: join(root, '.tmp/dist/dist/sourceControlWorkerMain.js'),
+    file: join(root, '.tmp/dist/dist/diffViewWorkerMain.js'),
     format: 'es',
     freeze: false,
     generatedCode: {

@@ -24,13 +24,13 @@ export const getRemoteUrl = (path: string): string => {
 }
 
 const content = await readFile(rendererWorkerPath, 'utf8')
-const workerPath = join(root, '.tmp/dist/dist/sourceControlWorkerMain.js')
+const workerPath = join(root, '.tmp/dist/dist/diffViewWorkerMain.js')
 const remoteUrl = getRemoteUrl(workerPath)
 
-if (content.includes('// const sourceControlWorkerUrl = ')) {
-  const occurrence = `// const sourceControlWorkerUrl = \`\${assetDir}/packages/diff-view/dist/sourceControlWorkerMain.js\`
-const sourceControlWorkerUrl = \`${remoteUrl}\``
-  const replacement = `const sourceControlWorkerUrl = \`\${assetDir}/packages/diff-view/dist/sourceControlWorkerMain.js\``
+if (content.includes('// const diffViewWorkerUrl = ')) {
+  const occurrence = `// const diffViewWorkerUrl = \`\${assetDir}/packages/diff-view/dist/diffViewWorkerMain.js\`
+const diffViewWorkerUrl = \`${remoteUrl}\``
+  const replacement = `const diffViewWorkerUrl = \`\${assetDir}/packages/diff-view/dist/diffViewWorkerMain.js\``
   const newContent = content.replace(occurrence, replacement)
   await writeFile(rendererWorkerPath, newContent)
 }

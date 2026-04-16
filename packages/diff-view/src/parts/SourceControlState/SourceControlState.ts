@@ -4,6 +4,7 @@ import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
 export interface DiffViewState {
   readonly assetDir: string
+  readonly focus: number
   readonly minLineY: number
   readonly platform: number
   readonly root: string

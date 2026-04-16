@@ -1,12 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
-import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
-export const getSourceControlVirtualDom = (items: readonly VisibleItem[], splitButtonEnabled: boolean, inputPlaceholder: string): readonly VirtualDomNode[] => {
-  const dom = [
+export const getSourceControlVirtualDom = (): readonly VirtualDomNode[] => {
+  const dom: readonly VirtualDomNode[] = [
     {
       childCount: 1,
-      type: 'Viewlet Diff',
+      className: 'Viewlet Diff',
       type: VirtualDomElements.Div,
     },
     text('hello world'),

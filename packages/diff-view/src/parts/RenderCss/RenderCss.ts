@@ -1,5 +1,5 @@
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as GetIndentRule from '../GetIndentRule/GetIndentRule.ts'
 import * as GetUnique from '../GetUnique/GetUnique.ts'
 

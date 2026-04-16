@@ -1,5 +1,5 @@
 import { diffTree } from '@lvce-editor/virtual-dom-worker'
-import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { renderItems } from '../RenderItems/RenderItems.ts'
 
 export const renderIncremental = (oldState: DiffViewState, newState: DiffViewState): any => {

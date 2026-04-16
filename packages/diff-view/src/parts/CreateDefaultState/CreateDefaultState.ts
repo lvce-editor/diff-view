@@ -1,4 +1,4 @@
-import type { DiffViewState as DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState as DiffViewState } from '../DiffViewState/DiffViewState.ts'
 
 export const createDefaultState = (): DiffViewState => ({
   actionsCache: Object.create(null),

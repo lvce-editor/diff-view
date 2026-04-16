@@ -1,4 +1,4 @@
-import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as GetRenderer from '../GetRenderer/GetRenderer.ts'
 
 export const applyRender = (oldState: DiffViewState, newState: DiffViewState, diffResult: readonly number[]): readonly any[] => {

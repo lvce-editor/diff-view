@@ -1,4 +1,4 @@
-import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as DiffViewStates from '../DiffViewStates/DiffViewStates.ts'
 
 export const create2 = (

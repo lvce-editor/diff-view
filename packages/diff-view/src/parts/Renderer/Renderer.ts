@@ -1,4 +1,3 @@
-export interface Renderer {
 import type { DiffViewState } from '../DiffViewState/DiffViewState.js'
 
 export interface Renderer {

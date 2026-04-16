@@ -1,6 +1,6 @@
 export const name = 'diff.empty-after'
 
-export const test = async ({ Command, FileSystem, Main, WebView, expect }) => {
+export const test = async ({ Command, expect, FileSystem, Main, WebView }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/fixture.diffproto`, 'fixture')
   await Command.execute('DiffView.setFixture', 'empty-after')

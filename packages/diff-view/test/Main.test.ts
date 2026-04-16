@@ -1,8 +1,8 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
 import * as CommandMap from '../src/parts/CommandMap/CommandMap.ts'
-import * as Main from '../src/parts/Main/Main.ts'
 import { getCommandIds } from '../src/parts/DiffViewStates/DiffViewStates.ts'
+import * as Main from '../src/parts/Main/Main.ts'
 
 test('main calls listen', async () => {
   RendererWorker.registerMockRpc(CommandMap.commandMap)

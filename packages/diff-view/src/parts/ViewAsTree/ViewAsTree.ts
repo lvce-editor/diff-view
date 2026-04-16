@@ -1,7 +1,7 @@
 import { ViewMode } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const viewAsTree = (state: SourceControlState): SourceControlState => {
+export const viewAsTree = (state: DiffViewState): DiffViewState => {
   return {
     ...state,
     viewMode: ViewMode.Tree,

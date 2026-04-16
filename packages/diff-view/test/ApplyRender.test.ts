@@ -1,13 +1,13 @@
 import { test, expect } from '@jest/globals'
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as ApplyRender from '../src/parts/ApplyRender/ApplyRender.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 
 test('applyRender - returns empty array for empty diffResult', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = createDefaultState()
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = createDefaultState()
   const diffResult: readonly number[] = []
 
   const result = ApplyRender.applyRender(oldState, newState, diffResult)
@@ -16,8 +16,8 @@ test('applyRender - returns empty array for empty diffResult', (): void => {
 })
 
 test('applyRender - returns single command for RenderItems diff type', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 1,
     inputPlaceholder: '',
@@ -32,8 +32,8 @@ test('applyRender - returns single command for RenderItems diff type', (): void 
 })
 
 test('applyRender - returns single command for RenderValue diff type', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 2,
     inputValue: 'test value',
@@ -46,8 +46,8 @@ test('applyRender - returns single command for RenderValue diff type', (): void 
 })
 
 test('applyRender - returns single command for RenderCss diff type', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 3,
     inputBoxHeight: 30,
@@ -60,8 +60,8 @@ test('applyRender - returns single command for RenderCss diff type', (): void =>
 })
 
 test('applyRender - returns single command for RenderFocusContext diff type', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 5,
     id: 4,
@@ -74,8 +74,8 @@ test('applyRender - returns single command for RenderFocusContext diff type', ()
 })
 
 test('applyRender - returns multiple commands for multiple diff types', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 10,
     id: 5,
@@ -96,8 +96,8 @@ test('applyRender - returns multiple commands for multiple diff types', (): void
 })
 
 test('applyRender - handles duplicate diff types', (): void => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 7,
     id: 6,

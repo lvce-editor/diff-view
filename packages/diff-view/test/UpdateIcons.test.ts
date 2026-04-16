@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { RendererWorker } from '@lvce-editor/rpc-registry'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as UpdateIcons from '../src/parts/UpdateIcons/UpdateIcons.ts'
 
@@ -13,7 +13,7 @@ const commandMap = {
 test('updateIcons - should update icons for visible items', async (): Promise<void> => {
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...defaultState,
     items: [
       // @ts-ignore
@@ -39,7 +39,7 @@ test('updateIcons - should update icons for visible items', async (): Promise<vo
 test('updateIcons - should handle empty visible items', async (): Promise<void> => {
   const mockRpc = RendererWorker.registerMockRpc(commandMap)
   const defaultState = CreateDefaultState.createDefaultState()
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...defaultState,
     items: [],
     maxLineY: 0,

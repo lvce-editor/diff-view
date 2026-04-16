@@ -1,10 +1,10 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import { getListHeight } from '../GetListHeight/GetListHeight.ts'
 import * as GetNumberOfVisibleItems from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
-export const updateVisibleItems = async (state: Readonly<SourceControlState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<SourceControlState> => {
+export const updateVisibleItems = async (state: Readonly<DiffViewState>, expandedGroups: Readonly<Record<string, boolean>>): Promise<DiffViewState> => {
   const { actionsCache, allGroups, fileIconCache, height, iconDefinitions, itemHeight } = state
   const displayItems = getDisplayItems(allGroups, expandedGroups, iconDefinitions)
   const badgeCount = allGroups.reduce((sum, group) => sum + group.items.length, 0)

@@ -1,12 +1,12 @@
 import { test, expect } from '@jest/globals'
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderCss from '../src/parts/RenderCss/RenderCss.ts'
 
 test('renderCss - returns correct command with CSS', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 1,
     inputBoxHeight: 30,
@@ -26,8 +26,8 @@ test('renderCss - returns correct command with CSS', () => {
 })
 
 test('renderCss - handles different input box heights', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 2,
     inputBoxHeight: 50,
@@ -47,8 +47,8 @@ test('renderCss - handles different input box heights', () => {
 })
 
 test('renderCss - handles zero height', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 3,
     inputBoxHeight: 0,
@@ -68,8 +68,8 @@ test('renderCss - handles zero height', () => {
 })
 
 test('renderCss - handles large height values', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 4,
     inputBoxHeight: 200,
@@ -89,8 +89,8 @@ test('renderCss - handles large height values', () => {
 })
 
 test('renderCss - generates indent CSS rules', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 5,
     inputBoxHeight: 30,

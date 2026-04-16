@@ -1,8 +1,8 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/GetVisibleSourceControlItems.ts'
 
-export const setDeltaY = async (state: SourceControlState, newDeltaY: number): Promise<SourceControlState> => {
+export const setDeltaY = async (state: DiffViewState, newDeltaY: number): Promise<DiffViewState> => {
   const { actionsCache, fileIconCache, headerHeight, height, itemHeight, items } = state
   const normalizedDeltaY = Math.max(newDeltaY, 0)
   const newMinLineY = Math.floor(normalizedDeltaY / itemHeight)

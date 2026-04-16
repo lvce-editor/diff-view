@@ -1,17 +1,17 @@
 import { expect, test } from '@jest/globals'
 import type { DisplayItem } from '../src/parts/DisplayItem/DisplayItem.ts'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleMouseOver } from '../src/parts/HandleMouseOver/HandleMouseOver.ts'
 
 test('handleMouseOver - returns state when index is out of bounds', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const result = await handleMouseOver(state, 0)
   expect(result).toBe(state)
 })
 
 test('handleMouseOver - returns state when index is negative', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const result = await handleMouseOver(state, -1)
   expect(result).toBe(state)
 })
@@ -31,7 +31,7 @@ test('handleMouseOver - returns new state when item exists', async (): Promise<v
     setSize: 1,
     type: 0,
   }
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     items: [item],
   }
@@ -71,7 +71,7 @@ test('handleMouseOver - returns new state when multiple items exist', async (): 
     setSize: 2,
     type: 0,
   }
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     items: [item1, item2],
   }

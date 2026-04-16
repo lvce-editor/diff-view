@@ -1,5 +1,5 @@
 import type { Group } from '../Group/Group.ts'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import { getDisplayItems } from '../GetDisplayItems/GetDisplayItems.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 import * as GetFinalDeltaY from '../GetFinalDeltaY/GetFinalDeltaY.ts'
@@ -10,7 +10,7 @@ import { getVisibleSourceControlItems } from '../GetVisibleSourceControlItems/Ge
 import { restoreExpandedGroups } from '../RestoreExpandedGroups/RestoreExpandedGroups.ts'
 import * as ScrollBarFunctions from '../ScrollBarFunctions/ScrollBarFunctions.ts'
 
-export const refresh = async (state: SourceControlState): Promise<SourceControlState> => {
+export const refresh = async (state: DiffViewState): Promise<DiffViewState> => {
   const { actionsCache, assetDir, enabledProviderIds, fileIconCache, height, iconDefinitions, itemHeight, minimumSliderSize, platform, root, splitButtonEnabled } = state
   const { allGroups, gitRoot } = await getGroups(enabledProviderIds, root, assetDir, platform)
   const expandedGroups = restoreExpandedGroups(allGroups)

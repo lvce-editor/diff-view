@@ -1,10 +1,10 @@
 import { expect, test } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getIndex } from '../src/parts/GetIndex/GetIndex.ts'
 
 test('getIndex - first item', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 50,
     itemHeight: 30,
@@ -17,7 +17,7 @@ test('getIndex - first item', () => {
 })
 
 test('getIndex - second item', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 50,
     itemHeight: 30,
@@ -30,7 +30,7 @@ test('getIndex - second item', () => {
 })
 
 test('getIndex - negative y', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 50,
     itemHeight: 30,
@@ -43,7 +43,7 @@ test('getIndex - negative y', () => {
 })
 
 test('getIndex - different header height', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 100,
     itemHeight: 30,

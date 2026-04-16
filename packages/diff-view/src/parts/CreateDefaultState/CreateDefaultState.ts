@@ -1,6 +1,6 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState as DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const createDefaultState = (): SourceControlState => ({
+export const createDefaultState = (): DiffViewState => ({
   actionsCache: Object.create(null),
   allGroups: [],
   assetDir: '',

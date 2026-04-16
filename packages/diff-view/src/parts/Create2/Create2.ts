@@ -1,4 +1,4 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as SourceControlStates from '../SourceControlStates/SourceControlStates.ts'
 
 export const create2 = (
@@ -12,7 +12,7 @@ export const create2 = (
   platform: number,
   assetDir: string,
 ): void => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     actionsCache: Object.create(null),
     allGroups: [],
     assetDir,

@@ -1,10 +1,10 @@
 import { expect, test } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWheel } from '../src/parts/HandleWheel/HandleWheel.ts'
 
 test('handleWheel - adds deltaY to current deltaY', async (): Promise<void> => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     deltaY: 10,
   }
@@ -18,7 +18,7 @@ test('handleWheel - adds deltaY to current deltaY', async (): Promise<void> => {
 })
 
 test('handleWheel - handles negative deltaY', async (): Promise<void> => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     deltaY: 50,
   }
@@ -30,7 +30,7 @@ test('handleWheel - handles negative deltaY', async (): Promise<void> => {
 })
 
 test('handleWheel - handles zero deltaY', async (): Promise<void> => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     deltaY: 25,
   }
@@ -42,7 +42,7 @@ test('handleWheel - handles zero deltaY', async (): Promise<void> => {
 })
 
 test('handleWheel - accepts deltaMode parameter', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const newState = await handleWheel(state, 1, 10)
 
@@ -51,7 +51,7 @@ test('handleWheel - accepts deltaMode parameter', async (): Promise<void> => {
 })
 
 test('handleWheel - with initial zero deltaY', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const newState = await handleWheel(state, 0, 15)
 
@@ -60,7 +60,7 @@ test('handleWheel - with initial zero deltaY', async (): Promise<void> => {
 })
 
 test('handleWheel - preserves other state properties', async (): Promise<void> => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     deltaY: 5,
     height: 300,

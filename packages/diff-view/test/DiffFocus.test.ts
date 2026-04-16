@@ -1,14 +1,14 @@
 import { expect, test } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffFocus/DiffFocus.ts'
 
 test('isEqual - same focus', (): void => {
-  const oldState: SourceControlState = {
+  const oldState: DiffViewState = {
     ...createDefaultState(),
     focus: 5,
   }
-  const newState: SourceControlState = {
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 5,
   }
@@ -16,11 +16,11 @@ test('isEqual - same focus', (): void => {
 })
 
 test('isEqual - different focus', (): void => {
-  const oldState: SourceControlState = {
+  const oldState: DiffViewState = {
     ...createDefaultState(),
     focus: 5,
   }
-  const newState: SourceControlState = {
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 10,
   }
@@ -28,11 +28,11 @@ test('isEqual - different focus', (): void => {
 })
 
 test('isEqual - zero values', (): void => {
-  const oldState: SourceControlState = {
+  const oldState: DiffViewState = {
     ...createDefaultState(),
     focus: 0,
   }
-  const newState: SourceControlState = {
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: 0,
   }
@@ -40,11 +40,11 @@ test('isEqual - zero values', (): void => {
 })
 
 test('isEqual - negative values', (): void => {
-  const oldState: SourceControlState = {
+  const oldState: DiffViewState = {
     ...createDefaultState(),
     focus: -1,
   }
-  const newState: SourceControlState = {
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: -1,
   }
@@ -52,11 +52,11 @@ test('isEqual - negative values', (): void => {
 })
 
 test('isEqual - different negative values', (): void => {
-  const oldState: SourceControlState = {
+  const oldState: DiffViewState = {
     ...createDefaultState(),
     focus: -1,
   }
-  const newState: SourceControlState = {
+  const newState: DiffViewState = {
     ...createDefaultState(),
     focus: -2,
   }

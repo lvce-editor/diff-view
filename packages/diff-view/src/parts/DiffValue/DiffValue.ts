@@ -1,6 +1,6 @@
 import { InputSource } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const isEqual = (oldState: SourceControlState, newState: SourceControlState): boolean => {
+export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return newState.inputSource === InputSource.User || oldState.inputValue === newState.inputValue
 }

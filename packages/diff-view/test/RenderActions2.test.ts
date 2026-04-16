@@ -1,10 +1,10 @@
 import { test, expect } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderActions2 from '../src/parts/RenderActions2/RenderActions2.ts'
 
 test('renderActions - returns array of virtual DOM nodes', () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const result = RenderActions2.renderActions(state)
 
@@ -12,7 +12,7 @@ test('renderActions - returns array of virtual DOM nodes', () => {
 })
 
 test('renderActions - handles different state values', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     id: 1,
   }
@@ -23,8 +23,8 @@ test('renderActions - handles different state values', () => {
 })
 
 test('renderActions - returns consistent structure', () => {
-  const state1: SourceControlState = createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = createDefaultState()
+  const state2: DiffViewState = {
     ...createDefaultState(),
     id: 2,
   }

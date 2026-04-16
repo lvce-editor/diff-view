@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import type { DisplayItem } from '../src/parts/DisplayItem/DisplayItem.ts'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleMouseOutAt } from '../src/parts/HandleMouseOutAt/HandleMouseOutAt.ts'
 
@@ -33,7 +33,7 @@ test('handleMouseOutAt - with valid coordinates', (): void => {
     setSize: 2,
     type: 0,
   }
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 40,
     itemHeight: 20,
@@ -77,7 +77,7 @@ test('handleMouseOutAt - with coordinates outside items area (index -1)', (): vo
     setSize: 2,
     type: 0,
   }
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 40,
     itemHeight: 20,
@@ -108,7 +108,7 @@ test('handleMouseOutAt - with coordinates beyond items length', (): void => {
     setSize: 1,
     type: 0,
   }
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     headerHeight: 40,
     itemHeight: 20,

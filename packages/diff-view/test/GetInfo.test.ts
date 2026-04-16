@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { getInfo } from '../src/parts/GetInfo/GetInfo.ts'
 import { set } from '../src/parts/SourceControlStates/SourceControlStates.ts'
@@ -19,7 +19,7 @@ test('getInfo - returns allGroups from state', (): void => {
       label: 'Group 2',
     },
   ]
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...defaultState,
     allGroups: groups,
   }
@@ -31,7 +31,7 @@ test('getInfo - returns allGroups from state', (): void => {
 test('getInfo - returns empty array when no groups', (): void => {
   const uid = 2
   const defaultState = createDefaultState()
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...defaultState,
     allGroups: [],
   }
@@ -55,7 +55,7 @@ test('getInfo - returns groups with items', (): void => {
       label: 'Group 1',
     },
   ]
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...defaultState,
     allGroups: groups,
   }

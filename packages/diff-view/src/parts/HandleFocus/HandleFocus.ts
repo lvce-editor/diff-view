@@ -1,7 +1,7 @@
 import { InputSource, WhenExpression } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const handleInputFocus = async (state: SourceControlState): Promise<SourceControlState> => {
+export const handleInputFocus = async (state: DiffViewState): Promise<DiffViewState> => {
   return {
     ...state,
     focus: WhenExpression.FocusSourceControlInput,

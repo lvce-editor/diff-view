@@ -1,12 +1,12 @@
 import { expect, test } from '@jest/globals'
 import { DirentType } from '@lvce-editor/constants'
 import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { selectIndex } from '../src/parts/SelectIndex/SelectIndex.ts'
 
 test('selectIndex - invalid index', async (): Promise<void> => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const newState = await selectIndex(state, -1)
   expect(newState).toBe(state)
 })
@@ -33,7 +33,7 @@ test('selectIndex - directory', async (): Promise<void> => {
     type: DirentType.Directory,
   }
 
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     allGroups: [
       {
@@ -71,7 +71,7 @@ test('selectIndex - expanded directory', async (): Promise<void> => {
     type: DirentType.DirectoryExpanded,
   }
 
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     allGroups: [
       {
@@ -117,7 +117,7 @@ test('selectIndex - file', async (): Promise<void> => {
     type: DirentType.File,
   }
 
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     allGroups: [
       {
@@ -150,7 +150,7 @@ test('selectIndex - unknown item type', async (): Promise<void> => {
     type: 999,
   }
 
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     allGroups: [
       {

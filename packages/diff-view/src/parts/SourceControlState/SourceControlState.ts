@@ -5,7 +5,7 @@ import type { Group } from '../Group/Group.ts'
 import type { ViewMode } from '../ViewMode/ViewMode.ts'
 import type { VisibleItem } from '../VisibleItem/VisibleItem.ts'
 
-export interface SourceControlState {
+export interface DiffViewState {
   readonly actionsCache: ActionsCache
   readonly allGroups: readonly Group[]
   readonly assetDir: string

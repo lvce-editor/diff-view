@@ -1,11 +1,11 @@
 import { test, expect } from '@jest/globals'
 import { InputSource } from '@lvce-editor/constants'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as HandleInput from '../src/parts/HandleInput/HandleInput.ts'
 
 test('handleInput - updates state with input value', async () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     inputFontFamily: 'Arial',
     inputFontSize: 14,
@@ -22,7 +22,7 @@ test('handleInput - updates state with input value', async () => {
 })
 
 test('handleInput - uses custom input source', async () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const result = await HandleInput.handleInput(state, 'custom input', InputSource.Script)
 
@@ -32,7 +32,7 @@ test('handleInput - uses custom input source', async () => {
 })
 
 test('handleInput - handles empty input', async () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const result = await HandleInput.handleInput(state, '')
 
@@ -42,7 +42,7 @@ test('handleInput - handles empty input', async () => {
 })
 
 test('handleInput - preserves other state properties', async () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     id: 123,
     inputFontFamily: 'Monaco',

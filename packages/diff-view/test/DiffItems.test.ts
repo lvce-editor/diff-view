@@ -1,17 +1,17 @@
 import { test, expect } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import * as CreateDefaultState from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { isEqual } from '../src/parts/DiffItems/DiffItems.ts'
 
 test('isEqual - equal states', () => {
-  const state: SourceControlState = CreateDefaultState.createDefaultState()
+  const state: DiffViewState = CreateDefaultState.createDefaultState()
   const result = isEqual(state, state)
   expect(result).toBe(true)
 })
 
 test('isEqual - different allGroups', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     allGroups: [{ id: '1', items: [], label: 'Group 1' }],
   }
@@ -20,8 +20,8 @@ test('isEqual - different allGroups', () => {
 })
 
 test('isEqual - different deltaY', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     deltaY: 10,
   }
@@ -30,8 +30,8 @@ test('isEqual - different deltaY', () => {
 })
 
 test('isEqual - different items', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     items: [
       {
@@ -55,8 +55,8 @@ test('isEqual - different items', () => {
 })
 
 test('isEqual - different maxLineY', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     maxLineY: 5,
   }
@@ -65,8 +65,8 @@ test('isEqual - different maxLineY', () => {
 })
 
 test('isEqual - different minLineY', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     minLineY: 2,
   }
@@ -75,8 +75,8 @@ test('isEqual - different minLineY', () => {
 })
 
 test('isEqual - different visibleItems', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     visibleItems: [
       {
@@ -103,15 +103,15 @@ test('isEqual - different visibleItems', () => {
 })
 
 test('isEqual - same values but different object references', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = CreateDefaultState.createDefaultState()
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = CreateDefaultState.createDefaultState()
   const result = isEqual(state1, state2)
   expect(result).toBe(false)
 })
 
 test('isEqual - multiple differences', () => {
-  const state1: SourceControlState = CreateDefaultState.createDefaultState()
-  const state2: SourceControlState = {
+  const state1: DiffViewState = CreateDefaultState.createDefaultState()
+  const state2: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     deltaY: 5,
     maxLineY: 10,

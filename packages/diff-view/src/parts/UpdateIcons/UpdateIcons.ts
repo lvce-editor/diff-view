@@ -1,7 +1,7 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as GetFileIcons from '../GetFileIcons/GetFileIcons.ts'
 
-export const updateIcons = async (state: SourceControlState): Promise<SourceControlState> => {
+export const updateIcons = async (state: DiffViewState): Promise<DiffViewState> => {
   const { items, maxLineY, minLineY } = state
   const visible = items.slice(minLineY, maxLineY)
   const newFileIconCache = await GetFileIcons.getFileIcons(visible, Object.create(null))

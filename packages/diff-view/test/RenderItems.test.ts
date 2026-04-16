@@ -1,12 +1,12 @@
 import { test, expect } from '@jest/globals'
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as RenderItems from '../src/parts/RenderItems/RenderItems.ts'
 
 test('renderItems - returns correct command structure', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 1,
     inputPlaceholder: 'test placeholder',
@@ -20,8 +20,8 @@ test('renderItems - returns correct command structure', () => {
 })
 
 test('renderItems - handles different state values', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 2,
     inputPlaceholder: 'different placeholder',
@@ -53,8 +53,8 @@ test('renderItems - handles different state values', () => {
 })
 
 test('renderItems - handles empty placeholder', () => {
-  const oldState: SourceControlState = createDefaultState()
-  const newState: SourceControlState = {
+  const oldState: DiffViewState = createDefaultState()
+  const newState: DiffViewState = {
     ...createDefaultState(),
     id: 3,
     inputPlaceholder: '',

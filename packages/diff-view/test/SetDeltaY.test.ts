@@ -1,11 +1,11 @@
 import { expect, test } from '@jest/globals'
 import type { DisplayItem } from '../src/parts/DisplayItem/DisplayItem.ts'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { setDeltaY } from '../src/parts/SetDeltaY/SetDeltaY.ts'
 
 test('setDeltaY - basic', async () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const newState = await setDeltaY(state, 100)
   expect(newState.deltaY).toBe(100)
   expect(newState.visibleItems).toBeDefined()
@@ -14,7 +14,7 @@ test('setDeltaY - basic', async () => {
 })
 
 test('setDeltaY - negative value', async () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const newState = await setDeltaY(state, -100)
   expect(newState.deltaY).toBe(-100)
   expect(newState.visibleItems).toBeDefined()
@@ -66,7 +66,7 @@ test('setDeltaY - with items', async () => {
       type: 0,
     },
   ]
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     items,
   }

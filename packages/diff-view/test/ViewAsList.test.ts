@@ -1,10 +1,10 @@
 import { test, expect } from '@jest/globals'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as ViewAsList from '../src/parts/ViewAsList/ViewAsList.ts'
 
 test('viewAsList - sets viewMode to List', () => {
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
 
   const result = ViewAsList.viewAsList(state)
 
@@ -12,7 +12,7 @@ test('viewAsList - sets viewMode to List', () => {
 })
 
 test('viewAsList - preserves other state properties', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     height: 200,
     id: 123,
@@ -28,7 +28,7 @@ test('viewAsList - preserves other state properties', () => {
 })
 
 test('viewAsList - changes viewMode from Tree to List', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     viewMode: 2,
   }
@@ -39,7 +39,7 @@ test('viewAsList - changes viewMode from Tree to List', () => {
 })
 
 test('viewAsList - changes viewMode from List to List', () => {
-  const state: SourceControlState = {
+  const state: DiffViewState = {
     ...createDefaultState(),
     viewMode: 1,
   }

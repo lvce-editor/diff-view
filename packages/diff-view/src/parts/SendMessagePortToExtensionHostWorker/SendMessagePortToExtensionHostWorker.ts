@@ -1,5 +1,5 @@
-import { RendererWorker, RpcId } from '@lvce-editor/rpc-registry'
+import { RendererWorker } from '@lvce-editor/rpc-registry'
 
 export const sendMessagePortToExtensionHostWorker = async (port: any): Promise<void> => {
-  await RendererWorker.sendMessagePortToExtensionHostWorker(port, RpcId.diffViewWorker)
+  await RendererWorker.sendMessagePortToExtensionHostWorker(port, 0)
 }

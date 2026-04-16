@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "assumeChangesOnlyAffectDirectDependencies": true,
     "strict": true,
+    "ignoreDeprecations": "6.0",
     "noImplicitAny": false,
     "composite": true,
     "noUnusedParameters": true

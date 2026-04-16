@@ -4,11 +4,7 @@ import { createTextMeasurementWorkerRpc } from '../CreateTextMeasurementWorkerRp
 import { initializeExtensionManagementWorker } from '../InitializeExtensionManagementWorker/InitializeExtensionManagementWorker.ts'
 
 export const initialize = async (): Promise<void> => {
-  const [extensionHostRpc, textRpc] = await Promise.all([
-    createExtensionHostRpc(),
-    createTextMeasurementWorkerRpc(),
-    initializeExtensionManagementWorker(),
-  ])
+  const [extensionHostRpc, textRpc] = await Promise.all([createExtensionHostRpc(), createTextMeasurementWorkerRpc(), initializeExtensionManagementWorker()])
   ExtensionHost.set(extensionHostRpc)
   TextMeasurementWorker.set(textRpc)
 }

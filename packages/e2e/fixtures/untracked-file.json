@@ -1,9 +1,0 @@
-[
-  {
-    "type": "git-init"
-  },
-  {
-    "type": "create-file",
-    "name": "index.js"
-  }
-]

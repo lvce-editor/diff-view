@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { create2 } from '../src/parts/Create2/Create2.ts'
-import { get } from '../src/parts/SourceControlStates/SourceControlStates.ts'
+import { get } from '../src/parts/DiffViewStates/DiffViewStates.ts'
 
 test('create2 - creates state with provided parameters', (): void => {
   const id = 123

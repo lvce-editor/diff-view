@@ -1,5 +1,5 @@
 import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
-import * as SourceControlStates from '../SourceControlStates/SourceControlStates.ts'
+import * as SourceControlStates from '../DiffViewStates/DiffViewStates.ts'
 
 export const create2 = (
   id: number,

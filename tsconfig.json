@@ -3,7 +3,7 @@
   "include": [],
   "references": [
     {
-      "path": "./packages/source-control-worker"
+      "path": "./packages/diff-view"
     },
     {
       "path": "./packages/build"

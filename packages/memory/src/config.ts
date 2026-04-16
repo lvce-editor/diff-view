@@ -5,7 +5,7 @@ export const threshold = 465_000
 
 export const instantiations = 3000
 
-export const instantiationsPath = join(root, 'packages', 'source-control-worker')
+export const instantiationsPath = join(root, 'packages', 'diff-view')
 
 export const workerPath = join(root, '.tmp/dist/dist/sourceControlWorkerMain.js')
 

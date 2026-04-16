@@ -97,6 +97,6 @@ test('handleClickSourceControlButtons - invalid button name', async (): Promise<
 
   const newState = await handleClickSourceControlButtons(state, 0, 'InvalidButton')
   expect(newState).toBe(state)
-  expect(consoleWarnSpy).toHaveBeenCalledWith('[source-control-worker] Button not found InvalidButton')
+  expect(consoleWarnSpy).toHaveBeenCalledWith('[diff-view] Button not found InvalidButton')
   consoleWarnSpy.mockRestore()
 })

@@ -12,7 +12,7 @@ export const handleClickSourceControlButtons = async (state: SourceControlState,
   const { buttons } = item
   const button = buttons.find((button) => button.label === name)
   if (!button) {
-    Logger.warn(`[source-control-worker] Button not found ${name}`)
+    Logger.warn(`[diff-view] Button not found ${name}`)
     return state
   }
   const { file } = item

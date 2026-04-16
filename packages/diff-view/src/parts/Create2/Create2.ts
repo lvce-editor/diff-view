@@ -24,6 +24,7 @@ export const create2 = (
     workspacePath,
     x,
     y,
+    initial: true,
   }
   DiffViewStates.set(id, state, state)
 }

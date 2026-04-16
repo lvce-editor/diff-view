@@ -1,14 +1,9 @@
 import type { DiffViewState as DiffViewState } from '../DiffViewState/DiffViewState.ts'
 
 export const createDefaultState = (): DiffViewState => ({
-  actionsCache: Object.create(null),
-  allGroups: [],
   assetDir: '',
-  badgeCount: 0,
-  decorationIcons: [],
   deltaY: 0,
   enabledProviderIds: [],
-  expandedGroups: Object.create(null),
   fileIconCache: {},
   finalDeltaY: 0,
   focus: 0,
@@ -17,7 +12,6 @@ export const createDefaultState = (): DiffViewState => ({
   headerHeight: 40,
   height: 100,
   history: [],
-  iconDefinitions: [],
   id: 1,
   index: [],
   initial: false,

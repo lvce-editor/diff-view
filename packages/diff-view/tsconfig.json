@@ -21,24 +21,5 @@
     "noUnusedLocals": true,
     "noUncheckedSideEffectImports": true
   },
-  "files": [
-    "src/diffViewWorkerMain.ts",
-    "src/parts/CommandMap/CommandMap.ts",
-    "src/parts/Create2/Create2.ts",
-    "src/parts/CreateExtensionHostRpc/CreateExtensionHostRpc.ts",
-    "src/parts/CreateExtensionManagementWorkerRpc/CreateExtensionManagementWorkerRpc.ts",
-    "src/parts/CreateTextMeasurementWorkerRpc/CreateTextMeasurementWorkerRpc.ts",
-    "src/parts/Initialize/Initialize.ts",
-    "src/parts/InitializeExtensionManagementWorker/InitializeExtensionManagementWorker.ts",
-    "src/parts/Listen/Listen.ts",
-    "src/parts/Main/Main.ts",
-    "src/parts/SendMessagePortToExtensionHostWorker/SendMessagePortToExtensionHostWorker.ts",
-    "src/parts/SendMessagePortToTextMeasurementWorker/SendMessagePortToTextMeasurementWorker.ts",
-    "src/parts/SourceControlState/SourceControlState.ts",
-    "src/parts/SourceControlStates/SourceControlStates.ts",
-    "test/Create2.test.ts",
-    "test/Initialize.test.ts",
-    "test/Listen.test.ts",
-    "test/Main.test.ts"
-  ]
+  "include": ["src", "test"]
 }

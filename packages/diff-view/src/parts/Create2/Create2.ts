@@ -1,5 +1,5 @@
 import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
-import * as SourceControlStates from '../DiffViewStates/DiffViewStates.ts'
+import * as DiffViewStates from '../DiffViewStates/DiffViewStates.ts'
 
 export const create2 = (
   id: number,
@@ -26,5 +26,5 @@ export const create2 = (
     x,
     y,
   }
-  SourceControlStates.set(id, state, state)
+  DiffViewStates.set(id, state, state)
 }

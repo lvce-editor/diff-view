@@ -17,6 +17,7 @@ export const create2 = (
     focus: 0,
     height,
     id,
+    initial: true,
     minLineY: 0,
     platform,
     root: '',
@@ -24,7 +25,6 @@ export const create2 = (
     workspacePath,
     x,
     y,
-    initial: true,
   }
   DiffViewStates.set(id, state, state)
 }

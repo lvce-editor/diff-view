@@ -4,6 +4,7 @@ export const createDefaultState = (): DiffViewState => ({
   assetDir: '',
   deltaY: 0,
   enabledProviderIds: [],
+  expandedGroups: {},
   fileIconCache: {},
   finalDeltaY: 0,
   focus: 0,

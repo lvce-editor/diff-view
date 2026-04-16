@@ -1,4 +1,5 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import * as CreateDefaultState from '../CreateDefaultState/CreateDefaultState.ts'
 import * as DiffViewStates from '../DiffViewStates/DiffViewStates.ts'
 
 export const create2 = (
@@ -13,14 +14,12 @@ export const create2 = (
   assetDir: string,
 ): void => {
   const state: DiffViewState = {
+    ...CreateDefaultState.createDefaultState(),
     assetDir,
-    focus: 0,
     height,
     id,
     initial: true,
-    minLineY: 0,
     platform,
-    root: '',
     width,
     workspacePath,
     x,

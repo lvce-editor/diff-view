@@ -1,10 +1,10 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as InputName from '../InputName/InputName.ts'
 import * as Logger from '../Logger/Logger.ts'
 import { refresh } from '../Refresh/Refresh.ts'
 import { viewAsTree } from '../ViewAsTree/ViewAsTree.ts'
 
-export const handleActionClick = async (state: SourceControlState, actionName: string): Promise<SourceControlState> => {
+export const handleActionClick = async (state: DiffViewState, actionName: string): Promise<DiffViewState> => {
   switch (actionName) {
     case InputName.CommitAndPush:
       Logger.warn(`[diff-view] CommitAndPush action not yet implemented`)

@@ -1,7 +1,7 @@
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const renderFocusContext = (oldState: SourceControlState, newState: SourceControlState): any => {
+export const renderFocusContext = (oldState: DiffViewState, newState: DiffViewState): any => {
   const { focus, id } = newState
   return [ViewletCommand.SetFocusContext, id, focus]
 }

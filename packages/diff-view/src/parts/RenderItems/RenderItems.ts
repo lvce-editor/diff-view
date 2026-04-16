@@ -1,8 +1,8 @@
 import { ViewletCommand } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as GetSourceControlDom from '../GetSourceControlVirtualDom/GetSourceControlVirtualDom.ts'
 
-export const renderItems = (oldState: SourceControlState, newState: SourceControlState): any => {
+export const renderItems = (oldState: DiffViewState, newState: DiffViewState): any => {
   const { id, initial, inputPlaceholder, splitButtonEnabled, visibleItems } = newState
   if (initial) {
     return [ViewletCommand.SetDom2, id, []]

@@ -1,5 +1,5 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
 export interface Renderer {
-  (oldState: SourceControlState, newState: SourceControlState): readonly any[]
+  (oldState: DiffViewState, newState: DiffViewState): readonly any[]
 }

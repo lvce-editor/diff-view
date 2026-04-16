@@ -1,7 +1,7 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as DiffModules from '../DiffModules/DiffModules.ts'
 
-export const diff = (oldState: SourceControlState, newState: SourceControlState): readonly number[] => {
+export const diff = (oldState: DiffViewState, newState: DiffViewState): readonly number[] => {
   const diffResult: number[] = []
   for (let i = 0; i < DiffModules.modules.length; i++) {
     const fn = DiffModules.modules[i]

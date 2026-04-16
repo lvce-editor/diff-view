@@ -1,11 +1,11 @@
 import { DirentType } from '@lvce-editor/constants'
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import { handleClickDirectory } from '../HandleClickDirectory/HandleClickDirectory.ts'
 import { handleClickDirectoryExpanded } from '../HandleClickDirectoryExpanded/HandleClickDirectoryExpanded.ts'
 import { handleClickFile } from '../HandleClickFile/HandleClickFile.ts'
 import * as Logger from '../Logger/Logger.ts'
 
-export const selectIndex = async (state: SourceControlState, index: number): Promise<SourceControlState> => {
+export const selectIndex = async (state: DiffViewState, index: number): Promise<DiffViewState> => {
   const { items } = state
   if (index < 0 || index >= items.length) {
     return state

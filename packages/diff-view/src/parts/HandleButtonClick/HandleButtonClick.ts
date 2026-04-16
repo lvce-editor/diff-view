@@ -1,8 +1,8 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as ExtensionHostCommand from '../ExtensionHostCommand/ExtensionHostCommand.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 
-export const handleButtonClick = async (state: SourceControlState, clickedIndex: number): Promise<SourceControlState> => {
+export const handleButtonClick = async (state: DiffViewState, clickedIndex: number): Promise<DiffViewState> => {
   const { visibleItems } = state
   const item = visibleItems[clickedIndex]
   const button = item.buttons[clickedIndex]

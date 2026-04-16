@@ -1,10 +1,10 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import * as Bounds from '../Bounds/Bounds.ts'
 import * as FileSystem from '../FileSystem/FileSystem.ts'
 import { openDiffEditor } from '../OpenDiffEditor/OpenDiffEditor.ts'
 import * as SourceControl from '../SourceControl/SourceControl.ts'
 
-export const handleClickFile = async (state: SourceControlState, item: any): Promise<SourceControlState> => {
+export const handleClickFile = async (state: DiffViewState, item: any): Promise<DiffViewState> => {
   const { assetDir, enabledProviderIds, platform, root } = state
   const providerId = enabledProviderIds[0]
   const absolutePath = `${root}/${item.file}`

@@ -1,8 +1,8 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 import { getIndex } from '../GetIndex/GetIndex.ts'
 import { handleMouseOut } from '../HandleMouseOut/HandleMouseOut.ts'
 
-export const handleMouseOutAt = (state: SourceControlState, eventX: number, eventY: number): SourceControlState => {
+export const handleMouseOutAt = (state: DiffViewState, eventX: number, eventY: number): DiffViewState => {
   const index = getIndex(state, eventX, eventY)
   return handleMouseOut(state, index)
 }

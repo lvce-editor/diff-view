@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { ExtensionHost, RendererWorker as ParentRpc } from '@lvce-editor/rpc-registry'
-import type { SourceControlState } from '../src/parts/SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../src/parts/SourceControlState/SourceControlState.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as Refresh from '../src/parts/Refresh/Refresh.ts'
 
@@ -18,7 +18,7 @@ test('refresh should update state with groups and visible items', async (): Prom
   }
   const mockRpc = ExtensionHost.registerMockRpc(commandMap)
 
-  const state: SourceControlState = createDefaultState()
+  const state: DiffViewState = createDefaultState()
   const result = await Refresh.refresh(state)
   expect(result).toEqual({
     ...state,

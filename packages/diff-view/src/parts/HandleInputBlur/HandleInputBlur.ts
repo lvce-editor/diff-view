@@ -1,6 +1,6 @@
-import type { SourceControlState } from '../SourceControlState/SourceControlState.ts'
+import type { DiffViewState } from '../SourceControlState/SourceControlState.ts'
 
-export const handleInputBlur = async (state: SourceControlState): Promise<SourceControlState> => {
+export const handleInputBlur = async (state: DiffViewState): Promise<DiffViewState> => {
   // TODO reset focus
   return state
 }

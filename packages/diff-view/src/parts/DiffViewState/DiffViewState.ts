@@ -32,7 +32,6 @@ export interface DiffViewState {
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
-  readonly untracked: readonly unknown[]
   readonly viewMode: number
   readonly width: number
   readonly workspacePath: string

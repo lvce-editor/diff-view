@@ -12,7 +12,6 @@ export const create2 = (
   platform: number,
   assetDir: string,
 ): void => {
-  void uri
   const state: DiffViewState = {
     assetDir,
     focus: 0,

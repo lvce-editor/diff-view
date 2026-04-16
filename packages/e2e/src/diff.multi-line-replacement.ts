@@ -1,11 +1,13 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'diff.multi-line-replacement'
 
-export const test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.diffproto`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
   await Command.execute('DiffView.setFixture', 'multi-line-replacement')
 
-  await Main.openUri(`${tmpDir}/fixture.diffproto`)
+  await Main.openUri(`${tmpDir}/fixture.txt`)
 
   const webView = await WebView.fromId('diff-prototype')
   const deletedRows = webView.locator('.DiffPane--before .DiffRow--deleted')

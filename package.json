@@ -1,0 +1,32 @@
+{
+  "name": "@lvce-editor/diff-view-monorepo",
+  "version": "0.0.0-dev",
+  "license": "MIT",
+  "author": "Lvce Editor",
+  "type": "module",
+  "scripts": {
+    "build": "node packages/build/src/build.ts",
+    "build:static": "node packages/build/src/build-static.ts",
+    "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --external:node:buffer --external:electron --external:ws --external:node:worker_threads --watch packages/diff-view/src/diffViewWorkerMain.ts --outfile=.tmp/dist/dist/diffViewWorkerMain.js",
+    "dev": "node packages/build/src/dev.ts",
+    "format": "prettier --write .",
+    "postinstall": "lerna bootstrap --ci",
+    "lint": "eslint . && prettier --check .",
+    "test": "lerna run test",
+    "test-integration": "lerna run test-integration",
+    "type-check": "tsc -b"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 170
+  },
+  "devDependencies": {
+    "@lerna/legacy-package-management": "^8.2.4",
+    "@lvce-editor/eslint-config": "^8.2.0",
+    "eslint": "10.2.0",
+    "lerna": "^8.2.3",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.2"
+  }
+}

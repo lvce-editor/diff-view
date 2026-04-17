@@ -1,0 +1,33 @@
+{
+  "name": "diff-view-e2e",
+  "activation": ["onWebView:diff-prototype"],
+  "browser": "main.js",
+  "rpc": [
+    {
+      "id": "test.diff-prototype-worker",
+      "type": "web-worker-2",
+      "name": "Diff Prototype Worker",
+      "url": "./worker.js",
+      "contentSecurityPolicy": ["default-src 'none'"]
+    }
+  ],
+  "webViews": [
+    {
+      "id": "diff-prototype",
+      "rpc": "test.diff-prototype-worker",
+      "selector": [".txt"],
+      "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'", "style-src 'self' 'unsafe-inline'", "media-src 'self' blob:"],
+      "allow": ["fullscreen"],
+      "elements": [
+        {
+          "type": "title",
+          "value": "Diff Prototype"
+        },
+        {
+          "type": "script",
+          "path": "media/index.js"
+        }
+      ]
+    }
+  ]
+}

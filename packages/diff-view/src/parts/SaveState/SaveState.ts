@@ -6,10 +6,9 @@ export const saveState = (uid: number): SavedState => {
   Assert.number(uid)
   const value = DiffViewStates.get(uid)
   const { newState } = value
-  const { expandedGroups, inputValue, maxLineY, root } = newState
+  const { inputValue, maxLineY, root } = newState
   return {
     deltaY: 0,
-    expandedGroups,
     inputValue,
     maxLineY,
     minLineY: 0,

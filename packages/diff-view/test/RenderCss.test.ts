@@ -40,6 +40,21 @@ test('renderCss renders left and right widths as css variables', (): void => {
   width: var(--RightWidth);
 }
 
+.DiffEditorError {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.DiffEditorErrorMessage {
+  font-weight: 600;
+}
+
+.DiffEditorErrorStack {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
 .Sash {
   cursor: col-resize;
   flex-shrink: 0;

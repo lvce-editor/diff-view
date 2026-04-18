@@ -65,22 +65,16 @@ export const DiffEditor2 = 'DiffEditor2'
 export const DiffEditorContent = 'DiffEditorContent'
 export const DiffEditorContentLeft = 'DiffEditorContentLeft'
 export const DiffEditorContentRight = 'DiffEditorContentRight'
-<<<<<<< HEAD
 export const DiffEditorError = 'DiffEditorError'
 export const DiffEditorErrorMessage = 'DiffEditorErrorMessage'
 export const DiffEditorErrorStack = 'DiffEditorErrorStack'
-<<<<<<< HEAD
-=======
 export const DiffEditorSpacerBottom = 'DiffEditorSpacerBottom'
 export const DiffEditorSpacerTop = 'DiffEditorSpacerTop'
->>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
-=======
 export const DiffEditorGutter = 'DiffEditorGutter'
 export const DiffEditorLineNumber = 'DiffEditorLineNumber'
 export const DiffEditorRows = 'DiffEditorRows'
 export const DiffEditorHorizontal = 'DiffEditorHorizontal'
 export const DiffEditorVertical = 'DiffEditorVertical'
->>>>>>> origin/main
 export const Editor = 'Editor'
 export const EditorCompletionItem = 'EditorCompletionItem'
 export const EditorCompletionItemDeprecated = 'EditorCompletionItemDeprecated'

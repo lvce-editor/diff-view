@@ -22,34 +22,19 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
-<<<<<<< HEAD
-  const total = Math.max(
+  const totalLineCount = Math.max(
     renderModeLeft === 'image' ? 1 : getLineCount(getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)),
     renderModeRight === 'image' ? 1 : getLineCount(getDisplayedContent(contentRight, errorRightMessage, errorRightStack)),
   )
-  const contentHeight = total * itemHeight
-  const numberOfVisibleItems = getNumberOfVisibleItems(height, itemHeight)
-  const maxLineY = Math.min(minLineY + numberOfVisibleItems, total)
-  const deltaY = minLineY * itemHeight
-  const finalDeltaY = Math.max(contentHeight - height, 0)
-  const scrollBarHeight = getScrollBarHeight(height, contentHeight, minimumSliderSize)
-=======
-  const totalLineCount = Math.max(renderModeLeft === 'image' ? 1 : getLineCount(contentLeft), renderModeRight === 'image' ? 1 : getLineCount(contentRight))
   const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight)
->>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
   return {
     ...state,
     contentLeft,
     contentRight,
-<<<<<<< HEAD
-    deltaY,
     errorLeftMessage,
     errorLeftStack,
     errorRightMessage,
     errorRightStack,
-    finalDeltaY,
-=======
->>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
     initial: false,
     renderModeLeft,
     renderModeRight,

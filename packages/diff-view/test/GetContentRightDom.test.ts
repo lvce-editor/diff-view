@@ -18,25 +18,39 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     {
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      text: 'after-content',
-      type: 12,
-    },
+    text('after-content'),
     {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      text: 'second-line',
-      type: 12,
-    },
+    text('second-line'),
   ])
 })
 

@@ -19,6 +19,32 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   overflow: hidden;
 }
 
+.DiffEditorContentLeft,
+.DiffEditorContentRight {
+  display: flex;
+  overflow: hidden;
+}
+
+.DiffEditorGutter {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.55);
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 0 8px 0 12px;
+  text-align: right;
+}
+
+.DiffEditorLineNumber {
+  white-space: pre;
+}
+
+.DiffEditorRows {
+  contain: strict;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
 .ImageContent {
   align-items: center;
   display: flex;

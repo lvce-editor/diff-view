@@ -4,7 +4,8 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 test('createDefaultState sets up image render defaults', (): void => {
   const result = createDefaultState()
 
-  expect(result.knownImageExtensions).toEqual(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.bmp', '.ico'])
+  expect(result.knownImageExtensions).toEqual(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg', '.bmp', '.ico'])
+  expect(result.lineNumbers).toBe(true)
   expect(result.renderModeLeft).toBe('text')
   expect(result.renderModeRight).toBe('text')
 })

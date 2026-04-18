@@ -4,15 +4,24 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
+import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
+import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 
-export const getDiffEditorVirtualDom = (contentLeft: string, contentRight: string): readonly VirtualDomNode[] => {
+export const getDiffEditorVirtualDom = (
+  contentLeft: string,
+  contentRight: string,
+  renderModeLeft: 'text' | 'image',
+  renderModeRight: 'text' | 'image',
+  uriLeft: string,
+  uriRight: string,
+): readonly VirtualDomNode[] => {
   const dom: readonly VirtualDomNode[] = [
     {
       childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
-    ...getContentLeftDom(contentLeft),
+    ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -20,7 +29,7 @@ export const getDiffEditorVirtualDom = (contentLeft: string, contentRight: strin
       onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
       type: VirtualDomElements.Div,
     },
-    ...getContentRightDom(contentRight),
+    ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight)),
   ]
   return dom
 }

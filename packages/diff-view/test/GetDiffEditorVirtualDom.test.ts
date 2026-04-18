@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getDiffEditorVirtualDom } from '../src/parts/GetDiffEditorVirtualDom/GetDiffEditorVirtualDom.ts'
 
 test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrappers', (): void => {
-  const result = getDiffEditorVirtualDom('before-content\nsecond-before', 'after-content\nsecond-after')
+  const result = getDiffEditorVirtualDom('before-content\nsecond-before', 'after-content\nsecond-after', 'text', 'text', '/tmp/before.txt', '/tmp/after.txt')
 
   expect(result).toEqual([
     {
@@ -77,6 +77,67 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 0,
       text: 'second-after',
+      type: 12,
+    },
+  ])
+})
+
+test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
+  const result = getDiffEditorVirtualDom('ignored-left-content', 'after-content', 'image', 'text', '/tmp/before.png', '/tmp/after.txt')
+
+  expect(result).toEqual([
+    {
+      childCount: 3,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ImageContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      alt: '/tmp/before.png',
+      childCount: 0,
+      className: ClassNames.ImageElement,
+      src: 'file:///tmp/before.png',
+      type: VirtualDomElements.Img,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      name: 'sash',
+      onPointerDown: 11,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'after-content',
       type: 12,
     },
   ])

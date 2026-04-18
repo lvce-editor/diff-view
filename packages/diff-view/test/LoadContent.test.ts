@@ -62,9 +62,55 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     initial: false,
     maxLineY: 2,
     minLineY: 1,
+    renderModeLeft: 'text',
+    renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/after.txt',
+  })
+})
+
+test('loadContent sets image render mode when a side has an image extension', async (): Promise<void> => {
+  const fileSystemWorkerInvocations: unknown[][] = []
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerInvocations.push([method, ...params])
+      if (method !== 'FileSystem.readFile') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      const [uri] = params
+      if (uri === 'file:///tmp/before.png') {
+        return 'binary-image-content'
+      }
+      if (uri === 'file:///tmp/after.txt') {
+        return 'after-content\nsecond-line'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    set: (): void => {},
+  }
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
+
+  const state = {
+    ...createDefaultState(),
+    height: 60,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    uri: 'inline-diff:///tmp/before.png<->/tmp/after.txt',
+  }
+
+  const result = await loadContent(state, { minLineY: 0 })
+
+  expect(fileSystemWorkerInvocations).toEqual([
+    ['FileSystem.readFile', 'file:///tmp/before.png'],
+    ['FileSystem.readFile', 'file:///tmp/after.txt'],
+  ])
+  expect(result).toMatchObject({
+    maxLineY: 2,
+    renderModeLeft: 'image',
+    renderModeRight: 'text',
+    scrollBarHeight: 60,
   })
 })

@@ -5,6 +5,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { getDiffEditorVirtualDom } from '../src/parts/GetDiffEditorVirtualDom/GetDiffEditorVirtualDom.ts'
 
 test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrappers', (): void => {
+<<<<<<< HEAD
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'before-content\nsecond-before',
@@ -12,10 +13,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     uriLeft: '/tmp/before.txt',
     uriRight: '/tmp/after.txt',
   })
+=======
+  const result = getDiffEditorVirtualDom('before-content\nsecond-before', 'after-content\nsecond-after', 'text', 'text', '/tmp/before.txt', '/tmp/after.txt', 0, 2, 2)
+>>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -25,8 +29,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -51,6 +60,11 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     {
       childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
       name: 'sash',
       onPointerDown: 11,
@@ -62,8 +76,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -86,10 +105,28 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       text: 'second-after',
       type: 12,
     },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.ScrollBarThumb,
+      name: 'scrollBarThumb',
+      onPointerDown: 14,
+      type: VirtualDomElements.Div,
+    },
   ])
 })
 
 test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
+<<<<<<< HEAD
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'ignored-left-content',
@@ -98,10 +135,13 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     uriLeft: '/tmp/before.png',
     uriRight: '/tmp/after.txt',
   })
+=======
+  const result = getDiffEditorVirtualDom('ignored-left-content', 'after-content', 'image', 'text', '/tmp/before.png', '/tmp/after.txt', 0, 1, 1)
+>>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -140,8 +180,13 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 3,
       className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -153,6 +198,23 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       childCount: 0,
       text: 'after-content',
       type: 12,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.ScrollBarThumb,
+      name: 'scrollBarThumb',
+      onPointerDown: 14,
+      type: VirtualDomElements.Div,
     },
   ])
 })

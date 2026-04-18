@@ -39,11 +39,6 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       preventDefault: true,
     },
     {
-      name: DomEventListenersFunctions.HandleWheel,
-      params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
-      passive: true,
-    },
-    {
       name: DomEventListenersFunctions.HandleClickAction,
       params: ['handleActionClick', EventExpression.TargetName],
     },
@@ -59,6 +54,19 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     {
       name: DomEventListenersFunctions.HandleSashPointerUp,
       params: ['handleSashPointerUp', EventExpression.ClientX],
+    },
+    {
+      name: DomEventListenersFunctions.HandleScrollBarPointerDown,
+      params: ['handleScrollBarPointerDown', EventExpression.ClientY],
+      trackPointerEvents: [DomEventListenersFunctions.HandleScrollBarPointerMove, DomEventListenersFunctions.HandleScrollBarPointerUp],
+    },
+    {
+      name: DomEventListenersFunctions.HandleScrollBarPointerMove,
+      params: ['handleScrollBarPointerMove', EventExpression.ClientY],
+    },
+    {
+      name: DomEventListenersFunctions.HandleScrollBarPointerUp,
+      params: ['handleScrollBarPointerUp', EventExpression.ClientY],
     },
   ]
 }

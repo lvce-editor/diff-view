@@ -7,7 +7,9 @@ import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
+import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
+<<<<<<< HEAD
 export const getDiffEditorVirtualDom = ({
   contentLeft,
   contentRight,
@@ -32,13 +34,30 @@ export const getDiffEditorVirtualDom = ({
   | 'uriLeft'
   | 'uriRight'
 >): readonly VirtualDomNode[] => {
+=======
+export const getDiffEditorVirtualDom = (
+  contentLeft: string,
+  contentRight: string,
+  renderModeLeft: 'text' | 'image',
+  renderModeRight: 'text' | 'image',
+  uriLeft: string,
+  uriRight: string,
+  minLineY: number,
+  maxLineY: number,
+  totalLineCount: number,
+): readonly VirtualDomNode[] => {
+>>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
+<<<<<<< HEAD
     ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack)),
+=======
+    ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft, totalLineCount, minLineY, maxLineY)),
+>>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -46,7 +65,12 @@ export const getDiffEditorVirtualDom = ({
       onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
       type: VirtualDomElements.Div,
     },
+<<<<<<< HEAD
     ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight, errorRightMessage, errorRightStack)),
+=======
+    ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight, totalLineCount, minLineY, maxLineY)),
+    ...getScrollBarDom(),
+>>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
   ]
   return dom
 }

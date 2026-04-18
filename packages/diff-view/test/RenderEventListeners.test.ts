@@ -19,4 +19,17 @@ test('renderEventListeners registers tracked sash pointer listeners', (): void =
     name: DomEventListenerFunctions.HandleSashPointerUp,
     params: ['handleSashPointerUp', EventExpression.ClientX],
   })
+  expect(result).toContainEqual({
+    name: DomEventListenerFunctions.HandleScrollBarPointerDown,
+    params: ['handleScrollBarPointerDown', EventExpression.ClientY],
+    trackPointerEvents: [DomEventListenerFunctions.HandleScrollBarPointerMove, DomEventListenerFunctions.HandleScrollBarPointerUp],
+  })
+  expect(result).toContainEqual({
+    name: DomEventListenerFunctions.HandleScrollBarPointerMove,
+    params: ['handleScrollBarPointerMove', EventExpression.ClientY],
+  })
+  expect(result).toContainEqual({
+    name: DomEventListenerFunctions.HandleScrollBarPointerUp,
+    params: ['handleScrollBarPointerUp', EventExpression.ClientY],
+  })
 })

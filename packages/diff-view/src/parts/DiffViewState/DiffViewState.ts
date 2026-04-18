@@ -20,6 +20,7 @@ export interface DiffViewState {
   readonly inputSource: number
   readonly inputValue: string
   readonly isResizing: boolean
+  readonly isScrollBarDragging: boolean
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly knownImageExtensions: readonly string[]
@@ -36,8 +37,10 @@ export interface DiffViewState {
   readonly rightWidth: number
   readonly root: string
   readonly scrollBarActive: boolean
+  readonly scrollBarDragOffsetY: number
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
+  readonly totalLineCount: number
   readonly uri: string
   readonly uriLeft: string
   readonly uriRight: string

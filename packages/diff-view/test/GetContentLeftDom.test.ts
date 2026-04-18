@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentLeftDom } from '../src/parts/GetContentLeftDom/GetContentLeftDom.ts'
 
 test('getContentLeftDom renders each left line inside an EditorRow', (): void => {
-  const result = getContentLeftDom('before-content\nsecond-line')
+  const result = getContentLeftDom('before-content\nsecond-line', 2, 0, 2)
 
   expect(result).toEqual([
     {
@@ -13,8 +13,13 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -36,6 +41,11 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
       childCount: 0,
       text: 'second-line',
       type: 12,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
     },
   ])
 })

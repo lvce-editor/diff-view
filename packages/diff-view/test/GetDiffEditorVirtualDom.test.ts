@@ -13,13 +13,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
-      name: 'sash',
-      onPointerDown: 11,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.DiffEditorContent,
       type: VirtualDomElements.Div,
@@ -48,6 +41,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       childCount: 0,
       text: 'second-before',
       type: 12,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      name: 'sash',
+      onPointerDown: 11,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,

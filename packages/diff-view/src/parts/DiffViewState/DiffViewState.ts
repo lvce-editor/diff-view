@@ -24,8 +24,8 @@ export interface DiffViewState {
   readonly platform: number
   readonly providerId: string
   readonly resizeOffsetX: number
-  readonly root: string
   readonly rightWidth: number
+  readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean

@@ -3,6 +3,7 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 <<<<<<< HEAD
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
+<<<<<<< HEAD
 export const getContentRightDom = (contentRight: string, errorMessage = '', errorStack = ''): readonly VirtualDomNode[] => {
   return getContentDom(ClassNames.DiffEditorContentRight, contentRight, errorMessage, errorStack)
 =======
@@ -37,4 +38,8 @@ export const getContentRightDom = (contentRight: string, totalLineCount: number,
     },
   ]
 >>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
+=======
+export const getContentRightDom = (contentRight: string, errorMessage = '', errorStack = '', lineNumbers = true): readonly VirtualDomNode[] => {
+  return getContentDom(ClassNames.DiffEditorContentRight, contentRight, errorMessage, errorStack, lineNumbers)
+>>>>>>> origin/main
 }

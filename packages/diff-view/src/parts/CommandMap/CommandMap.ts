@@ -13,6 +13,7 @@ import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { saveState } from '../SaveState/SaveState.ts'
+import { setLayout } from '../SetLayout/SetLayout.ts'
 
 export const commandMap = {
   'DiffView.create': Create2.create2,
@@ -28,6 +29,7 @@ export const commandMap = {
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,
   'DiffView.saveState': saveState,
+  'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.terminate': terminate,
   'Initialize.initialize': Initialize.initialize,
 }

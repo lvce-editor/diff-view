@@ -19,8 +19,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
+<<<<<<< HEAD
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+=======
+      childCount: 3,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -34,6 +39,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< HEAD
       childCount: 0,
       className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
@@ -41,23 +47,41 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 1,
       className: ClassNames.EditorRow,
+=======
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      text: 'before-content',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
+    text('before-content'),
     {
-      childCount: 0,
-      text: 'second-before',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
     },
+    text('second-before'),
     {
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
@@ -81,6 +105,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< HEAD
       childCount: 0,
       className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
@@ -88,30 +113,96 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 1,
       className: ClassNames.EditorRow,
+=======
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      text: 'after-content',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
+    text('after-content'),
     {
-      childCount: 0,
-      text: 'second-after',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
     },
+    text('second-after'),
+  ])
+})
+
+test('getDiffEditorVirtualDom omits line number gutters when disabled in state', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'before-content',
+    contentRight: 'after-content',
+    lineNumbers: false,
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result).toEqual([
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
+      childCount: 3,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('before-content'),
+    {
+      childCount: 0,
+      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      name: 'sash',
+      onPointerDown: 11,
+      type: VirtualDomElements.Div,
+    },
+    {
+<<<<<<< HEAD
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+=======
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+>>>>>>> origin/main
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+<<<<<<< HEAD
       className: ClassNames.ScrollBar,
       type: VirtualDomElements.Div,
     },
@@ -122,6 +213,17 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       onPointerDown: 14,
       type: VirtualDomElements.Div,
     },
+=======
+      className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('after-content'),
+>>>>>>> origin/main
   ])
 })
 
@@ -141,8 +243,13 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
 
   expect(result).toEqual([
     {
+<<<<<<< HEAD
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+=======
+      childCount: 3,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -194,6 +301,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
+<<<<<<< HEAD
     {
       childCount: 0,
       text: 'after-content',
@@ -216,6 +324,9 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       onPointerDown: 14,
       type: VirtualDomElements.Div,
     },
+=======
+    text('after-content'),
+>>>>>>> origin/main
   ])
 })
 
@@ -233,7 +344,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
   expect(result).toEqual([
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -242,8 +353,24 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
     {
@@ -282,4 +409,28 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     text('Error: file not found\n    at read missing file'),
   ])
+})
+
+test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'before-content',
+    contentRight: 'after-content',
+    layout: 'vertical',
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result[0]).toEqual({
+    childCount: 3,
+    className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
+    type: VirtualDomElements.Div,
+  })
+  expect(result[9]).toEqual({
+    childCount: 0,
+    className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
+    name: 'sash',
+    onPointerDown: 11,
+    type: VirtualDomElements.Div,
+  })
 })

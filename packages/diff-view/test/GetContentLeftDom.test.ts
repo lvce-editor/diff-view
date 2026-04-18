@@ -18,6 +18,7 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< HEAD
       childCount: 0,
       className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
@@ -25,28 +26,78 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
     {
       childCount: 1,
       className: ClassNames.EditorRow,
+=======
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      text: 'before-content',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
+    text('before-content'),
     {
-      childCount: 0,
-      text: 'second-line',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
     },
+<<<<<<< HEAD
     {
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
+=======
+    text('second-line'),
+  ])
+})
+
+test('getContentLeftDom omits the gutter when line numbers are disabled', (): void => {
+  const result = getContentLeftDom('before-content\nsecond-line', '', '', false)
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('before-content'),
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('second-line'),
+>>>>>>> origin/main
   ])
 })
 

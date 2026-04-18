@@ -4,12 +4,17 @@ import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
+<<<<<<< HEAD
   const { deltaY, finalDeltaY, height, id, itemHeight, leftWidth, maxLineY, minLineY, rightWidth, scrollBarHeight, totalLineCount } = newState
   const topSpacerHeight = minLineY * itemHeight
   const bottomSpacerHeight = Math.max(totalLineCount - maxLineY, 0) * itemHeight
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
+=======
+  const { id, itemHeight, layout, leftWidth, rightWidth } = newState
+>>>>>>> origin/main
   const css = `
 :root {
+  --ItemHeight: ${itemHeight}px;
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
   --DiffEditorHeight: ${height}px;
@@ -22,14 +27,68 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditor {
   display: flex;
+<<<<<<< HEAD
   height: var(--DiffEditorHeight);
   position: relative;
+=======
+  height: 100%;
+  width: 100%;
+}
+
+.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
+.DiffEditorVertical {
+  flex-direction: column;
+>>>>>>> origin/main
 }
 
 .DiffEditorContent {
   contain: strict;
   height: 100%;
   overflow: hidden;
+}
+
+.DiffEditorContentLeft,
+.DiffEditorContentRight {
+  display: flex;
+  overflow: hidden;
+}
+
+.DiffEditorGutter {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-family: monospace;
+  overflow: hidden;
+  padding: 0 8px 0 12px;
+  text-align: right;
+  user-select: none;
+}
+
+.DiffEditorLineNumber {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
+}
+
+.DiffEditorRows {
+  contain: strict;
+  flex: 1;
+  font-family: monospace;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.DiffEditor .EditorRow {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
 }
 
 .ImageContent {
@@ -52,6 +111,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorContentLeft {
+<<<<<<< HEAD
   overflow: hidden;
   width: var(--LeftWidth);
 }
@@ -59,6 +119,13 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorContentRight {
   overflow: hidden;
   width: var(--RightWidth);
+=======
+  ${layout === 'vertical' ? 'height: var(--LeftWidth);' : 'width: var(--LeftWidth);'}
+}
+
+.DiffEditorContentRight {
+  ${layout === 'vertical' ? 'height: var(--RightWidth);' : 'width: var(--RightWidth);'}
+>>>>>>> origin/main
 }
 
 <<<<<<< HEAD
@@ -86,8 +153,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .Sash {
-  cursor: col-resize;
   flex-shrink: 0;
+<<<<<<< HEAD
   height: 100%;
   width: ${getSashWidth()}px;
 }
@@ -110,6 +177,18 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   position: absolute;
   top: var(--ScrollBarThumbTop);
   width: 100%;
+=======
+}
+
+.SashVertical {
+  cursor: col-resize;
+  width: ${getSashWidth()}px;
+}
+
+.SashHorizontal {
+  cursor: row-resize;
+  height: ${getSashWidth()}px;
+>>>>>>> origin/main
 }
 `
   return [ViewletCommand.SetCss, id, css]

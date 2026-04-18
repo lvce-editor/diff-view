@@ -18,6 +18,7 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< HEAD
       childCount: 0,
       className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
@@ -25,28 +26,49 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
     {
       childCount: 1,
       className: ClassNames.EditorRow,
+=======
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      text: 'after-content',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
+    text('after-content'),
     {
-      childCount: 0,
-      text: 'second-line',
-      type: 12,
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
     },
+<<<<<<< HEAD
     {
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
+=======
+    text('second-line'),
+>>>>>>> origin/main
   ])
 })
 

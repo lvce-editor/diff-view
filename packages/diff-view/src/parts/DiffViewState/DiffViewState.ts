@@ -1,8 +1,14 @@
+export type RenderMode = 'text' | 'image'
+
 export interface DiffViewState {
   readonly assetDir: string
   readonly contentLeft: string
   readonly contentRight: string
   readonly deltaY: number
+  readonly errorLeftMessage: string
+  readonly errorLeftStack: string
+  readonly errorRightMessage: string
+  readonly errorRightStack: string
   readonly finalDeltaY: number
   readonly focus: number
   readonly gitRoot: string
@@ -16,6 +22,7 @@ export interface DiffViewState {
   readonly isResizing: boolean
   readonly isVisible: boolean
   readonly itemHeight: number
+  readonly knownImageExtensions: readonly string[]
   readonly leftWidth: number
   readonly maxInputLines: number
   readonly maxLineY: number
@@ -23,6 +30,8 @@ export interface DiffViewState {
   readonly minLineY: number
   readonly platform: number
   readonly providerId: string
+  readonly renderModeLeft: RenderMode
+  readonly renderModeRight: RenderMode
   readonly resizeOffsetX: number
   readonly rightWidth: number
   readonly root: string

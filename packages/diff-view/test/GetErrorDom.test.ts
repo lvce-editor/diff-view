@@ -1,10 +1,10 @@
 import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import { getContentLeftDom } from '../src/parts/GetContentLeftDom/GetContentLeftDom.ts'
+import { getErrorDom } from '../src/parts/GetErrorDom/GetErrorDom.ts'
 
-test('getContentLeftDom renders each left line inside an EditorRow', (): void => {
-  const result = getContentLeftDom('before-content\nsecond-line')
+test('getErrorDom renders an error message without a stack trace', (): void => {
+  const result = getErrorDom(ClassNames.DiffEditorContentRight, 'permission denied', '')
 
   expect(result).toEqual([
     {
@@ -13,35 +13,21 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      childCount: 1,
+      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
-      className: ClassNames.EditorRow,
+      className: ClassNames.DiffEditorErrorMessage,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      text: 'before-content',
-      type: 12,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      text: 'second-line',
-      type: 12,
-    },
+    text('permission denied'),
   ])
 })
 
-test('getContentLeftDom renders load errors when available', (): void => {
-  const result = getContentLeftDom('', 'file not found', 'Error: file not found\n    at read missing file')
+test('getErrorDom renders an error message and stack trace', (): void => {
+  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file')
 
   expect(result).toEqual([
     {

@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
 
@@ -37,5 +37,28 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       text: 'second-line',
       type: 12,
     },
+  ])
+})
+
+test('getContentRightDom renders load errors when available', (): void => {
+  const result = getContentRightDom('', 'permission denied', '')
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorErrorMessage,
+      type: VirtualDomElements.Div,
+    },
+    text('permission denied'),
   ])
 })

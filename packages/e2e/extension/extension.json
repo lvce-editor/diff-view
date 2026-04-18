@@ -16,7 +16,7 @@
       "id": "diff-prototype",
       "rpc": "test.diff-prototype-worker",
       "selector": [".txt"],
-      "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'", "style-src 'self' 'unsafe-inline'", "media-src 'self' blob:"],
+      "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'", "style-src 'self' 'unsafe-inline'", "img-src 'self' data: blob:", "media-src 'self' blob:"],
       "allow": ["fullscreen"],
       "elements": [
         {

@@ -15,11 +15,8 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
-<<<<<<< HEAD
   lineNumbers,
-=======
   layout,
->>>>>>> origin/main
   renderModeLeft,
   renderModeRight,
   uriLeft,
@@ -32,22 +29,17 @@ export const getDiffEditorVirtualDom = ({
   | 'errorLeftStack'
   | 'errorRightMessage'
   | 'errorRightStack'
-<<<<<<< HEAD
   | 'lineNumbers'
-=======
   | 'layout'
->>>>>>> origin/main
+  | 'lineNumbers'
   | 'renderModeLeft'
   | 'renderModeRight'
   | 'uriLeft'
   | 'uriRight'
 >): readonly VirtualDomNode[] => {
-<<<<<<< HEAD
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
-=======
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
->>>>>>> origin/main
   const dom: readonly VirtualDomNode[] = [
     {
       childCount: 3,

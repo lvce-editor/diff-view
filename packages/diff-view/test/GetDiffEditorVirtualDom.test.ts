@@ -130,7 +130,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
   expect(result).toEqual([
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -335,7 +335,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
     type: VirtualDomElements.Div,
   })
-  expect(result[5]).toEqual({
+  expect(result[9]).toEqual({
     childCount: 0,
     className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
     name: 'sash',

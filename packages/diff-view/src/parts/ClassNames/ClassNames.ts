@@ -68,14 +68,11 @@ export const DiffEditorContentRight = 'DiffEditorContentRight'
 export const DiffEditorError = 'DiffEditorError'
 export const DiffEditorErrorMessage = 'DiffEditorErrorMessage'
 export const DiffEditorErrorStack = 'DiffEditorErrorStack'
-<<<<<<< HEAD
 export const DiffEditorGutter = 'DiffEditorGutter'
 export const DiffEditorLineNumber = 'DiffEditorLineNumber'
 export const DiffEditorRows = 'DiffEditorRows'
-=======
 export const DiffEditorHorizontal = 'DiffEditorHorizontal'
 export const DiffEditorVertical = 'DiffEditorVertical'
->>>>>>> origin/main
 export const Editor = 'Editor'
 export const EditorCompletionItem = 'EditorCompletionItem'
 export const EditorCompletionItemDeprecated = 'EditorCompletionItemDeprecated'

@@ -19,6 +19,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
     1,
     `
 :root {
+  --ItemHeight: 20px;
   --LeftWidth: 120px;
   --RightWidth: 176px;
 }
@@ -51,21 +52,36 @@ test('renderCss renders left and right widths as css variables', (): void => {
 .DiffEditorGutter {
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
+  font-family: monospace;
   overflow: hidden;
   padding: 0 8px 0 12px;
   text-align: right;
+  user-select: none;
 }
 
 .DiffEditorLineNumber {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
   white-space: pre;
 }
 
 .DiffEditorRows {
   contain: strict;
   flex: 1;
+  font-family: monospace;
   min-width: 0;
   overflow: hidden;
+}
+
+.DiffEditor .EditorRow {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
 }
 
 .ImageContent {
@@ -140,6 +156,7 @@ test('renderCss renders stacked pane heights for vertical layout', (): void => {
     1,
     `
 :root {
+  --ItemHeight: 20px;
   --LeftWidth: 120px;
   --RightWidth: 176px;
 }
@@ -172,21 +189,36 @@ test('renderCss renders stacked pane heights for vertical layout', (): void => {
 .DiffEditorGutter {
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
   flex-shrink: 0;
+  font-family: monospace;
   overflow: hidden;
   padding: 0 8px 0 12px;
   text-align: right;
+  user-select: none;
 }
 
 .DiffEditorLineNumber {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
   white-space: pre;
 }
 
 .DiffEditorRows {
   contain: strict;
   flex: 1;
+  font-family: monospace;
   min-width: 0;
   overflow: hidden;
+}
+
+.DiffEditor .EditorRow {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
 }
 
 .ImageContent {

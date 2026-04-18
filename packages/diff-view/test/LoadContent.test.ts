@@ -184,3 +184,45 @@ test('loadContent sets image render mode when a side has an image extension', as
     uriRight: '/tmp/after.txt',
   })
 })
+
+test('loadContent expands total line count for inline mode when replacements split into deletion and insertion rows', async (): Promise<void> => {
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      if (method !== 'FileSystem.readFile') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      const [uri] = params
+      if (uri === 'file:///tmp/before.txt') {
+        return 'same\nbefore\nshared'
+      }
+      if (uri === 'file:///tmp/after.txt') {
+        return 'same\nafter\nshared'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    set: (): void => {},
+  }
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
+
+  const state = {
+    ...createDefaultState(),
+    diffMode: 'inline' as const,
+    height: 60,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    uri: 'inline-diff:///tmp/before.txt<->/tmp/after.txt',
+  }
+
+  const result = await loadContent(state, { minLineY: 0 })
+
+  expect(result).toMatchObject({
+    contentLeft: 'same\nbefore\nshared',
+    contentRight: 'same\nafter\nshared',
+    diffMode: 'inline',
+    finalDeltaY: 20,
+    maxLineY: 3,
+    minLineY: 0,
+    totalLineCount: 4,
+  })
+})

@@ -1,11 +1,13 @@
 export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
+export type DiffMode = 'inline' | 'side-by-side'
 
 export interface DiffViewState {
   readonly assetDir: string
   readonly contentLeft: string
   readonly contentRight: string
   readonly deltaY: number
+  readonly diffMode: DiffMode
   readonly errorLeftMessage: string
   readonly errorLeftStack: string
   readonly errorRightMessage: string

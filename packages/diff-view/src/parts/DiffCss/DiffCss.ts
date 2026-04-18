@@ -3,6 +3,7 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return (
     oldState.deltaY === newState.deltaY &&
+    oldState.diffMode === newState.diffMode &&
     oldState.finalDeltaY === newState.finalDeltaY &&
     oldState.height === newState.height &&
     oldState.itemHeight === newState.itemHeight &&

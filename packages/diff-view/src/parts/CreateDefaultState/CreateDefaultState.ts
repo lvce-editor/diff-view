@@ -5,6 +5,7 @@ export const createDefaultState = (): DiffViewState => ({
   contentLeft: '',
   contentRight: '',
   deltaY: 0,
+  diffMode: 'side-by-side',
   errorLeftMessage: '',
   errorLeftStack: '',
   errorRightMessage: '',

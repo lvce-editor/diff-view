@@ -16,7 +16,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
   expect(result).toEqual([
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -188,7 +188,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
   expect(result).toEqual([
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -253,7 +253,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
   expect(result).toEqual([
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -318,4 +318,28 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     text('Error: file not found\n    at read missing file'),
   ])
+})
+
+test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'before-content',
+    contentRight: 'after-content',
+    layout: 'vertical',
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result[0]).toEqual({
+    childCount: 3,
+    className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
+    type: VirtualDomElements.Div,
+  })
+  expect(result[5]).toEqual({
+    childCount: 0,
+    className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
+    name: 'sash',
+    onPointerDown: 11,
+    type: VirtualDomElements.Div,
+  })
 })

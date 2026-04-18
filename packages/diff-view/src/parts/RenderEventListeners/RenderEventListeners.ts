@@ -49,16 +49,16 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenersFunctions.HandleSashPointerDown,
-      params: ['handleSashPointerDown', EventExpression.ClientX],
+      params: ['handleSashPointerDown', EventExpression.ClientX, EventExpression.ClientY],
       trackPointerEvents: [DomEventListenersFunctions.HandleSashPointerMove, DomEventListenersFunctions.HandleSashPointerUp],
     },
     {
       name: DomEventListenersFunctions.HandleSashPointerMove,
-      params: ['handleSashPointerMove', EventExpression.ClientX],
+      params: ['handleSashPointerMove', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
       name: DomEventListenersFunctions.HandleSashPointerUp,
-      params: ['handleSashPointerUp', EventExpression.ClientX],
+      params: ['handleSashPointerUp', EventExpression.ClientX, EventExpression.ClientY],
     },
   ]
 }

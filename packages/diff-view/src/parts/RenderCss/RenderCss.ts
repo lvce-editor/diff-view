@@ -3,7 +3,7 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { id, leftWidth, rightWidth } = newState
+  const { id, layout, leftWidth, rightWidth } = newState
   const css = `
 :root {
   --LeftWidth: ${leftWidth}px;
@@ -12,6 +12,16 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditor {
   display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
+.DiffEditorVertical {
+  flex-direction: column;
 }
 
 .DiffEditorContent {
@@ -61,11 +71,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorContentLeft {
-  width: var(--LeftWidth);
+  ${layout === 'vertical' ? 'height: var(--LeftWidth);' : 'width: var(--LeftWidth);'}
 }
 
 .DiffEditorContentRight {
-  width: var(--RightWidth);
+  ${layout === 'vertical' ? 'height: var(--RightWidth);' : 'width: var(--RightWidth);'}
 }
 
 .DiffEditorError {
@@ -84,9 +94,17 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .Sash {
-  cursor: col-resize;
   flex-shrink: 0;
+}
+
+.SashVertical {
+  cursor: col-resize;
   width: ${getSashWidth()}px;
+}
+
+.SashHorizontal {
+  cursor: row-resize;
+  height: ${getSashWidth()}px;
 }
 `
   return [ViewletCommand.SetCss, id, css]

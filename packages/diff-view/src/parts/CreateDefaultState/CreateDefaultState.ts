@@ -22,7 +22,12 @@ export const createDefaultState = (): DiffViewState => ({
   isResizing: false,
   isVisible: true,
   itemHeight: 20,
+<<<<<<< HEAD
   knownImageExtensions: ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg', '.bmp', '.ico'],
+=======
+  knownImageExtensions: ['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.bmp', '.ico'],
+  layout: 'horizontal',
+>>>>>>> origin/main
   leftWidth: 48,
   lineNumbers: true,
   maxInputLines: 5,
@@ -34,6 +39,7 @@ export const createDefaultState = (): DiffViewState => ({
   renderModeLeft: 'text',
   renderModeRight: 'text',
   resizeOffsetX: 0,
+  resizeOffsetY: 0,
   rightWidth: 48,
   root: '/',
   scrollBarActive: false,

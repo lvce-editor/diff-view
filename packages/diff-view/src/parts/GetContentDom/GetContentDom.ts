@@ -26,13 +26,7 @@ const getLineNumbersDom = (lineCount: number): readonly VirtualDomNode[] => {
   ]
 }
 
-export const getContentDom = (
-  contentClassName: string,
-  content: string,
-  errorMessage: string,
-  errorStack: string,
-  lineNumbers: boolean,
-): readonly VirtualDomNode[] => {
+export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }

@@ -15,8 +15,8 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
-  lineNumbers,
   layout,
+  lineNumbers,
   renderModeLeft,
   renderModeRight,
   uriLeft,
@@ -31,7 +31,6 @@ export const getDiffEditorVirtualDom = ({
   | 'errorRightStack'
   | 'lineNumbers'
   | 'layout'
-  | 'lineNumbers'
   | 'renderModeLeft'
   | 'renderModeRight'
   | 'uriLeft'

@@ -1,6 +1,10 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
+const normalizeFloatingPointError = (value: number): number => {
+  return Number(value.toPrecision(16))
+}
+
 export const handleScrollBarPointerDown = (state: DiffViewState, clientY: number): DiffViewState => {
   if (!state.scrollBarActive) {
     return state
@@ -9,6 +13,6 @@ export const handleScrollBarPointerDown = (state: DiffViewState, clientY: number
   return {
     ...state,
     isScrollBarDragging: true,
-    scrollBarDragOffsetY: clientY - state.y - thumbTop,
+    scrollBarDragOffsetY: normalizeFloatingPointError(clientY - state.y - thumbTop),
   }
 }

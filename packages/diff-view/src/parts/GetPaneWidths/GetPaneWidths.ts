@@ -5,8 +5,8 @@ const clamp = (value: number, minimum: number, maximum: number): number => {
   return Math.max(minimum, Math.min(value, maximum))
 }
 
-const getAvailableWidth = (width: number): number => {
-  return Math.max(width - SASH_WIDTH, 0)
+const getAvailableSize = (size: number): number => {
+  return Math.max(size - SASH_WIDTH, 0)
 }
 
 export const getSashWidth = (): number => {
@@ -14,11 +14,11 @@ export const getSashWidth = (): number => {
 }
 
 export const getMinimumPaneWidth = (width: number): number => {
-  return Math.min(DEFAULT_MINIMUM_PANE_WIDTH, Math.floor(getAvailableWidth(width) / 2))
+  return Math.min(DEFAULT_MINIMUM_PANE_WIDTH, Math.floor(getAvailableSize(width) / 2))
 }
 
 export const getDefaultPaneWidths = (width: number): { readonly leftWidth: number; readonly rightWidth: number } => {
-  const availableWidth = getAvailableWidth(width)
+  const availableWidth = getAvailableSize(width)
   const leftWidth = Math.floor(availableWidth / 2)
   const rightWidth = availableWidth - leftWidth
   return {
@@ -28,12 +28,33 @@ export const getDefaultPaneWidths = (width: number): { readonly leftWidth: numbe
 }
 
 export const getClampedLeftWidth = (width: number, leftWidth: number): number => {
-  const availableWidth = getAvailableWidth(width)
+  const availableWidth = getAvailableSize(width)
   const minimumPaneWidth = getMinimumPaneWidth(width)
   const maximumLeftWidth = availableWidth - minimumPaneWidth
   return clamp(leftWidth, minimumPaneWidth, maximumLeftWidth)
 }
 
 export const getRightWidth = (width: number, leftWidth: number): number => {
-  return getAvailableWidth(width) - leftWidth
+  return getAvailableSize(width) - leftWidth
+}
+
+export const getPaneSizes = (size: number, ratio = 0.5): { readonly leftWidth: number; readonly rightWidth: number } => {
+  const availableSize = getAvailableSize(size)
+  const leftWidth = Math.floor(availableSize * ratio)
+  const rightWidth = availableSize - leftWidth
+  return {
+    leftWidth,
+    rightWidth,
+  }
+}
+
+export const getClampedPaneSize = (size: number, leftWidth: number): number => {
+  const availableSize = getAvailableSize(size)
+  const minimumPaneWidth = Math.min(DEFAULT_MINIMUM_PANE_WIDTH, Math.floor(availableSize / 2))
+  const maximumLeftWidth = availableSize - minimumPaneWidth
+  return clamp(leftWidth, minimumPaneWidth, maximumLeftWidth)
+}
+
+export const getRemainingPaneSize = (size: number, leftWidth: number): number => {
+  return getAvailableSize(size) - leftWidth
 }

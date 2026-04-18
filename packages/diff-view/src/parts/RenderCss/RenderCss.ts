@@ -3,9 +3,10 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { id, layout, leftWidth, rightWidth } = newState
+  const { id, itemHeight, layout, leftWidth, rightWidth } = newState
   const css = `
 :root {
+  --ItemHeight: ${itemHeight}px;
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
 }
@@ -27,6 +28,47 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorContent {
   contain: strict;
   overflow: hidden;
+}
+
+.DiffEditorContentLeft,
+.DiffEditorContentRight {
+  display: flex;
+  overflow: hidden;
+}
+
+.DiffEditorGutter {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-family: monospace;
+  overflow: hidden;
+  padding: 0 8px 0 12px;
+  text-align: right;
+  user-select: none;
+}
+
+.DiffEditorLineNumber {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
+}
+
+.DiffEditorRows {
+  contain: strict;
+  flex: 1;
+  font-family: monospace;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.DiffEditor .EditorRow {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
 }
 
 .ImageContent {

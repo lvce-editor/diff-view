@@ -26,6 +26,7 @@ export interface DiffViewState {
   readonly knownImageExtensions: readonly string[]
   readonly layout: Layout
   readonly leftWidth: number
+  readonly lineNumbers: boolean
   readonly maxInputLines: number
   readonly maxLineY: number
   readonly minimumSliderSize: number

@@ -57,7 +57,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',
-    deltaY: 20,
+    deltaY: 0,
     errorLeftMessage: '',
     errorLeftStack: '',
     errorRightMessage: '',
@@ -65,11 +65,12 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     finalDeltaY: 0,
     initial: false,
     maxLineY: 2,
-    minLineY: 1,
+    minLineY: 0,
     renderModeLeft: 'text',
     renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
+    totalLineCount: 2,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/after.txt',
   })
@@ -178,6 +179,7 @@ test('loadContent sets image render mode when a side has an image extension', as
     renderModeLeft: 'image',
     renderModeRight: 'text',
     scrollBarHeight: 60,
+    totalLineCount: 2,
     uriLeft: '/tmp/before.png',
     uriRight: '/tmp/after.txt',
   })

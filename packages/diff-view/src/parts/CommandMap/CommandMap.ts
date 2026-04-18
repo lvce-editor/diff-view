@@ -5,6 +5,10 @@ import { wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
 import { handleSashPointerMove } from '../HandleSashPointerMove/HandleSashPointerMove.ts'
 import { handleSashPointerUp } from '../HandleSashPointerUp/HandleSashPointerUp.ts'
+import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/HandleScrollBarPointerDown.ts'
+import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
+import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
+import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
@@ -17,6 +21,10 @@ export const commandMap = {
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
   'DiffView.handleSashPointerMove': wrapCommand(handleSashPointerMove),
   'DiffView.handleSashPointerUp': wrapCommand(handleSashPointerUp),
+  'DiffView.handleScrollBarPointerDown': wrapCommand(handleScrollBarPointerDown),
+  'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
+  'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
+  'DiffView.handleWheel': wrapCommand(handleWheel),
   'DiffView.initialize': Initialize.initialize,
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,

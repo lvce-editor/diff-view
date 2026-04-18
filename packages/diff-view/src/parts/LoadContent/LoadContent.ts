@@ -2,9 +2,8 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getInlineDiffUris } from '../GetInlineDiffUris/GetInlineDiffUris.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getMinLineY } from '../GetMinLineY/GetMinLineY.ts'
-import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
-import { getScrollBarHeight } from '../GetScrollBarHeight/GetScrollBarHeight.ts'
+import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
 const getDisplayedContent = (content: string, errorMessage: string, errorStack: string): string => {
@@ -23,34 +22,25 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
-  const total = Math.max(
+  const totalLineCount = Math.max(
     renderModeLeft === 'image' ? 1 : getLineCount(getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)),
     renderModeRight === 'image' ? 1 : getLineCount(getDisplayedContent(contentRight, errorRightMessage, errorRightStack)),
   )
-  const contentHeight = total * itemHeight
-  const numberOfVisibleItems = getNumberOfVisibleItems(height, itemHeight)
-  const maxLineY = Math.min(minLineY + numberOfVisibleItems, total)
-  const deltaY = minLineY * itemHeight
-  const finalDeltaY = Math.max(contentHeight - height, 0)
-  const scrollBarHeight = getScrollBarHeight(height, contentHeight, minimumSliderSize)
+  const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight)
   return {
     ...state,
     contentLeft,
     contentRight,
-    deltaY,
     errorLeftMessage,
     errorLeftStack,
     errorRightMessage,
     errorRightStack,
-    finalDeltaY,
     initial: false,
-    maxLineY,
-    minLineY,
     renderModeLeft,
     renderModeRight,
-    scrollBarActive: contentHeight > height,
-    scrollBarHeight,
+    totalLineCount,
     uriLeft,
     uriRight,
+    ...scrollState,
   }
 }

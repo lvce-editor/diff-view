@@ -4,13 +4,25 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorDom } from '../GetErrorDom/GetErrorDom.ts'
 import { getLineNumbersDom } from '../GetLineNumbersDom/GetLineNumbersDom.ts'
 import { getRowsDom } from '../GetRowsDom/GetRowsDom.ts'
+import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
 
-export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
+export const getContentDom = (
+  contentClassName: string,
+  content: string,
+  errorMessage: string,
+  errorStack: string,
+  lineNumbers: boolean,
+  totalLineCount: number,
+  minLineY: number,
+  maxLineY: number,
+): readonly VirtualDomNode[] => {
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }
-  const lines = content.split('\n')
+  const lines = getVisibleRows(content, totalLineCount, minLineY, maxLineY)
   const rows = getRowsDom(lines)
+  const startLineNumber = minLineY + 1
+  const rowsChildCount = lines.length + 2
 
   return [
     {
@@ -19,20 +31,42 @@ export const getContentDom = (contentClassName: string, content: string, errorMe
       type: VirtualDomElements.Div,
     },
     {
-      childCount: lineNumbers ? 2 : lines.length,
+      childCount: lineNumbers ? 2 : rowsChildCount,
       className: contentClassName,
       type: VirtualDomElements.Div,
     },
-    ...(lineNumbers ? getLineNumbersDom(lines.length) : []),
+    ...(lineNumbers ? getLineNumbersDom(startLineNumber, lines.length) : []),
     ...(lineNumbers
       ? [
           {
-            childCount: lines.length,
+            childCount: rowsChildCount,
             className: ClassNames.DiffEditorRows,
             type: VirtualDomElements.Div,
           },
+          {
+            childCount: 0,
+            className: ClassNames.DiffEditorSpacerTop,
+            type: VirtualDomElements.Div,
+          },
           ...rows,
+          {
+            childCount: 0,
+            className: ClassNames.DiffEditorSpacerBottom,
+            type: VirtualDomElements.Div,
+          },
         ]
-      : rows),
+      : [
+          {
+            childCount: 0,
+            className: ClassNames.DiffEditorSpacerTop,
+            type: VirtualDomElements.Div,
+          },
+          ...rows,
+          {
+            childCount: 0,
+            className: ClassNames.DiffEditorSpacerBottom,
+            type: VirtualDomElements.Div,
+          },
+        ]),
   ]
 }

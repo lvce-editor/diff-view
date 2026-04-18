@@ -11,3 +11,6 @@ export const HandleClickAction = 10
 export const HandleSashPointerDown = 11
 export const HandleSashPointerMove = 12
 export const HandleSashPointerUp = 13
+export const HandleScrollBarPointerDown = 14
+export const HandleScrollBarPointerMove = 15
+export const HandleScrollBarPointerUp = 16

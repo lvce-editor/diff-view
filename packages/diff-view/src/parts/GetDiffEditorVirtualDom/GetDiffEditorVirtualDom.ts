@@ -7,6 +7,7 @@ import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
+import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
 export const getDiffEditorVirtualDom = ({
   contentLeft,
@@ -17,8 +18,11 @@ export const getDiffEditorVirtualDom = ({
   errorRightStack,
   layout,
   lineNumbers,
+  maxLineY,
+  minLineY,
   renderModeLeft,
   renderModeRight,
+  totalLineCount,
   uriLeft,
   uriRight,
 }: Pick<
@@ -35,17 +39,22 @@ export const getDiffEditorVirtualDom = ({
   | 'renderModeRight'
   | 'uriLeft'
   | 'uriRight'
+  | 'maxLineY'
+  | 'minLineY'
+  | 'totalLineCount'
 >): readonly VirtualDomNode[] => {
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers)),
+    ...(renderModeLeft === 'image'
+      ? getImageLeftDom(uriLeft)
+      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -53,7 +62,10 @@ export const getDiffEditorVirtualDom = ({
       onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers)),
+    ...(renderModeRight === 'image'
+      ? getImageRightDom(uriRight)
+      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
+    ...getScrollBarDom(),
   ]
   return dom
 }

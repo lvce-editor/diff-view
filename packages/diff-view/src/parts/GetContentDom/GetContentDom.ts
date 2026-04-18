@@ -15,13 +15,6 @@ const getLineNumberDom = (lineNumber: number): readonly VirtualDomNode[] => {
   ]
 }
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string): readonly VirtualDomNode[] => {
-=======
-export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
->>>>>>> Stashed changes
-=======
 const getLineNumbersDom = (lineCount: number): readonly VirtualDomNode[] => {
   return [
     {
@@ -34,7 +27,6 @@ const getLineNumbersDom = (lineCount: number): readonly VirtualDomNode[] => {
 }
 
 export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
->>>>>>> origin/main
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }

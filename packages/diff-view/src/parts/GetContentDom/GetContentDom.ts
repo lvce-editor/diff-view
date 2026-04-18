@@ -1,10 +1,12 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorDom } from '../GetErrorDom/GetErrorDom.ts'
+import { getLineNumbersDom } from '../GetLineNumbersDom/GetLineNumbersDom.ts'
 import { getRowsDom } from '../GetRowsDom/GetRowsDom.ts'
 import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
 
+<<<<<<< HEAD
 const getLineNumberDom = (lineNumber: number): readonly VirtualDomNode[] => {
   return [
     {
@@ -37,6 +39,9 @@ export const getContentDom = (
   minLineY: number,
   maxLineY: number,
 ): readonly VirtualDomNode[] => {
+=======
+export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
+>>>>>>> origin/main
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }

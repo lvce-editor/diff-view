@@ -9,6 +9,19 @@ import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
+const getInlineDiffState = async (
+  contentLeft: string,
+  contentRight: string,
+): Promise<{ readonly inlineChanges: readonly InlineDiffChange[]; readonly totalLineCount: number }> => {
+  const linesLeft = contentLeft ? contentLeft.split('\n') : ['']
+  const linesRight = contentRight ? contentRight.split('\n') : ['']
+  const inlineChanges = await getInlineDiffChanges(linesLeft, linesRight)
+  return {
+    inlineChanges,
+    totalLineCount: Math.max(inlineChanges.length, 1),
+  }
+}
+
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
   const { height, itemHeight, knownImageExtensions, minimumSliderSize, uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
@@ -23,15 +36,12 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
   const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
-  let inlineChanges: readonly InlineDiffChange[] = []
-  const totalLineCount = canComputeInlineDiff
-    ? await (async (): Promise<number> => {
-        const linesLeft = contentLeft ? contentLeft.split('\n') : ['']
-        const linesRight = contentRight ? contentRight.split('\n') : ['']
-        inlineChanges = await getInlineDiffChanges(linesLeft, linesRight)
-        return Math.max(inlineChanges.length, 1)
-      })()
-    : Math.max(totalLineCountLeft, totalLineCountRight)
+  const { inlineChanges, totalLineCount } = canComputeInlineDiff
+    ? await getInlineDiffState(contentLeft, contentRight)
+    : {
+        inlineChanges: [],
+        totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),
+      }
   return {
     ...state,
     contentLeft,

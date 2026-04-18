@@ -31,7 +31,7 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
         throw new Error(`unexpected method: ${method}`)
       }
       const [uri] = params
-      if (uri === '/tmp/after.txt') {
+      if (uri === 'file:///tmp/after.txt') {
         return 'after-content'
       }
       throw new Error(`unexpected params: ${String(uri)}`)
@@ -44,6 +44,6 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
   const result = await loadFileContents('data://before-content', '/tmp/after.txt')
 
   expect(extensionHostInvocations).toEqual([])
-  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
+  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
   expect(result).toEqual(['before-content', 'after-content'])
 })

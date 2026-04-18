@@ -32,7 +32,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
         throw new Error(`unexpected method: ${method}`)
       }
       const [uri] = params
-      if (uri === '/tmp/after.txt') {
+      if (uri === 'file:///tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
       throw new Error(`unexpected params: ${String(uri)}`)
@@ -53,7 +53,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
   const result = await loadContent(state, { minLineY: 1 })
 
   expect(extensionHostInvocations).toEqual([])
-  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
+  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',

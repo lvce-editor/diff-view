@@ -5,6 +5,10 @@ export interface DiffViewState {
   readonly contentLeft: string
   readonly contentRight: string
   readonly deltaY: number
+  readonly errorLeftMessage: string
+  readonly errorLeftStack: string
+  readonly errorRightMessage: string
+  readonly errorRightStack: string
   readonly finalDeltaY: number
   readonly focus: number
   readonly gitRoot: string

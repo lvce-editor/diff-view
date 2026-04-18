@@ -1,6 +1,7 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as CreateDefaultState from '../CreateDefaultState/CreateDefaultState.ts'
 import * as DiffViewStates from '../DiffViewStates/DiffViewStates.ts'
+import { getDefaultPaneWidths } from '../GetPaneWidths/GetPaneWidths.ts'
 
 export const create2 = (
   id: number,
@@ -13,13 +14,16 @@ export const create2 = (
   platform: number,
   assetDir: string,
 ): void => {
+  const { leftWidth, rightWidth } = getDefaultPaneWidths(width)
   const state: DiffViewState = {
     ...CreateDefaultState.createDefaultState(),
     assetDir,
     height,
     id,
     initial: true,
+    leftWidth,
     platform,
+    rightWidth,
     uri,
     width,
     workspacePath,

@@ -13,9 +13,6 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
         throw new Error(`unexpected method: ${method}`)
       }
       const [protocol, path] = params
-      if (protocol === 'data' && path === 'before-content') {
-        return 'before-content'
-      }
       if (protocol === 'file' && path === '/tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
@@ -35,10 +32,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 
   const result = await loadContent(state, { minLineY: 1 })
 
-  expect(mockRpc.invocations).toEqual([
-    ['ExtensionHostFileSystem.readFile', 'data', 'before-content'],
-    ['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt'],
-  ])
+  expect(mockRpc.invocations).toEqual([['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt']])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',

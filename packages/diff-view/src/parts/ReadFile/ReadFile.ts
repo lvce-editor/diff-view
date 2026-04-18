@@ -7,6 +7,9 @@ export const readFile = async (uri: string): Promise<string> => {
     return ''
   }
   const protocol = getProtocol(uri)
+  if (protocol === 'data') {
+    return uri.slice('data://'.length)
+  }
   const path = getPath(protocol, uri)
   return ExtensionHost.invoke('ExtensionHostFileSystem.readFile', protocol, path)
 }

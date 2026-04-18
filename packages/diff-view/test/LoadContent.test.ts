@@ -5,6 +5,7 @@ import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
   const mockRpc = {
+    dispose: (): void => {},
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
       mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
@@ -21,7 +22,6 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       throw new Error(`unexpected params: ${String(protocol)} ${String(path)}`)
     },
     set: (): void => {},
-    dispose: (): void => {},
   }
   ExtensionHost.set(mockRpc as any)
 

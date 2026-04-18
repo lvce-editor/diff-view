@@ -21,7 +21,16 @@ export const getDiffEditorVirtualDom = ({
   uriRight,
 }: Pick<
   DiffViewState,
-  'contentLeft' | 'contentRight' | 'errorLeftMessage' | 'errorLeftStack' | 'errorRightMessage' | 'errorRightStack' | 'renderModeLeft' | 'renderModeRight' | 'uriLeft' | 'uriRight'
+  | 'contentLeft'
+  | 'contentRight'
+  | 'errorLeftMessage'
+  | 'errorLeftStack'
+  | 'errorRightMessage'
+  | 'errorRightStack'
+  | 'renderModeLeft'
+  | 'renderModeRight'
+  | 'uriLeft'
+  | 'uriRight'
 >): readonly VirtualDomNode[] => {
   const dom: readonly VirtualDomNode[] = [
     {

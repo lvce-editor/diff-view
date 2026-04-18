@@ -1,14 +1,14 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { loadFileContents } from '../src/parts/LoadFileContents/LoadFileContents.ts'
 
 test('loadFileContents loads both files in order', async (): Promise<void> => {
-  const invocations: unknown[][] = []
-  const mockRpc = {
+  const extensionHostInvocations: unknown[][] = []
+  const fileSystemWorkerInvocations: unknown[][] = []
+  const extensionHostRpc = {
     dispose: (): void => {},
-    invocations,
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      invocations.push([method, ...params])
+      extensionHostInvocations.push([method, ...params])
       if (method !== 'ExtensionHostFileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
@@ -23,10 +23,27 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
     },
     set: (): void => {},
   }
-  ExtensionHost.set(mockRpc as any)
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerInvocations.push([method, ...params])
+      if (method !== 'FileSystem.readFile') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      const [uri] = params
+      if (uri === '/tmp/after.txt') {
+        return 'after-content'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    set: (): void => {},
+  }
+  ExtensionHost.set(extensionHostRpc as any)
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const result = await loadFileContents('data://before-content', '/tmp/after.txt')
 
-  expect(invocations).toEqual([['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt']])
+  expect(extensionHostInvocations).toEqual([])
+  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
   expect(result).toEqual(['before-content', 'after-content'])
 })

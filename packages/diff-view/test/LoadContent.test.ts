@@ -1,15 +1,15 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
-  const invocations: unknown[][] = []
-  const mockRpc = {
+  const extensionHostInvocations: unknown[][] = []
+  const fileSystemWorkerInvocations: unknown[][] = []
+  const extensionHostRpc = {
     dispose: (): void => {},
-    invocations,
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      invocations.push([method, ...params])
+      extensionHostInvocations.push([method, ...params])
       if (method !== 'ExtensionHostFileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
@@ -24,7 +24,23 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     },
     set: (): void => {},
   }
-  ExtensionHost.set(mockRpc as any)
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerInvocations.push([method, ...params])
+      if (method !== 'FileSystem.readFile') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      const [uri] = params
+      if (uri === '/tmp/after.txt') {
+        return 'after-content\nsecond-line'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    set: (): void => {},
+  }
+  ExtensionHost.set(extensionHostRpc as any)
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {
     ...createDefaultState(),
@@ -36,7 +52,8 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 
   const result = await loadContent(state, { minLineY: 1 })
 
-  expect(invocations).toEqual([['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt']])
+  expect(extensionHostInvocations).toEqual([])
+  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',

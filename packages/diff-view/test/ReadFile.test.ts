@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { readFile } from '../src/parts/ReadFile/ReadFile.ts'
 
 test('readFile returns empty content for untitled uri', async (): Promise<void> => {
@@ -38,12 +38,21 @@ test('readFile returns inline content for data uri', async (): Promise<void> => 
   expect(mockRpc.invocations).toEqual([])
 })
 
-test('readFile reads file content through extension host', async (): Promise<void> => {
-  const mockRpc = {
+test('readFile reads file content through file system worker', async (): Promise<void> => {
+  const extensionHostRpc = {
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
-      if (method !== 'ExtensionHostFileSystem.readFile') {
+      extensionHostRpc.invocations = [...extensionHostRpc.invocations, [method, ...params]]
+      throw new Error(`unexpected method: ${method}`)
+    },
+    set: (): void => {},
+    dispose: (): void => {},
+  }
+  const fileSystemWorkerRpc = {
+    invocations: [] as readonly unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerRpc.invocations = [...fileSystemWorkerRpc.invocations, [method, ...params]]
+      if (method !== 'FileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
       return 'after-content'
@@ -51,10 +60,12 @@ test('readFile reads file content through extension host', async (): Promise<voi
     set: (): void => {},
     dispose: (): void => {},
   }
-  ExtensionHost.set(mockRpc as any)
+  ExtensionHost.set(extensionHostRpc as any)
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const result = await readFile('/tmp/after.txt')
 
   expect(result).toBe('after-content')
-  expect(mockRpc.invocations).toEqual([['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt']])
+  expect(extensionHostRpc.invocations).toEqual([])
+  expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
 })

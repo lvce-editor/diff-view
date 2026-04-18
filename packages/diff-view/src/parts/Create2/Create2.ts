@@ -20,6 +20,7 @@ export const create2 = (
     id,
     initial: true,
     platform,
+    uri,
     width,
     workspacePath,
     x,

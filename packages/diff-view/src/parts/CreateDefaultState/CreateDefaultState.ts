@@ -34,6 +34,7 @@ export const createDefaultState = (): DiffViewState => ({
   scrollBarActive: false,
   scrollBarHeight: 0,
   splitButtonEnabled: false,
+  uri: '',
   viewMode: 1,
   width: 100,
   workspacePath: '',

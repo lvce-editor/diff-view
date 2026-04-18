@@ -1,5 +1,7 @@
 export interface DiffViewState {
   readonly assetDir: string
+  readonly contentLeft: string
+  readonly contentRight: string
   readonly deltaY: number
   readonly finalDeltaY: number
   readonly focus: number
@@ -33,6 +35,8 @@ export interface DiffViewState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly uri: string
+  readonly uriLeft: string
+  readonly uriRight: string
   readonly viewMode: number
   readonly width: number
   readonly workspacePath: string

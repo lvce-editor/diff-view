@@ -44,6 +44,8 @@ export const createDefaultState = (): DiffViewState => ({
   scrollBarHeight: 0,
   splitButtonEnabled: false,
   totalLineCount: 1,
+  totalLineCountLeft: 1,
+  totalLineCountRight: 1,
   uri: '',
   uriLeft: '',
   uriRight: '',

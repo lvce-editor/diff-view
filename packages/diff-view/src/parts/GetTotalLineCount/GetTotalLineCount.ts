@@ -2,7 +2,7 @@ import type { DiffMode, RenderMode } from '../DiffViewState/DiffViewState.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 
-const getDisplayedContent = (content: string, errorMessage: string, errorStack: string): string => {
+export const getDisplayedContent = (content: string, errorMessage: string, errorStack: string): string => {
   if (!errorMessage) {
     return content
   }

@@ -1,9 +1,10 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getInlineDiffUris } from '../GetInlineDiffUris/GetInlineDiffUris.ts'
+import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getMinLineY } from '../GetMinLineY/GetMinLineY.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
-import { getTotalLineCount } from '../GetTotalLineCount/GetTotalLineCount.ts'
+import { getDisplayedContent, getTotalLineCount } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
@@ -15,7 +16,10 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
-<<<<<<< HEAD
+  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
+  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
+  const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
+  const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
   const totalLineCount = getTotalLineCount(
     diffMode,
     contentLeft,
@@ -27,13 +31,6 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     renderModeLeft,
     renderModeRight,
   )
-=======
-  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
-  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
-  const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
-  const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
-  const totalLineCount = Math.max(totalLineCountLeft, totalLineCountRight)
->>>>>>> origin/main
   const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight)
   return {
     ...state,

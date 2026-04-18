@@ -35,7 +35,11 @@ const getErrorDom = (contentClassName: string, errorMessage: string, errorStack:
   ]
 }
 
+<<<<<<< Updated upstream
 export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string): readonly VirtualDomNode[] => {
+=======
+export const getContentDom = (contentClassName: string, content: string, errorMessage: string, errorStack: string, lineNumbers: boolean): readonly VirtualDomNode[] => {
+>>>>>>> Stashed changes
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }

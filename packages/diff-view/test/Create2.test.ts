@@ -15,4 +15,14 @@ test('create2 - creates state with provided parameters', (): void => {
 
   const { newState } = get(id)
   expect(newState).toBeDefined()
+  expect(newState).toMatchObject({
+    height,
+    id,
+    initial: true,
+    uri,
+    width,
+    workspacePath,
+    x,
+    y,
+  })
 })

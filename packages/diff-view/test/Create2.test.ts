@@ -19,6 +19,8 @@ test('create2 - creates state with provided parameters', (): void => {
     height,
     id,
     initial: true,
+    leftWidth: 148,
+    rightWidth: 148,
     uri,
     width,
     workspacePath,

@@ -2,14 +2,17 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
-export const getDiffEditorVirtualDom = (): readonly VirtualDomNode[] => {
-  const dom: readonly VirtualDomNode[] = [
+export const getRowDom = (line: string): readonly VirtualDomNode[] => {
+  return [
     {
       childCount: 1,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor2}`,
+      className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-    text('hello world'),
+    text(line),
   ]
-  return dom
+}
+
+export const getRowsDom = (lines: readonly string[]): readonly VirtualDomNode[] => {
+  return lines.flatMap(getRowDom)
 }

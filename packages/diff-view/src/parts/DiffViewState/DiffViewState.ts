@@ -1,5 +1,7 @@
 export interface DiffViewState {
   readonly assetDir: string
+  readonly contentLeft: string
+  readonly contentRight: string
   readonly deltaY: number
   readonly finalDeltaY: number
   readonly focus: number
@@ -9,30 +11,27 @@ export interface DiffViewState {
   readonly height: number
   readonly id: number
   readonly initial: boolean
-  readonly inputBoxHeight: number
-  readonly inputBoxMaxHeight: number
-  readonly inputFontFamily: string
-  readonly inputFontSize: number
-  readonly inputFontWeight: number
-  readonly inputLetterSpacing: number
-  readonly inputLineHeight: number
-  readonly inputPadding: number
-  readonly inputPlaceholder: string
   readonly inputSource: number
   readonly inputValue: string
+  readonly isResizing: boolean
   readonly isVisible: boolean
   readonly itemHeight: number
+  readonly leftWidth: number
   readonly maxInputLines: number
   readonly maxLineY: number
   readonly minimumSliderSize: number
   readonly minLineY: number
   readonly platform: number
   readonly providerId: string
+  readonly resizeOffsetX: number
+  readonly rightWidth: number
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly uri: string
+  readonly uriLeft: string
+  readonly uriRight: string
   readonly viewMode: number
   readonly width: number
   readonly workspacePath: string

@@ -3,20 +3,72 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { id, leftWidth, rightWidth } = newState
+  const { id, itemHeight, layout, leftWidth, rightWidth } = newState
   const css = `
 :root {
+  --ItemHeight: ${itemHeight}px;
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
 }
 
 .DiffEditor {
   display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
+.DiffEditorVertical {
+  flex-direction: column;
 }
 
 .DiffEditorContent {
   contain: strict;
   overflow: hidden;
+}
+
+.DiffEditorContentLeft,
+.DiffEditorContentRight {
+  display: flex;
+  overflow: hidden;
+}
+
+.DiffEditorGutter {
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  font-family: monospace;
+  overflow: hidden;
+  padding: 0 8px 0 12px;
+  text-align: right;
+  user-select: none;
+}
+
+.DiffEditorLineNumber {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
+}
+
+.DiffEditorRows {
+  contain: strict;
+  flex: 1;
+  font-family: monospace;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.DiffEditor .EditorRow {
+  box-sizing: border-box;
+  height: var(--ItemHeight);
+  line-height: var(--ItemHeight);
+  white-space: pre;
 }
 
 .ImageContent {
@@ -35,11 +87,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorContentLeft {
-  width: var(--LeftWidth);
+  ${layout === 'vertical' ? 'height: var(--LeftWidth);' : 'width: var(--LeftWidth);'}
 }
 
 .DiffEditorContentRight {
-  width: var(--RightWidth);
+  ${layout === 'vertical' ? 'height: var(--RightWidth);' : 'width: var(--RightWidth);'}
 }
 
 .DiffEditorError {
@@ -58,9 +110,17 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .Sash {
-  cursor: col-resize;
   flex-shrink: 0;
+}
+
+.SashVertical {
+  cursor: col-resize;
   width: ${getSashWidth()}px;
+}
+
+.SashHorizontal {
+  cursor: row-resize;
+  height: ${getSashWidth()}px;
 }
 `
   return [ViewletCommand.SetCss, id, css]

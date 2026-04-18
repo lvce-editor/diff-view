@@ -15,6 +15,8 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
+  layout,
+  lineNumbers,
   renderModeLeft,
   renderModeRight,
   uriLeft,
@@ -27,26 +29,31 @@ export const getDiffEditorVirtualDom = ({
   | 'errorLeftStack'
   | 'errorRightMessage'
   | 'errorRightStack'
+  | 'lineNumbers'
+  | 'layout'
   | 'renderModeLeft'
   | 'renderModeRight'
   | 'uriLeft'
   | 'uriRight'
 >): readonly VirtualDomNode[] => {
+  const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
+  const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
+  const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
   const dom: readonly VirtualDomNode[] = [
     {
       childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack)),
+    ...(renderModeLeft === 'image' ? getImageLeftDom(uriLeft) : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers)),
     {
       childCount: 0,
-      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      className: `${ClassNames.Sash} ${sashLayoutClass}`,
       name: 'sash',
       onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight, errorRightMessage, errorRightStack)),
+    ...(renderModeRight === 'image' ? getImageRightDom(uriRight) : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers)),
   ]
   return dom
 }

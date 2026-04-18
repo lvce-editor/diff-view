@@ -1,31 +1,10 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorDom } from '../GetErrorDom/GetErrorDom.ts'
+import { getLineNumbersDom } from '../GetLineNumbersDom/GetLineNumbersDom.ts'
 import { getRowsDom } from '../GetRowsDom/GetRowsDom.ts'
 import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
-
-const getLineNumberDom = (lineNumber: number): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
-      type: VirtualDomElements.Div,
-    },
-    text(String(lineNumber)),
-  ]
-}
-
-const getLineNumbersDom = (startLineNumber: number, lineCount: number): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: lineCount,
-      className: ClassNames.DiffEditorGutter,
-      type: VirtualDomElements.Div,
-    },
-    ...Array.from({ length: lineCount }, (_, index) => getLineNumberDom(startLineNumber + index)).flat(),
-  ]
-}
 
 export const getContentDom = (
   contentClassName: string,

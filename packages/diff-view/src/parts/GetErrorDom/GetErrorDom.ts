@@ -1,6 +1,7 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getErrorStackDom } from '../GetErrorStackDom/GetErrorStackDom.ts'
 
 export const getErrorDom = (contentClassName: string, errorMessage: string, errorStack: string): readonly VirtualDomNode[] => {
   const childCount = errorStack ? 2 : 1
@@ -21,15 +22,6 @@ export const getErrorDom = (contentClassName: string, errorMessage: string, erro
       type: VirtualDomElements.Div,
     },
     text(errorMessage),
-    ...(errorStack
-      ? ([
-          {
-            childCount: 1,
-            className: ClassNames.DiffEditorErrorStack,
-            type: VirtualDomElements.Div,
-          },
-          text(errorStack),
-        ] as const)
-      : []),
+    ...getErrorStackDom(errorStack),
   ]
 }

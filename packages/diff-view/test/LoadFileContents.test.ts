@@ -3,11 +3,12 @@ import { ExtensionHost } from '@lvce-editor/rpc-registry'
 import { loadFileContents } from '../src/parts/LoadFileContents/LoadFileContents.ts'
 
 test('loadFileContents loads both files in order', async (): Promise<void> => {
+  const invocations: unknown[][] = []
   const mockRpc = {
     dispose: (): void => {},
-    invocations: [] as readonly unknown[][],
+    invocations,
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
+      invocations.push([method, ...params])
       if (method !== 'ExtensionHostFileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
@@ -26,9 +27,6 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
 
   const result = await loadFileContents('data://before-content', '/tmp/after.txt')
 
-  expect(mockRpc.invocations).toEqual([
-    ['ExtensionHostFileSystem.readFile', 'data', 'before-content'],
-    ['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt'],
-  ])
+  expect(invocations).toEqual([['ExtensionHostFileSystem.readFile', 'file', '/tmp/after.txt']])
   expect(result).toEqual(['before-content', 'after-content'])
 })

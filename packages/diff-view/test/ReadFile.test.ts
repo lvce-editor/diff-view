@@ -4,12 +4,12 @@ import { readFile } from '../src/parts/ReadFile/ReadFile.ts'
 
 test('readFile returns empty content for untitled uri', async (): Promise<void> => {
   const mockRpc = {
+    dispose: (): void => {},
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
       mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
       throw new Error('should not invoke rpc')
     },
-    dispose: (): void => {},
     set: (): void => {},
   }
   ExtensionHost.set(mockRpc as any)
@@ -22,12 +22,12 @@ test('readFile returns empty content for untitled uri', async (): Promise<void> 
 
 test('readFile returns inline content for data uri', async (): Promise<void> => {
   const mockRpc = {
+    dispose: (): void => {},
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
       mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
       throw new Error(`unexpected method: ${method} ${params.join(' ')}`)
     },
-    dispose: (): void => {},
     set: (): void => {},
   }
   ExtensionHost.set(mockRpc as any)
@@ -40,15 +40,16 @@ test('readFile returns inline content for data uri', async (): Promise<void> => 
 
 test('readFile reads file content through file system worker', async (): Promise<void> => {
   const extensionHostRpc = {
+    dispose: (): void => {},
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
       extensionHostRpc.invocations = [...extensionHostRpc.invocations, [method, ...params]]
       throw new Error(`unexpected method: ${method}`)
     },
-    dispose: (): void => {},
     set: (): void => {},
   }
   const fileSystemWorkerRpc = {
+    dispose: (): void => {},
     invocations: [] as readonly unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
       fileSystemWorkerRpc.invocations = [...fileSystemWorkerRpc.invocations, [method, ...params]]
@@ -61,7 +62,6 @@ test('readFile reads file content through file system worker', async (): Promise
       }
       return 'after-content'
     },
-    dispose: (): void => {},
     set: (): void => {},
   }
   ExtensionHost.set(extensionHostRpc as any)

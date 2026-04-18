@@ -54,6 +54,7 @@ export const getDiffEditorVirtualDom = ({
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     ...(renderModeLeft === 'image'

@@ -69,7 +69,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeLeft === 'image'
       ? getImageLeftDom(uriLeft)
-      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCount, minLineY, maxLineY, inlineChanges)),
+      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -79,7 +79,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeRight === 'image'
       ? getImageRightDom(uriRight)
-      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCount, minLineY, maxLineY, inlineChanges)),
+      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCountRight, minLineY, maxLineY, inlineChanges)),
     ...getScrollBarDom(),
   ]
   return dom

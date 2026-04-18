@@ -232,6 +232,7 @@ test('loadContent sets image render mode when a side has an image extension', as
 })
 
 test('loadContent expands total line count for inline mode when replacements split into deletion and insertion rows', async (): Promise<void> => {
+  const diffWorkerInvocations: unknown[][] = []
   const fileSystemWorkerRpc = {
     dispose: (): void => {},
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
@@ -249,6 +250,27 @@ test('loadContent expands total line count for inline mode when replacements spl
     },
     set: (): void => {},
   }
+  const diffWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
+      diffWorkerInvocations.push([method, ...params])
+      if (method !== 'Diff.diffInline') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      expect(params).toEqual([
+        ['same', 'before', 'shared'],
+        ['same', 'after', 'shared'],
+      ])
+      return [
+        { leftIndex: 0, rightIndex: 0, type: 0 },
+        { leftIndex: 1, rightIndex: 1, type: 2 },
+        { leftIndex: 1, rightIndex: 1, type: 1 },
+        { leftIndex: 2, rightIndex: 2, type: 0 },
+      ]
+    },
+    set: (): void => {},
+  }
+  DiffWorker.set(diffWorkerRpc as any)
   FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {
@@ -262,6 +284,7 @@ test('loadContent expands total line count for inline mode when replacements spl
 
   const result = await loadContent(state, { minLineY: 0 })
 
+  expect(diffWorkerInvocations).toEqual([['Diff.diffInline', ['same', 'before', 'shared'], ['same', 'after', 'shared']]])
   expect(result).toMatchObject({
     contentLeft: 'same\nbefore\nshared',
     contentRight: 'same\nafter\nshared',

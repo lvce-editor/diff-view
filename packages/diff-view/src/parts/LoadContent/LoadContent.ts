@@ -17,22 +17,16 @@ const getDisplayedContent = (content: string, errorMessage: string, errorStack: 
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
   const { height, itemHeight, knownImageExtensions, minimumSliderSize, uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
-<<<<<<< HEAD
   const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
   const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
   const { content: contentRight, errorMessage: errorRightMessage, errorStack: errorRightStack } = rightResult
-  const minLineY = getMinLineY(savedState)
-  const total = Math.max(
-    getLineCount(getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)),
-    getLineCount(getDisplayedContent(contentRight, errorRightMessage, errorRightStack)),
-  )
-=======
-  const [contentLeft, contentRight] = await loadFileContents(uriLeft, uriRight)
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
-  const total = Math.max(renderModeLeft === 'image' ? 1 : getLineCount(contentLeft), renderModeRight === 'image' ? 1 : getLineCount(contentRight))
->>>>>>> origin/main
+  const total = Math.max(
+    renderModeLeft === 'image' ? 1 : getLineCount(getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)),
+    renderModeRight === 'image' ? 1 : getLineCount(getDisplayedContent(contentRight, errorRightMessage, errorRightStack)),
+  )
   const contentHeight = total * itemHeight
   const numberOfVisibleItems = getNumberOfVisibleItems(height, itemHeight)
   const maxLineY = Math.min(minLineY + numberOfVisibleItems, total)

@@ -2,6 +2,8 @@ import type { DiffViewState as DiffViewState } from '../DiffViewState/DiffViewSt
 
 export const createDefaultState = (): DiffViewState => ({
   assetDir: '',
+  contentLeft: '',
+  contentRight: '',
   deltaY: 0,
   finalDeltaY: 0,
   focus: 0,
@@ -35,6 +37,8 @@ export const createDefaultState = (): DiffViewState => ({
   scrollBarHeight: 0,
   splitButtonEnabled: false,
   uri: '',
+  uriLeft: '',
+  uriRight: '',
   viewMode: 1,
   width: 100,
   workspacePath: '',

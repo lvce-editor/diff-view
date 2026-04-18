@@ -1,5 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 
@@ -7,7 +8,7 @@ export const getDiffEditorVirtualDom = (contentLeft: string, contentRight: strin
   const dom: readonly VirtualDomNode[] = [
     {
       childCount: 2,
-      className: 'Viewlet DiffEditor',
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
     ...getContentLeftDom(contentLeft),

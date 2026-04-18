@@ -47,5 +47,18 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       name: DomEventListenersFunctions.HandleClickAction,
       params: ['handleActionClick', EventExpression.TargetName],
     },
+    {
+      name: DomEventListenersFunctions.HandleSashPointerDown,
+      params: ['handleSashPointerDown', EventExpression.ClientX],
+      trackPointerEvents: [DomEventListenersFunctions.HandleSashPointerMove, DomEventListenersFunctions.HandleSashPointerUp],
+    },
+    {
+      name: DomEventListenersFunctions.HandleSashPointerMove,
+      params: ['handleSashPointerMove', EventExpression.ClientX],
+    },
+    {
+      name: DomEventListenersFunctions.HandleSashPointerUp,
+      params: ['handleSashPointerUp', EventExpression.ClientX],
+    },
   ]
 }

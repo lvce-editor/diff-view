@@ -13,14 +13,18 @@ export interface DiffViewState {
   readonly initial: boolean
   readonly inputSource: number
   readonly inputValue: string
+  readonly isResizing: boolean
   readonly isVisible: boolean
   readonly itemHeight: number
+  readonly leftWidth: number
   readonly maxInputLines: number
   readonly maxLineY: number
   readonly minimumSliderSize: number
   readonly minLineY: number
   readonly platform: number
   readonly providerId: string
+  readonly resizeOffsetX: number
+  readonly rightWidth: number
   readonly root: string
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number

@@ -8,7 +8,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -41,6 +41,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       childCount: 0,
       text: 'second-before',
       type: 12,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      name: 'sash',
+      onPointerDown: 11,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,

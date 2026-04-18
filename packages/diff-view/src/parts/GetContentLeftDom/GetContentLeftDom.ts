@@ -3,6 +3,18 @@ import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
 export const getContentLeftDom = (contentLeft: string): readonly VirtualDomNode[] => {
+  const lines = contentLeft.split('\n')
+  const rows = lines.flatMap((line) => {
+    return [
+      {
+        childCount: 1,
+        className: ClassNames.EditorRow,
+        type: VirtualDomElements.Div,
+      },
+      text(line),
+    ]
+  })
+
   return [
     {
       childCount: 1,
@@ -10,10 +22,10 @@ export const getContentLeftDom = (contentLeft: string): readonly VirtualDomNode[
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: lines.length,
       className: ClassNames.DiffEditorContentLeft,
       type: VirtualDomElements.Div,
     },
-    text(contentLeft),
+    ...rows,
   ]
 }

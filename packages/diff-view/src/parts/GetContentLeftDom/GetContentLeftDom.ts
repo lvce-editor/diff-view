@@ -1,19 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getRowsDom } from '../GetRowsDom/GetRowsDom.ts'
 
 export const getContentLeftDom = (contentLeft: string): readonly VirtualDomNode[] => {
   const lines = contentLeft.split('\n')
-  const rows = lines.flatMap((line) => {
-    return [
-      {
-        childCount: 1,
-        className: ClassNames.EditorRow,
-        type: VirtualDomElements.Div,
-      },
-      text(line),
-    ]
-  })
+  const rows = getRowsDom(lines)
 
   return [
     {

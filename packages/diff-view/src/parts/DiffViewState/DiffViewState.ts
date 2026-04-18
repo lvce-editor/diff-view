@@ -47,6 +47,8 @@ export interface DiffViewState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly totalLineCount: number
+  readonly totalLineCountLeft: number
+  readonly totalLineCountRight: number
   readonly uri: string
   readonly uriLeft: string
   readonly uriRight: string

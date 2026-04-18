@@ -25,6 +25,8 @@ export const getDiffEditorVirtualDom = ({
   renderModeLeft,
   renderModeRight,
   totalLineCount,
+  totalLineCountLeft,
+  totalLineCountRight,
   uriLeft,
   uriRight,
 }: Pick<
@@ -40,11 +42,13 @@ export const getDiffEditorVirtualDom = ({
   | 'layout'
   | 'renderModeLeft'
   | 'renderModeRight'
+  | 'totalLineCount'
+  | 'totalLineCountLeft'
+  | 'totalLineCountRight'
   | 'uriLeft'
   | 'uriRight'
   | 'maxLineY'
   | 'minLineY'
-  | 'totalLineCount'
 >): readonly VirtualDomNode[] => {
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
@@ -58,11 +62,12 @@ export const getDiffEditorVirtualDom = ({
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     ...(renderModeLeft === 'image'
       ? getImageLeftDom(uriLeft)
-      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
+      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -72,7 +77,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeRight === 'image'
       ? getImageRightDom(uriRight)
-      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
+      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCountRight, minLineY, maxLineY)),
     ...getScrollBarDom(),
   ]
   return dom

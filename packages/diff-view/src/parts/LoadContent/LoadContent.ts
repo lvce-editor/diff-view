@@ -15,6 +15,7 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
+<<<<<<< HEAD
   const totalLineCount = getTotalLineCount(
     diffMode,
     contentLeft,
@@ -26,6 +27,13 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     renderModeLeft,
     renderModeRight,
   )
+=======
+  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
+  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
+  const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
+  const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
+  const totalLineCount = Math.max(totalLineCountLeft, totalLineCountRight)
+>>>>>>> origin/main
   const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight)
   return {
     ...state,
@@ -39,6 +47,8 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     renderModeLeft,
     renderModeRight,
     totalLineCount,
+    totalLineCountLeft,
+    totalLineCountRight,
     uriLeft,
     uriRight,
     ...scrollState,

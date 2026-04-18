@@ -71,6 +71,8 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     scrollBarActive: false,
     scrollBarHeight: 60,
     totalLineCount: 2,
+    totalLineCountLeft: 1,
+    totalLineCountRight: 2,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/after.txt',
   })
@@ -127,6 +129,8 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
     minLineY: 0,
     scrollBarActive: true,
     scrollBarHeight: 30,
+    totalLineCountLeft: 1,
+    totalLineCountRight: 4,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/missing.txt',
   })
@@ -180,6 +184,8 @@ test('loadContent sets image render mode when a side has an image extension', as
     renderModeRight: 'text',
     scrollBarHeight: 60,
     totalLineCount: 2,
+    totalLineCountLeft: 1,
+    totalLineCountRight: 2,
     uriLeft: '/tmp/before.png',
     uriRight: '/tmp/after.txt',
   })

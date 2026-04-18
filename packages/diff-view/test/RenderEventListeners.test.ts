@@ -7,6 +7,11 @@ test('renderEventListeners registers tracked sash pointer listeners', (): void =
   const result = renderEventListeners()
 
   expect(result).toContainEqual({
+    name: DomEventListenerFunctions.HandleWheel,
+    params: ['handleWheel', EventExpression.DeltaMode, EventExpression.DeltaY],
+    passive: true,
+  })
+  expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleSashPointerDown,
     params: ['handleSashPointerDown', EventExpression.ClientX, EventExpression.ClientY],
     trackPointerEvents: [DomEventListenerFunctions.HandleSashPointerMove, DomEventListenerFunctions.HandleSashPointerUp],

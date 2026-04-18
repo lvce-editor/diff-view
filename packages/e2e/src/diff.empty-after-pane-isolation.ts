@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.empty-after-pane-isolation'
 
-export const skip = 1
+// export const skip = 1
 
 export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
   const tmpDir = await FileSystem.getTmpDir()

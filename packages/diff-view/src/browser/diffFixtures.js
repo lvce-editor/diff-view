@@ -160,6 +160,26 @@ const fixtures = {
       rows: [changedRow([{ text: 'function ' }, { text: 'loadUserProfile' }, { text: 'Car', changed: true }, { text: 'd', changed: true }, { text: '() {}' }])],
     },
   },
+  'medium-inserted-block': {
+    hero: 'Medium Inserted Block',
+    before: {
+      type: 'text',
+      rows: [row('function renderDashboard() {'), row('  renderHeader()'), row('  renderFooter()'), row('}')],
+    },
+    after: {
+      type: 'text',
+      rows: [
+        row('function renderDashboard() {'),
+        row('  renderHeader()'),
+        row('  const stats = loadStats()', 'inserted'),
+        row('  renderSummary(stats)', 'inserted'),
+        row('  renderChart(stats)', 'inserted'),
+        row('  renderTable(stats.items)', 'inserted'),
+        row('  renderFooter()'),
+        row('}'),
+      ],
+    },
+  },
   'mixed-chunks': {
     hero: 'Mixed Chunks',
     before: {

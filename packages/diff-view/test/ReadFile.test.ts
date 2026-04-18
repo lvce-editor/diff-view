@@ -9,8 +9,8 @@ test('readFile returns empty content for untitled uri', async (): Promise<void> 
       mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
       throw new Error('should not invoke rpc')
     },
-    set: (): void => {},
     dispose: (): void => {},
+    set: (): void => {},
   }
   ExtensionHost.set(mockRpc as any)
 
@@ -27,8 +27,8 @@ test('readFile returns inline content for data uri', async (): Promise<void> => 
       mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
       throw new Error(`unexpected method: ${method} ${params.join(' ')}`)
     },
-    set: (): void => {},
     dispose: (): void => {},
+    set: (): void => {},
   }
   ExtensionHost.set(mockRpc as any)
 
@@ -45,8 +45,8 @@ test('readFile reads file content through file system worker', async (): Promise
       extensionHostRpc.invocations = [...extensionHostRpc.invocations, [method, ...params]]
       throw new Error(`unexpected method: ${method}`)
     },
-    set: (): void => {},
     dispose: (): void => {},
+    set: (): void => {},
   }
   const fileSystemWorkerRpc = {
     invocations: [] as readonly unknown[][],
@@ -55,10 +55,14 @@ test('readFile reads file content through file system worker', async (): Promise
       if (method !== 'FileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
+      const [uri] = params
+      if (uri !== 'file:///tmp/after.txt') {
+        throw new Error(`unexpected params: ${String(uri)}`)
+      }
       return 'after-content'
     },
-    set: (): void => {},
     dispose: (): void => {},
+    set: (): void => {},
   }
   ExtensionHost.set(extensionHostRpc as any)
   FileSystemWorker.set(fileSystemWorkerRpc as any)
@@ -67,5 +71,5 @@ test('readFile reads file content through file system worker', async (): Promise
 
   expect(result).toBe('after-content')
   expect(extensionHostRpc.invocations).toEqual([])
-  expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
+  expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
 })

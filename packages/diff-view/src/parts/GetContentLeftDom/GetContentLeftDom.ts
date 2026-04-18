@@ -1,4 +1,5 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
@@ -10,6 +11,7 @@ export const getContentLeftDom = (
   totalLineCount = contentLeft ? contentLeft.split('\n').length : 1,
   minLineY = 0,
   maxLineY = totalLineCount,
+  inlineChanges: readonly InlineDiffChange[] = [],
 ): readonly VirtualDomNode[] => {
-  return getContentDom(ClassNames.DiffEditorContentLeft, contentLeft, errorMessage, errorStack, lineNumbers, totalLineCount, minLineY, maxLineY)
+  return getContentDom(ClassNames.DiffEditorContentLeft, contentLeft, errorMessage, errorStack, lineNumbers, totalLineCount, minLineY, maxLineY, inlineChanges, 'left')
 }

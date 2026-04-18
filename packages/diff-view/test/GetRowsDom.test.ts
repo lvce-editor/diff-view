@@ -29,3 +29,30 @@ test('getRowsDom renders each line inside an EditorRow', (): void => {
     },
   ])
 })
+
+test('getRowsDom applies per-row diff classes when provided', (): void => {
+  const result = getRowsDom(['deleted-line', 'added-line'], [ClassNames.EditorRowDeletion, ClassNames.EditorRowInsertion])
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.EditorRowDeletion,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'deleted-line',
+      type: 12,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRowInsertion,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'added-line',
+      type: 12,
+    },
+  ])
+})

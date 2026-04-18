@@ -16,6 +16,7 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
+  inlineChanges,
   layout,
   lineNumbers,
   maxLineY,
@@ -33,6 +34,7 @@ export const getDiffEditorVirtualDom = ({
   | 'errorLeftStack'
   | 'errorRightMessage'
   | 'errorRightStack'
+  | 'inlineChanges'
   | 'lineNumbers'
   | 'layout'
   | 'renderModeLeft'
@@ -54,7 +56,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeLeft === 'image'
       ? getImageLeftDom(uriLeft)
-      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
+      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCount, minLineY, maxLineY, inlineChanges)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -64,7 +66,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeRight === 'image'
       ? getImageRightDom(uriRight)
-      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCount, minLineY, maxLineY)),
+      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCount, minLineY, maxLineY, inlineChanges)),
     ...getScrollBarDom(),
   ]
   return dom

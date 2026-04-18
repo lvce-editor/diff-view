@@ -17,6 +17,7 @@ export const createDefaultState = (): DiffViewState => ({
   height: 100,
   id: 1,
   initial: false,
+  inlineChanges: [],
   inputSource: 0,
   inputValue: '',
   isResizing: false,

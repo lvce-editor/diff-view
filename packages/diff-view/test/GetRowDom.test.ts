@@ -19,3 +19,20 @@ test('getRowDom renders a single line inside an EditorRow', (): void => {
     },
   ])
 })
+
+test('getRowDom can render a styled diff row', (): void => {
+  const result = getRowDom('deleted-line', ClassNames.EditorRowDeletion)
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.EditorRowDeletion,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'deleted-line',
+      type: 12,
+    },
+  ])
+})

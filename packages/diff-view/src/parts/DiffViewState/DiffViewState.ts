@@ -1,3 +1,5 @@
+import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
+
 export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
 
@@ -18,6 +20,7 @@ export interface DiffViewState {
   readonly height: number
   readonly id: number
   readonly initial: boolean
+  readonly inlineChanges: readonly InlineDiffChange[]
   readonly inputSource: number
   readonly inputValue: string
   readonly isResizing: boolean

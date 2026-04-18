@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
+import { DiffWorker, ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
+  const diffWorkerInvocations: unknown[][] = []
   const extensionHostInvocations: unknown[][] = []
   const fileSystemWorkerInvocations: unknown[][] = []
   const extensionHostRpc = {
@@ -39,7 +40,24 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     },
     set: (): void => {},
   }
+  const diffWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
+      diffWorkerInvocations.push([method, ...params])
+      if (method !== 'Diff.diffInline') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      expect(params).toEqual([['before-content'], ['after-content', 'second-line']])
+      return [
+        { leftIndex: 0, rightIndex: 0, type: 2 },
+        { leftIndex: 0, rightIndex: 0, type: 1 },
+        { leftIndex: 0, rightIndex: 1, type: 1 },
+      ]
+    },
+    set: (): void => {},
+  }
   ExtensionHost.set(extensionHostRpc as any)
+  DiffWorker.set(diffWorkerRpc as any)
   FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {
@@ -52,6 +70,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 
   const result = await loadContent(state, { minLineY: 1 })
 
+  expect(diffWorkerInvocations).toEqual([['Diff.diffInline', ['before-content'], ['after-content', 'second-line']]])
   expect(extensionHostInvocations).toEqual([])
   expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
   expect(result).toMatchObject({
@@ -64,13 +83,18 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     errorRightStack: '',
     finalDeltaY: 0,
     initial: false,
-    maxLineY: 2,
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 2 },
+      { leftIndex: 0, rightIndex: 0, type: 1 },
+      { leftIndex: 0, rightIndex: 1, type: 1 },
+    ],
+    maxLineY: 3,
     minLineY: 0,
     renderModeLeft: 'text',
     renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
-    totalLineCount: 2,
+    totalLineCount: 3,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/after.txt',
   })
@@ -100,7 +124,15 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
     },
     set: (): void => {},
   }
+  const diffWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (): Promise<readonly unknown[]> => {
+      throw new Error('should not invoke diff worker when a pane fails to load')
+    },
+    set: (): void => {},
+  }
   ExtensionHost.set(extensionHostRpc as any)
+  DiffWorker.set(diffWorkerRpc as any)
   FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {
@@ -152,6 +184,14 @@ test('loadContent sets image render mode when a side has an image extension', as
     },
     set: (): void => {},
   }
+  const diffWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (): Promise<readonly unknown[]> => {
+      throw new Error('should not invoke diff worker for image panes')
+    },
+    set: (): void => {},
+  }
+  DiffWorker.set(diffWorkerRpc as any)
   FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {

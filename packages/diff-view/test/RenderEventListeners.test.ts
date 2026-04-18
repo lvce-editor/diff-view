@@ -12,6 +12,11 @@ test('renderEventListeners registers tracked sash pointer listeners', (): void =
     passive: true,
   })
   expect(result).toContainEqual({
+    name: DomEventListenerFunctions.HandleContextMenu,
+    params: ['handleContextMenu', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
+    preventDefault: true,
+  })
+  expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleSashPointerDown,
     params: ['handleSashPointerDown', EventExpression.ClientX, EventExpression.ClientY],
     trackPointerEvents: [DomEventListenerFunctions.HandleSashPointerMove, DomEventListenerFunctions.HandleSashPointerUp],

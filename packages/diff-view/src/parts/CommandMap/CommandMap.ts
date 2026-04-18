@@ -1,3 +1,4 @@
+import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
@@ -13,5 +14,6 @@ export const commandMap = {
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,
   'DiffView.saveState': saveState,
+  'DiffView.terminate': terminate,
   'Initialize.initialize': Initialize.initialize,
 }

@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getDiffEditorVirtualDom } from '../src/parts/GetDiffEditorVirtualDom/GetDiffEditorVirtualDom.ts'
 
 test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrappers', (): void => {
@@ -19,6 +20,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {
@@ -167,6 +169,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {
@@ -259,6 +262,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {
@@ -348,6 +352,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {
@@ -451,6 +456,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   expect(result[0]).toEqual({
     childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
+    onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,
   })
   expect(result[11]).toEqual({

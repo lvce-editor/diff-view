@@ -1,4 +1,5 @@
 export type RenderMode = 'text' | 'image'
+export type Layout = 'vertical' | 'horizontal'
 
 export interface DiffViewState {
   readonly assetDir: string
@@ -23,6 +24,7 @@ export interface DiffViewState {
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly knownImageExtensions: readonly string[]
+  readonly layout: Layout
   readonly leftWidth: number
   readonly maxInputLines: number
   readonly maxLineY: number
@@ -33,6 +35,7 @@ export interface DiffViewState {
   readonly renderModeLeft: RenderMode
   readonly renderModeRight: RenderMode
   readonly resizeOffsetX: number
+  readonly resizeOffsetY: number
   readonly rightWidth: number
   readonly root: string
   readonly scrollBarActive: boolean

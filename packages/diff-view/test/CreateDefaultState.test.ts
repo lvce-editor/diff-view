@@ -5,6 +5,7 @@ test('createDefaultState sets up image render defaults', (): void => {
   const result = createDefaultState()
 
   expect(result.knownImageExtensions).toEqual(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg', '.bmp', '.ico'])
+  expect(result.layout).toBe('horizontal')
   expect(result.renderModeLeft).toBe('text')
   expect(result.renderModeRight).toBe('text')
 })

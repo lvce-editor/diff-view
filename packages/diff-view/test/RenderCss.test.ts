@@ -25,6 +25,16 @@ test('renderCss renders left and right widths as css variables', (): void => {
 
 .DiffEditor {
   display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
+.DiffEditorVertical {
+  flex-direction: column;
 }
 
 .DiffEditorContent {
@@ -71,9 +81,112 @@ test('renderCss renders left and right widths as css variables', (): void => {
 }
 
 .Sash {
-  cursor: col-resize;
   flex-shrink: 0;
+}
+
+.SashVertical {
+  cursor: col-resize;
   width: 4px;
+}
+
+.SashHorizontal {
+  cursor: row-resize;
+  height: 4px;
+}
+`,
+  ])
+})
+
+test('renderCss renders stacked pane heights for vertical layout', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    id: 1,
+    layout: 'vertical' as const,
+    leftWidth: 120,
+    rightWidth: 176,
+  }
+
+  const result = renderCss(oldState, newState)
+
+  expect(result).toEqual([
+    ViewletCommand.SetCss,
+    1,
+    `
+:root {
+  --LeftWidth: 120px;
+  --RightWidth: 176px;
+}
+
+.DiffEditor {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
+.DiffEditorVertical {
+  flex-direction: column;
+}
+
+.DiffEditorContent {
+  contain: strict;
+  overflow: hidden;
+}
+
+.ImageContent {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: auto;
+}
+
+.ImageElement {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.DiffEditorContentLeft {
+  height: var(--LeftWidth);
+}
+
+.DiffEditorContentRight {
+  height: var(--RightWidth);
+}
+
+.DiffEditorError {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.DiffEditorErrorMessage {
+  font-weight: 600;
+}
+
+.DiffEditorErrorStack {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+.Sash {
+  flex-shrink: 0;
+}
+
+.SashVertical {
+  cursor: col-resize;
+  width: 4px;
+}
+
+.SashHorizontal {
+  cursor: row-resize;
+  height: 4px;
 }
 `,
   ])

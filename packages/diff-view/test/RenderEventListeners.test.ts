@@ -8,15 +8,15 @@ test('renderEventListeners registers tracked sash pointer listeners', (): void =
 
   expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleSashPointerDown,
-    params: ['handleSashPointerDown', EventExpression.ClientX],
+    params: ['handleSashPointerDown', EventExpression.ClientX, EventExpression.ClientY],
     trackPointerEvents: [DomEventListenerFunctions.HandleSashPointerMove, DomEventListenerFunctions.HandleSashPointerUp],
   })
   expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleSashPointerMove,
-    params: ['handleSashPointerMove', EventExpression.ClientX],
+    params: ['handleSashPointerMove', EventExpression.ClientX, EventExpression.ClientY],
   })
   expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleSashPointerUp,
-    params: ['handleSashPointerUp', EventExpression.ClientX],
+    params: ['handleSashPointerUp', EventExpression.ClientX, EventExpression.ClientY],
   })
 })

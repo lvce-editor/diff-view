@@ -1,9 +1,9 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
-import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getInlineDiffUris } from '../GetInlineDiffUris/GetInlineDiffUris.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getMinLineY } from '../GetMinLineY/GetMinLineY.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
+import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
 const getDisplayedContent = (content: string, errorMessage: string, errorStack: string): string => {

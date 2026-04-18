@@ -13,4 +13,3 @@ export const getContentRightDom = (
 ): readonly VirtualDomNode[] => {
   return getContentDom(ClassNames.DiffEditorContentRight, contentRight, errorMessage, errorStack, lineNumbers, totalLineCount, minLineY, maxLineY)
 }
-}

@@ -14,13 +14,7 @@ const clamp = (value: number, minimum: number, maximum: number): number => {
   return Math.min(Math.max(value, minimum), maximum)
 }
 
-export const getScrollState = (
-  height: number,
-  itemHeight: number,
-  totalLineCount: number,
-  minimumSliderSize: number,
-  deltaY: number,
-): ScrollState => {
+export const getScrollState = (height: number, itemHeight: number, totalLineCount: number, minimumSliderSize: number, deltaY: number): ScrollState => {
   const safeItemHeight = Math.max(itemHeight, 1)
   const safeTotalLineCount = Math.max(totalLineCount, 1)
   const contentHeight = safeTotalLineCount * safeItemHeight

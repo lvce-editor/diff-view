@@ -18,8 +18,11 @@ export const getDiffEditorVirtualDom = ({
   errorRightStack,
   layout,
   lineNumbers,
+  maxLineY,
+  minLineY,
   renderModeLeft,
   renderModeRight,
+  totalLineCount,
   uriLeft,
   uriRight,
 }: Pick<

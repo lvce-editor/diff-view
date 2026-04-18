@@ -18,13 +18,13 @@ test('scroll bar pointer handlers drag the shared scroll position', (): void => 
     y: 10,
   }
 
-  const downState = handleScrollBarPointerDown(state, 24.285714285714285)
+  const downState = handleScrollBarPointerDown(state, 170 / 7)
   const moveState = handleScrollBarPointerMove(downState, 60)
   const upState = handleScrollBarPointerUp(moveState, 60)
 
   expect(downState).toMatchObject({
     isScrollBarDragging: true,
-    scrollBarDragOffsetY: 5.7142857142857135,
+    scrollBarDragOffsetY: 40 / 7,
   })
   expect(moveState).toMatchObject({
     deltaY: 140,

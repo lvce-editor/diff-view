@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
 
 test('getContentRightDom renders each right line inside an EditorRow', (): void => {
-  const result = getContentRightDom('after-content\nsecond-line', 2, 0, 2)
+  const result = getContentRightDom('after-content\nsecond-line', '', '', true, 2, 0, 2)
 
   expect(result).toEqual([
     {
@@ -13,23 +13,13 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-=======
       childCount: 2,
       className: ClassNames.DiffEditorGutter,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -45,8 +35,13 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
     },
     text('2'),
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -60,15 +55,12 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-<<<<<<< HEAD
+    text('second-line'),
     {
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-=======
-    text('second-line'),
->>>>>>> origin/main
   ])
 })
 

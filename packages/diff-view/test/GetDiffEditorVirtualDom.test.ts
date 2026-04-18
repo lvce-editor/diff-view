@@ -5,27 +5,20 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { getDiffEditorVirtualDom } from '../src/parts/GetDiffEditorVirtualDom/GetDiffEditorVirtualDom.ts'
 
 test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrappers', (): void => {
-<<<<<<< HEAD
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'before-content\nsecond-before',
     contentRight: 'after-content\nsecond-after',
+    maxLineY: 2,
+    totalLineCount: 2,
     uriLeft: '/tmp/before.txt',
     uriRight: '/tmp/after.txt',
   })
-=======
-  const result = getDiffEditorVirtualDom('before-content\nsecond-before', 'after-content\nsecond-after', 'text', 'text', '/tmp/before.txt', '/tmp/after.txt', 0, 2, 2)
->>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
 
   expect(result).toEqual([
     {
-<<<<<<< HEAD
       childCount: 4,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
-=======
-      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -34,23 +27,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorContentLeft,
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-=======
       childCount: 2,
       className: ClassNames.DiffEditorGutter,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -66,8 +49,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     text('2'),
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -100,23 +88,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-=======
       childCount: 2,
       className: ClassNames.DiffEditorGutter,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -132,8 +110,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     text('2'),
     {
-      childCount: 2,
+      childCount: 4,
       className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -148,61 +131,13 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     text('second-after'),
-  ])
-})
-
-test('getDiffEditorVirtualDom omits line number gutters when disabled in state', (): void => {
-  const result = getDiffEditorVirtualDom({
-    ...createDefaultState(),
-    contentLeft: 'before-content',
-    contentRight: 'after-content',
-    lineNumbers: false,
-    uriLeft: '/tmp/before.txt',
-    uriRight: '/tmp/after.txt',
-  })
-
-  expect(result).toEqual([
     {
-      childCount: 3,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorContentLeft,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-      type: VirtualDomElements.Div,
-    },
-    text('before-content'),
-    {
-      childCount: 0,
-      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
-      name: 'sash',
-      onPointerDown: 11,
-      type: VirtualDomElements.Div,
-    },
-    {
-<<<<<<< HEAD
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
-=======
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
-<<<<<<< HEAD
       className: ClassNames.ScrollBar,
       type: VirtualDomElements.Div,
     },
@@ -213,8 +148,73 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       onPointerDown: 14,
       type: VirtualDomElements.Div,
     },
-=======
+  ])
+})
+
+test('getDiffEditorVirtualDom omits line number gutters when disabled in state', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'before-content',
+    contentRight: 'after-content',
+    lineNumbers: false,
+    maxLineY: 1,
+    totalLineCount: 1,
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result).toEqual([
+    {
+      childCount: 4,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 3,
+      className: ClassNames.DiffEditorContentLeft,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('before-content'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
+      name: 'sash',
+      onPointerDown: 11,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 3,
       className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -223,33 +223,42 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     text('after-content'),
->>>>>>> origin/main
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.ScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.ScrollBarThumb,
+      name: 'scrollBarThumb',
+      onPointerDown: 14,
+      type: VirtualDomElements.Div,
+    },
   ])
 })
 
 test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
-<<<<<<< HEAD
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'ignored-left-content',
     contentRight: 'after-content',
+    maxLineY: 1,
     renderModeLeft: 'image',
+    totalLineCount: 1,
     uriLeft: '/tmp/before.png',
     uriRight: '/tmp/after.txt',
   })
-=======
-  const result = getDiffEditorVirtualDom('ignored-left-content', 'after-content', 'image', 'text', '/tmp/before.png', '/tmp/after.txt', 0, 1, 1)
->>>>>>> bb00f9f225c6 (feat(diff-view): implement scroll bar functionality and improve rendering)
 
   expect(result).toEqual([
     {
-<<<<<<< HEAD
       childCount: 4,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor}`,
-=======
-      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
->>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
@@ -301,12 +310,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-<<<<<<< HEAD
-    {
-      childCount: 0,
-      text: 'after-content',
-      type: 12,
-    },
+    text('after-content'),
     {
       childCount: 0,
       className: ClassNames.DiffEditorSpacerBottom,
@@ -324,9 +328,6 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       onPointerDown: 14,
       type: VirtualDomElements.Div,
     },
-=======
-    text('after-content'),
->>>>>>> origin/main
   ])
 })
 
@@ -337,13 +338,15 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     contentRight: '',
     errorRightMessage: 'file not found',
     errorRightStack: 'Error: file not found\n    at read missing file',
+    maxLineY: 1,
+    totalLineCount: 1,
     uriLeft: '/tmp/before.txt',
     uriRight: '/tmp/missing.txt',
   })
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       type: VirtualDomElements.Div,
     },
@@ -369,8 +372,13 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     text('1'),
     {
-      childCount: 1,
+      childCount: 3,
       className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -379,6 +387,11 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('before-content'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -408,6 +421,18 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('Error: file not found\n    at read missing file'),
+    {
+      childCount: 1,
+      className: ClassNames.ScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.ScrollBarThumb,
+      name: 'scrollBarThumb',
+      onPointerDown: 14,
+      type: VirtualDomElements.Div,
+    },
   ])
 })
 
@@ -417,16 +442,18 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
     contentLeft: 'before-content',
     contentRight: 'after-content',
     layout: 'vertical',
+    maxLineY: 1,
+    totalLineCount: 1,
     uriLeft: '/tmp/before.txt',
     uriRight: '/tmp/after.txt',
   })
 
   expect(result[0]).toEqual({
-    childCount: 3,
+    childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
     type: VirtualDomElements.Div,
   })
-  expect(result[9]).toEqual({
+  expect(result[11]).toEqual({
     childCount: 0,
     className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
     name: 'sash',

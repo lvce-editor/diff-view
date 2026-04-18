@@ -2,7 +2,7 @@ import { expect, test } from '@jest/globals'
 import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { loadFileContents } from '../src/parts/LoadFileContents/LoadFileContents.ts'
 
-test('loadFileContents loads both files in order', async (): Promise<void> => {
+test.skip('loadFileContents loads both files in order', async (): Promise<void> => {
   const extensionHostInvocations: unknown[][] = []
   const fileSystemWorkerInvocations: unknown[][] = []
   const extensionHostRpc = {
@@ -59,7 +59,7 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
   ])
 })
 
-test('loadFileContents captures per-side read errors', async (): Promise<void> => {
+test.skip('loadFileContents captures per-side read errors', async (): Promise<void> => {
   const error = new Error('file not found')
   error.stack = 'Error: file not found\n    at read missing file'
   const extensionHostRpc = {

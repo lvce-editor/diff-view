@@ -1,5 +1,5 @@
 import { LazyTransferMessagePortRpcParent } from '@lvce-editor/rpc'
-import { RendererWorker } from '@lvce-editor/rpc-registry'
+import { DiffWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 
 export const initializeDiffWorker = async (): Promise<void> => {
   const rpc = await LazyTransferMessagePortRpcParent.create({

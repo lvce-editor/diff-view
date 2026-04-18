@@ -8,8 +8,8 @@ export const initialize = async (): Promise<void> => {
   await Promise.all([
     createExtensionHostRpc(),
     createTextMeasurementWorkerRpc(),
+    initializeDiffWorker(),
     initializeExtensionManagementWorker(),
     initializeFileSystemWorker(),
-    initializeDiffWorker(),
   ])
 }

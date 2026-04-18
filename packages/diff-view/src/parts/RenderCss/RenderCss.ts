@@ -37,8 +37,18 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   flex-direction: column;
 }
 
+.InlineDiffEditor {
+  flex-direction: column;
+}
+
 .DiffEditorContent {
   contain: strict;
+  height: 100%;
+  overflow: hidden;
+}
+
+.InlineDiffEditorContent {
+  display: flex;
   height: 100%;
   overflow: hidden;
 }
@@ -94,6 +104,20 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .EditorRow {
   min-height: var(--EditorRowHeight);
+}
+
+.InlineDiffEditor .EditorRow,
+.InlineDiffEditor .Insertion,
+.InlineDiffEditor .Deletion {
+  padding: 0 8px;
+}
+
+.Insertion {
+  background: rgba(46, 160, 67, 0.18);
+}
+
+.Deletion {
+  background: rgba(248, 81, 73, 0.18);
 }
 
 .ImageElement {

@@ -352,6 +352,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {
@@ -497,6 +498,112 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('Error: file not found\n    at read missing file'),
+    {
+      childCount: 1,
+      className: ClassNames.ScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.ScrollBarThumb,
+      name: 'scrollBarThumb',
+      onPointerDown: 14,
+      type: VirtualDomElements.Div,
+    },
+  ])
+})
+
+test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'same\nbefore\nshared',
+    contentRight: 'same\nafter\nshared',
+    diffMode: 'inline',
+    maxLineY: 4,
+    totalLineCount: 4,
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result).toEqual([
+    {
+      childCount: 2,
+      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 2,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.InlineDiffEditorContent}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 4,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1 1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('2 -'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('- 2'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('3 3'),
+    {
+      childCount: 6,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('  same'),
+    {
+      childCount: 1,
+      className: ClassNames.EditorRowDeletion,
+      type: VirtualDomElements.Div,
+    },
+    text('- before'),
+    {
+      childCount: 1,
+      className: ClassNames.EditorRowInsertion,
+      type: VirtualDomElements.Div,
+    },
+    text('+ after'),
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('  shared'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 1,
       className: ClassNames.ScrollBar,

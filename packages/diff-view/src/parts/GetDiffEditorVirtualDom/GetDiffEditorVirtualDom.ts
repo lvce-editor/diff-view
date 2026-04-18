@@ -7,11 +7,13 @@ import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
+import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
 export const getDiffEditorVirtualDom = ({
   contentLeft,
   contentRight,
+  diffMode,
   errorLeftMessage,
   errorLeftStack,
   errorRightMessage,
@@ -31,6 +33,7 @@ export const getDiffEditorVirtualDom = ({
   DiffViewState,
   | 'contentLeft'
   | 'contentRight'
+  | 'diffMode'
   | 'errorLeftMessage'
   | 'errorLeftStack'
   | 'errorRightMessage'
@@ -47,6 +50,11 @@ export const getDiffEditorVirtualDom = ({
   | 'maxLineY'
   | 'minLineY'
 >): readonly VirtualDomNode[] => {
+  const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
+  if (canRenderInline) {
+    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY)
+  }
+
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical

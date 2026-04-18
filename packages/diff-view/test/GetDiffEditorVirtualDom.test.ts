@@ -645,3 +645,34 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
     type: VirtualDomElements.Div,
   })
 })
+
+test('getDiffEditorVirtualDom renders diff-worker rows with deletion and insertion styling', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'shared-line\ndeleted-line',
+    contentRight: 'shared-line\nadded-line',
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 0 },
+      { leftIndex: 1, rightIndex: 1, type: 2 },
+      { leftIndex: 1, rightIndex: 1, type: 1 },
+    ],
+    maxLineY: 3,
+    totalLineCount: 3,
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.txt',
+  })
+
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: ClassNames.EditorRowDeletion,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual(text('deleted-line'))
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: ClassNames.EditorRowInsertion,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual(text('added-line'))
+  expect(result.filter((node) => 'text' in node && node.text === '')).toHaveLength(2)
+})

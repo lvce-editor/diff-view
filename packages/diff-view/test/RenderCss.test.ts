@@ -31,6 +31,8 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('--ScrollBarHeight: 40px;')
   expect(result[2]).toContain('.DiffEditorHorizontal {')
   expect(result[2]).toContain('.DiffEditorVertical {')
+  expect(result[2]).toContain('.DiffEditor .Deletion {')
+  expect(result[2]).toContain('.DiffEditor .Insertion {')
   expect(result[2]).toContain('.DiffEditorSpacerTop {')
   expect(result[2]).toContain('.ScrollBarThumb {')
 })

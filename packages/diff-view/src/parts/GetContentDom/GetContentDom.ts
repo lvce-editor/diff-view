@@ -1,10 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorDom } from '../GetErrorDom/GetErrorDom.ts'
 import { getLineNumbersDom } from '../GetLineNumbersDom/GetLineNumbersDom.ts'
 import { getRowsDom } from '../GetRowsDom/GetRowsDom.ts'
-import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
+import { getVisibleInlineDiffRows } from '../GetVisibleInlineDiffRows/GetVisibleInlineDiffRows.ts'
 
 const getContentDomWithLineNumbers = (
   contentClassName: string,
@@ -79,12 +80,17 @@ export const getContentDom = (
   totalLineCount: number,
   minLineY: number,
   maxLineY: number,
+  inlineChanges: readonly InlineDiffChange[],
+  side: 'left' | 'right',
 ): readonly VirtualDomNode[] => {
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }
-  const lines = getVisibleRows(content, totalLineCount, minLineY, maxLineY)
-  const rows = getRowsDom(lines)
+  const lines = getVisibleInlineDiffRows(content, totalLineCount, inlineChanges, minLineY, maxLineY, side)
+  const rows = getRowsDom(
+    lines.map((line) => line.text),
+    lines.map((line) => line.className),
+  )
   const startLineNumber = minLineY + 1
   const rowsChildCount = lines.length + 2
 

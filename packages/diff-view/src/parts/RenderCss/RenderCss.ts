@@ -94,6 +94,16 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   white-space: pre;
 }
 
+.DiffEditor .Deletion {
+  background: rgba(255, 0, 0, 0.16);
+  color: #ffb3b3;
+}
+
+.DiffEditor .Insertion {
+  background: rgba(0, 128, 0, 0.18);
+  color: #b7f7c0;
+}
+
 .ImageContent {
   align-items: center;
   display: flex;

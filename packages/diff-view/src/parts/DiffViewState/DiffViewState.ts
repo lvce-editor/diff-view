@@ -11,15 +11,6 @@ export interface DiffViewState {
   readonly height: number
   readonly id: number
   readonly initial: boolean
-  readonly inputBoxHeight: number
-  readonly inputBoxMaxHeight: number
-  readonly inputFontFamily: string
-  readonly inputFontSize: number
-  readonly inputFontWeight: number
-  readonly inputLetterSpacing: number
-  readonly inputLineHeight: number
-  readonly inputPadding: number
-  readonly inputPlaceholder: string
   readonly inputSource: number
   readonly inputValue: string
   readonly isVisible: boolean

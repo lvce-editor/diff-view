@@ -94,13 +94,9 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
-<<<<<<< HEAD
     totalLineCount: 3,
-=======
-    totalLineCount: 2,
     totalLineCountLeft: 1,
     totalLineCountRight: 2,
->>>>>>> origin/main
     uriLeft: 'data://before-content',
     uriRight: '/tmp/after.txt',
   })

@@ -5,11 +5,15 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { getDiffEditorVirtualDom } from '../src/parts/GetDiffEditorVirtualDom/GetDiffEditorVirtualDom.ts'
 
 test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrappers', (): void => {
+<<<<<<< HEAD
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'before-content\nsecond-before',
     contentRight: 'after-content\nsecond-after',
   })
+=======
+  const result = getDiffEditorVirtualDom('before-content\nsecond-before', 'after-content\nsecond-after', 'text', 'text', '/tmp/before.txt', '/tmp/after.txt')
+>>>>>>> origin/main
 
   expect(result).toEqual([
     {
@@ -87,6 +91,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
   ])
 })
 
+<<<<<<< HEAD
 test('getDiffEditorVirtualDom renders pane errors without crashing', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
@@ -95,6 +100,10 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     errorRightMessage: 'file not found',
     errorRightStack: 'Error: file not found\n    at read missing file',
   })
+=======
+test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
+  const result = getDiffEditorVirtualDom('ignored-left-content', 'after-content', 'image', 'text', '/tmp/before.png', '/tmp/after.txt')
+>>>>>>> origin/main
 
   expect(result).toEqual([
     {
@@ -114,10 +123,23 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     {
       childCount: 1,
+<<<<<<< HEAD
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('before-content'),
+=======
+      className: ClassNames.ImageContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      alt: '/tmp/before.png',
+      childCount: 0,
+      className: ClassNames.ImageElement,
+      src: 'file:///tmp/before.png',
+      type: VirtualDomElements.Img,
+    },
+>>>>>>> origin/main
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -131,12 +153,18 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< HEAD
       childCount: 2,
       className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+=======
+      childCount: 1,
+      className: ClassNames.DiffEditorContentRight,
+>>>>>>> origin/main
       type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
+<<<<<<< HEAD
       className: ClassNames.DiffEditorErrorMessage,
       type: VirtualDomElements.Div,
     },
@@ -147,5 +175,15 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('Error: file not found\n    at read missing file'),
+=======
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      text: 'after-content',
+      type: 12,
+    },
+>>>>>>> origin/main
   ])
 })

@@ -66,6 +66,8 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     initial: false,
     maxLineY: 2,
     minLineY: 1,
+    renderModeLeft: 'text',
+    renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
     uriLeft: 'data://before-content',
@@ -73,6 +75,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
   })
 })
 
+<<<<<<< HEAD
 test('loadContent stores pane load errors instead of throwing', async (): Promise<void> => {
   const error = new Error('file not found: /tmp/missing.txt')
   error.stack = 'Error: file not found: /tmp/missing.txt\n    at read missing file'
@@ -86,30 +89,57 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
   const fileSystemWorkerRpc = {
     dispose: (): void => {},
     invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+=======
+test('loadContent sets image render mode when a side has an image extension', async (): Promise<void> => {
+  const fileSystemWorkerInvocations: unknown[][] = []
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerInvocations.push([method, ...params])
+>>>>>>> origin/main
       if (method !== 'FileSystem.readFile') {
         throw new Error(`unexpected method: ${method}`)
       }
       const [uri] = params
+<<<<<<< HEAD
       if (uri === '/tmp/missing.txt') {
         throw error
+=======
+      if (uri === 'file:///tmp/before.png') {
+        return 'binary-image-content'
+      }
+      if (uri === 'file:///tmp/after.txt') {
+        return 'after-content\nsecond-line'
+>>>>>>> origin/main
       }
       throw new Error(`unexpected params: ${String(uri)}`)
     },
     set: (): void => {},
   }
+<<<<<<< HEAD
   ExtensionHost.set(extensionHostRpc as any)
+=======
+>>>>>>> origin/main
   FileSystemWorker.set(fileSystemWorkerRpc as any)
 
   const state = {
     ...createDefaultState(),
+<<<<<<< HEAD
     height: 40,
     itemHeight: 20,
     minimumSliderSize: 30,
     uri: 'inline-diff://data://before-content<->/tmp/missing.txt',
+=======
+    height: 60,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    uri: 'inline-diff:///tmp/before.png<->/tmp/after.txt',
+>>>>>>> origin/main
   }
 
   const result = await loadContent(state, { minLineY: 0 })
 
+<<<<<<< HEAD
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: '',
@@ -126,5 +156,16 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
     scrollBarHeight: 30,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/missing.txt',
+=======
+  expect(fileSystemWorkerInvocations).toEqual([
+    ['FileSystem.readFile', 'file:///tmp/before.png'],
+    ['FileSystem.readFile', 'file:///tmp/after.txt'],
+  ])
+  expect(result).toMatchObject({
+    maxLineY: 2,
+    renderModeLeft: 'image',
+    renderModeRight: 'text',
+    scrollBarHeight: 60,
+>>>>>>> origin/main
   })
 })

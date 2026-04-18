@@ -19,6 +19,21 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   overflow: hidden;
 }
 
+.ImageContent {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  overflow: auto;
+}
+
+.ImageElement {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 .DiffEditorContentLeft {
   width: var(--LeftWidth);
 }

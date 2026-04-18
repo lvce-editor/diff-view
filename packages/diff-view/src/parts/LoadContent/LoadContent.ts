@@ -6,17 +6,11 @@ import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getMinLineY } from '../GetMinLineY/GetMinLineY.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
+import { getDisplayedContent, getTotalLineCount } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
-const getDisplayedContent = (content: string, errorMessage: string, errorStack: string): string => {
-  if (!errorMessage) {
-    return content
-  }
-  return errorStack ? `${errorMessage}\n\n${errorStack}` : errorMessage
-}
-
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
-  const { height, itemHeight, knownImageExtensions, minimumSliderSize, uri } = state
+  const { diffMode, height, itemHeight, knownImageExtensions, minimumSliderSize, uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
   const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
   const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
@@ -24,6 +18,7 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const minLineY = getMinLineY(savedState)
+<<<<<<< HEAD
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   let inlineChanges: readonly InlineDiffChange[] = []
   const totalLineCount = canComputeInlineDiff
@@ -37,6 +32,24 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
         renderModeLeft === 'image' ? 1 : getLineCount(getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)),
         renderModeRight === 'image' ? 1 : getLineCount(getDisplayedContent(contentRight, errorRightMessage, errorRightStack)),
       )
+=======
+  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
+  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
+  const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
+  const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
+  const totalLineCount = getTotalLineCount(
+    diffMode,
+    contentLeft,
+    contentRight,
+    errorLeftMessage,
+    errorLeftStack,
+    errorRightMessage,
+    errorRightStack,
+    renderModeLeft,
+    renderModeRight,
+  )
+  const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight)
+>>>>>>> origin/main
   return {
     ...state,
     contentLeft,
@@ -50,6 +63,8 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     renderModeLeft,
     renderModeRight,
     totalLineCount,
+    totalLineCountLeft,
+    totalLineCountRight,
     uriLeft,
     uriRight,
     ...getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight),

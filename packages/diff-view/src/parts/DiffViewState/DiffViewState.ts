@@ -2,12 +2,14 @@ import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 
 export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
+export type DiffMode = 'inline' | 'side-by-side'
 
 export interface DiffViewState {
   readonly assetDir: string
   readonly contentLeft: string
   readonly contentRight: string
   readonly deltaY: number
+  readonly diffMode: DiffMode
   readonly errorLeftMessage: string
   readonly errorLeftStack: string
   readonly errorRightMessage: string
@@ -48,6 +50,8 @@ export interface DiffViewState {
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
   readonly totalLineCount: number
+  readonly totalLineCountLeft: number
+  readonly totalLineCountRight: number
   readonly uri: string
   readonly uriLeft: string
   readonly uriRight: string

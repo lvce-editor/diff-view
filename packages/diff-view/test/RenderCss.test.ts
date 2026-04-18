@@ -65,3 +65,19 @@ test('renderCss renders stacked pane heights for vertical layout', (): void => {
   expect(result[2]).toContain('height: var(--RightWidth);')
   expect(result[2]).toContain('.SashHorizontal {')
 })
+
+test('renderCss includes inline diff styling hooks', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    diffMode: 'inline' as const,
+    id: 1,
+  }
+
+  const result = renderCss(oldState, newState)
+
+  expect(result[2]).toContain('.InlineDiffEditor {')
+  expect(result[2]).toContain('.InlineDiffEditorContent {')
+  expect(result[2]).toContain('.Insertion {')
+  expect(result[2]).toContain('.Deletion {')
+})

@@ -7,8 +7,11 @@ export const skip = 1
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `cooperate`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `co
-operate`)
+  await FileSystem.writeFile(
+    `${tmpDir}/file-2.txt`,
+    `co
+operate`,
+  )
   await Workspace.setPath(tmpDir)
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)

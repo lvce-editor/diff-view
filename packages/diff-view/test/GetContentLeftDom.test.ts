@@ -104,7 +104,7 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
 })
 
 test('getContentLeftDom renders load errors when available', (): void => {
-  const result = getContentLeftDom('', 'file not found', 'Error: file not found\n    at read missing file')
+  const result = getContentLeftDom('', 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)')
 
   expect(result).toEqual([
     {
@@ -124,11 +124,27 @@ test('getContentLeftDom renders load errors when available', (): void => {
     },
     text('file not found'),
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffEditorErrorStack,
       type: VirtualDomElements.Div,
     },
-    text('Error: file not found\n    at read missing file'),
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('Error: file not found'),
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      href: 'file:///tmp/missing-file.js',
+      rel: 'noreferrer',
+      target: '_blank',
+      type: VirtualDomElements.A,
+    },
+    text('    at read missing file (/tmp/missing-file.js:12:34)'),
   ])
 })
 

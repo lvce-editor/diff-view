@@ -2,6 +2,7 @@ import { expect, jest, test } from '@jest/globals'
 import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
+import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
   const diffWorkerInvocations: unknown[][] = []
@@ -305,6 +306,40 @@ test('loadContent expands total line count for inline mode when replacements spl
     maxLineY: 3,
     minLineY: 0,
     totalLineCount: 4,
+    visibleLinesLeft: [
+      {
+        lineNumber: 1,
+        tokens: [{ text: 'same', type: '' }],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: 2,
+        tokens: [{ text: 'before', type: '' }],
+        type: VisibleLineType.Removed,
+      },
+      {
+        lineNumber: 3,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+    ],
+    visibleLinesRight: [
+      {
+        lineNumber: 1,
+        tokens: [{ text: 'same', type: '' }],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: 2,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: 3,
+        tokens: [{ text: 'after', type: '' }],
+        type: VisibleLineType.Added,
+      },
+    ],
   })
 })
 

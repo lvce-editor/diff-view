@@ -1,5 +1,5 @@
-import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { DiffMode } from '../DiffViewState/DiffViewState.ts'
+import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import { diff, getInlineDiffChanges } from '../GetInlineDiffChanges/GetInlineDiffChanges.ts'
 
 interface SideBySideChange {

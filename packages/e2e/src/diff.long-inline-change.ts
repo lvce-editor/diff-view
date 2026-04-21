@@ -17,6 +17,6 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await expect(hero).toContainText('Long Inline Change')
   await expect(changedTokens).toHaveCount(4)
-  await expect(Locator('.DiffPane--before')).toContainText('loadUserProfileSummary')
-  await expect(Locator('.DiffPane--after')).toContainText('loadUserProfileCard')
+  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('loadUserProfileSummary')
+  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('loadUserProfileCard')
 }

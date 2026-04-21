@@ -27,7 +27,7 @@ test('getErrorDom renders an error message without a stack trace', (): void => {
 })
 
 test('getErrorDom renders an error message and stack trace', (): void => {
-  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file')
+  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)')
 
   expect(result).toEqual([
     {
@@ -47,10 +47,26 @@ test('getErrorDom renders an error message and stack trace', (): void => {
     },
     text('file not found'),
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffEditorErrorStack,
       type: VirtualDomElements.Div,
     },
-    text('Error: file not found\n    at read missing file'),
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('Error: file not found'),
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      href: 'file:///tmp/missing-file.js',
+      rel: 'noreferrer',
+      target: '_blank',
+      type: VirtualDomElements.A,
+    },
+    text('    at read missing file (/tmp/missing-file.js:12:34)'),
   ])
 })

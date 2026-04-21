@@ -11,11 +11,11 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const deletedRows = Locator('.DiffPane--before .DiffRow--deleted')
-  const insertedRows = Locator('.DiffPane--after .DiffRow--inserted')
+  const deletedRows = Locator('.DiffEditorContentLeft .DiffRow--deleted')
+  const insertedRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRows).toHaveCount(2)
   await expect(insertedRows).toHaveCount(2)
-  await expect(Locator('.DiffPane--before')).toContainText('return oldValue')
-  await expect(Locator('.DiffPane--after')).toContainText('return nextValue')
+  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('return oldValue')
+  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('return nextValue')
 }

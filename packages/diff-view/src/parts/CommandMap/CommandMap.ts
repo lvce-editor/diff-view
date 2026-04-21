@@ -10,7 +10,6 @@ import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/Handle
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
-import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
@@ -29,7 +28,6 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
   'DiffView.handleWheel': wrapCommand(handleWheel),
-  'DiffView.handleWorkspaceChange': wrapCommand(handleWorkspaceChange),
   'DiffView.initialize': Initialize.initialize,
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,

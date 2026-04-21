@@ -1,9 +1,8 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { getImageSrc } from '../GetImageSrc/GetImageSrc.ts'
 
-export const getImageRightDom = (uriRight: string): readonly VirtualDomNode[] => {
+export const getImageRightDom = (uriRight: string, imageSrc: string): readonly VirtualDomNode[] => {
   return [
     {
       childCount: 1,
@@ -24,7 +23,7 @@ export const getImageRightDom = (uriRight: string): readonly VirtualDomNode[] =>
       alt: uriRight,
       childCount: 0,
       className: ClassNames.ImageElement,
-      src: getImageSrc(uriRight),
+      src: imageSrc,
       type: VirtualDomElements.Img,
     },
   ]

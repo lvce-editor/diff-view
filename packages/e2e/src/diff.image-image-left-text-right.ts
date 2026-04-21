@@ -1,13 +1,4 @@
-import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
-
-type LocatorExternal = ReturnType<TestApi['Locator']>
-
-const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
-  const locatorExpect = api.expect(locator) as unknown as {
-    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
-  }
-  await locatorExpect.toHaveAttribute(name, value)
-}
+import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.image-image-left-text-right'
 
@@ -24,7 +15,7 @@ export const test: Test = async (api) => {
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterPane = Locator('.DiffPane--after')
 
-  await expectAttribute(api, beforeImage, 'alt', 'left.png')
-  await expectAttribute(api, beforeImage, 'src', /^data:image\/png;base64,/)
+  await api.expect(beforeImage).toHaveAttribute('alt', 'left.png')
+  await api.expect(beforeImage).toHaveAttribute('src', /^data:image\/png;base64,/ as unknown as string)
   await expect(afterPane).toContainText('const rightValue = 42')
 }

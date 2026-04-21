@@ -22,6 +22,8 @@ export interface DiffViewState {
   readonly headerHeight: number
   readonly height: number
   readonly id: number
+  readonly imageSrcLeft: string
+  readonly imageSrcRight: string
   readonly initial: boolean
   readonly inlineChanges: readonly InlineDiffChange[]
   readonly inputSource: number

@@ -18,6 +18,8 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
+  imageSrcLeft,
+  imageSrcRight,
   inlineChanges,
   layout,
   lineNumbers,
@@ -42,6 +44,8 @@ export const getDiffEditorVirtualDom = ({
   | 'errorLeftStack'
   | 'errorRightMessage'
   | 'errorRightStack'
+  | 'imageSrcLeft'
+  | 'imageSrcRight'
   | 'inlineChanges'
   | 'lineNumbers'
   | 'layout'
@@ -68,13 +72,13 @@ export const getDiffEditorVirtualDom = ({
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
   let leftDom: readonly VirtualDomNode[]
   if (renderModeLeft === 'image') {
-    leftDom = getImageLeftDom(uriLeft)
+    leftDom = getImageLeftDom(uriLeft, imageSrcLeft || '')
   } else {
     leftDom = getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges, tokenizedLinesLeft)
   }
   let rightDom: readonly VirtualDomNode[]
   if (renderModeRight === 'image') {
-    rightDom = getImageRightDom(uriRight)
+    rightDom = getImageRightDom(uriRight, imageSrcRight || '')
   } else {
     rightDom = getContentRightDom(
       contentRight,

@@ -229,6 +229,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     ...createDefaultState(),
     contentLeft: 'ignored-left-content',
     contentRight: 'after-content',
+    imageSrcLeft: 'blob:before.png',
     maxLineY: 1,
     renderModeLeft: 'image',
     totalLineCount: 1,
@@ -263,7 +264,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       alt: '/tmp/before.png',
       childCount: 0,
       className: ClassNames.ImageElement,
-      src: 'file:///tmp/before.png',
+      src: 'blob:before.png',
       type: VirtualDomElements.Img,
     },
     {

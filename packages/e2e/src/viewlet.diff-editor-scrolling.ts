@@ -1,34 +1,36 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-const getContent = (): string => {
-  let content = ''
-  for (let i = 97; i < 160; i++) {
-    content += String.fromCodePoint(i) + '\n'
+const getLargeFileContent = (bottomLine: string): string => {
+  const lines: string[] = []
+  for (let index = 1; index <= 180; index++) {
+    lines.push(`shared line ${index}`)
   }
-  return content
+  lines.push(bottomLine)
+  return lines.join('\n')
 }
 
-export const name = 'sample.diff-editor-insertion'
+export const name = 'diff.large-file-diff-at-bottom'
 
-export const skip = true
-
-export const test: Test = async ({ FileSystem, Locator, Main, Workspace }) => {
-  // arrange
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, ``)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getContent())
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getLargeFileContent('bottom change after'))
   await Workspace.setPath(tmpDir)
 
-  // act
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  // assert
-  const contentLeft = Locator('.DiffEditorContentLeft')
-  const contentRight = Locator('.DiffEditorContentRight')
-  // await expect(contentLeft).toHaveText('')
-  // await expect(contentRight).toHaveText('def')
-  // const rowLeft = contentLeft.locator('.EditorRow')
-  // await expect(rowLeft).toHaveClass('Deletion')
-  // const rowRight = contentRight.locator('.EditorRow')
-  // await expect(rowRight).toHaveClass('Insertion')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
+
+  await expect(Locator('.ScrollBar')).toHaveCount(1)
+  await expect(beforePane).not.toContainText('bottom change before')
+  await expect(afterPane).not.toContainText('bottom change after')
+
+  await Locator('.DiffEditor').dispatchEvent('wheel', {
+    deltaMode: 0,
+    deltaY: 100_000,
+  } as unknown as string)
+
+  await expect(beforePane).toContainText('bottom change before')
+  await expect(afterPane).toContainText('bottom change after')
 }

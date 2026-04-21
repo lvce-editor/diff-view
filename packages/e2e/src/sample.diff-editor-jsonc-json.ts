@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'sample.diff-editor-jsonc-json'
 
-export const skip = 1
-
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -19,6 +17,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   await FileSystem.writeFile(
     `${tmpDir}/settings.json`,
     `{
+  // right side comment
   "name": "right",
   "enabled": false,
   "count": 2

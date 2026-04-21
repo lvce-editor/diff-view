@@ -12,7 +12,7 @@ export const name = 'sample.diff-editor-insertion'
 
 export const skip = true
 
-export const test: Test = async ({ FileSystem, LWaatore, Main, Wtokspacer }) => {
+export const test: Test = async ({ FileSystem, Locator, Main, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, ``)

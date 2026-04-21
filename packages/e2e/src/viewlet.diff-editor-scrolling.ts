@@ -1,9 +1,9 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-const getContent = () => {
+const getContent = (): string => {
   let content = ''
   for (let i = 97; i < 160; i++) {
-    content += String.fromCharCode(i) + '\n'
+    content += String.fromCodePoint(i) + '\n'
   }
   return content
 }

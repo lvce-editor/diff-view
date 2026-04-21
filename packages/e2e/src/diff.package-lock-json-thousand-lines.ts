@@ -100,8 +100,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
 
   await Main.openUri(`diff://${tmpDir}/left/package-lock.json<->${tmpDir}/right/package-lock.json`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const scrollBar = Locator('.ScrollBar')
 
   await expect(beforePane).toContainText('"version": "1.0.0"')
@@ -110,8 +110,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
 
   await Command.execute('DiffView.handleWheel', 0, 999_999)
 
-  await expect(beforePane).toContainText('"node_modules/pkg-120"')
-  await expect(afterPane).toContainText('"node_modules/pkg-120"')
-  await expect(beforePane).toContainText('"version": "9.9.9"')
-  await expect(afterPane).toContainText('"version": "9.10.0"')
+  await expect(beforePane).toHaveText('"node_modules/pkg-120"')
+  await expect(afterPane).toHaveText('"node_modules/pkg-120"')
+  await expect(beforePane).toHaveText('"version": "9.9.9"')
+  await expect(afterPane).toHaveText('"version": "9.10.0"')
 }

@@ -4,17 +4,17 @@ export const name = 'diff.one-char-change'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'one-char-change')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `const value = cat`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `const value = cut`)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const changedTokens = webView.locator('.DiffToken--changed')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
+  const changedTokens = Locator('.DiffToken--changed')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
 
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')

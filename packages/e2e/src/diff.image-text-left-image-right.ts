@@ -1,15 +1,21 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
-import { runImageFixtureTest } from './parts/RunImageFixtureTest/RunImageFixtureTest.ts'
 
 export const name = 'diff.image-text-left-image-right'
 
 export const skip = 1
 
 export const test: Test = async (api) => {
-  await runImageFixtureTest(api, {
-    afterAlt: 'right.png',
-    afterImageSrc: /^data:image\/png;base64,/,
-    beforeText: 'const leftValue = 42',
-    fixtureName: 'image-text-left-image-right',
-  })
+  const { expect, FileSystem, Locator, Main } = api
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/left.txt`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-text-left-image-right.png`, 'fixture')
+
+  await Main.openUri(`diff://${tmpDir}/left.txt<->${tmpDir}/image-text-left-image-right.png`)
+
+  const beforePane = Locator('.DiffPane--before')
+  const afterImage = Locator('.DiffPane--after .ImageElement')
+
+  await expect(beforePane).toContainText('const leftValue = 42')
+  await api.expect(afterImage).toHaveAttribute('alt', 'right.png')
+  await api.expect(afterImage).toHaveAttribute('src', /^blob:/ as unknown as string)
 }

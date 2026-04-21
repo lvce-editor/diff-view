@@ -1,5 +1,6 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import { getCss } from '../GetCss/GetCss.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
@@ -9,6 +10,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const bottomSpacerHeight = Math.max(totalLineCount - maxLineY, 0) * itemHeight
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const { layout } = newState
+  const staticCss = getCss()
   const css = `
 :root {
   --ItemHeight: ${itemHeight}px;
@@ -155,11 +157,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   font-weight: 600;
 }
 
-.DiffEditorErrorStack {
-  font-family: monospace;
-  white-space: pre-wrap;
-}
-
 .DiffEditorSpacerTop {
   height: var(--TopSpacerHeight);
 }
@@ -201,6 +198,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   top: var(--ScrollBarThumbTop);
   width: 100%;
 }
+
+${staticCss}
 `
   return [ViewletCommand.SetCss, id, css]
 }

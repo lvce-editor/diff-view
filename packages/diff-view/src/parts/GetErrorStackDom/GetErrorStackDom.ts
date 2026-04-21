@@ -30,7 +30,7 @@ const getStackLinePrefix = (stackLine: string): string => {
   if (!match) {
     return stackLine
   }
-  return stackLine.slice(0, stackLine.length - match[0].length)
+  return stackLine.slice(0, stackLine.length - match[0].length).replace(/\($/, '')
 }
 
 const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {

@@ -1,0 +1,25 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
+export const name = 'sample.diff-editor-replacement'
+
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+  // arrange
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `abc`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `def`)
+  await Workspace.setPath(tmpDir)
+
+  // act
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+
+  // assert
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
+  await expect(contentLeft).toHaveText('abc')
+  await expect(contentRight).toHaveText('def')
+
+  const leftRow = contentLeft.locator('.EditorRow').nth(0)
+  const rightRow = contentRight.locator('.EditorRow').nth(0)
+  await expect(leftRow).toHaveClass('Deletion')
+  await expect(rightRow).toHaveClass('Insertion')
+}

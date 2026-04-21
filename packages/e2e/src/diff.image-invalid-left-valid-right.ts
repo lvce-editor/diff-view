@@ -1,15 +1,21 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
-import { runImageFixtureTest } from './parts/RunImageFixtureTest/RunImageFixtureTest.ts'
 
 export const name = 'diff.image-invalid-left-valid-right'
 
 export const skip = 1
 
 export const test: Test = async (api) => {
-  await runImageFixtureTest(api, {
-    afterAlt: 'right-valid.svg',
-    afterImageSrc: /^data:image\/svg\+xml;/,
-    beforeErrorMessage: 'Failed to load image: left-invalid.svg',
-    fixtureName: 'image-invalid-left-valid-right',
-  })
+  const { expect, FileSystem, Locator, Main } = api
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/left-invalid.svg`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-invalid-left-valid-right.svg`, 'fixture')
+
+  await Main.openUri(`diff://${tmpDir}/left-invalid.svg<->${tmpDir}/image-invalid-left-valid-right.svg`)
+
+  const beforePane = Locator('.DiffPane--before')
+  const afterImage = Locator('.DiffPane--after .ImageElement')
+
+  await expect(beforePane).toContainText('Failed to load image: left-invalid.svg')
+  await api.expect(afterImage).toHaveAttribute('alt', 'right-valid.svg')
+  await api.expect(afterImage).toHaveAttribute('src', /^data:image\/svg\+xml;/ as unknown as string)
 }

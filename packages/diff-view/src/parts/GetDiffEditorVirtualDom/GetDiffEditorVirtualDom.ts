@@ -18,6 +18,8 @@ export const getDiffEditorVirtualDom = ({
   errorLeftStack,
   errorRightMessage,
   errorRightStack,
+  imageSrcLeft,
+  imageSrcRight,
   inlineChanges,
   layout,
   lineNumbers,
@@ -25,6 +27,7 @@ export const getDiffEditorVirtualDom = ({
   minLineY,
   renderModeLeft,
   renderModeRight,
+  scrollBarActive,
   tokenizedLinesLeft,
   tokenizedLinesRight,
   totalLineCount,
@@ -41,11 +44,14 @@ export const getDiffEditorVirtualDom = ({
   | 'errorLeftStack'
   | 'errorRightMessage'
   | 'errorRightStack'
+  | 'imageSrcLeft'
+  | 'imageSrcRight'
   | 'inlineChanges'
   | 'lineNumbers'
   | 'layout'
   | 'renderModeLeft'
   | 'renderModeRight'
+  | 'scrollBarActive'
   | 'tokenizedLinesLeft'
   | 'tokenizedLinesRight'
   | 'totalLineCount'
@@ -64,16 +70,38 @@ export const getDiffEditorVirtualDom = ({
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
+  let leftDom: readonly VirtualDomNode[]
+  if (renderModeLeft === 'image') {
+    leftDom = getImageLeftDom(uriLeft, imageSrcLeft || '')
+  } else {
+    leftDom = getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges, tokenizedLinesLeft)
+  }
+  let rightDom: readonly VirtualDomNode[]
+  if (renderModeRight === 'image') {
+    rightDom = getImageRightDom(uriRight, imageSrcRight || '')
+  } else {
+    rightDom = getContentRightDom(
+      contentRight,
+      errorRightMessage,
+      errorRightStack,
+      showLineNumbers,
+      totalLineCountRight,
+      minLineY,
+      maxLineY,
+      inlineChanges,
+      tokenizedLinesRight,
+    )
+  }
+  const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: 4,
+      childCount: scrollBarActive ? 4 : 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeLeft === 'image'
-      ? getImageLeftDom(uriLeft)
-      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges, tokenizedLinesLeft)),
+    ...leftDom,
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -81,20 +109,8 @@ export const getDiffEditorVirtualDom = ({
       onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
       type: VirtualDomElements.Div,
     },
-    ...(renderModeRight === 'image'
-      ? getImageRightDom(uriRight)
-      : getContentRightDom(
-          contentRight,
-          errorRightMessage,
-          errorRightStack,
-          showLineNumbers,
-          totalLineCountRight,
-          minLineY,
-          maxLineY,
-          inlineChanges,
-          tokenizedLinesRight,
-        )),
-    ...getScrollBarDom(),
+    ...rightDom,
+    ...scrollBarDom,
   ]
   return dom
 }

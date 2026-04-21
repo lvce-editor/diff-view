@@ -20,5 +20,5 @@
     "composite": true,
     "noUnusedParameters": true
   },
-  "include": ["src/**/*.ts", "src/**/*.js", "test/**/*.ts", "test/**/*.js"]
+  "include": ["src", "test"]
 }

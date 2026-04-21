@@ -24,6 +24,11 @@ const changedRow = (parts, status = 'normal') => ({
   status,
 })
 
+const syntaxRow = (parts, status = 'normal') => ({
+  parts,
+  status,
+})
+
 const errorPane = (errorMessage, errorStack = '') => ({
   errorMessage,
   errorStack,
@@ -211,6 +216,33 @@ const fixtures = {
     after: {
       type: 'text',
       rows: [changedRow([{ text: 'const value = c' }, { text: 'u', changed: true }, { text: 't' }])],
+    },
+  },
+  'syntax-highlighting-typescript': {
+    hero: 'Syntax Highlighting TypeScript',
+    before: {
+      type: 'text',
+      rows: [
+        syntaxRow([
+          { text: 'const', className: 'Token Keyword' },
+          { text: ' leftValue ', className: 'Token Text' },
+          { text: '=', className: 'Token Text' },
+          { text: ' ', className: 'Token Text' },
+          { text: '1', className: 'Token Numeric' },
+        ]),
+      ],
+    },
+    after: {
+      type: 'text',
+      rows: [
+        syntaxRow([
+          { text: 'const', className: 'Token Keyword' },
+          { text: ' rightValue ', className: 'Token Text' },
+          { text: '=', className: 'Token Text' },
+          { text: ' ', className: 'Token Text' },
+          { text: '2', className: 'Token Numeric' },
+        ]),
+      ],
     },
   },
 }

@@ -109,6 +109,26 @@ body {
   border-radius: 4px;
 }
 
+.Token.Keyword {
+  color: #7c3aed;
+}
+
+.Token.String {
+  color: #047857;
+}
+
+.Token.Numeric {
+  color: #b45309;
+}
+
+.Token.VariableName {
+  color: #1d4ed8;
+}
+
+.Token.Text {
+  color: inherit;
+}
+
 .ImageContent {
   align-items: center;
   display: flex;
@@ -173,6 +193,10 @@ const renderTextPane = (document, pane, fixture) => {
     for (const part of row.parts) {
       if (part.changed) {
         rowElement.append(createElement(document, 'span', 'DiffToken--changed', part.text))
+        continue
+      }
+      if (part.className) {
+        rowElement.append(createElement(document, 'span', part.className, part.text))
         continue
       }
       rowElement.append(part.text)

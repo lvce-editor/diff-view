@@ -10,7 +10,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   const tmpDir = await FileSystem.loadFixture(fixtureUrl)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.json<->${tmpDir}/right.json`)
+  await Main.openUri(`diff://${tmpDir}/before.txt<->${tmpDir}/after.txt`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

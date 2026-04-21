@@ -17,5 +17,5 @@ export const test: Test = async (api) => {
 
   await expect(beforePane).toContainText('const leftValue = 42')
   await api.expect(afterImage).toHaveAttribute('alt', 'right.png')
-  await api.expect(afterImage).toHaveAttribute('src', /^data:image\/png;base64,/ as unknown as string)
+  await api.expect(afterImage).toHaveAttribute('src', /^blob:/ as unknown as string)
 }

@@ -16,7 +16,7 @@ export const test: Test = async (api) => {
   const afterImage = Locator('.DiffPane--after .ImageElement')
 
   await api.expect(beforeImage).toHaveAttribute('alt', 'left.jpg')
-  await api.expect(beforeImage).toHaveAttribute('src', /^data:image\/jpeg;base64,/ as unknown as string)
+  await api.expect(beforeImage).toHaveAttribute('src', /^blob:/ as unknown as string)
   await api.expect(afterImage).toHaveAttribute('alt', 'right.jpg')
-  await api.expect(afterImage).toHaveAttribute('src', /^data:image\/jpeg;base64,/ as unknown as string)
+  await api.expect(afterImage).toHaveAttribute('src', /^blob:/ as unknown as string)
 }

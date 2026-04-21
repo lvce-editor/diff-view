@@ -4,7 +4,7 @@ export const name = 'diff.rust-files'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.rs`,
@@ -23,11 +23,11 @@ export const test: Test = async ({ expect, FileSystem, Main, WebView }) => {
 `,
   )
 
+  await Workspace.setPath(tmpDir)
   await Main.openUri(`diff://${tmpDir}/left.rs<->${tmpDir}/right.rs`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
 
   await expect(beforePane).toContainText('pub fn greet() {')
   await expect(beforePane).toContainText('let message = "hello";')

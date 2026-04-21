@@ -6,17 +6,16 @@ export const skip = 1
 
 const errorMessage = 'Failed to execute file system provider: no file system provider for protocol "memfs" found'
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, Main }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
   await Command.execute('DiffView.setFixture', 'read-error-both')
 
   await Main.openUri(`${tmpDir}/fixture.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforeError = webView.locator('.DiffPane--before .DiffErrorMessage')
-  const afterError = webView.locator('.DiffPane--after .DiffErrorMessage')
-  const errorStacks = webView.locator('.DiffErrorStack')
+  const beforeError = Locator('.DiffPane--before .DiffErrorMessage')
+  const afterError = Locator('.DiffPane--after .DiffErrorMessage')
+  const errorStacks = Locator('.DiffErrorStack')
 
   await expect(beforeError).toHaveText(errorMessage)
   await expect(afterError).toHaveText(errorMessage)

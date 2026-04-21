@@ -4,19 +4,19 @@ export const name = 'diff.one-char-change-pane-highlights'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'one-char-change')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `const value = cat`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `const value = cut`)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
 
-  await expect(beforePane.locator('.DiffToken--changed')).toHaveCount(1)
-  await expect(afterPane.locator('.DiffToken--changed')).toHaveCount(1)
+  await expect(Locator('.DiffPane--before .DiffToken--changed')).toHaveCount(1)
+  await expect(Locator('.DiffPane--after .DiffToken--changed')).toHaveCount(1)
   await expect(beforePane).not.toContainText('const value = cut')
   await expect(afterPane).not.toContainText('const value = cat')
 }

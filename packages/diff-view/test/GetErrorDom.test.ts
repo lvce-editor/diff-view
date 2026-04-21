@@ -60,13 +60,15 @@ test('getErrorDom renders an error message and stack trace', (): void => {
       childCount: 1,
       type: VirtualDomElements.Div,
     },
+    text('    at read missing file '),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLink,
       href: 'file:///tmp/missing-file.js',
       rel: 'noreferrer',
       target: '_blank',
       type: VirtualDomElements.A,
     },
-    text('    at read missing file (/tmp/missing-file.js:12:34)'),
+    text('(missing-file.js)'),
   ])
 })

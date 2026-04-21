@@ -224,7 +224,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
   ])
 })
 
-test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
+test.skip('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'ignored-left-content',

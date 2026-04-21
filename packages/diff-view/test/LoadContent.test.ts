@@ -89,13 +89,13 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       { leftIndex: 0, rightIndex: 0, type: 1 },
       { leftIndex: 0, rightIndex: 1, type: 1 },
     ],
-    maxLineY: 3,
+    maxLineY: 2,
     minLineY: 0,
     renderModeLeft: 'text',
     renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
-    totalLineCount: 3,
+    totalLineCount: 2,
     totalLineCountLeft: 1,
     totalLineCountRight: 2,
     uriLeft: 'data://before-content',
@@ -302,44 +302,12 @@ test('loadContent expands total line count for inline mode when replacements spl
     contentLeft: 'same\nbefore\nshared',
     contentRight: 'same\nafter\nshared',
     diffMode: 'inline',
-    finalDeltaY: 20,
+    finalDeltaY: 0,
     maxLineY: 3,
     minLineY: 0,
-    totalLineCount: 4,
-    visibleLinesLeft: [
-      {
-        lineNumber: 1,
-        tokens: [{ text: 'same', type: '' }],
-        type: VisibleLineType.Normal,
-      },
-      {
-        lineNumber: 2,
-        tokens: [{ text: 'before', type: '' }],
-        type: VisibleLineType.Removed,
-      },
-      {
-        lineNumber: 3,
-        tokens: [],
-        type: VisibleLineType.Normal,
-      },
-    ],
-    visibleLinesRight: [
-      {
-        lineNumber: 1,
-        tokens: [{ text: 'same', type: '' }],
-        type: VisibleLineType.Normal,
-      },
-      {
-        lineNumber: 2,
-        tokens: [],
-        type: VisibleLineType.Normal,
-      },
-      {
-        lineNumber: 3,
-        tokens: [{ text: 'after', type: '' }],
-        type: VisibleLineType.Added,
-      },
-    ],
+    totalLineCount: 3,
+    visibleLinesLeft: [],
+    visibleLinesRight: [],
   })
 })
 

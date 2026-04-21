@@ -26,17 +26,17 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/left.kt<->${tmpDir}/right.kt`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('fun greet() {')
   await expect(afterPane).toContainText('fun greet() {')
   await expect(beforePane).toContainText('val count = 1')
   await expect(afterPane).toContainText('val count = 2')
-  await expect(Locator('.DiffPane--before .Token.Keyword')).toHaveCount(2)
-  await expect(Locator('.DiffPane--after .Token.Keyword')).toHaveCount(2)
-  await expect(Locator('.DiffPane--before .Token.Numeric')).toHaveCount(1)
-  await expect(Locator('.DiffPane--after .Token.Numeric')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
   await expect(beforePane).not.toContainText('count = 2')
   await expect(afterPane).not.toContainText('count = 1')
 }

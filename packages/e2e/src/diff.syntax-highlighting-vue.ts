@@ -32,12 +32,12 @@ const count = 2
 
   await Main.openUri(`diff://${tmpDir}/file-1.vue<->${tmpDir}/file-2.vue`)
 
-  const contentLeft = Locator('.DiffPane--before .DiffEditorRows')
-  const contentRight = Locator('.DiffPane--after .DiffEditorRows')
-  const keywordTokensLeft = Locator('.DiffPane--before .Token.Keyword')
-  const keywordTokensRight = Locator('.DiffPane--after .Token.Keyword')
-  const numericTokensLeft = Locator('.DiffPane--before .Token.Numeric')
-  const numericTokensRight = Locator('.DiffPane--after .Token.Numeric')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const keywordTokensLeft = Locator('.DiffEditorContentLeft .Token.Keyword')
+  const keywordTokensRight = Locator('.DiffEditorContentRight .Token.Keyword')
+  const numericTokensLeft = Locator('.DiffEditorContentLeft .Token.Numeric')
+  const numericTokensRight = Locator('.DiffEditorContentRight .Token.Numeric')
 
   await expect(contentLeft).toContainText('<template>')
   await expect(contentRight).toContainText('<template>')

@@ -506,7 +506,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       childCount: 1,
       type: VirtualDomElements.Div,
     },
-    text('Error: file not found\n    at read missing file'),
+    text('    at read missing file'),
     {
       childCount: 1,
       className: ClassNames.ScrollBar,

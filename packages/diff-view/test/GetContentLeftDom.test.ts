@@ -104,7 +104,7 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
 })
 
 test('getContentLeftDom renders load errors when available', (): void => {
-  const result = getContentLeftDom('', 'file not found', 'Error: file not found\n    at read missing file')
+  const result = getContentLeftDom('', 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)')
 
   expect(result).toEqual([
     {

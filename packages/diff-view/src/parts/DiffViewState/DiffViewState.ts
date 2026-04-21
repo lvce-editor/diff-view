@@ -1,5 +1,6 @@
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
+import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 
 export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
@@ -63,6 +64,8 @@ export interface DiffViewState {
   readonly uriLeft: string
   readonly uriRight: string
   readonly viewMode: number
+  readonly visibleLinesLeft: readonly VisibleLine[]
+  readonly visibleLinesRight: readonly VisibleLine[]
   readonly width: number
   readonly workspacePath: string
   readonly x: number

@@ -3,7 +3,7 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { getTokenDom } from '../src/parts/GetTokenDom/GetTokenDom.ts'
 
 test('getTokenDom renders plain token text without a span', (): void => {
-  const result = getTokenDom({ text: 'first-line', className: '' })
+  const result = getTokenDom({ className: '', text: 'first-line' })
 
   expect(result).toEqual([
     {

@@ -63,9 +63,7 @@ export const reloadContent = async (
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
   const { uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
-  const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
-  const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
-  const { content: contentRight, errorMessage: errorRightMessage, errorStack: errorRightStack } = rightResult
+  const { contentLeft, contentRight, errorLeftMessage, errorLeftStack, errorRightMessage, errorRightStack } = await loadFileContents(uriLeft, uriRight)
   const minLineY = getMinLineY(savedState)
   return reloadContent({ ...state, minLineY, uriLeft, uriRight }, contentLeft, contentRight, errorLeftMessage, errorLeftStack, errorRightMessage, errorRightStack)
 }

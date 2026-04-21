@@ -1,17 +1,6 @@
-import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
-
-type LocatorExternal = ReturnType<TestApi['Locator']>
-
-const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
-  const locatorExpect = api.expect(locator) as unknown as {
-    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
-  }
-  await locatorExpect.toHaveAttribute(name, value)
-}
+import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.image-svg-valid-both'
-
-export const skip = 1
 
 export const test: Test = async (api) => {
   const { FileSystem, Locator, Main } = api
@@ -24,8 +13,8 @@ export const test: Test = async (api) => {
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterImage = Locator('.DiffPane--after .ImageElement')
 
-  await expectAttribute(api, beforeImage, 'alt', 'left.svg')
-  await expectAttribute(api, beforeImage, 'src', /^data:image\/svg\+xml;/)
-  await expectAttribute(api, afterImage, 'alt', 'right.svg')
-  await expectAttribute(api, afterImage, 'src', /^data:image\/svg\+xml;/)
+  await api.expect(beforeImage).toHaveAttribute('alt', 'left.svg')
+  await api.expect(beforeImage).toHaveAttribute('src', /^data:image\/svg\+xml;/ as unknown as string)
+  await api.expect(afterImage).toHaveAttribute('alt', 'right.svg')
+  await api.expect(afterImage).toHaveAttribute('src', /^data:image\/svg\+xml;/ as unknown as string)
 }

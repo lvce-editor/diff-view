@@ -1,6 +1,6 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
-import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 import { reloadContent } from '../ReloadContent/ReloadContent.ts'
+import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 
 const hasFileChanged = (
   state: DiffViewState,

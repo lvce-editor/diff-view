@@ -1,8 +1,8 @@
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
+import { getVisibleInlineDiffRows } from '../GetVisibleInlineDiffRows/GetVisibleInlineDiffRows.ts'
 import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
-import * as InlineDiffChangeType from '../InlineDiffChangeType/InlineDiffChangeType.ts'
 import { VisibleLineType as VisibleLineTypeValue } from '../VisibleLine/VisibleLine.ts'
 import { getLine } from './GetLine/GetLine.ts'
 import { getTokens } from './GetTokens/GetTokens.ts'
@@ -28,27 +28,18 @@ export const getVisibleLines = (
   }
 
   const lines = content ? content.split('\n') : ['']
-  return inlineChanges.slice(minLineY, maxLineY).map((inlineChange, index) => {
-    const lineNumber = minLineY + index + 1
-    const type = getVisibleLineType(inlineChange, side)
-    const tokens =
-      inlineChange.type === InlineDiffChangeType.Deletion
-        ? side === 'left'
-          ? getTokens(tokenizedLines, inlineChange.leftIndex, getLine(lines, inlineChange.leftIndex))
-          : []
-        : inlineChange.type === InlineDiffChangeType.Insertion
-          ? side === 'right'
-            ? getTokens(tokenizedLines, inlineChange.rightIndex, getLine(lines, inlineChange.rightIndex))
-            : []
-          : getTokens(
-              tokenizedLines,
-              side === 'left' ? inlineChange.leftIndex : inlineChange.rightIndex,
-              getLine(lines, side === 'left' ? inlineChange.leftIndex : inlineChange.rightIndex),
-            )
-    return {
-      lineNumber,
-      tokens,
-      type,
-    }
-  })
+  return getVisibleInlineDiffRows(inlineChanges)
+    .slice(minLineY, maxLineY)
+    .map((visibleRow, index) => {
+      const lineNumber = minLineY + index + 1
+      const inlineChange = side === 'left' ? visibleRow.leftChange : visibleRow.rightChange
+      const type = inlineChange ? getVisibleLineType(inlineChange, side) : VisibleLineTypeValue.Normal
+      const lineIndex = inlineChange ? (side === 'left' ? inlineChange.leftIndex : inlineChange.rightIndex) : -1
+      const tokens = inlineChange && lineIndex >= 0 ? getTokens(tokenizedLines, lineIndex, getLine(lines, lineIndex)) : []
+      return {
+        lineNumber,
+        tokens,
+        type,
+      }
+    })
 }

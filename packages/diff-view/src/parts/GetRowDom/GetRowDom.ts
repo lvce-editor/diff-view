@@ -2,20 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { SyntaxToken } from '../SyntaxToken/SyntaxToken.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-
-const getTokenDom = (tokenPart: SyntaxToken): readonly VirtualDomNode[] => {
-  if (!tokenPart.className) {
-    return [text(tokenPart.text)]
-  }
-  return [
-    {
-      childCount: 1,
-      className: tokenPart.className,
-      type: VirtualDomElements.Span,
-    },
-    text(tokenPart.text),
-  ]
-}
+import { getTokenDom } from '../GetTokenDom/GetTokenDom.ts'
 
 export const getRowDom = (line: string, className = ClassNames.EditorRow, parts: readonly SyntaxToken[] = []): readonly VirtualDomNode[] => {
   const children = parts.length === 0 ? [text(line)] : parts.flatMap(getTokenDom)

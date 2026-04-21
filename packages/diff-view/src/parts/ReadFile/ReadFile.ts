@@ -15,5 +15,8 @@ export const readFile = async (uri: string): Promise<string> => {
     return FileSystemWorker.readFile(toFileUri(uri))
   }
   const path = getPath(protocol, uri)
+  if (protocol === 'memfs') {
+    return ExtensionHost.invoke('FileSystemMemory.readFile', path)
+  }
   return ExtensionHost.invoke('ExtensionHostFileSystem.readFile', protocol, path)
 }

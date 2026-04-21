@@ -1,46 +1,14 @@
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
-import type { VisibleLine, VisibleLineToken, VisibleLineType } from '../VisibleLine/VisibleLine.ts'
+import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
 import * as InlineDiffChangeType from '../InlineDiffChangeType/InlineDiffChangeType.ts'
 import { VisibleLineType as VisibleLineTypeValue } from '../VisibleLine/VisibleLine.ts'
+import { getLine } from './GetLine/GetLine.ts'
+import { getTokens } from './GetTokens/GetTokens.ts'
+import { getVisibleLineType } from './GetVisibleLineType/GetVisibleLineType.ts'
 
 type DiffSide = 'left' | 'right'
-
-const getLine = (lines: readonly string[], index: number): string => {
-  if (index < 0 || index >= lines.length) {
-    return ''
-  }
-  return lines[index]
-}
-
-const getVisibleLineType = (inlineChange: InlineDiffChange, side: DiffSide): VisibleLineType => {
-  switch (inlineChange.type) {
-    case InlineDiffChangeType.Deletion:
-      return side === 'left' ? VisibleLineTypeValue.Removed : VisibleLineTypeValue.Normal
-    case InlineDiffChangeType.Insertion:
-      return side === 'right' ? VisibleLineTypeValue.Added : VisibleLineTypeValue.Normal
-    case InlineDiffChangeType.None:
-      return VisibleLineTypeValue.Normal
-    default:
-      return VisibleLineTypeValue.Normal
-  }
-}
-
-const getTokens = (tokenizedLines: readonly TokenizedLine[], index: number, text: string): readonly VisibleLineToken[] => {
-  const tokenizedLine = tokenizedLines[index]
-  if (!tokenizedLine || tokenizedLine.length === 0) {
-    return text ? [{ text, type: '' }] : []
-  }
-  const tokens: VisibleLineToken[] = []
-  for (let i = 0; i < tokenizedLine.length; i += 2) {
-    tokens.push({
-      text: tokenizedLine[i] || '',
-      type: tokenizedLine[i + 1] || '',
-    })
-  }
-  return tokens
-}
 
 export const getVisibleLines = (
   content: string,

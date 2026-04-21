@@ -13,8 +13,8 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
   const root = Locator('.DiffPrototype')
-  const beforeRows = Locator('.DiffPane--before .DiffEditorRows')
-  const insertedRow = Locator('.DiffPane--after .DiffRow--inserted')
+  const beforeRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const insertedRow = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(root).toBeVisible()
   await expect(beforeRows).toHaveText('')

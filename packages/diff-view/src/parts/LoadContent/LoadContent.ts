@@ -9,15 +9,18 @@ import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
 
-export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
-  const { assetDir, height, itemHeight, knownImageExtensions, minimumSliderSize, platform, uri } = state
-  const [uriLeft, uriRight] = getInlineDiffUris(uri)
-  const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
-  const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
-  const { content: contentRight, errorMessage: errorRightMessage, errorStack: errorRightStack } = rightResult
+export const reloadContent = async (
+  state: DiffViewState,
+  contentLeft: string,
+  contentRight: string,
+  errorLeftMessage: string,
+  errorLeftStack: string,
+  errorRightMessage: string,
+  errorRightStack: string,
+): Promise<DiffViewState> => {
+  const { assetDir, height, itemHeight, knownImageExtensions, minimumSliderSize, minLineY, platform, uriLeft, uriRight } = state
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
-  const minLineY = getMinLineY(savedState)
   const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
   const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
   const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
@@ -33,6 +36,7 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const canHighlightRight = renderModeRight === 'text' && !errorRightMessage
   const syntaxHighlightingState =
     canHighlightLeft || canHighlightRight ? await loadSyntaxHighlighting(contentLeft, contentRight, uriLeft, uriRight, platform, assetDir) : undefined
+
   return {
     ...state,
     contentLeft,
@@ -52,8 +56,16 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     totalLineCount,
     totalLineCountLeft,
     totalLineCountRight,
-    uriLeft,
-    uriRight,
     ...getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight),
   }
+}
+
+export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
+  const { uri } = state
+  const [uriLeft, uriRight] = getInlineDiffUris(uri)
+  const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
+  const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
+  const { content: contentRight, errorMessage: errorRightMessage, errorStack: errorRightStack } = rightResult
+  const minLineY = getMinLineY(savedState)
+  return reloadContent({ ...state, minLineY, uriLeft, uriRight }, contentLeft, contentRight, errorLeftMessage, errorLeftStack, errorRightMessage, errorRightStack)
 }

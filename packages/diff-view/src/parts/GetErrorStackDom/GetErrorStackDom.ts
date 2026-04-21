@@ -16,6 +16,23 @@ const getStackLineLink = (stackLine: string): string => {
   return location
 }
 
+const getStackLineLabel = (href: string): string => {
+  if (!href) {
+    return ''
+  }
+  const pathname = href.startsWith('file://') ? href.slice('file://'.length) : href
+  const fileName = pathname.slice(pathname.lastIndexOf('/') + 1)
+  return `(${fileName})`
+}
+
+const getStackLinePrefix = (stackLine: string): string => {
+  const match = stackLine.match(stackLocationRegex)
+  if (!match) {
+    return stackLine
+  }
+  return stackLine.slice(0, stackLine.length - match[0].length).replace(/\($/, '')
+}
+
 const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
   const href = getStackLineLink(stackLine)
   if (!href) {
@@ -27,19 +44,23 @@ const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
       text(stackLine),
     ]
   }
+  const prefix = getStackLinePrefix(stackLine)
+  const label = getStackLineLabel(href)
   return [
     {
       childCount: 1,
       type: VirtualDomElements.Div,
     },
+    ...(prefix ? [text(prefix)] : []),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLink,
       href,
       rel: 'noreferrer',
       target: '_blank',
       type: VirtualDomElements.A,
     },
-    text(stackLine),
+    text(label),
   ]
 }
 

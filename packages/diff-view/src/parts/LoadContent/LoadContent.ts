@@ -23,7 +23,7 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
   const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
-    ? await getInlineDiffState(contentLeft, contentRight)
+    ? await getInlineDiffState(state.diffMode, contentLeft, contentRight)
     : {
         inlineChanges: [],
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),

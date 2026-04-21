@@ -1,21 +1,22 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.long-inline-change'
+
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'long-inline-change')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `function loadUserProfileSummary() {}`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `function loadUserProfileCard() {}`)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const changedTokens = webView.locator('.DiffToken--changed')
-  const hero = webView.locator('.DiffHero')
+  const changedTokens = Locator('.DiffToken--changed')
+  const hero = Locator('.DiffHero')
 
   await expect(hero).toContainText('Long Inline Change')
   await expect(changedTokens).toHaveCount(4)
-  await expect(webView.locator('.DiffPane--before')).toContainText('loadUserProfileSummary')
-  await expect(webView.locator('.DiffPane--after')).toContainText('loadUserProfileCard')
+  await expect(Locator('.DiffPane--before')).toContainText('loadUserProfileSummary')
+  await expect(Locator('.DiffPane--after')).toContainText('loadUserProfileCard')
 }

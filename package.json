@@ -8,6 +8,7 @@
     "build": "node packages/build/src/build.ts",
     "build:static": "node packages/build/src/build-static.ts",
     "build:watch": "./packages/build/node_modules/.bin/esbuild --format=esm --bundle --external:node:buffer --external:electron --external:ws --external:node:worker_threads --watch packages/diff-view/src/diffViewWorkerMain.ts --outfile=.tmp/dist/dist/diffViewWorkerMain.js",
+    "create:e2e-tests": "node packages/build/src/createE2ETests.ts",
     "dev": "node packages/build/src/dev.ts",
     "format": "prettier --write .",
     "postinstall": "lerna bootstrap --ci",

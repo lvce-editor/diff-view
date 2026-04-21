@@ -1,15 +1,30 @@
-import type { Test } from '@lvce-editor/test-with-playwright'
-import { runImageFixtureTest } from './parts/RunImageFixtureTest/RunImageFixtureTest.ts'
+import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
+
+type LocatorExternal = ReturnType<TestApi['Locator']>
+
+const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
+  const locatorExpect = api.expect(locator) as unknown as {
+    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
+  }
+  await locatorExpect.toHaveAttribute(name, value)
+}
 
 export const name = 'diff.image-invalid-left-valid-right'
 
 export const skip = 1
 
 export const test: Test = async (api) => {
-  await runImageFixtureTest(api, {
-    afterAlt: 'right-valid.svg',
-    afterImageSrc: /^data:image\/svg\+xml;/,
-    beforeErrorMessage: 'Failed to load image: left-invalid.svg',
-    fixtureName: 'image-invalid-left-valid-right',
-  })
+  const { Command, expect, FileSystem, Locator, Main } = api
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
+  await Command.execute('DiffView.setFixture', 'image-invalid-left-valid-right')
+
+  await Main.openUri(`${tmpDir}/fixture.txt`)
+
+  const beforePane = Locator('.DiffPane--before')
+  const afterImage = Locator('.DiffPane--after .ImageElement')
+
+  await expect(beforePane).toContainText('Failed to load image: left-invalid.svg')
+  await expectAttribute(api, afterImage, 'alt', 'right-valid.svg')
+  await expectAttribute(api, afterImage, 'src', /^data:image\/svg\+xml;/)
 }

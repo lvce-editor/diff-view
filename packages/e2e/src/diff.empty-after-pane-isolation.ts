@@ -4,18 +4,18 @@ export const name = 'diff.empty-after-pane-isolation'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'empty-after')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `abc`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, ``)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
 
   await expect(beforePane.locator('.DiffRow--deleted')).toHaveCount(1)
-  await expect(afterPane.locator('.DiffEmptyState')).toHaveText('No current content')
+  await expect(afterPane.locator('.DiffEditorRows')).toHaveText('')
   await expect(afterPane.locator('.DiffRow--inserted')).toHaveCount(0)
 }

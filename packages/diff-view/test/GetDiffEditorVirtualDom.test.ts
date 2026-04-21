@@ -18,8 +18,9 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
@@ -138,18 +139,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ScrollBar,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ScrollBarThumb,
-      name: 'scrollBarThumb',
-      onPointerDown: 14,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -167,8 +156,9 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
@@ -231,18 +221,6 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ScrollBar,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ScrollBarThumb,
-      name: 'scrollBarThumb',
-      onPointerDown: 14,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -260,8 +238,9 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
@@ -320,18 +299,6 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ScrollBar,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ScrollBarThumb,
-      name: 'scrollBarThumb',
-      onPointerDown: 14,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -350,8 +317,9 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
 
   expect(result.slice(0, 12)).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
@@ -422,8 +390,9 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
+      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
@@ -507,18 +476,6 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('    at read missing file'),
-    {
-      childCount: 1,
-      className: ClassNames.ScrollBar,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ScrollBarThumb,
-      name: 'scrollBarThumb',
-      onPointerDown: 14,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -536,7 +493,7 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
 
   expect(result).toEqual([
     {
-      childCount: 2,
+      childCount: 1,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -613,18 +570,6 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ScrollBar,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.ScrollBarThumb,
-      name: 'scrollBarThumb',
-      onPointerDown: 14,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -641,8 +586,9 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   })
 
   expect(result[0]).toEqual({
-    childCount: 4,
+    childCount: 3,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
+    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,
   })

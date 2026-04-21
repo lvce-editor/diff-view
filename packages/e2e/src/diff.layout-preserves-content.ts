@@ -4,25 +4,25 @@ export const name = 'diff.layout-preserves-content'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'one-char-change')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `const value = cat`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `const value = cut`)
+  await Workspace.setPath(tmpDir)
   await Command.execute('DiffView.setLayout', 'horizontal')
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
 
-  await expect(webView.locator('.DiffPrototypeLayout--horizontal')).toBeVisible()
+  await expect(Locator('.DiffPrototypeLayout--horizontal')).toBeVisible()
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')
 
   await Command.execute('DiffView.setLayout', 'vertical')
 
-  await expect(webView.locator('.DiffPrototypeLayout--vertical')).toBeVisible()
+  await expect(Locator('.DiffPrototypeLayout--vertical')).toBeVisible()
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')
 }

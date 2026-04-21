@@ -36,6 +36,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('.DiffEditor .Deletion {')
   expect(result[2]).toContain('.DiffEditor .Insertion {')
   expect(result[2]).toContain('.DiffEditorErrorStack {')
+  expect(result[2]).toContain('.DiffEditorErrorStackLink {')
   expect(result[2]).toContain('border-left: 3px solid rgba(248, 81, 73, 0.6);')
   expect(result[2]).toContain('overflow: auto;')
   expect(result[2]).toContain('.DiffEditorSpacerTop {')

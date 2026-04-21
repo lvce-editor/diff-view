@@ -1,16 +1,31 @@
-import type { Test } from '@lvce-editor/test-with-playwright'
-import { runImageFixtureTest } from './parts/RunImageFixtureTest/RunImageFixtureTest.ts'
+import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
+
+type LocatorExternal = ReturnType<TestApi['Locator']>
+
+const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
+  const locatorExpect = api.expect(locator) as unknown as {
+    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
+  }
+  await locatorExpect.toHaveAttribute(name, value)
+}
 
 export const name = 'diff.image-png-valid-both'
 
 export const skip = 1
 
 export const test: Test = async (api) => {
-  await runImageFixtureTest(api, {
-    afterAlt: 'right.png',
-    afterImageSrc: /^data:image\/png;base64,/,
-    beforeAlt: 'left.png',
-    beforeImageSrc: /^data:image\/png;base64,/,
-    fixtureName: 'image-png-valid-both',
-  })
+  const { Command, FileSystem, Locator, Main } = api
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
+  await Command.execute('DiffView.setFixture', 'image-png-valid-both')
+
+  await Main.openUri(`${tmpDir}/fixture.txt`)
+
+  const beforeImage = Locator('.DiffPane--before .ImageElement')
+  const afterImage = Locator('.DiffPane--after .ImageElement')
+
+  await expectAttribute(api, beforeImage, 'alt', 'left.png')
+  await expectAttribute(api, beforeImage, 'src', /^data:image\/png;base64,/)
+  await expectAttribute(api, afterImage, 'alt', 'right.png')
+  await expectAttribute(api, afterImage, 'src', /^data:image\/png;base64,/)
 }

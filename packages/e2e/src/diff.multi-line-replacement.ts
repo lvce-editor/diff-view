@@ -3,19 +3,19 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'diff.multi-line-replacement'
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'multi-line-replacement')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `return oldValue\ncleanupOldValue()`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `return nextValue\ncleanupNextValue()`)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const deletedRows = webView.locator('.DiffPane--before .DiffRow--deleted')
-  const insertedRows = webView.locator('.DiffPane--after .DiffRow--inserted')
+  const deletedRows = Locator('.DiffPane--before .DiffRow--deleted')
+  const insertedRows = Locator('.DiffPane--after .DiffRow--inserted')
 
   await expect(deletedRows).toHaveCount(2)
   await expect(insertedRows).toHaveCount(2)
-  await expect(webView.locator('.DiffPane--before')).toContainText('return oldValue')
-  await expect(webView.locator('.DiffPane--after')).toContainText('return nextValue')
+  await expect(Locator('.DiffPane--before')).toContainText('return oldValue')
+  await expect(Locator('.DiffPane--after')).toContainText('return nextValue')
 }

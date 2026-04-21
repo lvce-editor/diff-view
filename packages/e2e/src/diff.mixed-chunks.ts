@@ -4,18 +4,18 @@ export const name = 'diff.mixed-chunks'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Main, WebView }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'mixed-chunks')
+  await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `const legacyHeader = true\nrenderLegacySidebar()`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `const heroBanner = true\nrenderFreshSidebar()`)
+  await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const webView = await WebView.fromId('diff-prototype')
-  const beforePane = webView.locator('.DiffPane--before')
-  const afterPane = webView.locator('.DiffPane--after')
-  const insertedRows = webView.locator('.DiffPane--after .DiffRow--inserted')
-  const deletedRows = webView.locator('.DiffPane--before .DiffRow--deleted')
+  const beforePane = Locator('.DiffPane--before')
+  const afterPane = Locator('.DiffPane--after')
+  const insertedRows = Locator('.DiffPane--after .DiffRow--inserted')
+  const deletedRows = Locator('.DiffPane--before .DiffRow--deleted')
 
   await expect(insertedRows).toHaveCount(2)
   await expect(deletedRows).toHaveCount(2)

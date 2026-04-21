@@ -41,6 +41,8 @@ export const getDiffEditorVirtualDom = ({
   totalLineCountRight,
   uriLeft,
   uriRight,
+  visibleLinesLeft,
+  visibleLinesRight,
 }: Pick<
   DiffViewState,
   | 'contentLeft'
@@ -58,6 +60,8 @@ export const getDiffEditorVirtualDom = ({
   | 'renderModeLeft'
   | 'renderModeRight'
   | 'scrollBarActive'
+  | 'visibleLinesLeft'
+  | 'visibleLinesRight'
   | 'tokenizedLinesLeft'
   | 'tokenizedLinesRight'
   | 'totalLineCount'
@@ -77,7 +81,6 @@ export const getDiffEditorVirtualDom = ({
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
   const leftDom = getContentLeftDom(
-    renderModeLeft,
     contentLeft,
     errorLeftMessage,
     errorLeftStack,
@@ -87,11 +90,9 @@ export const getDiffEditorVirtualDom = ({
     maxLineY,
     inlineChanges,
     tokenizedLinesLeft,
-    uriLeft,
-    imageSrcLeft || '',
+    visibleLinesLeft,
   )
   const rightDom = getContentRightDom(
-    renderModeRight,
     contentRight,
     errorRightMessage,
     errorRightStack,
@@ -101,8 +102,7 @@ export const getDiffEditorVirtualDom = ({
     maxLineY,
     inlineChanges,
     tokenizedLinesRight,
-    uriRight,
-    imageSrcRight || '',
+    visibleLinesRight,
   )
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const dom: readonly VirtualDomNode[] = [

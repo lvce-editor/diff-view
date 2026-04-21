@@ -38,11 +38,11 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/left/package-lock.json<->${tmpDir}/right/package-lock.json`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('"version": "1.0.0"')
   await expect(afterPane).toContainText('"version": "1.0.1"')
-  await expect(Locator('.DiffPane--before .Token.Numeric')).toHaveCount(1)
-  await expect(Locator('.DiffPane--after .Token.Numeric')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
 }

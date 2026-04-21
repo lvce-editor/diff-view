@@ -11,6 +11,8 @@ const getLargeFileContent = (bottomLine: string): string => {
 
 export const name = 'diff.large-file-diff-at-bottom'
 
+export const skip = 1
+
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))

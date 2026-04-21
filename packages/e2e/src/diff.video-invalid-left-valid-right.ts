@@ -1,13 +1,4 @@
-import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
-
-type LocatorExternal = ReturnType<TestApi['Locator']>
-
-const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
-  const locatorExpect = api.expect(locator) as unknown as {
-    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
-  }
-  await locatorExpect.toHaveAttribute(name, value)
-}
+import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.video-invalid-left-valid-right'
 
@@ -25,6 +16,6 @@ export const test: Test = async (api) => {
   const afterVideo = Locator('.DiffPane--after .VideoElement')
 
   await expect(beforePane).toContainText('Failed to load video: left-invalid.mp4')
-  await expectAttribute(api, afterVideo, 'title', 'right-valid.mp4')
-  await expectAttribute(api, afterVideo, 'src', /^data:video\/mp4;base64,/)
+  await api.expect(afterVideo).toHaveAttribute('title', 'right-valid.mp4')
+  await api.expect(afterVideo).toHaveAttribute('src', /^data:video\/mp4;base64,/ as unknown as string)
 }

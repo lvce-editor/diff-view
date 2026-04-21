@@ -5,7 +5,7 @@ export default [
   ...config,
   ...actions,
   {
-    files: ['packages/e2e/src/**/*.ts'],
+    files: ['packages/e2e/**/*.ts'],
     rules: {
       '@cspell/spellchecker': 'off',
     },

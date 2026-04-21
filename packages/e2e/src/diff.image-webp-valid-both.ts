@@ -1,30 +1,21 @@
-import type { Test, TestApi } from '@lvce-editor/test-with-playwright'
-
-type LocatorExternal = ReturnType<TestApi['Locator']>
-
-const expectAttribute = async (api: TestApi, locator: LocatorExternal, name: string, value: RegExp | string): Promise<void> => {
-  const locatorExpect = api.expect(locator) as unknown as {
-    toHaveAttribute(attributeName: string, attributeValue: RegExp | string): Promise<void>
-  }
-  await locatorExpect.toHaveAttribute(name, value)
-}
+import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.image-webp-valid-both'
 
 export const skip = 1
 export const test: Test = async (api) => {
-  const { Command, FileSystem, Locator, Main } = api
+  const { FileSystem, Locator, Main } = api
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'image-webp-valid-both')
+  await FileSystem.writeFile(`${tmpDir}/left.webp`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-webp-valid-both.webp`, 'fixture')
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/left.webp<->${tmpDir}/image-webp-valid-both.webp`)
 
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterImage = Locator('.DiffPane--after .ImageElement')
 
-  await expectAttribute(api, beforeImage, 'alt', 'left.webp')
-  await expectAttribute(api, beforeImage, 'src', /^data:image\/webp;base64,/)
-  await expectAttribute(api, afterImage, 'alt', 'right.webp')
-  await expectAttribute(api, afterImage, 'src', /^data:image\/webp;base64,/)
+  await api.expect(beforeImage).toHaveAttribute('alt', 'left.webp')
+  await api.expect(beforeImage).toHaveAttribute('src', /^blob:/ as unknown as string)
+  await api.expect(afterImage).toHaveAttribute('alt', 'right.webp')
+  await api.expect(afterImage).toHaveAttribute('src', /^blob:/ as unknown as string)
 }

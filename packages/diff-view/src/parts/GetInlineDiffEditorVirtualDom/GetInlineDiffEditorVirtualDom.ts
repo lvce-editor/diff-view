@@ -64,10 +64,22 @@ export const getInlineDiffEditorVirtualDom = (
   const rows = getInlineDiffRows(contentLeft, contentRight)
   const visibleRows = rows.slice(minLineY, maxLineY)
   const contentChildCount = lineNumbers ? 2 : 1
+  const scrollBarActive = visibleRows.length < rows.length
   const rowsChildCount = visibleRows.length + 2
+  const lineNumberDom = lineNumbers
+    ? [
+        {
+          childCount: visibleRows.length,
+          className: ClassNames.DiffEditorGutter,
+          type: VirtualDomElements.Div,
+        },
+        ...visibleRows.flatMap(getInlineDiffLineNumberDom),
+      ]
+    : []
+  const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   return [
     {
-      childCount: 2,
+      childCount: scrollBarActive ? 2 : 1,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -76,16 +88,7 @@ export const getInlineDiffEditorVirtualDom = (
       className: `${ClassNames.DiffEditorContent} ${ClassNames.InlineDiffEditorContent}`,
       type: VirtualDomElements.Div,
     },
-    ...(lineNumbers
-      ? [
-          {
-            childCount: visibleRows.length,
-            className: ClassNames.DiffEditorGutter,
-            type: VirtualDomElements.Div,
-          },
-          ...visibleRows.flatMap(getInlineDiffLineNumberDom),
-        ]
-      : []),
+    ...lineNumberDom,
     {
       childCount: rowsChildCount,
       className: ClassNames.DiffEditorRows,
@@ -102,6 +105,6 @@ export const getInlineDiffEditorVirtualDom = (
       className: ClassNames.DiffEditorSpacerBottom,
       type: VirtualDomElements.Div,
     },
-    ...getScrollBarDom(),
+    ...scrollBarDom,
   ]
 }

@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals'
+import { expect, jest, test } from '@jest/globals'
 import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
@@ -170,21 +170,29 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
 
 test('loadContent sets image render mode when a side has an image extension', async (): Promise<void> => {
   const fileSystemWorkerInvocations: unknown[][] = []
+  const createObjectUrlMock = jest.spyOn((globalThis as any).URL, 'createObjectURL').mockReturnValue('blob:before.png')
   const fileSystemWorkerRpc = {
     dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
       fileSystemWorkerInvocations.push([method, ...params])
-      if (method !== 'FileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
+      if (method === 'FileSystem.readFile') {
+        const [uri] = params
+        if (uri === 'file:///tmp/before.png') {
+          return 'binary-image-content'
+        }
+        if (uri === 'file:///tmp/after.txt') {
+          return 'after-content\nsecond-line'
+        }
+        throw new Error(`unexpected params: ${String(uri)}`)
       }
-      const [uri] = params
-      if (uri === 'file:///tmp/before.png') {
-        return 'binary-image-content'
+      if (method === 'FileSystem.readFileAsBlob') {
+        const [uri] = params
+        if (uri === 'file:///tmp/before.png') {
+          return {}
+        }
+        throw new Error(`unexpected params: ${String(uri)}`)
       }
-      if (uri === 'file:///tmp/after.txt') {
-        return 'after-content\nsecond-line'
-      }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected method: ${method}`)
     },
     set: (): void => {},
   }
@@ -211,6 +219,7 @@ test('loadContent sets image render mode when a side has an image extension', as
   expect(fileSystemWorkerInvocations).toEqual([
     ['FileSystem.readFile', 'file:///tmp/before.png'],
     ['FileSystem.readFile', 'file:///tmp/after.txt'],
+    ['FileSystem.readFileAsBlob', 'file:///tmp/before.png'],
   ])
   expect(result).toMatchObject({
     contentLeft: 'binary-image-content',
@@ -219,6 +228,8 @@ test('loadContent sets image render mode when a side has an image extension', as
     errorLeftStack: '',
     errorRightMessage: '',
     errorRightStack: '',
+    imageSrcLeft: 'blob:before.png',
+    imageSrcRight: '',
     maxLineY: 2,
     renderModeLeft: 'image',
     renderModeRight: 'text',
@@ -229,6 +240,7 @@ test('loadContent sets image render mode when a side has an image extension', as
     uriLeft: '/tmp/before.png',
     uriRight: '/tmp/after.txt',
   })
+  createObjectUrlMock.mockRestore()
 })
 
 test('loadContent expands total line count for inline mode when replacements split into deletion and insertion rows', async (): Promise<void> => {

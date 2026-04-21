@@ -36,15 +36,15 @@ type User {
 
   await Main.openUri(`diff://${tmpDir}/left.graphql<->${tmpDir}/right.graphql`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('age: Int')
   await expect(afterPane).toContainText('age: Float')
-  await expect(Locator('.DiffPane--before .Token.Keyword')).toHaveCount(2)
-  await expect(Locator('.DiffPane--after .Token.Keyword')).toHaveCount(2)
-  await expect(Locator('.DiffPane--before .Token.Type')).toHaveCount(7)
-  await expect(Locator('.DiffPane--after .Token.Type')).toHaveCount(7)
-  await expect(Locator('.DiffPane--before .Token.VariableName')).toHaveCount(5)
-  await expect(Locator('.DiffPane--after .Token.VariableName')).toHaveCount(5)
+  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentLeft .Token.Type')).toHaveCount(7)
+  await expect(Locator('.DiffEditorContentRight .Token.Type')).toHaveCount(7)
+  await expect(Locator('.DiffEditorContentLeft .Token.VariableName')).toHaveCount(5)
+  await expect(Locator('.DiffEditorContentRight .Token.VariableName')).toHaveCount(5)
 }

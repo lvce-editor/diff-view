@@ -14,8 +14,9 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')
+  const beforeRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
 
-  await expect(beforePane.locator('.DiffEditorRows')).toHaveText('')
+  await expect(beforeRows).toHaveText('')
   await expect(beforePane.locator('.DiffRow--deleted')).toHaveCount(0)
   await expect(afterPane.locator('.DiffRow--inserted')).toHaveCount(1)
 }

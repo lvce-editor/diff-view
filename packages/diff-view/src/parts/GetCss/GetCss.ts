@@ -19,11 +19,11 @@ export const getCss = (): string => {
   word-break: break-word;
 }
 
-.DiffEditorErrorStack a {
+.DiffEditorErrorStackLink {
   color: inherit;
-  display: block;
   text-decoration: underline;
   text-underline-offset: 2px;
+  white-space: nowrap;
 }
 
   `

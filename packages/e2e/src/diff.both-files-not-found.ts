@@ -6,8 +6,7 @@ export const skip = 1
 
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   // arrange
-  const fixtureUrl = import.meta.resolve('../fixtures/large-text-file')
-  const tmpDir = await FileSystem.loadFixture(fixtureUrl)
+  const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(tmpDir)
 
   await Main.openUri(`diff://${tmpDir}/before.txt<->${tmpDir}/after.txt`)
@@ -16,6 +15,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const insertedRows = Locator('.DiffEditorContentRight .DiffRow--inserted')
 
+  // TODO verify helpful error is displayed
   await expect(beforePane).toContainText('"id": 1,')
   await expect(afterPane).toContainText('"id": 2,')
   await expect(afterPane).toContainText('"name": "bravo"')

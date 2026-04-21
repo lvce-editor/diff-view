@@ -1,6 +1,7 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
+import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorDom } from '../GetErrorDom/GetErrorDom.ts'
 import { getLineNumbersDom } from '../GetLineNumbersDom/GetLineNumbersDom.ts'
@@ -82,14 +83,16 @@ export const getContentDom = (
   maxLineY: number,
   inlineChanges: readonly InlineDiffChange[],
   side: 'left' | 'right',
+  tokenizedLines: readonly TokenizedLine[] = [],
 ): readonly VirtualDomNode[] => {
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorStack)
   }
-  const lines = getVisibleInlineDiffRows(content, totalLineCount, inlineChanges, minLineY, maxLineY, side)
+  const lines = getVisibleInlineDiffRows(content, totalLineCount, inlineChanges, minLineY, maxLineY, side, tokenizedLines)
   const rows = getRowsDom(
     lines.map((line) => line.text),
     lines.map((line) => line.className),
+    lines.map((line) => line.parts),
   )
   const startLineNumber = minLineY + 1
   const rowsChildCount = lines.length + 2

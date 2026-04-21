@@ -7,9 +7,10 @@ import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
+import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
 
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
-  const { height, itemHeight, knownImageExtensions, minimumSliderSize, uri } = state
+  const { assetDir, height, itemHeight, knownImageExtensions, minimumSliderSize, platform, uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
   const [leftResult, rightResult] = await loadFileContents(uriLeft, uriRight)
   const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
@@ -28,6 +29,10 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
         inlineChanges: [],
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),
       }
+  const canHighlightLeft = renderModeLeft === 'text' && !errorLeftMessage
+  const canHighlightRight = renderModeRight === 'text' && !errorRightMessage
+  const syntaxHighlightingState =
+    canHighlightLeft || canHighlightRight ? await loadSyntaxHighlighting(contentLeft, contentRight, uriLeft, uriRight, platform, assetDir) : undefined
   return {
     ...state,
     contentLeft,
@@ -38,8 +43,12 @@ export const loadContent = async (state: DiffViewState, savedState: unknown): Pr
     errorRightStack,
     initial: false,
     inlineChanges,
+    languageIdLeft: syntaxHighlightingState?.languageIdLeft || 'unknown',
+    languageIdRight: syntaxHighlightingState?.languageIdRight || 'unknown',
     renderModeLeft,
     renderModeRight,
+    tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || [],
+    tokenizedLinesRight: syntaxHighlightingState?.tokenizedLinesRight || [],
     totalLineCount,
     totalLineCountLeft,
     totalLineCountRight,

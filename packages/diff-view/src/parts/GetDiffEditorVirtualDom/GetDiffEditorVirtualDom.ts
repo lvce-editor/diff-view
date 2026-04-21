@@ -25,6 +25,8 @@ export const getDiffEditorVirtualDom = ({
   minLineY,
   renderModeLeft,
   renderModeRight,
+  tokenizedLinesLeft,
+  tokenizedLinesRight,
   totalLineCount,
   totalLineCountLeft,
   totalLineCountRight,
@@ -44,6 +46,8 @@ export const getDiffEditorVirtualDom = ({
   | 'layout'
   | 'renderModeLeft'
   | 'renderModeRight'
+  | 'tokenizedLinesLeft'
+  | 'tokenizedLinesRight'
   | 'totalLineCount'
   | 'totalLineCountLeft'
   | 'totalLineCountRight'
@@ -69,7 +73,7 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeLeft === 'image'
       ? getImageLeftDom(uriLeft)
-      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges)),
+      : getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges, tokenizedLinesLeft)),
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${sashLayoutClass}`,
@@ -79,7 +83,17 @@ export const getDiffEditorVirtualDom = ({
     },
     ...(renderModeRight === 'image'
       ? getImageRightDom(uriRight)
-      : getContentRightDom(contentRight, errorRightMessage, errorRightStack, showLineNumbers, totalLineCountRight, minLineY, maxLineY, inlineChanges)),
+      : getContentRightDom(
+          contentRight,
+          errorRightMessage,
+          errorRightStack,
+          showLineNumbers,
+          totalLineCountRight,
+          minLineY,
+          maxLineY,
+          inlineChanges,
+          tokenizedLinesRight,
+        )),
     ...getScrollBarDom(),
   ]
   return dom

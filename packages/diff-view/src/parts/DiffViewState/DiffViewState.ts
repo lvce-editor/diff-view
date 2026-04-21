@@ -1,4 +1,5 @@
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
+import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 
 export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
@@ -30,6 +31,8 @@ export interface DiffViewState {
   readonly isVisible: boolean
   readonly itemHeight: number
   readonly knownImageExtensions: readonly string[]
+  readonly languageIdLeft: string
+  readonly languageIdRight: string
   readonly layout: Layout
   readonly leftWidth: number
   readonly lineNumbers: boolean
@@ -49,6 +52,8 @@ export interface DiffViewState {
   readonly scrollBarDragOffsetY: number
   readonly scrollBarHeight: number
   readonly splitButtonEnabled: boolean
+  readonly tokenizedLinesLeft: readonly TokenizedLine[]
+  readonly tokenizedLinesRight: readonly TokenizedLine[]
   readonly totalLineCount: number
   readonly totalLineCountLeft: number
   readonly totalLineCountRight: number

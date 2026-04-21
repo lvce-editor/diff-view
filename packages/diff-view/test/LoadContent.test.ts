@@ -2,7 +2,6 @@ import { expect, jest, test } from '@jest/globals'
 import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
-import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
   const diffWorkerInvocations: unknown[][] = []

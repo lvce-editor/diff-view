@@ -45,18 +45,14 @@ test.skip('loadFileContents loads both files in order', async (): Promise<void> 
 
   expect(extensionHostInvocations).toEqual([])
   expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', '/tmp/after.txt']])
-  expect(result).toEqual([
-    {
-      content: 'before-content',
-      errorMessage: '',
-      errorStack: '',
-    },
-    {
-      content: 'after-content',
-      errorMessage: '',
-      errorStack: '',
-    },
-  ])
+  expect(result).toEqual({
+    contentLeft: 'before-content',
+    errorLeftMessage: '',
+    errorLeftStack: '',
+    contentRight: 'after-content',
+    errorRightMessage: '',
+    errorRightStack: '',
+  })
 })
 
 test.skip('loadFileContents captures per-side read errors', async (): Promise<void> => {
@@ -88,16 +84,12 @@ test.skip('loadFileContents captures per-side read errors', async (): Promise<vo
 
   const result = await loadFileContents('data://before-content', '/tmp/after.txt')
 
-  expect(result).toEqual([
-    {
-      content: 'before-content',
-      errorMessage: '',
-      errorStack: '',
-    },
-    {
-      content: '',
-      errorMessage: 'file not found',
-      errorStack: 'Error: file not found\n    at read missing file',
-    },
-  ])
+  expect(result).toEqual({
+    contentLeft: 'before-content',
+    errorLeftMessage: '',
+    errorLeftStack: '',
+    contentRight: '',
+    errorRightMessage: 'file not found',
+    errorRightStack: 'Error: file not found\n    at read missing file',
+  })
 })

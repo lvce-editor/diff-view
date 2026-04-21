@@ -22,9 +22,7 @@ const hasFileChanged = (
 }
 
 export const handleWorkspaceChange = async (state: DiffViewState): Promise<DiffViewState> => {
-  const [leftResult, rightResult] = await loadFileContents(state.uriLeft, state.uriRight)
-  const { content: contentLeft, errorMessage: errorLeftMessage, errorStack: errorLeftStack } = leftResult
-  const { content: contentRight, errorMessage: errorRightMessage, errorStack: errorRightStack } = rightResult
+  const { contentLeft, contentRight, errorLeftMessage, errorLeftStack, errorRightMessage, errorRightStack } = await loadFileContents(state.uriLeft, state.uriRight)
 
   if (!hasFileChanged(state, contentLeft, contentRight, errorLeftMessage, errorLeftStack, errorRightMessage, errorRightStack)) {
     return state

@@ -58,6 +58,8 @@ export const createDefaultState = (): DiffViewState => ({
   uriLeft: '',
   uriRight: '',
   viewMode: 1,
+  visibleLinesLeft: [],
+  visibleLinesRight: [],
   width: 100,
   workspacePath: '',
   x: 0,

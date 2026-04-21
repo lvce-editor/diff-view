@@ -14,12 +14,12 @@ export const name = 'diff.image-png-valid-both'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { Command, FileSystem, Locator, Main } = api
+  const { FileSystem, Locator, Main } = api
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'image-png-valid-both')
+  await FileSystem.writeFile(`${tmpDir}/left.png`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-png-valid-both.png`, 'fixture')
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/left.png<->${tmpDir}/image-png-valid-both.png`)
 
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterImage = Locator('.DiffPane--after .ImageElement')

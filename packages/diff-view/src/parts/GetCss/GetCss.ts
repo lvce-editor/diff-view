@@ -14,6 +14,7 @@ export const getCss = (): string => {
   min-width: 0;
   overflow: auto;
   padding: 8px 10px;
+  user-select: text;
   white-space: pre-wrap;
   word-break: break-word;
 }

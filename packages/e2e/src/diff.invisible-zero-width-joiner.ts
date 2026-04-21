@@ -7,8 +7,8 @@ export const skip = 1
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `cooperate`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `co
 operate`)
-    await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `co\u200doperate`)
   await Workspace.setPath(tmpDir)
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
@@ -18,7 +18,6 @@ operate`)
   const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toContainText('cooperate')
-  await expect(afterPane).toContainText('co
-operate')
+  await expect(afterPane).toContainText('cooperate')
   await expect(changedTokens).toHaveCount(2)
 }

@@ -14,12 +14,12 @@ export const name = 'diff.image-invalid-left-valid-right'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { Command, expect, FileSystem, Locator, Main } = api
+  const { expect, FileSystem, Locator, Main } = api
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/fixture.txt`, 'fixture')
-  await Command.execute('DiffView.setFixture', 'image-invalid-left-valid-right')
+  await FileSystem.writeFile(`${tmpDir}/left-invalid.svg`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-invalid-left-valid-right.svg`, 'fixture')
 
-  await Main.openUri(`${tmpDir}/fixture.txt`)
+  await Main.openUri(`diff://${tmpDir}/left-invalid.svg<->${tmpDir}/image-invalid-left-valid-right.svg`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterImage = Locator('.DiffPane--after .ImageElement')

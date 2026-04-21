@@ -62,6 +62,31 @@ body {
   text-align: center;
 }
 
+.DiffErrorState {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.14);
+  border-radius: 12px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+  padding: 16px;
+}
+
+.DiffErrorMessage {
+  color: #991b1b;
+  font-weight: 600;
+}
+
+.DiffErrorStack {
+  color: #475569;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
 .DiffRow {
   border-radius: 10px;
   font-family: 'Cascadia Code', 'Fira Code', monospace;
@@ -123,7 +148,21 @@ const createElement = (document, tagName, className, text = '') => {
   return element
 }
 
+const renderErrorPane = (document, pane, fixture) => {
+  const errorState = createElement(document, 'div', 'DiffErrorState')
+  errorState.append(createElement(document, 'div', 'DiffErrorMessage', fixture.errorMessage))
+  if (fixture.errorStack) {
+    const errorStack = createElement(document, 'div', 'DiffErrorStack', fixture.errorStack)
+    errorState.append(errorStack)
+  }
+  pane.append(errorState)
+}
+
 const renderTextPane = (document, pane, fixture) => {
+  if (fixture.errorMessage) {
+    renderErrorPane(document, pane, fixture)
+    return
+  }
   if (fixture.emptyMessage) {
     pane.append(createElement(document, 'div', 'DiffEmptyState', fixture.emptyMessage))
     return

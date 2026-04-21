@@ -24,6 +24,17 @@ const changedRow = (parts, status = 'normal') => ({
   status,
 })
 
+const errorPane = (errorMessage, errorStack = '') => ({
+  errorMessage,
+  errorStack,
+  type: 'text',
+})
+
+const setErrors = (beforeErrorMessage, afterErrorMessage, beforeErrorStack = '', afterErrorStack = '') => ({
+  before: errorPane(beforeErrorMessage, beforeErrorStack),
+  after: errorPane(afterErrorMessage, afterErrorStack),
+})
+
 const fixtures = {
   'empty-after': {
     hero: 'Empty After',
@@ -181,6 +192,15 @@ const fixtures = {
       type: 'text',
       rows: [row('return nextValue', 'inserted'), row('cleanupNextValue()', 'inserted')],
     },
+  },
+  'read-error-both': {
+    hero: 'Read Error Both Sides',
+    ...setErrors(
+      'Failed to execute file system provider: no file system provider for protocol "memfs" found',
+      'Failed to execute file system provider: no file system provider for protocol "memfs" found',
+      'VError: Failed to execute file system provider: no file system provider for protocol "memfs" found\n    at loadFileContent (index 0)',
+      'VError: Failed to execute file system provider: no file system provider for protocol "memfs" found\n    at loadFileContent (index 1)',
+    ),
   },
   'one-char-change': {
     hero: 'One Char Change',

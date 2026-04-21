@@ -12,13 +12,13 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const contentLeft = Locator('.DiffEditorContentLeft')
-  const contentRight = Locator('.DiffEditorContentRight')
-  const rowLeft = contentLeft.locator('.EditorRow')
-  const rowRight = contentRight.locator('.EditorRow')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const rowLeft = contentLeft.locator('.EditorRow').nth(0)
+  const rowRight = contentRight.locator('.EditorRow').nth(1) // TODO
 
-  await expect(contentLeft).toHaveJSProperty('textContent', 'abc')
-  await expect(contentRight).toHaveJSProperty('textContent', 'abc ')
+  await expect(contentLeft).toHaveText('abc')
+  await expect(contentRight).toHaveText('abc ')
   await expect(rowLeft).toHaveClass('Deletion')
   await expect(rowRight).toHaveClass('Insertion')
 }

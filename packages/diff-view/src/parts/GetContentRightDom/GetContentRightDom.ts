@@ -1,6 +1,7 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
+import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
@@ -14,6 +15,7 @@ export const getContentRightDom = (
   maxLineY = totalLineCount,
   inlineChanges: readonly InlineDiffChange[] = [],
   tokenizedLines: readonly TokenizedLine[] = [],
+  visibleLines: readonly VisibleLine[] = [],
 ): readonly VirtualDomNode[] => {
   return getContentDom(
     ClassNames.DiffEditorContentRight,
@@ -27,5 +29,6 @@ export const getContentRightDom = (
     inlineChanges,
     'right',
     tokenizedLines,
+    visibleLines,
   )
 }

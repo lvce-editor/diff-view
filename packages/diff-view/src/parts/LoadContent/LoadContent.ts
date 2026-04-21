@@ -1,13 +1,29 @@
+import { FileSystemWorker } from '@lvce-editor/rpc-registry'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getInlineDiffState } from '../GetInlineDiffState/GetInlineDiffState.ts'
 import { getInlineDiffUris } from '../GetInlineDiffUris/GetInlineDiffUris.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getMinLineY } from '../GetMinLineY/GetMinLineY.ts'
+import { getProtocol } from '../GetProtocol/GetProtocol.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { loadFileContents } from '../LoadFileContents/LoadFileContents.ts'
 import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
+import { toFileUri } from '../ToFileUri/ToFileUri.ts'
+
+const loadImageSrc = async (uri: string): Promise<string> => {
+  const protocol = getProtocol(uri)
+  const fileUri = protocol === 'file' ? toFileUri(uri) : uri
+  const blob = await FileSystemWorker.readFileAsBlob(fileUri)
+  return (
+    globalThis as unknown as {
+      URL: {
+        createObjectURL(blob: unknown): string
+      }
+    }
+  ).URL.createObjectURL(blob)
+}
 
 export const reloadContent = async (
   state: DiffViewState,
@@ -36,6 +52,10 @@ export const reloadContent = async (
   const canHighlightRight = renderModeRight === 'text' && !errorRightMessage
   const syntaxHighlightingState =
     canHighlightLeft || canHighlightRight ? await loadSyntaxHighlighting(contentLeft, contentRight, uriLeft, uriRight, platform, assetDir) : undefined
+  const [imageSrcLeft, imageSrcRight] = await Promise.all([
+    renderModeLeft === 'image' && !errorLeftMessage ? loadImageSrc(uriLeft) : Promise.resolve(''),
+    renderModeRight === 'image' && !errorRightMessage ? loadImageSrc(uriRight) : Promise.resolve(''),
+  ])
 
   return {
     ...state,
@@ -45,6 +65,8 @@ export const reloadContent = async (
     errorLeftStack,
     errorRightMessage,
     errorRightStack,
+    imageSrcLeft,
+    imageSrcRight,
     initial: false,
     inlineChanges,
     languageIdLeft: syntaxHighlightingState?.languageIdLeft || 'unknown',

@@ -1,3 +1,5 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 const getContent = () => {
   let content = ''
   for (let i = 97; i < 160; i++) {
@@ -10,7 +12,7 @@ export const name = 'sample.diff-editor-insertion'
 
 export const skip = true
 
-export const test = async () => {
+export const test: Test = async ({ FileSystem, LWaatore, Main, Wtokspacer }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, ``)

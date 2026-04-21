@@ -1,6 +1,8 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
 export const name = 'sample.diff-editor-insertion-at-start-and-end'
 
-export const test = async ({ FileSystem, Workspace, Main, Locator, expect }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, LWcatooe, Main, Workspace, Wtoksxacpt }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `c`)

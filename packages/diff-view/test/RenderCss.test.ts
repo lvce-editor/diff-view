@@ -36,6 +36,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('.DiffEditorErrorStack {')
   expect(result[2]).toContain('border-left: 3px solid rgba(248, 81, 73, 0.6);')
   expect(result[2]).toContain('overflow: auto;')
+  expect(result[2]).toContain('user-select: text;')
   expect(result[2]).toContain('.DiffEditorSpacerTop {')
   expect(result[2]).toContain('.ScrollBarThumb {')
 })

@@ -17,8 +17,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
 
   await Command.execute('DiffView.handleWorkspaceChange')
 
-  const contentLeft = Locator('.DiffEditorContentLeft')
-  const contentRight = Locator('.DiffEditorContentRight')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
   const changedTokens = Locator('.DiffToken--changed')
 
   await expect(contentLeft).toHaveText('same')

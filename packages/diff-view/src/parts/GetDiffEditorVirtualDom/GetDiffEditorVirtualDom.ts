@@ -5,10 +5,16 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
-import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
-import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+
+const getSashDom = (sashLayoutClass: string): VirtualDomNode => ({
+  childCount: 0,
+  className: `${ClassNames.Sash} ${sashLayoutClass}`,
+  name: 'sash',
+  onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
+  type: VirtualDomElements.Div,
+})
 
 export const getDiffEditorVirtualDom = ({
   contentLeft,
@@ -70,28 +76,34 @@ export const getDiffEditorVirtualDom = ({
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
-  let leftDom: readonly VirtualDomNode[]
-  if (renderModeLeft === 'image') {
-    leftDom = getImageLeftDom(uriLeft, imageSrcLeft || '')
-  } else {
-    leftDom = getContentLeftDom(contentLeft, errorLeftMessage, errorLeftStack, showLineNumbers, totalLineCountLeft, minLineY, maxLineY, inlineChanges, tokenizedLinesLeft)
-  }
-  let rightDom: readonly VirtualDomNode[]
-  if (renderModeRight === 'image') {
-    rightDom = getImageRightDom(uriRight, imageSrcRight || '')
-  } else {
-    rightDom = getContentRightDom(
-      contentRight,
-      errorRightMessage,
-      errorRightStack,
-      showLineNumbers,
-      totalLineCountRight,
-      minLineY,
-      maxLineY,
-      inlineChanges,
-      tokenizedLinesRight,
-    )
-  }
+  const leftDom = getContentLeftDom(
+    renderModeLeft,
+    contentLeft,
+    errorLeftMessage,
+    errorLeftStack,
+    showLineNumbers,
+    totalLineCountLeft,
+    minLineY,
+    maxLineY,
+    inlineChanges,
+    tokenizedLinesLeft,
+    uriLeft,
+    imageSrcLeft || '',
+  )
+  const rightDom = getContentRightDom(
+    renderModeRight,
+    contentRight,
+    errorRightMessage,
+    errorRightStack,
+    showLineNumbers,
+    totalLineCountRight,
+    minLineY,
+    maxLineY,
+    inlineChanges,
+    tokenizedLinesRight,
+    uriRight,
+    imageSrcRight || '',
+  )
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const dom: readonly VirtualDomNode[] = [
     {
@@ -102,13 +114,7 @@ export const getDiffEditorVirtualDom = ({
       type: VirtualDomElements.Div,
     },
     ...leftDom,
-    {
-      childCount: 0,
-      className: `${ClassNames.Sash} ${sashLayoutClass}`,
-      name: 'sash',
-      onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
-      type: VirtualDomElements.Div,
-    },
+    getSashDom(sashLayoutClass),
     ...rightDom,
     ...scrollBarDom,
   ]

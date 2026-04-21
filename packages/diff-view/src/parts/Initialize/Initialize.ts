@@ -4,6 +4,7 @@ import { initializeDiffWorker } from '../InitializeDiffWorker/InitializeDiffWork
 import { initializeErrorWorker } from '../InitializeErrorWorker/InitializeErrorWorker.ts'
 import { initializeExtensionManagementWorker } from '../InitializeExtensionManagementWorker/InitializeExtensionManagementWorker.ts'
 import { initializeFileSystemWorker } from '../InitializeFileSystemWorker/InitializeFileSystemWorker.ts'
+import { initializeSyntaxHighlightingWorker } from '../InitializeSyntaxHighlightingWorker/InitializeSyntaxHighlightingWorker.ts'
 
 export const initialize = async (): Promise<void> => {
   await Promise.all([
@@ -13,5 +14,6 @@ export const initialize = async (): Promise<void> => {
     initializeExtensionManagementWorker(),
     initializeFileSystemWorker(),
     initializeErrorWorker(),
+    initializeSyntaxHighlightingWorker(),
   ])
 }

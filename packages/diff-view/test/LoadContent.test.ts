@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { DiffWorker, ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
+import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
@@ -293,5 +293,109 @@ test('loadContent expands total line count for inline mode when replacements spl
     maxLineY: 3,
     minLineY: 0,
     totalLineCount: 4,
+  })
+})
+
+test('loadContent resolves language ids and tokenizes both panes when syntax metadata is available', async (): Promise<void> => {
+  const diffWorkerRpc = {
+    dispose: (): void => {},
+    invocations: [] as unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
+      diffWorkerRpc.invocations.push([method, ...params])
+      if (method !== 'Diff.diffInline') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      expect(params).toEqual([['const left = 1'], ['const right = 2']])
+      return [{ leftIndex: 0, rightIndex: 0, type: 0 }]
+    },
+    set: (): void => {},
+  }
+  const extensionManagementWorkerRpc = {
+    dispose: (): void => {},
+    invocations: [] as unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
+      extensionManagementWorkerRpc.invocations.push([method, ...params])
+      if (method !== 'Extensions.getLanguages') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      expect(params).toEqual([7, '/tmp/assets'])
+      return [
+        {
+          extensions: ['.ts'],
+          id: 'typescript',
+          tokenize: '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js',
+        },
+      ]
+    },
+    set: (): void => {},
+  }
+  const fileSystemWorkerRpc = {
+    dispose: (): void => {},
+    invocations: [] as unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
+      fileSystemWorkerRpc.invocations.push([method, ...params])
+      if (method !== 'FileSystem.readFile') {
+        throw new Error(`unexpected method: ${method}`)
+      }
+      const [uri] = params
+      if (uri === 'file:///tmp/left.ts') {
+        return 'const left = 1'
+      }
+      if (uri === 'file:///tmp/right.ts') {
+        return 'const right = 2'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    set: (): void => {},
+  }
+  const syntaxHighlightingWorkerRpc = {
+    dispose: (): void => {},
+    invocations: [] as unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
+      syntaxHighlightingWorkerRpc.invocations.push([method, ...params])
+      if (method === 'Tokenizer.load') {
+        return undefined
+      }
+      if (method === 'Tokenizer.tokenizeCodeBlock') {
+        const [codeBlock] = params
+        if (codeBlock === 'const left = 1') {
+          return [['const', 'Token Keyword', ' left = 1', 'Token Text']]
+        }
+        if (codeBlock === 'const right = 2') {
+          return [['const', 'Token Keyword', ' right = 2', 'Token Text']]
+        }
+      }
+      throw new Error(`unexpected method: ${method}`)
+    },
+    set: (): void => {},
+  }
+  DiffWorker.set(diffWorkerRpc as any)
+  ExtensionManagementWorker.set(extensionManagementWorkerRpc as any)
+  FileSystemWorker.set(fileSystemWorkerRpc as any)
+  SyntaxHighlightingWorker.set(syntaxHighlightingWorkerRpc as any)
+
+  const state = {
+    ...createDefaultState(),
+    assetDir: '/tmp/assets',
+    height: 40,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    platform: 7,
+    uri: 'inline-diff:///tmp/left.ts<->/tmp/right.ts',
+  }
+
+  const result = await loadContent(state, { minLineY: 0 })
+
+  expect(extensionManagementWorkerRpc.invocations).toEqual([['Extensions.getLanguages', 7, '/tmp/assets']])
+  expect(syntaxHighlightingWorkerRpc.invocations).toEqual([
+    ['Tokenizer.load', 'typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'],
+    ['Tokenizer.tokenizeCodeBlock', 'const left = 1', 'typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'],
+    ['Tokenizer.tokenizeCodeBlock', 'const right = 2', 'typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'],
+  ])
+  expect(result).toMatchObject({
+    languageIdLeft: 'typescript',
+    languageIdRight: 'typescript',
+    tokenizedLinesLeft: [['const', 'Token Keyword', ' left = 1', 'Token Text']],
+    tokenizedLinesRight: [['const', 'Token Keyword', ' right = 2', 'Token Text']],
   })
 })

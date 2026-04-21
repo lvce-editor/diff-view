@@ -163,3 +163,63 @@ test('getContentRightDom highlights insertions and leaves deletions blank', (): 
     },
   ])
 })
+
+test('getContentRightDom renders syntax-highlighted token spans', (): void => {
+  const result = getContentRightDom('const answer = 1', '', '', true, 1, 0, 1, [], [['const', 'Token Keyword', ' answer = 1', 'Token Text']])
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorContentRight,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 3,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerTop,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 4,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: 'Token Keyword',
+      type: VirtualDomElements.Span,
+    },
+    text('const'),
+    {
+      childCount: 1,
+      className: 'Token Text',
+      type: VirtualDomElements.Span,
+    },
+    text(' answer = 1'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorSpacerBottom,
+      type: VirtualDomElements.Div,
+    },
+  ])
+})

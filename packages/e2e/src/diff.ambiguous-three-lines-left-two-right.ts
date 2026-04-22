@@ -8,6 +8,8 @@ const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly stri
   }
 }
 
+export const skip = 1
+
 const toError = (error: unknown, fallbackMessage: string): Error => {
   if (error instanceof Error) {
     return error

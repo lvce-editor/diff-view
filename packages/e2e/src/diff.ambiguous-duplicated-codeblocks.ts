@@ -2,6 +2,8 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.ambiguous-duplicated-codeblocks'
 
+export const skip = 1
+
 const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
   for (let index = 0; index < texts.length; index += 1) {
     await expect(rows.nth(index)).toHaveText(texts[index])

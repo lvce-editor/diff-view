@@ -1,5 +1,5 @@
-import * as ClassNames from '../../ClassNames/ClassNames.ts'
-import { InlineDiffRowType, type InlineDiffRow } from '../../GetInlineDiffRows/GetInlineDiffRows.ts'
+import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { InlineDiffRowType, type InlineDiffRow } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 
 export const getInlineDiffRowClassName = (row: InlineDiffRow): string => {
   switch (row.type) {

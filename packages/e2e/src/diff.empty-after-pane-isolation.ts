@@ -4,13 +4,13 @@ export const name = 'diff.empty-after-pane-isolation'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `abc`)
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, ``)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

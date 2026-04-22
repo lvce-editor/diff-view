@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-sql'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/query-before.sql`,
@@ -22,7 +22,7 @@ WHERE id = 2;
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/query-before.sql<->${tmpDir}/query-after.sql`)
+  await DiffView.open(`${tmpDir}/query-before.sql`, `${tmpDir}/query-after.sql`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

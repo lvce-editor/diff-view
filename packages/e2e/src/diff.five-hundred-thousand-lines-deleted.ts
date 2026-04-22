@@ -18,14 +18,14 @@ export const name = 'diff.five-hundred-thousand-lines-deleted'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
 
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getDeletedContent())
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, ``)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const beforeRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')

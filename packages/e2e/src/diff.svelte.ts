@@ -4,7 +4,7 @@ export const name = 'diff.svelte'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.svelte`,
@@ -26,7 +26,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.svelte<->${tmpDir}/right.svelte`)
+  await DiffView.open(`${tmpDir}/left.svelte`, `${tmpDir}/right.svelte`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

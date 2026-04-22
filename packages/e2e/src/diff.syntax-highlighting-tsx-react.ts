@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-tsx-react'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.tsx`,
@@ -64,7 +64,7 @@ export function Card({ title, description }: CardProps): ReactNode {
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.tsx<->${tmpDir}/right.tsx`)
+  await DiffView.open(`${tmpDir}/left.tsx`, `${tmpDir}/right.tsx`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

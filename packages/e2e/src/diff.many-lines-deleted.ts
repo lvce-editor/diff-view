@@ -4,7 +4,7 @@ export const name = 'diff.many-lines-deleted'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const deletedLines = Array.from({ length: 30 }, (_, index) => `deleted line ${index + 1}`)
 
@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, ``)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const deletedRows = Locator('.DiffEditorContentLeft .DiffRow--deleted')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')

@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-toml-ini'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/Cargo.toml`,
@@ -28,7 +28,7 @@ serde = yes
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/Cargo.toml<->${tmpDir}/app.ini`)
+  await DiffView.open(`${tmpDir}/Cargo.toml`, `${tmpDir}/app.ini`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

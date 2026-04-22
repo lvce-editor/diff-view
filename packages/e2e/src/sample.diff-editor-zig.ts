@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-zig'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/main-before.zig`,
@@ -26,7 +26,7 @@ pub fn main() !void {
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/main-before.zig<->${tmpDir}/main-after.zig`)
+  await DiffView.open(`${tmpDir}/main-before.zig`, `${tmpDir}/main-after.zig`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

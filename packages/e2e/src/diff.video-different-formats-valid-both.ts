@@ -5,12 +5,12 @@ export const name = 'diff.video-different-formats-valid-both'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { FileSystem, Locator, Main } = api
+  const { DiffView, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left.mp4`, 'fixture')
   await FileSystem.writeFile(`${tmpDir}/video-different-formats-valid-both.webm`, 'fixture')
 
-  await Main.openUri(`diff://${tmpDir}/left.mp4<->${tmpDir}/video-different-formats-valid-both.webm`)
+  await DiffView.open(`${tmpDir}/left.mp4`, `${tmpDir}/video-different-formats-valid-both.webm`)
 
   const beforeVideo = Locator('.DiffPane--before .VideoElement')
   const afterVideo = Locator('.DiffPane--after .VideoElement')

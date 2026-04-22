@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-elixir'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.ex`,
@@ -26,7 +26,7 @@ end
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.ex<->${tmpDir}/right.ex`)
+  await DiffView.open(`${tmpDir}/left.ex`, `${tmpDir}/right.ex`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

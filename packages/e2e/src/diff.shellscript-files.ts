@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.shellscript-files'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.sh`,
@@ -24,7 +24,7 @@ fi
   )
 
   await Workspace.setPath(tmpDir)
-  await Main.openUri(`diff://${tmpDir}/left.sh<->${tmpDir}/right.sh`)
+  await DiffView.open(`${tmpDir}/left.sh`, `${tmpDir}/right.sh`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

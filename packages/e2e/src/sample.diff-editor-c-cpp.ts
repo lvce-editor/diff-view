@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-c-cpp'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/buffer.c`,
@@ -30,7 +30,7 @@ int main() {
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/buffer.c<->${tmpDir}/buffer.cpp`)
+  await DiffView.open(`${tmpDir}/buffer.c`, `${tmpDir}/buffer.cpp`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

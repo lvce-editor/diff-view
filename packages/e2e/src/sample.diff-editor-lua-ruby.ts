@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-lua-ruby'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/script.lua`,
@@ -26,7 +26,7 @@ end
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/script.lua<->${tmpDir}/script.rb`)
+  await DiffView.open(`${tmpDir}/script.lua`, `${tmpDir}/script.rb`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

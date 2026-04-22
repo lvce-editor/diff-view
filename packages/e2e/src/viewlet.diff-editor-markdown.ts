@@ -4,7 +4,7 @@ export const name = 'sample.diff-editor-markdown'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/file-1.md`,
@@ -28,7 +28,7 @@ This is the right document.
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.md<->${tmpDir}/file-2.md`)
+  await DiffView.open(`${tmpDir}/file-1.md`, `${tmpDir}/file-2.md`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

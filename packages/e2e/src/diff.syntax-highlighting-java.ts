@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-java'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/file-1.java`,
@@ -33,7 +33,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.java<->${tmpDir}/file-2.java`)
+  await DiffView.open(`${tmpDir}/file-1.java`, `${tmpDir}/file-2.java`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

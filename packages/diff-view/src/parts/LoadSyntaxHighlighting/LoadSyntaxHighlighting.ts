@@ -43,6 +43,10 @@ const tokenizeCodeBlock = async (content: string, language: SyntaxLanguageInfo):
   }
 }
 
+const getUniqueLanguages = (languageLeft: SyntaxLanguageInfo, languageRight: SyntaxLanguageInfo): readonly SyntaxLanguageInfo[] => {
+  return [...new Map([languageLeft, languageRight].map((language) => [`${language.languageId}:${language.tokenizerPath}`, language])).values()]
+}
+
 export const loadSyntaxHighlighting = async (
   contentLeft: string,
   contentRight: string,
@@ -55,7 +59,7 @@ export const loadSyntaxHighlighting = async (
     const languages = await getLanguages(platform, assetDir)
     const languageLeft = getSyntaxLanguage(uriLeft, languages)
     const languageRight = getSyntaxLanguage(uriRight, languages)
-    const uniqueLanguages = [...new Map([languageLeft, languageRight].map((language) => [`${language.languageId}:${language.tokenizerPath}`, language])).values()]
+    const uniqueLanguages = getUniqueLanguages(languageLeft, languageRight)
     await Promise.all(uniqueLanguages.map(loadTokenizer))
     const [tokenizedLinesLeft, tokenizedLinesRight] = await Promise.all([tokenizeCodeBlock(contentLeft, languageLeft), tokenizeCodeBlock(contentRight, languageRight)])
     return {

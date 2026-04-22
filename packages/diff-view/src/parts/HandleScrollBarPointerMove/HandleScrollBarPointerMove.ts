@@ -13,6 +13,16 @@ export const handleScrollBarPointerMove = (state: DiffViewState, clientY: number
   return {
     ...state,
     ...scrollState,
-    ...getVisibleLinesState({ ...state, ...scrollState }),
+    ...getVisibleLinesState({
+      contentLeft: state.contentLeft,
+      contentRight: state.contentRight,
+      inlineChanges: state.inlineChanges,
+      maxLineY: scrollState.maxLineY,
+      minLineY: scrollState.minLineY,
+      tokenizedLinesLeft: state.tokenizedLinesLeft,
+      tokenizedLinesRight: state.tokenizedLinesRight,
+      totalLineCountLeft: state.totalLineCountLeft,
+      totalLineCountRight: state.totalLineCountRight,
+    }),
   }
 }

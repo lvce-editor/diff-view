@@ -48,7 +48,7 @@ const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
   const label = getStackLineLabel(href)
   return [
     {
-      childCount: 1,
+      childCount: prefix ? 2 : 1,
       type: VirtualDomElements.Div,
     },
     ...(prefix ? [text(prefix)] : []),

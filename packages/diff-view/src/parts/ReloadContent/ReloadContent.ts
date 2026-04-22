@@ -66,6 +66,16 @@ export const reloadContent = async (
 
   return {
     ...nextState,
-    ...getVisibleLinesState(nextState),
+    ...getVisibleLinesState({
+      contentLeft: nextState.contentLeft,
+      contentRight: nextState.contentRight,
+      inlineChanges: nextState.inlineChanges,
+      maxLineY: nextState.maxLineY,
+      minLineY: nextState.minLineY,
+      tokenizedLinesLeft: nextState.tokenizedLinesLeft,
+      tokenizedLinesRight: nextState.tokenizedLinesRight,
+      totalLineCountLeft: nextState.totalLineCountLeft,
+      totalLineCountRight: nextState.totalLineCountRight,
+    }),
   }
 }

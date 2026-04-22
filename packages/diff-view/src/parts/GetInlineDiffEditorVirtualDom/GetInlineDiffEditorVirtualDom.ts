@@ -1,11 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getInlineDiffLineNumberDom } from '../GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
+import { getInlineDiffRowDom } from '../GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
-import { getInlineDiffLineNumberDom } from './GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
-import { getInlineDiffRowDom } from './GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 
 export const getInlineDiffEditorVirtualDom = (
   contentLeft: string,

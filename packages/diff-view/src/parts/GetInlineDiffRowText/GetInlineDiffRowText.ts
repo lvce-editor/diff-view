@@ -1,4 +1,4 @@
-import { InlineDiffRowType, type InlineDiffRow } from '../../GetInlineDiffRows/GetInlineDiffRows.ts'
+import { InlineDiffRowType, type InlineDiffRow } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 
 export const getInlineDiffRowText = (row: InlineDiffRow): string => {
   switch (row.type) {

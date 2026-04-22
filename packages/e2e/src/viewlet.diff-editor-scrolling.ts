@@ -2,18 +2,18 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 const getLargeFileContent = (bottomLine: string): string => {
   const lines: string[] = []
-  for (let index = 1; index <= 180; index++) {
+  for (let index = 1; index <= 1800; index++) {
     lines.push(`shared line ${index}`)
   }
   lines.push(bottomLine)
   return lines.join('\n')
 }
 
-export const name = 'diff.large-file-diff-at-bottom'
+export const name = 'diff.diff-editor-scrolling'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getLargeFileContent('bottom change after'))
@@ -21,18 +21,15 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const line1 = Locator('.DiffEditorContentLeft .DiffEditorLineNumber', {
+    hasText: '1',
+  })
+  await expect(line1).toBeVisible()
 
-  await expect(Locator('.ScrollBar')).toHaveCount(1)
-  await expect(beforePane).not.toContainText('bottom change before')
-  await expect(afterPane).not.toContainText('bottom change after')
+  await Command.execute(`DiffView.handleWheel`, 9, 9_999_999)
 
-  await Locator('.DiffEditor').dispatchEvent('wheel', {
-    deltaMode: 0,
-    deltaY: 100_000,
-  } as unknown as string)
-
-  await expect(beforePane).toContainText('bottom change before')
-  await expect(afterPane).toContainText('bottom change after')
+  const line1800 = Locator('.DiffEditorContentLeft .DiffEditorLineNumber', {
+    hasText: '1800',
+  })
+  await expect(line1800).toBeVisible()
 }

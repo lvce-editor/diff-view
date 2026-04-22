@@ -22,11 +22,11 @@ export const handleWheel = (state: DiffViewState, deltaMode: number, eventDeltaY
     inlineChanges,
     itemHeight,
     minimumSliderSize,
+    tokenizedLinesLeft,
+    tokenizedLinesRight,
     totalLineCount,
     totalLineCountLeft,
-    tokenizedLinesLeft,
     totalLineCountRight,
-    tokenizedLinesRight,
   } = state
   const nextDeltaY = deltaY + getWheelDeltaY(deltaMode, eventDeltaY, itemHeight, height)
   const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, nextDeltaY)
@@ -37,9 +37,9 @@ export const handleWheel = (state: DiffViewState, deltaMode: number, eventDeltaY
     maxLineY: scrollState.maxLineY,
     minLineY: scrollState.minLineY,
     tokenizedLinesLeft,
-    totalLineCountLeft,
-    totalLineCountRight,
     tokenizedLinesRight,
+      totalLineCountLeft,
+      totalLineCountRight,
   })
   return {
     ...state,

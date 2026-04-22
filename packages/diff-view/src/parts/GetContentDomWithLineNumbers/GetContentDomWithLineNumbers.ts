@@ -10,6 +10,7 @@ export const getContentDomWithLineNumbers = (
   visibleLines: readonly VisibleLine[],
   rowsChildCount: number,
   rows: readonly VirtualDomNode[],
+  itemHeight = 20,
 ): readonly VirtualDomNode[] => {
   return [
     {
@@ -22,7 +23,7 @@ export const getContentDomWithLineNumbers = (
       className: contentClassName,
       type: VirtualDomElements.Div,
     },
-    ...getGutterDom(visibleLines),
+    ...getGutterDom(visibleLines, itemHeight),
     ...getRowsDom(rowsChildCount, rows),
   ]
 }

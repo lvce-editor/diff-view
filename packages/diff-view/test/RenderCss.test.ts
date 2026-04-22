@@ -40,6 +40,7 @@ test.skip('renderCss renders left and right widths as css variables', (): void =
   expect(result[2]).toContain('.DiffEditorVertical {')
   expect(result[2]).toContain('.DiffEditorContent {')
   expect(result[2]).toContain('user-select: text;')
+  expect(result[2]).toContain('.DiffEditorLineNumberEmpty {')
   expect(result[2]).toContain('.DiffEditor .Deletion {')
   expect(result[2]).toContain('.DiffEditor .Insertion {')
   expect(result[2]).toContain('.DiffEditorErrorCodeFrame,')

@@ -36,13 +36,8 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -57,11 +52,6 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     text('second-line'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -124,13 +114,8 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -145,11 +130,6 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
       type: VirtualDomElements.Div,
     },
     text('added-line'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -191,13 +171,8 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
     },
     text('1'),
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorRows,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
       type: VirtualDomElements.Div,
     },
     {
@@ -217,10 +192,5 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
       type: VirtualDomElements.Span,
     },
     text(' answer = 1'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })

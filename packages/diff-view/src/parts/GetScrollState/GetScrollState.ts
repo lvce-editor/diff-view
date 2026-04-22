@@ -1,6 +1,6 @@
+import { clamp } from '../Clamp/Clamp.ts'
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getScrollBarHeight } from '../GetScrollBarHeight/GetScrollBarHeight.ts'
-import { clamp } from '../Clamp/Clamp.ts'
 
 export interface ScrollState {
   readonly deltaY: number

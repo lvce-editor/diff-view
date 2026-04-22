@@ -10,4 +10,7 @@ export default [
       '@cspell/spellchecker': 'off',
     },
   },
+  {
+    ignores: ['/**/fixtures/**'],
+  },
 ]

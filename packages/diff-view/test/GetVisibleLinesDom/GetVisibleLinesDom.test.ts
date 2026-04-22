@@ -5,14 +5,11 @@ import { getVisibleLinesDom } from '../../src/parts/GetVisibleLinesDom/GetVisibl
 import { VisibleLineType } from '../../src/parts/VisibleLine/VisibleLine.ts'
 
 test('getVisibleLinesDom renders each visible line into its own row', (): void => {
-  const result = getVisibleLinesDom(
-    [
-      { lineNumber: 1, tokens: [], type: VisibleLineType.Normal },
-      { lineNumber: 2, tokens: [{ text: 'removed-line', type: '' }], type: VisibleLineType.Removed },
-      { lineNumber: 3, tokens: [{ text: 'added-line', type: '' }], type: VisibleLineType.Added },
-    ],
-    'left',
-  )
+  const result = getVisibleLinesDom([
+    { lineNumber: 1, tokens: [], type: VisibleLineType.Normal },
+    { lineNumber: 2, tokens: [{ text: 'removed-line', type: '' }], type: VisibleLineType.Removed },
+    { lineNumber: 3, tokens: [{ text: 'added-line', type: '' }], type: VisibleLineType.Added },
+  ])
 
   expect(result).toEqual([
     {

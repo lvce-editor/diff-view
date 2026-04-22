@@ -52,7 +52,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -103,7 +103,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -148,7 +148,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorContentLeft,
       type: VirtualDomElements.Div,
     },
@@ -171,7 +171,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
@@ -240,7 +240,7 @@ test.skip('getDiffEditorVirtualDom renders image panes when render mode is image
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
@@ -266,7 +266,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     uriRight: '/tmp/after.txt',
   })
 
-  expect(result.slice(0, 12)).toEqual([
+  expect(result.slice(0, 10)).toEqual([
     {
       childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
@@ -296,7 +296,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     },
     text('1'),
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -359,7 +359,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     text('1'),
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -463,7 +463,7 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
     },
     text('3 3'),
     {
-      childCount: 6,
+      childCount: 4,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -513,7 +513,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
     onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,
   })
-  expect(result[11]).toEqual({
+  expect(result[9]).toEqual({
     childCount: 0,
     className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
     name: 'sash',

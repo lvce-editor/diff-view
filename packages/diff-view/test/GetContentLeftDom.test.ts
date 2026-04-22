@@ -36,7 +36,7 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -65,7 +65,7 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorContentLeft,
       type: VirtualDomElements.Div,
     },
@@ -167,7 +167,7 @@ test('getContentLeftDom renders paired deletion and insertion on the same row', 
     },
     text('2'),
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -212,7 +212,7 @@ test('getContentLeftDom renders syntax-highlighted token spans', (): void => {
     },
     text('1'),
     {
-      childCount: 3,
+      childCount: 1,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },

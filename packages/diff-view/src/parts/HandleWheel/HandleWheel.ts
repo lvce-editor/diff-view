@@ -13,19 +13,33 @@ const getWheelDeltaY = (deltaMode: number, deltaY: number, itemHeight: number, h
   }
 }
 
-export const handleWheel = (state: DiffViewState, deltaMode: number, deltaY: number): DiffViewState => {
-  const nextDeltaY = state.deltaY + getWheelDeltaY(deltaMode, deltaY, state.itemHeight, state.height)
-  const scrollState = getScrollState(state.height, state.itemHeight, state.totalLineCount, state.minimumSliderSize, nextDeltaY)
+export const handleWheel = (state: DiffViewState, deltaMode: number, eventDeltaY: number): DiffViewState => {
+  const {
+    contentLeft,
+    contentRight,
+    deltaY,
+    height,
+    inlineChanges,
+    itemHeight,
+    minimumSliderSize,
+    totalLineCount,
+    totalLineCountLeft,
+    tokenizedLinesLeft,
+    totalLineCountRight,
+    tokenizedLinesRight,
+  } = state
+  const nextDeltaY = deltaY + getWheelDeltaY(deltaMode, eventDeltaY, itemHeight, height)
+  const scrollState = getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, nextDeltaY)
   const { visibleLinesLeft, visibleLinesRight } = getVisibleLinesState({
-    contentLeft: state.contentLeft,
-    contentRight: state.contentRight,
-    inlineChanges: state.inlineChanges,
+    contentLeft,
+    contentRight,
+    inlineChanges,
     maxLineY: scrollState.maxLineY,
     minLineY: scrollState.minLineY,
-    tokenizedLinesLeft: state.tokenizedLinesLeft,
-    tokenizedLinesRight: state.tokenizedLinesRight,
-    totalLineCountLeft: state.totalLineCountLeft,
-    totalLineCountRight: state.totalLineCountRight,
+    tokenizedLinesLeft,
+    totalLineCountLeft,
+    totalLineCountRight,
+    tokenizedLinesRight,
   })
   return {
     ...state,

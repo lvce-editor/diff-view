@@ -1,5 +1,6 @@
 import { getNumberOfVisibleItems } from '../GetNumberOfVisibleItems/GetNumberOfVisibleItems.ts'
 import { getScrollBarHeight } from '../GetScrollBarHeight/GetScrollBarHeight.ts'
+import { clamp } from '../Clamp/Clamp.ts'
 
 export interface ScrollState {
   readonly deltaY: number
@@ -8,10 +9,6 @@ export interface ScrollState {
   readonly minLineY: number
   readonly scrollBarActive: boolean
   readonly scrollBarHeight: number
-}
-
-const clamp = (value: number, minimum: number, maximum: number): number => {
-  return Math.min(Math.max(value, minimum), maximum)
 }
 
 export const getScrollState = (height: number, itemHeight: number, totalLineCount: number, minimumSliderSize: number, deltaY: number): ScrollState => {

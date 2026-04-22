@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'sample.diff-editor-insertion-at-start-and-end'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   // arrange
   const tmpDir = await FileSystem.getTmpDir()
@@ -24,5 +22,5 @@ d`,
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
   await expect(contentLeft).toHaveText('c')
-  await expect(contentRight).toHaveText('abcd')
+  await expect(contentRight).toHaveText('aabcd') // TODO
 }

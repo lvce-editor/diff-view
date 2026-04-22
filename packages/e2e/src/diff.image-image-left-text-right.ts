@@ -5,12 +5,12 @@ export const name = 'diff.image-image-left-text-right'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { expect, FileSystem, Locator, Main } = api
+  const { DiffView, expect, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/image-left-text-right.png`, 'fixture')
   await FileSystem.writeFile(`${tmpDir}/right.txt`, 'fixture')
 
-  await Main.openUri(`diff://${tmpDir}/image-left-text-right.png<->${tmpDir}/right.txt`)
+  await DiffView.open(`${tmpDir}/image-left-text-right.png`, `${tmpDir}/right.txt`)
 
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterPane = Locator('.DiffPane--after')

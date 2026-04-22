@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-html'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.html`,
@@ -30,7 +30,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.html<->${tmpDir}/right.html`)
+  await DiffView.open(`${tmpDir}/left.html`, `${tmpDir}/right.html`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

@@ -14,12 +14,12 @@ const expectText = async (api: TestApi, locator: LocatorExternal, value: string)
 }
 
 export const test: Test = async (api) => {
-  const { FileSystem, Locator, Main } = api
+  const { DiffView, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left-invalid.mp4`, 'fixture')
   await FileSystem.writeFile(`${tmpDir}/video-invalid-both.webm`, 'fixture')
 
-  await Main.openUri(`diff://${tmpDir}/left-invalid.mp4<->${tmpDir}/video-invalid-both.webm`)
+  await DiffView.open(`${tmpDir}/left-invalid.mp4`, `${tmpDir}/video-invalid-both.webm`)
 
   const beforeError = Locator('.DiffPane--before .VideoErrorMessage')
   const afterError = Locator('.DiffPane--after .VideoErrorMessage')

@@ -2,11 +2,11 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.both-files-not-found'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/before.txt<->${tmpDir}/after.txt`)
+  await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
   const beforeError = Locator('.DiffEditorContentLeft .DiffEditorErrorMessage')
   const afterError = Locator('.DiffEditorContentRight .DiffEditorErrorMessage')

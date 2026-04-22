@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'sample.diff-editor-xml'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/config-before.xml`,
@@ -23,7 +23,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/config-before.xml<->${tmpDir}/config-after.xml`)
+  await DiffView.open(`${tmpDir}/config-before.xml`, `${tmpDir}/config-after.xml`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

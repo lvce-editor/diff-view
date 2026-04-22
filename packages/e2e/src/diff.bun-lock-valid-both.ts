@@ -4,7 +4,7 @@ export const name = 'diff.bun-lock-valid-both'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left/bun.lock`,
@@ -22,7 +22,7 @@ packages:
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left/bun.lock<->${tmpDir}/right/bun.lock`)
+  await DiffView.open(`${tmpDir}/left/bun.lock`, `${tmpDir}/right/bun.lock`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

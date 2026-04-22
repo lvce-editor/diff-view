@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'sample.diff-editor-css'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.css`,
@@ -20,7 +20,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.css<->${tmpDir}/right.css`)
+  await DiffView.open(`${tmpDir}/left.css`, `${tmpDir}/right.css`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

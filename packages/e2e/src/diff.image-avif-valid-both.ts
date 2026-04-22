@@ -5,12 +5,12 @@ export const name = 'diff.image-avif-valid-both'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { FileSystem, Locator, Main } = api
+  const { DiffView, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left.avif`, 'fixture')
   await FileSystem.writeFile(`${tmpDir}/image-avif-valid-both.avif`, 'fixture')
 
-  await Main.openUri(`diff://${tmpDir}/left.avif<->${tmpDir}/image-avif-valid-both.avif`)
+  await DiffView.open(`${tmpDir}/left.avif`, `${tmpDir}/image-avif-valid-both.avif`)
 
   const beforeImage = Locator('.DiffPane--before .ImageElement')
   const afterImage = Locator('.DiffPane--after .ImageElement')

@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-vue'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/file-1.vue`,
@@ -30,7 +30,7 @@ const count = 2
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.vue<->${tmpDir}/file-2.vue`)
+  await DiffView.open(`${tmpDir}/file-1.vue`, `${tmpDir}/file-2.vue`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

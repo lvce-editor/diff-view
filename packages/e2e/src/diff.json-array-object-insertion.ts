@@ -4,7 +4,7 @@ export const name = 'diff.json-array-object-insertion'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
 
   await FileSystem.writeFile(
@@ -62,7 +62,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.json<->${tmpDir}/right.json`)
+  await DiffView.open(`${tmpDir}/left.json`, `${tmpDir}/right.json`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

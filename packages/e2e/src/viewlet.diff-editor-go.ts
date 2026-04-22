@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'sample.diff-editor-go'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/file-1.go`,
@@ -24,7 +24,7 @@ func main() {
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.go<->${tmpDir}/file-2.go`)
+  await DiffView.open(`${tmpDir}/file-1.go`, `${tmpDir}/file-2.go`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

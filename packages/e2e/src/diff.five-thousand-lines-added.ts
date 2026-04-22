@@ -14,13 +14,13 @@ export const name = 'diff.five-thousand-lines-added'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, ``)
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getContent())
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')

@@ -4,7 +4,7 @@ export const name = 'diff.long-line-deletion'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const longLine = 'very long deleted line '.repeat(80)
 
@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, ``)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const deletedRow = Locator('.DiffEditorContentLeft .DiffRow--deleted')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')

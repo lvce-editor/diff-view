@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.css-three-lines-deleted-two-modified'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/before.css`,
@@ -27,7 +27,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/before.css<->${tmpDir}/after.css`)
+  await DiffView.open(`${tmpDir}/before.css`, `${tmpDir}/after.css`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

@@ -139,13 +139,13 @@ export const name = 'diff.thousand-lines-react-component'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left.tsx`, getComponentContent('before'))
   await FileSystem.writeFile(`${tmpDir}/right.tsx`, getComponentContent('after'))
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.tsx<->${tmpDir}/right.tsx`)
+  await DiffView.open(`${tmpDir}/left.tsx`, `${tmpDir}/right.tsx`)
 
   const beforePane = Locator('.DiffPane--before .DiffEditorRows')
   const afterPane = Locator('.DiffPane--after .DiffEditorRows')

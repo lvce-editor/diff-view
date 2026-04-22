@@ -89,14 +89,14 @@ const getPackageLockContent = (side: 'left' | 'right'): string => {
 
 export const name = 'diff.package-lock-json-thousand-lines'
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
 
   await FileSystem.writeFile(`${tmpDir}/left/package-lock.json`, getPackageLockContent('left'))
   await FileSystem.writeFile(`${tmpDir}/right/package-lock.json`, getPackageLockContent('right'))
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left/package-lock.json<->${tmpDir}/right/package-lock.json`)
+  await DiffView.open(`${tmpDir}/left/package-lock.json`, `${tmpDir}/right/package-lock.json`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

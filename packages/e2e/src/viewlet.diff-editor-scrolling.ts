@@ -13,13 +13,13 @@ export const name = 'diff.diff-editor-scrolling'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getLargeFileContent('bottom change after'))
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const line1 = Locator('.DiffEditorContentLeft .DiffEditorLineNumber', {
     hasText: '1',

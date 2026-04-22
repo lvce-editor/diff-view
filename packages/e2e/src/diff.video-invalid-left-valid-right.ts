@@ -5,12 +5,12 @@ export const name = 'diff.video-invalid-left-valid-right'
 export const skip = 1
 
 export const test: Test = async (api) => {
-  const { expect, FileSystem, Locator, Main } = api
+  const { DiffView, expect, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left-invalid.mp4`, 'fixture')
   await FileSystem.writeFile(`${tmpDir}/video-invalid-left-valid-right.mp4`, 'fixture')
 
-  await Main.openUri(`diff://${tmpDir}/left-invalid.mp4<->${tmpDir}/video-invalid-left-valid-right.mp4`)
+  await DiffView.open(`${tmpDir}/left-invalid.mp4`, `${tmpDir}/video-invalid-left-valid-right.mp4`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterVideo = Locator('.DiffPane--after .VideoElement')

@@ -4,7 +4,7 @@ export const name = 'diff.long-line-added'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const longLine = 'very long added line '.repeat(80)
 
@@ -12,7 +12,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, longLine)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const insertedRow = Locator('.DiffEditorContentRight .DiffEditorRows')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')

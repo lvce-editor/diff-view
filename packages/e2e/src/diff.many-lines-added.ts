@@ -12,7 +12,7 @@ export const name = 'diff.many-lines-added'
 
 export const skip = 1
 
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const addedContent = getAddedContent()
 
@@ -20,7 +20,7 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, addedContent)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
+  await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const beforePane = Locator('.DiffPane--before')
   const afterPane = Locator('.DiffPane--after')

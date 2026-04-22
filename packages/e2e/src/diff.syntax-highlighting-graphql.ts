@@ -4,7 +4,7 @@ export const name = 'diff.syntax-highlighting-graphql'
 
 export const skip = 1
 
-export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/left.graphql`,
@@ -34,7 +34,7 @@ type User {
   )
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/left.graphql<->${tmpDir}/right.graphql`)
+  await DiffView.open(`${tmpDir}/left.graphql`, `${tmpDir}/right.graphql`)
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')

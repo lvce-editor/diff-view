@@ -51,7 +51,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
-  const insertedRows = Locator('.DiffEditorContentRight .DiffRow--inserted')
+  const insertedRows = Locator('.DiffEditorContentRight .DiffRow.Insertion')
 
   await expect(beforePane).toContainText('display: flex')
   await expect(beforePane).toContainText('flex-direction: column')

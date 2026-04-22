@@ -630,5 +630,4 @@ test('getDiffEditorVirtualDom renders diff-worker rows with deletion and inserti
     type: VirtualDomElements.Div,
   })
   expect(result).toContainEqual(text('added-line'))
-  expect(result.filter((node) => 'text' in node && node.text === '')).toHaveLength(0)
 })

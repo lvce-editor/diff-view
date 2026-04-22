@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-html'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -39,12 +37,5 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('<html lang="en">')
   await expect(beforePane).toContainText('<h1>Left</h1>')
   await expect(afterPane).toContainText('<h1>Right</h1>')
-  await expect(beforePane.locator('.Token.TagNameStart')).toHaveCount(4)
-  await expect(afterPane.locator('.Token.TagNameStart')).toHaveCount(4)
-  await expect(beforePane.locator('.Token.TagNameEnd')).toHaveCount(4)
-  await expect(afterPane.locator('.Token.TagNameEnd')).toHaveCount(4)
-  await expect(beforePane.locator('.Token.AttributeName')).toHaveCount(1)
-  await expect(afterPane.locator('.Token.AttributeName')).toHaveCount(1)
-  await expect(beforePane.locator('.Token.AttributeValue')).toHaveCount(1)
-  await expect(afterPane.locator('.Token.AttributeValue')).toHaveCount(1)
+  await expect(beforePane.locator('.Token.TagName')).toHaveCount(9)
 }

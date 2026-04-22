@@ -6,72 +6,33 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
+import { getSashDom } from '../GetSashDom/GetSashDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
-const getSashDom = (sashLayoutClass: string): VirtualDomNode => ({
-  childCount: 0,
-  className: `${ClassNames.Sash} ${sashLayoutClass}`,
-  name: 'sash',
-  onPointerDown: DomEventListenerFunctions.HandleSashPointerDown,
-  type: VirtualDomElements.Div,
-})
-
-export const getDiffEditorVirtualDom = ({
-  contentLeft,
-  contentRight,
-  diffMode,
-  errorLeftMessage,
-  errorLeftStack,
-  errorRightMessage,
-  errorRightStack,
-  imageSrcLeft,
-  imageSrcRight,
-  inlineChanges,
-  layout,
-  lineNumbers,
-  maxLineY,
-  minLineY,
-  renderModeLeft,
-  renderModeRight,
-  scrollBarActive,
-  tokenizedLinesLeft,
-  tokenizedLinesRight,
-  totalLineCount,
-  totalLineCountLeft,
-  totalLineCountRight,
-  uriLeft,
-  uriRight,
-  visibleLinesLeft,
-  visibleLinesRight,
-}: Pick<
-  DiffViewState,
-  | 'contentLeft'
-  | 'contentRight'
-  | 'diffMode'
-  | 'errorLeftMessage'
-  | 'errorLeftStack'
-  | 'errorRightMessage'
-  | 'errorRightStack'
-  | 'imageSrcLeft'
-  | 'imageSrcRight'
-  | 'inlineChanges'
-  | 'lineNumbers'
-  | 'layout'
-  | 'renderModeLeft'
-  | 'renderModeRight'
-  | 'scrollBarActive'
-  | 'visibleLinesLeft'
-  | 'visibleLinesRight'
-  | 'tokenizedLinesLeft'
-  | 'tokenizedLinesRight'
-  | 'totalLineCount'
-  | 'totalLineCountLeft'
-  | 'totalLineCountRight'
-  | 'uriLeft'
-  | 'uriRight'
-  | 'maxLineY'
-  | 'minLineY'
->): readonly VirtualDomNode[] => {
+export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualDomNode[] => {
+  const {
+    contentLeft,
+    contentRight,
+    diffMode,
+    errorLeftMessage,
+    errorLeftStack,
+    errorRightMessage,
+    errorRightStack,
+    inlineChanges,
+    layout,
+    lineNumbers,
+    maxLineY,
+    minLineY,
+    renderModeLeft,
+    renderModeRight,
+    scrollBarActive,
+    tokenizedLinesLeft,
+    tokenizedLinesRight,
+    totalLineCountLeft,
+    totalLineCountRight,
+    visibleLinesLeft,
+    visibleLinesRight,
+  } = state
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
     return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY)

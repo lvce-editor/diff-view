@@ -18,6 +18,7 @@ import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
 
 export const commandMap = {
+  'Diff.getCommandIds': getCommandIds,
   'DiffView.create': Create2.create2,
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,

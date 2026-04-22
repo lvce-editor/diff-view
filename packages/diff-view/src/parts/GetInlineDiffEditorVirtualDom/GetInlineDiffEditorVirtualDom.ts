@@ -1,10 +1,11 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { InlineDiffRow } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
-import { getInlineDiffLineNumberDom } from './GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
+import { getInlineDiffLineNumbersDom } from './GetInlineDiffLineNumbersDom/GetInlineDiffLineNumbersDom.ts'
 import { getInlineDiffRowDom } from './GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 
 export const getInlineDiffEditorVirtualDom = (
@@ -14,21 +15,12 @@ export const getInlineDiffEditorVirtualDom = (
   minLineY: number,
   maxLineY: number,
 ): readonly VirtualDomNode[] => {
-  const rows = getInlineDiffRows(contentLeft, contentRight)
+  const rows: readonly InlineDiffRow[] = getInlineDiffRows(contentLeft, contentRight)
   const visibleRows = rows.slice(minLineY, maxLineY)
   const contentChildCount = lineNumbers ? 2 : 1
   const scrollBarActive = visibleRows.length < rows.length
   const rowsChildCount = visibleRows.length + 2
-  const lineNumberDom = lineNumbers
-    ? [
-        {
-          childCount: visibleRows.length,
-          className: ClassNames.DiffEditorGutter,
-          type: VirtualDomElements.Div,
-        },
-        ...visibleRows.flatMap(getInlineDiffLineNumberDom),
-      ]
-    : []
+  const lineNumberDom = lineNumbers ? getInlineDiffLineNumbersDom(visibleRows) : []
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   return [
     {

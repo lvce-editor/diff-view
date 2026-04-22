@@ -1,3 +1,6 @@
+import { findLookAheadMatch } from './FindLookAheadMatch/FindLookAheadMatch.ts'
+import { getLines } from './GetLines/GetLines.ts'
+
 export const InlineDiffRowType = {
   Context: 'context',
   Deletion: 'deletion',
@@ -11,22 +14,6 @@ export interface InlineDiffRow {
   readonly lineNumberRight: number | null
   readonly text: string
   readonly type: InlineDiffRowType
-}
-
-const lookAheadLimit = 3
-
-const getLines = (content: string): readonly string[] => {
-  return content ? content.split('\n') : ['']
-}
-
-const findLookAheadMatch = (lines: readonly string[], startIndex: number, needle: string): number => {
-  const endIndex = Math.min(startIndex + lookAheadLimit, lines.length - 1)
-  for (let i = startIndex; i <= endIndex; i++) {
-    if (lines[i] === needle) {
-      return i
-    }
-  }
-  return -1
 }
 
 export const getInlineDiffRows = (contentLeft: string, contentRight: string): readonly InlineDiffRow[] => {

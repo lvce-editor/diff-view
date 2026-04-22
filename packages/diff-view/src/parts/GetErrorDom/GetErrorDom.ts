@@ -1,7 +1,8 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getErrorMessageDom } from '../GetErrorMessageDom/GetErrorMessageDom.ts'
 import { getErrorStackDom } from '../GetErrorStackDom/GetErrorStackDom.ts'
 
 export const getErrorDom = (
@@ -27,7 +28,7 @@ export const getErrorDom = (
       className: ClassNames.DiffEditorErrorMessage,
       type: VirtualDomElements.Div,
     },
-    text(errorMessage),
+    ...getErrorMessageDom(errorMessage),
     ...getErrorStackDom(errorStack, allowedLinkSchemes),
   ]
 }

@@ -5,18 +5,21 @@ import { getGutterDom } from '../src/parts/GetContentDomWithLineNumbers/GetGutte
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('getGutterDom renders the gutter and line numbers', (): void => {
-  const result = getGutterDom([
-    {
-      lineNumber: 3,
-      tokens: [],
-      type: VisibleLineType.Normal,
-    },
-    {
-      lineNumber: 4,
-      tokens: [],
-      type: VisibleLineType.Normal,
-    },
-  ], 20)
+  const result = getGutterDom(
+    [
+      {
+        lineNumber: 3,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: 4,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+    ],
+    20,
+  )
 
   expect(result).toEqual([
     {

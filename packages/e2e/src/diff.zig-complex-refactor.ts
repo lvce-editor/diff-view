@@ -63,7 +63,7 @@ pub fn main() !void {
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const deletedRows = Locator('.DiffPane--before .DiffRow--deleted')
-  const insertedRows = Locator('.DiffPane--after .DiffRow--inserted')
+  const insertedRows = Locator('.DiffPane--after .DiffRow.Insertion')
 
   await expect(beforePane).toContainText('var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);')
   await expect(beforePane).toContainText('std.debug.print("port={d}\\\\n", .{port});')

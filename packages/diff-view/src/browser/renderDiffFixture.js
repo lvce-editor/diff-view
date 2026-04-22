@@ -100,7 +100,7 @@ body {
   background: rgba(220, 38, 38, 0.1);
 }
 
-.DiffRow--inserted {
+.DiffRow.Insertion {
   background: rgba(22, 163, 74, 0.12);
 }
 

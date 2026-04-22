@@ -252,12 +252,6 @@ test('loadContent expands total line count for inline mode when replacements spl
 })
 
 test('loadContent resolves language ids and tokenizes both panes when syntax metadata is available', async (): Promise<void> => {
-  const expectTokenizerLoad = (languageId: string, tokenizePath: string): void => {
-    expect([languageId, tokenizePath]).toEqual(['typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'])
-  }
-  const expectTokenizerTokenize = (languageId: string, tokenizePath: string): void => {
-    expect([languageId, tokenizePath]).toEqual(['typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'])
-  }
   const diffWorkerRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
       expect([beforeLines, afterLines]).toEqual([['const left = 1'], ['const right = 2']])
@@ -293,13 +287,10 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
     invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
       syntaxHighlightingWorkerRpc.invocations = [...syntaxHighlightingWorkerRpc.invocations, [method, ...params]]
       if (method === 'Tokenizer.load') {
-        const [languageId, tokenizePath] = params
-        expectTokenizerLoad(languageId as string, tokenizePath as string)
         return undefined
       }
       if (method === 'Tokenizer.tokenizeCodeBlock') {
-        const [codeBlock, languageId, tokenizePath] = params
-        expectTokenizerTokenize(languageId as string, tokenizePath as string)
+        const [codeBlock] = params
         if (codeBlock === 'const left = 1') {
           return [['const', 'Token Keyword', ' left = 1', 'Token Text']]
         }

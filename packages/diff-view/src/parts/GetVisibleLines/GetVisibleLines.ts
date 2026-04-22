@@ -30,14 +30,13 @@ export const getVisibleLines = (
   const lines = content ? content.split('\n') : ['']
   return getVisibleInlineDiffRows(inlineChanges)
     .slice(minLineY, maxLineY)
-    .map((visibleRow, index) => {
-      const lineNumber = minLineY + index + 1
+    .map((visibleRow) => {
       const inlineChange = side === 'left' ? visibleRow.leftChange : visibleRow.rightChange
       const type = inlineChange ? getVisibleLineType(inlineChange, side) : VisibleLineTypeValue.Normal
       const lineIndex = inlineChange ? (side === 'left' ? inlineChange.leftIndex : inlineChange.rightIndex) : -1
       const tokens = inlineChange && lineIndex >= 0 ? getTokens(tokenizedLines, lineIndex, getLine(lines, lineIndex)) : []
       return {
-        lineNumber,
+        lineNumber: lineIndex >= 0 ? lineIndex + 1 : -1,
         tokens,
         type,
       }

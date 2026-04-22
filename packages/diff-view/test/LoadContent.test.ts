@@ -81,7 +81,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
         type: VisibleLineType.Removed,
       },
       {
-        lineNumber: 2,
+        lineNumber: -1,
         tokens: [],
         type: VisibleLineType.Normal,
       },

@@ -9,5 +9,5 @@ const parentNode = {
 }
 
 export const getLineNumberDom = (lineNumber: number): readonly VirtualDomNode[] => {
-  return [parentNode, text(String(lineNumber))]
+  return [parentNode, text(lineNumber === -1 ? '' : String(lineNumber))]
 }

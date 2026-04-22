@@ -15,3 +15,16 @@ test('getLineNumberDom renders a single line number', (): void => {
     text('7'),
   ])
 })
+
+test('getLineNumberDom renders an empty gutter cell for missing line numbers', (): void => {
+  const result = getLineNumberDom(-1)
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text(''),
+  ])
+})

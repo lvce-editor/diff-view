@@ -64,18 +64,22 @@ export const reloadContent = async (
     ...getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight),
   }
 
+  const { visibleLinesLeft, visibleLinesRight } = getVisibleLinesState({
+    contentLeft: nextState.contentLeft,
+    contentRight: nextState.contentRight,
+    inlineChanges: nextState.inlineChanges,
+    maxLineY: nextState.maxLineY,
+    minLineY: nextState.minLineY,
+    tokenizedLinesLeft: nextState.tokenizedLinesLeft,
+    tokenizedLinesRight: nextState.tokenizedLinesRight,
+    totalLineCountLeft: nextState.totalLineCountLeft,
+    totalLineCountRight: nextState.totalLineCountRight,
+  })
+  console.log({ visibleLinesLeft, visibleLinesRight, inlineChanges })
+
   return {
     ...nextState,
-    ...getVisibleLinesState({
-      contentLeft: nextState.contentLeft,
-      contentRight: nextState.contentRight,
-      inlineChanges: nextState.inlineChanges,
-      maxLineY: nextState.maxLineY,
-      minLineY: nextState.minLineY,
-      tokenizedLinesLeft: nextState.tokenizedLinesLeft,
-      tokenizedLinesRight: nextState.tokenizedLinesRight,
-      totalLineCountLeft: nextState.totalLineCountLeft,
-      totalLineCountRight: nextState.totalLineCountRight,
-    }),
+    visibleLinesLeft,
+    visibleLinesRight,
   }
 }

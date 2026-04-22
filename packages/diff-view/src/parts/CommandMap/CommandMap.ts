@@ -13,6 +13,7 @@ import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
+import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import { saveState } from '../SaveState/SaveState.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
@@ -33,6 +34,7 @@ export const commandMap = {
   'DiffView.initialize': Initialize.initialize,
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,
+  'DiffView.renderEventListeners': renderEventListeners,
   'DiffView.saveState': saveState,
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),

@@ -23,8 +23,8 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/config-before.yaml<->${tmpDir}/config-after.yaml`)
 
-  const contentLeft = Locator('.DiffEditorContentLeft')
-  const contentRight = Locator('.DiffEditorContentRight')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(contentLeft).toContainText('service:')
   await expect(contentLeft).toContainText('replicas: 2')

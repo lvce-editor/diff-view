@@ -1,5 +1,6 @@
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import { getInlineDiffChanges } from '../GetInlineDiffChanges/GetInlineDiffChanges.ts'
+import { getVisibleInlineDiffRows } from '../GetVisibleInlineDiffRows/GetVisibleInlineDiffRows.ts'
 
 export const getInlineDiffState = async (
   contentLeft: string,
@@ -10,6 +11,6 @@ export const getInlineDiffState = async (
   const inlineChanges = await getInlineDiffChanges(linesLeft, linesRight)
   return {
     inlineChanges,
-    totalLineCount: Math.max(inlineChanges.length, 1),
+    totalLineCount: Math.max(getVisibleInlineDiffRows(inlineChanges).length, 1),
   }
 }

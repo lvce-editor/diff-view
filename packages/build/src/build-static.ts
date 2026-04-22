@@ -9,7 +9,7 @@ const sharedProcessUrl = pathToFileURL(sharedProcessPath).toString()
 
 const sharedProcess = await import(sharedProcessUrl)
 
-process.env.PATH_PREFIX = '/source-control-view'
+process.env.PATH_PREFIX = '/diff-view'
 const { commitHash } = await sharedProcess.exportStatic({
   root,
   extensionPath: '',

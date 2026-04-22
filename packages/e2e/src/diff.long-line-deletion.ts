@@ -14,8 +14,8 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const deletedRow = Locator('.DiffPane--before .DiffRow--deleted')
-  const afterRows = Locator('.DiffPane--after .DiffEditorRows')
+  const deletedRow = Locator('.DiffEditorContentLeft .DiffRow--deleted')
+  const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRow).toBeVisible()
   await expect(deletedRow).toHaveText(longLine)

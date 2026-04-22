@@ -47,6 +47,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   contain: strict;
   height: 100%;
   overflow: hidden;
+  user-select: text;
 }
 
 .InlineDiffEditorContent {

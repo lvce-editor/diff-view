@@ -22,9 +22,9 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const contentLeft = Locator('.DiffEditorContentLeft')
-  const contentRight = Locator('.DiffEditorContentRight')
-  const insertedRows = Locator('.DiffPane--after .DiffRow--inserted')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const insertedRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(contentLeft).toHaveText('')
   await expect(contentRight).toContainText('line 1')

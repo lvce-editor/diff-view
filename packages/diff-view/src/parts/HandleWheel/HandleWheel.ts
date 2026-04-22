@@ -1,5 +1,6 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
+import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 
 const getWheelDeltaY = (deltaMode: number, deltaY: number, itemHeight: number, height: number): number => {
   switch (deltaMode) {
@@ -14,8 +15,10 @@ const getWheelDeltaY = (deltaMode: number, deltaY: number, itemHeight: number, h
 
 export const handleWheel = (state: DiffViewState, deltaMode: number, deltaY: number): DiffViewState => {
   const nextDeltaY = state.deltaY + getWheelDeltaY(deltaMode, deltaY, state.itemHeight, state.height)
+  const scrollState = getScrollState(state.height, state.itemHeight, state.totalLineCount, state.minimumSliderSize, nextDeltaY)
   return {
     ...state,
-    ...getScrollState(state.height, state.itemHeight, state.totalLineCount, state.minimumSliderSize, nextDeltaY),
+    ...scrollState,
+    ...getVisibleLinesState({ ...state, ...scrollState }),
   }
 }

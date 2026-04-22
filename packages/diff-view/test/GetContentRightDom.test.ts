@@ -87,8 +87,8 @@ test('getContentRightDom renders load errors when available', (): void => {
   ])
 })
 
-test('getContentRightDom highlights insertions and leaves deletions blank', (): void => {
-  const result = getContentRightDom('shared-line\nadded-line', '', '', true, 3, 0, 3, [
+test('getContentRightDom renders paired deletion and insertion on the same row', (): void => {
+  const result = getContentRightDom('shared-line\nadded-line', '', '', true, 2, 0, 2, [
     { leftIndex: 0, rightIndex: 0, type: 0 },
     { leftIndex: 1, rightIndex: 1, type: 2 },
     { leftIndex: 1, rightIndex: 1, type: 1 },
@@ -106,7 +106,7 @@ test('getContentRightDom highlights insertions and leaves deletions blank', (): 
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 2,
       className: ClassNames.DiffEditorGutter,
       type: VirtualDomElements.Div,
     },
@@ -123,13 +123,7 @@ test('getContentRightDom highlights insertions and leaves deletions blank', (): 
     },
     text('2'),
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
-      type: VirtualDomElements.Div,
-    },
-    text('3'),
-    {
-      childCount: 5,
+      childCount: 4,
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
@@ -144,12 +138,6 @@ test('getContentRightDom highlights insertions and leaves deletions blank', (): 
       type: VirtualDomElements.Div,
     },
     text('shared-line'),
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-      type: VirtualDomElements.Div,
-    },
-    text(''),
     {
       childCount: 1,
       className: ClassNames.EditorRowInsertion,

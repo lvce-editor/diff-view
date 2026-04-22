@@ -4,17 +4,8 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
-  const diffWorkerInvocations: unknown[][] = []
-  const extensionHostInvocations: unknown[][] = []
-  const fileSystemWorkerInvocations: unknown[][] = []
-  const extensionHostRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      extensionHostInvocations.push([method, ...params])
-      if (method !== 'ExtensionHostFileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      const [protocol, path] = params
+  const extensionHostRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostFileSystem.readFile': async (protocol: string, path: string): Promise<string> => {
       if (protocol === 'data' && path === 'before-content') {
         return 'before-content'
       }
@@ -23,42 +14,25 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       }
       throw new Error(`unexpected params: ${String(protocol)} ${String(path)}`)
     },
-    set: (): void => {},
-  }
-  const fileSystemWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      fileSystemWorkerInvocations.push([method, ...params])
-      if (method !== 'FileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      const [uri] = params
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
       throw new Error(`unexpected params: ${String(uri)}`)
     },
-    set: (): void => {},
-  }
-  const diffWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
-      diffWorkerInvocations.push([method, ...params])
-      if (method !== 'Diff.diffInline') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      expect(params).toEqual([['before-content'], ['after-content', 'second-line']])
+  })
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
+      expect([beforeLines, afterLines]).toEqual([['before-content'], ['after-content', 'second-line']])
       return [
         { leftIndex: 0, rightIndex: 0, type: 2 },
         { leftIndex: 0, rightIndex: 0, type: 1 },
         { leftIndex: 0, rightIndex: 1, type: 1 },
       ]
     },
-    set: (): void => {},
-  }
-  ExtensionHost.set(extensionHostRpc as any)
-  DiffWorker.set(diffWorkerRpc as any)
-  FileSystemWorker.set(fileSystemWorkerRpc as any)
+  })
 
   const state = {
     ...createDefaultState(),
@@ -70,9 +44,9 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 
   const result = await loadContent(state, { minLineY: 1 })
 
-  expect(diffWorkerInvocations).toEqual([['Diff.diffInline', ['before-content'], ['after-content', 'second-line']]])
-  expect(extensionHostInvocations).toEqual([])
-  expect(fileSystemWorkerInvocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['before-content'], ['after-content', 'second-line']]])
+  expect(extensionHostRpc.invocations).toEqual([])
+  expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',
@@ -88,13 +62,13 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       { leftIndex: 0, rightIndex: 0, type: 1 },
       { leftIndex: 0, rightIndex: 1, type: 1 },
     ],
-    maxLineY: 3,
+    maxLineY: 2,
     minLineY: 0,
     renderModeLeft: 'text',
     renderModeRight: 'text',
     scrollBarActive: false,
     scrollBarHeight: 60,
-    totalLineCount: 3,
+    totalLineCount: 2,
     totalLineCountLeft: 1,
     totalLineCountRight: 2,
     uriLeft: 'data://before-content',
@@ -105,37 +79,24 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 test('loadContent stores pane load errors instead of throwing', async (): Promise<void> => {
   const error = new Error('file not found: /tmp/missing.txt')
   error.stack = 'Error: file not found: /tmp/missing.txt\n    at read missing file'
-  const extensionHostRpc = {
-    dispose: (): void => {},
-    invoke: async (): Promise<string> => {
+  const extensionHostRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
       throw new Error('should not invoke extension host')
     },
-    set: (): void => {},
-  }
-  const fileSystemWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      if (method !== 'FileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      const [uri] = params
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/missing.txt') {
         throw error
       }
       throw new Error(`unexpected params: ${String(uri)}`)
     },
-    set: (): void => {},
-  }
-  const diffWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (): Promise<readonly unknown[]> => {
+  })
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       throw new Error('should not invoke diff worker when a pane fails to load')
     },
-    set: (): void => {},
-  }
-  ExtensionHost.set(extensionHostRpc as any)
-  DiffWorker.set(diffWorkerRpc as any)
-  FileSystemWorker.set(fileSystemWorkerRpc as any)
+  })
 
   const state = {
     ...createDefaultState(),
@@ -147,6 +108,9 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
 
   const result = await loadContent(state, { minLineY: 0 })
 
+  expect(extensionHostRpc.invocations).toEqual([])
+  expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/missing.txt']])
+  expect(diffWorkerRpc.invocations).toEqual([])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: '',
@@ -169,42 +133,29 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
 })
 
 test('loadContent sets image render mode when a side has an image extension', async (): Promise<void> => {
-  const fileSystemWorkerInvocations: unknown[][] = []
   const createObjectUrlMock = jest.spyOn((globalThis as any).URL, 'createObjectURL').mockReturnValue('blob:before.png')
-  const fileSystemWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
-      fileSystemWorkerInvocations.push([method, ...params])
-      if (method === 'FileSystem.readFile') {
-        const [uri] = params
-        if (uri === 'file:///tmp/before.png') {
-          return 'binary-image-content'
-        }
-        if (uri === 'file:///tmp/after.txt') {
-          return 'after-content\nsecond-line'
-        }
-        throw new Error(`unexpected params: ${String(uri)}`)
-      }
-      if (method === 'FileSystem.readFileAsBlob') {
-        const [uri] = params
-        if (uri === 'file:///tmp/before.png') {
-          return {}
-        }
-        throw new Error(`unexpected params: ${String(uri)}`)
-      }
-      throw new Error(`unexpected method: ${method}`)
-    },
-    set: (): void => {},
-  }
-  const diffWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (): Promise<readonly unknown[]> => {
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       throw new Error('should not invoke diff worker for image panes')
     },
-    set: (): void => {},
-  }
-  DiffWorker.set(diffWorkerRpc as any)
-  FileSystemWorker.set(fileSystemWorkerRpc as any)
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<unknown> => {
+      if (uri === 'file:///tmp/before.png') {
+        return 'binary-image-content'
+      }
+      if (uri === 'file:///tmp/after.txt') {
+        return 'after-content\nsecond-line'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+    'FileSystem.readFileAsBlob': async (uri: string): Promise<unknown> => {
+      if (uri === 'file:///tmp/before.png') {
+        return {}
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+  })
 
   const state = {
     ...createDefaultState(),
@@ -216,7 +167,8 @@ test('loadContent sets image render mode when a side has an image extension', as
 
   const result = await loadContent(state, { minLineY: 0 })
 
-  expect(fileSystemWorkerInvocations).toEqual([
+  expect(diffWorkerRpc.invocations).toEqual([])
+  expect(fileSystemWorkerRpc.invocations).toEqual([
     ['FileSystem.readFile', 'file:///tmp/before.png'],
     ['FileSystem.readFile', 'file:///tmp/after.txt'],
     ['FileSystem.readFileAsBlob', 'file:///tmp/before.png'],
@@ -244,32 +196,9 @@ test('loadContent sets image render mode when a side has an image extension', as
 })
 
 test('loadContent expands total line count for inline mode when replacements split into deletion and insertion rows', async (): Promise<void> => {
-  const diffWorkerInvocations: unknown[][] = []
-  const fileSystemWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      if (method !== 'FileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      const [uri] = params
-      if (uri === 'file:///tmp/before.txt') {
-        return 'same\nbefore\nshared'
-      }
-      if (uri === 'file:///tmp/after.txt') {
-        return 'same\nafter\nshared'
-      }
-      throw new Error(`unexpected params: ${String(uri)}`)
-    },
-    set: (): void => {},
-  }
-  const diffWorkerRpc = {
-    dispose: (): void => {},
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
-      diffWorkerInvocations.push([method, ...params])
-      if (method !== 'Diff.diffInline') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      expect(params).toEqual([
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
+      expect([beforeLines, afterLines]).toEqual([
         ['same', 'before', 'shared'],
         ['same', 'after', 'shared'],
       ])
@@ -280,10 +209,18 @@ test('loadContent expands total line count for inline mode when replacements spl
         { leftIndex: 2, rightIndex: 2, type: 0 },
       ]
     },
-    set: (): void => {},
-  }
-  DiffWorker.set(diffWorkerRpc as any)
-  FileSystemWorker.set(fileSystemWorkerRpc as any)
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
+      if (uri === 'file:///tmp/before.txt') {
+        return 'same\nbefore\nshared'
+      }
+      if (uri === 'file:///tmp/after.txt') {
+        return 'same\nafter\nshared'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+  })
 
   const state = {
     ...createDefaultState(),
@@ -296,41 +233,34 @@ test('loadContent expands total line count for inline mode when replacements spl
 
   const result = await loadContent(state, { minLineY: 0 })
 
-  expect(diffWorkerInvocations).toEqual([['Diff.diffInline', ['same', 'before', 'shared'], ['same', 'after', 'shared']]])
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['same', 'before', 'shared'], ['same', 'after', 'shared']]])
+  expect(fileSystemWorkerRpc.invocations).toEqual([
+    ['FileSystem.readFile', 'file:///tmp/before.txt'],
+    ['FileSystem.readFile', 'file:///tmp/after.txt'],
+  ])
   expect(result).toMatchObject({
     contentLeft: 'same\nbefore\nshared',
     contentRight: 'same\nafter\nshared',
     diffMode: 'inline',
-    finalDeltaY: 20,
+    finalDeltaY: 0,
     maxLineY: 3,
     minLineY: 0,
-    totalLineCount: 4,
+    totalLineCount: 3,
+    visibleLinesLeft: [],
+    visibleLinesRight: [],
   })
 })
 
 test('loadContent resolves language ids and tokenizes both panes when syntax metadata is available', async (): Promise<void> => {
-  const diffWorkerRpc = {
-    dispose: (): void => {},
-    invocations: [] as unknown[][],
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
-      diffWorkerRpc.invocations.push([method, ...params])
-      if (method !== 'Diff.diffInline') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      expect(params).toEqual([['const left = 1'], ['const right = 2']])
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
+      expect([beforeLines, afterLines]).toEqual([['const left = 1'], ['const right = 2']])
       return [{ leftIndex: 0, rightIndex: 0, type: 0 }]
     },
-    set: (): void => {},
-  }
-  const extensionManagementWorkerRpc = {
-    dispose: (): void => {},
-    invocations: [] as unknown[][],
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<readonly unknown[]> => {
-      extensionManagementWorkerRpc.invocations.push([method, ...params])
-      if (method !== 'Extensions.getLanguages') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      expect(params).toEqual([7, '/tmp/assets'])
+  })
+  const extensionManagementWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
+      expect([platform, assetDir]).toEqual([7, '/tmp/assets'])
       return [
         {
           extensions: ['.ts'],
@@ -339,17 +269,9 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
         },
       ]
     },
-    set: (): void => {},
-  }
-  const fileSystemWorkerRpc = {
-    dispose: (): void => {},
-    invocations: [] as unknown[][],
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      fileSystemWorkerRpc.invocations.push([method, ...params])
-      if (method !== 'FileSystem.readFile') {
-        throw new Error(`unexpected method: ${method}`)
-      }
-      const [uri] = params
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/left.ts') {
         return 'const left = 1'
       }
@@ -358,13 +280,12 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
       }
       throw new Error(`unexpected params: ${String(uri)}`)
     },
-    set: (): void => {},
-  }
+  })
   const syntaxHighlightingWorkerRpc = {
     dispose: (): void => {},
     invocations: [] as unknown[][],
     invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
-      syntaxHighlightingWorkerRpc.invocations.push([method, ...params])
+      syntaxHighlightingWorkerRpc.invocations = [...syntaxHighlightingWorkerRpc.invocations, [method, ...params]]
       if (method === 'Tokenizer.load') {
         return undefined
       }
@@ -381,9 +302,6 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
     },
     set: (): void => {},
   }
-  DiffWorker.set(diffWorkerRpc as any)
-  ExtensionManagementWorker.set(extensionManagementWorkerRpc as any)
-  FileSystemWorker.set(fileSystemWorkerRpc as any)
   SyntaxHighlightingWorker.set(syntaxHighlightingWorkerRpc as any)
 
   const state = {
@@ -398,7 +316,12 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
 
   const result = await loadContent(state, { minLineY: 0 })
 
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['const left = 1'], ['const right = 2']]])
   expect(extensionManagementWorkerRpc.invocations).toEqual([['Extensions.getLanguages', 7, '/tmp/assets']])
+  expect(fileSystemWorkerRpc.invocations).toEqual([
+    ['FileSystem.readFile', 'file:///tmp/left.ts'],
+    ['FileSystem.readFile', 'file:///tmp/right.ts'],
+  ])
   expect(syntaxHighlightingWorkerRpc.invocations).toEqual([
     ['Tokenizer.load', 'typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'],
     ['Tokenizer.tokenizeCodeBlock', 'const left = 1', 'typescript', '/remote/extensions/builtin.language-basics-typescript/src/tokenizeTypeScript.js'],

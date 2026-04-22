@@ -154,7 +154,19 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
 })
 
 test('getContentRightDom renders syntax-highlighted token spans', (): void => {
-  const result = getContentRightDom('const answer = 1', '', '', '', defaultAllowedLinkSchemes, true, 1, 0, 1, [], [['const', 'Token Keyword', ' answer = 1', 'Token Text']])
+  const result = getContentRightDom(
+    'const answer = 1',
+    '',
+    '',
+    '',
+    defaultAllowedLinkSchemes,
+    true,
+    1,
+    0,
+    1,
+    [],
+    [['const', 'Token Keyword', ' answer = 1', 'Token Text']],
+  )
 
   expect(result).toEqual([
     {

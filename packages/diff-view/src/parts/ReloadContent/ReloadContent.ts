@@ -1,4 +1,5 @@
 import type { DiffViewState, RenderMode } from '../DiffViewState/DiffViewState.ts'
+import { getGutterWidthVariable } from '../GetGutterWidthVariable/GetGutterWidthVariable.ts'
 import { getInlineDiffState } from '../GetInlineDiffState/GetInlineDiffState.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
@@ -40,6 +41,7 @@ export const reloadContent = async (
   const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightCodeFrame, errorRightStack)
   const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
   const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
+  const gutterWidthVariable = getGutterWidthVariable(Math.max(totalLineCountLeft, totalLineCountRight))
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
     ? await getInlineDiffState(contentLeft, contentRight)
@@ -69,6 +71,7 @@ export const reloadContent = async (
     inlineChanges,
     languageIdLeft: syntaxHighlightingState?.languageIdLeft || 'unknown',
     languageIdRight: syntaxHighlightingState?.languageIdRight || 'unknown',
+    gutterWidthVariable,
     renderModeLeft,
     renderModeRight,
     tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || [],

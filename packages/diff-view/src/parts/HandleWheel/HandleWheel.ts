@@ -4,6 +4,9 @@ import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesSta
 import { getWheelDeltaY } from '../GetWheelDeltaY/GetWheelDeltaY.ts'
 
 export const handleWheel = (state: DiffViewState, deltaMode: number, eventDeltaY: number): DiffViewState => {
+  if (!state.scrollBarActive) {
+    return state
+  }
   const {
     contentLeft,
     contentRight,

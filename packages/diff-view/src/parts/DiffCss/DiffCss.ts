@@ -5,6 +5,7 @@ export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boole
     oldState.deltaY === newState.deltaY &&
     oldState.diffMode === newState.diffMode &&
     oldState.finalDeltaY === newState.finalDeltaY &&
+    oldState.gutterWidthVariable === newState.gutterWidthVariable &&
     oldState.height === newState.height &&
     oldState.itemHeight === newState.itemHeight &&
     oldState.layout === newState.layout &&

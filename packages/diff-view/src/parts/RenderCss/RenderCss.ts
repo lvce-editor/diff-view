@@ -6,16 +6,20 @@ import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetS
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
+  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState
   const staticCss = getCss()
+  const gutterWidth = 'var(--GutterWidth)'
+  const gutterPaddingWidth = 20
+  const inlineGutterExtraWidth = 9 + gutterPaddingWidth
   const css = `
 :root {
   --ItemHeight: ${itemHeight}px;
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
+  --GutterWidth: ${gutterWidthVariable}px;
   --DiffEditorHeight: ${height}px;
   --EditorRowHeight: ${itemHeight}px;
   --ScrollBarHeight: ${scrollBarHeight}px;
@@ -71,6 +75,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   padding: 0 8px 0 12px;
   text-align: right;
   user-select: none;
+  width: calc(${gutterWidth} + ${gutterPaddingWidth}px);
+}
+
+.InlineDiffEditor .DiffEditorGutter {
+  width: calc(${gutterWidth} * 2 + ${inlineGutterExtraWidth}px);
 }
 
 .DiffEditorLineNumber {

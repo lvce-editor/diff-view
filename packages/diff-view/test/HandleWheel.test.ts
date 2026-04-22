@@ -2,12 +2,21 @@ import { expect, test } from '@jest/globals'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { handleWheel } from '../src/parts/HandleWheel/HandleWheel.ts'
 
+test('handleWheel returns state when scrollbar is inactive', (): void => {
+  const state = createDefaultState()
+
+  const result = handleWheel(state, 1, 2)
+
+  expect(result).toBe(state)
+})
+
 test('handleWheel updates the shared visible row window', (): void => {
   const state = {
     ...createDefaultState(),
     height: 60,
     itemHeight: 20,
     minimumSliderSize: 30,
+    scrollBarActive: true,
     totalLineCount: 10,
   }
 
@@ -31,6 +40,7 @@ test('handleWheel clamps scrolling to the available range', (): void => {
     height: 60,
     itemHeight: 20,
     minimumSliderSize: 30,
+    scrollBarActive: true,
     totalLineCount: 10,
   }
 

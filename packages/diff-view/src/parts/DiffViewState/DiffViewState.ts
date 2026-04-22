@@ -22,6 +22,7 @@ export interface DiffViewState {
   readonly finalDeltaY: number
   readonly focus: number
   readonly gitRoot: string
+  readonly gutterWidthVariable: number
   readonly handleOffset: number
   readonly headerHeight: number
   readonly height: number

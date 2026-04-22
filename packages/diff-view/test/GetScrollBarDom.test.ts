@@ -8,12 +8,12 @@ test('getScrollBarDom renders the scrollbar track and thumb', (): void => {
   expect(getScrollBarDom()).toEqual([
     {
       childCount: 1,
-      className: ClassNames.ScrollBar,
+      className: ClassNames.DiffScrollBar,
       type: VirtualDomElements.Div,
     },
     {
       childCount: 0,
-      className: ClassNames.ScrollBarThumb,
+      className: ClassNames.DiffScrollBarThumb,
       name: 'scrollBarThumb',
       onPointerDown: DomEventListenerFunctions.HandleScrollBarPointerDown,
       type: VirtualDomElements.Div,

@@ -150,7 +150,7 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
-  await expect(Locator('.ScrollBar')).toHaveCount(1)
+  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
   await expect(beforePane).toContainText('Legacy project settings')
   await expect(afterPane).toContainText('Project settings')
   await expect(beforePane).toContainText('legacy React section 1')

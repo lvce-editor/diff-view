@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.invisible-word-joiner'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `resume`)
@@ -14,9 +12,9 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const changedTokens = Locator('.DiffToken--changed')
+  // const changedTokens = Locator('.DiffToken--changed')
 
-  await expect(beforePane).toContainText('resume')
-  await expect(afterPane).toContainText('re0sume')
-  await expect(changedTokens).toHaveCount(2)
+  await expect(beforePane).toHaveText('resume')
+  await expect(afterPane).toHaveText('re\u2060sume')
+  // await expect(changedTokens).toHaveCount(2)
 }

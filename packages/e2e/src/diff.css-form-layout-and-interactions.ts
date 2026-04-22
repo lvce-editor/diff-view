@@ -50,7 +50,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const deletedRows = Locator('.DiffEditorContentLeft .EditorRow.Deletion')
+<<<<<<< HEAD
   const insertedRows = Locator('.DiffEditorContentRight .EditorRow.Insertion')
+=======
+  const insertedRows = Locator('.DiffEditorContentRight .DiffRow.Insertion')
+>>>>>>> origin/main
 
   await expect(beforePane).toContainText('display: flex')
   await expect(beforePane).toContainText('flex-direction: column')
@@ -59,6 +63,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('grid-template-columns: 1fr 2fr')
   await expect(afterPane).toContainText('.form button:focus-visible')
   await expect(afterPane).toContainText('outline: 2px solid #fff')
+<<<<<<< HEAD
   await expect(deletedRows).toHaveCount(11)
   await expect(insertedRows).toHaveCount(14)
+=======
+  // await expect(deletedRows).toHaveCount(3)
+  // await expect(insertedRows).toHaveCount(5)
+>>>>>>> origin/main
 }

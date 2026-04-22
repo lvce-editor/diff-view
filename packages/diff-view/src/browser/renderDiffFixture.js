@@ -96,7 +96,7 @@ body {
   white-space: pre-wrap;
 }
 
-.DiffRow--deleted {
+..EditorRow.Deletion {
   background: rgba(220, 38, 38, 0.1);
 }
 

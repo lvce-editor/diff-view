@@ -14,7 +14,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const deletedRows = Locator('.DiffEditorContentLeft .DiffRow--deleted')
+  const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRows).toHaveCount(30)

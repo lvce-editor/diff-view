@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-java'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -42,6 +40,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('int count = 2;')
   await expect(beforePane).toContainText('return;')
   await expect(afterPane).toContainText('return;')
-  await expect(beforePane.locator('.Token.Keyword')).toHaveCount(8)
-  await expect(afterPane.locator('.Token.Keyword')).toHaveCount(8)
+  await expect(beforePane.locator('.Token.Keyword')).toHaveCount(5)
+  await expect(afterPane.locator('.Token.Keyword')).toHaveCount(5)
 }

@@ -8,9 +8,10 @@ type DiffSide = 'left' | 'right'
 
 export const getLineDom = (line: VisibleLine, side: DiffSide): readonly VirtualDomNode[] => {
   const children = line.tokens.length === 0 ? [text('')] : line.tokens.flatMap(getTokenDom)
+  const childCount = line.tokens.length === 0 ? 1 : line.tokens.length
   return [
     {
-      childCount: children.length,
+      childCount,
       className: getRowClassName(line.type, side),
       type: VirtualDomElements.Div,
     },

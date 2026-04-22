@@ -147,8 +147,8 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   await DiffView.open(`${tmpDir}/left.tsx`, `${tmpDir}/right.tsx`)
 
-  const beforePane = Locator('.DiffPane--before .DiffEditorRows')
-  const afterPane = Locator('.DiffPane--after .DiffEditorRows')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(Locator('.ScrollBar')).toHaveCount(1)
   await expect(beforePane).toContainText('Legacy project settings')

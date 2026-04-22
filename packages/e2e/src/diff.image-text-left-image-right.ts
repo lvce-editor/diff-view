@@ -12,7 +12,7 @@ export const test: Test = async (api) => {
 
   await DiffView.open(`${tmpDir}/left.txt`, `${tmpDir}/image-text-left-image-right.png`)
 
-  const beforePane = Locator('.DiffPane--before')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterImage = Locator('.DiffPane--after .ImageElement')
 
   await expect(beforePane).toContainText('const leftValue = 42')

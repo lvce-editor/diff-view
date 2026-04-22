@@ -22,10 +22,10 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
-  await expect(beforePane.locator('.DiffEditorRows')).toHaveText('')
+  await expect(beforePane).toHaveText('')
   await expect(Locator('.ScrollBar')).toHaveCount(1)
   await expect(afterPane).toContainText('added line 1')
 

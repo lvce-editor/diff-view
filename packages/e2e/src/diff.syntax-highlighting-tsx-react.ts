@@ -66,8 +66,8 @@ export function Card({ title, description }: CardProps): ReactNode {
 
   await DiffView.open(`${tmpDir}/left.tsx`, `${tmpDir}/right.tsx`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('readonly subtitle: string')
   await expect(afterPane).toContainText('readonly description: string')

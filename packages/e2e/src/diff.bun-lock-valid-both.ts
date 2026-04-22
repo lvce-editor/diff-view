@@ -1,7 +1,6 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.bun-lock-valid-both'
-
 export const skip = 1
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
@@ -24,8 +23,8 @@ packages:
 
   await DiffView.open(`${tmpDir}/left/bun.lock`, `${tmpDir}/right/bun.lock`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('version: 1')
   await expect(beforePane).toContainText('left: true')

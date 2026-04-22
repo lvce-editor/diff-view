@@ -12,8 +12,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane.locator('.DiffRow--deleted')).toHaveCount(1)

@@ -28,8 +28,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/left.svelte`, `${tmpDir}/right.svelte`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText(`export let name = 'world'`)
   await expect(afterPane).toContainText(`export let name = 'svelte'`)

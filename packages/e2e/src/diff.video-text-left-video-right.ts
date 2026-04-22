@@ -12,7 +12,7 @@ export const test: Test = async (api) => {
 
   await DiffView.open(`${tmpDir}/left.txt`, `${tmpDir}/video-text-left-video-right.mp4`)
 
-  const beforePane = Locator('.DiffPane--before')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterVideo = Locator('.DiffPane--after .VideoElement')
 
   await api.expect(beforePane).toContainText('const leftValue = 42')

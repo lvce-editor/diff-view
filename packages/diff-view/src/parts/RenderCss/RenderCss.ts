@@ -84,6 +84,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   white-space: pre;
 }
 
+.DiffEditorLineNumberEmpty {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
 .DiffEditorRows {
   contain: strict;
   flex: 1;

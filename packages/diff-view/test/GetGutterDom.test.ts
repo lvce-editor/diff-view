@@ -16,7 +16,7 @@ test('getGutterDom renders the gutter and line numbers', (): void => {
       tokens: [],
       type: VisibleLineType.Normal,
     },
-  ])
+  ], 20)
 
   expect(result).toEqual([
     {
@@ -36,5 +36,64 @@ test('getGutterDom renders the gutter and line numbers', (): void => {
       type: VirtualDomElements.Div,
     },
     text('4'),
+  ])
+})
+
+test('getGutterDom collapses consecutive empty line numbers into a single placeholder block', (): void => {
+  const result = getGutterDom(
+    [
+      {
+        lineNumber: 1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: 5,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+    ],
+    20,
+  )
+
+  expect(result).toEqual([
+    {
+      childCount: 3,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorLineNumberEmpty,
+      style: 'height: 60px;',
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('5'),
   ])
 })

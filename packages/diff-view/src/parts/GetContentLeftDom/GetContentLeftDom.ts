@@ -18,6 +18,7 @@ export const getContentLeftDom = (
   inlineChanges: readonly InlineDiffChange[] = [],
   tokenizedLines: readonly TokenizedLine[] = [],
   visibleLines: readonly VisibleLine[] = [],
+  itemHeight = 20,
 ): readonly VirtualDomNode[] => {
   return getContentDom(
     ClassNames.DiffEditorContentLeft,
@@ -33,5 +34,6 @@ export const getContentLeftDom = (
     'left',
     tokenizedLines,
     visibleLines,
+    itemHeight,
   )
 }

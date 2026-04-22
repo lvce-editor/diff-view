@@ -1,5 +1,6 @@
 export const getCss = (): string => {
   return `
+.DiffEditorErrorCodeFrame,
 .DiffEditorErrorStack {
   background: rgba(0, 0, 0, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.08);

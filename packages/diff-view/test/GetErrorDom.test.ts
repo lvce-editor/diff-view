@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getErrorDom } from '../src/parts/GetErrorDom/GetErrorDom.ts'
 
 test('getErrorDom renders an error message without a stack trace', (): void => {
-  const result = getErrorDom(ClassNames.DiffEditorContentRight, 'permission denied', '')
+  const result = getErrorDom(ClassNames.DiffEditorContentRight, 'permission denied', '', '')
 
   expect(result).toEqual([
     {
@@ -27,7 +27,12 @@ test('getErrorDom renders an error message without a stack trace', (): void => {
 })
 
 test('getErrorDom renders an error message and stack trace', (): void => {
-  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)')
+  const result = getErrorDom(
+    ClassNames.DiffEditorContentLeft,
+    'file not found',
+    '',
+    'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)',
+  )
 
   expect(result).toEqual([
     {
@@ -74,9 +79,13 @@ test('getErrorDom renders an error message and stack trace', (): void => {
 })
 
 test('getErrorDom applies the allowed link scheme allowlist', (): void => {
-  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)', [
-    'https',
-  ])
+  const result = getErrorDom(
+    ClassNames.DiffEditorContentLeft,
+    'file not found',
+    '',
+    'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)',
+    ['https'],
+  )
 
   expect(result).toEqual([
     {
@@ -119,5 +128,72 @@ test('getErrorDom applies the allowed link scheme allowlist', (): void => {
       type: VirtualDomElements.A,
     },
     text('(missing-file.js)'),
+  ])
+})
+
+test('getErrorDom renders an error message with code frame and stack trace', (): void => {
+  const result = getErrorDom(
+    ClassNames.DiffEditorContentRight,
+    'Unexpected token',
+    '> 1 | const = 1\n    |       ^',
+    'SyntaxError: Unexpected token\n    at parse (/tmp/file.js:1:7)',
+  )
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorContent,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 3,
+      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorErrorMessage,
+      type: VirtualDomElements.Div,
+    },
+    text('Unexpected token'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorErrorCodeFrame,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('> 1 | const = 1'),
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('    |       ^'),
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorErrorStack,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('SyntaxError: Unexpected token'),
+    {
+      childCount: 2,
+      type: VirtualDomElements.Div,
+    },
+    text('    at parse '),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLink,
+      href: 'file:///tmp/file.js',
+      rel: 'noreferrer',
+      target: '_blank',
+      type: VirtualDomElements.A,
+    },
+    text('(file.js)'),
   ])
 })

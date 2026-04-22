@@ -7,12 +7,12 @@ export const getScrollBarDom = (): readonly VirtualDomNode[] => {
   return [
     {
       childCount: 1,
-      className: ClassNames.ScrollBar,
+      className: ClassNames.DiffScrollBar,
       type: VirtualDomElements.Div,
     },
     {
       childCount: 0,
-      className: ClassNames.ScrollBarThumb,
+      className: ClassNames.DiffScrollBarThumb,
       name: 'scrollBarThumb',
       onPointerDown: DomEventListenerFunctions.HandleScrollBarPointerDown,
       type: VirtualDomElements.Div,

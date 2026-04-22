@@ -11,8 +11,6 @@ const getLargeFileContent = (bottomLine: string): string => {
 
 export const name = 'diff.diff-editor-scrolling'
 
-export const skip = 1
-
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))

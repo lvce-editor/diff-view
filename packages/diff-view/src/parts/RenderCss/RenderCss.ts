@@ -2,13 +2,15 @@ import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getCss } from '../GetCss/GetCss.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
+import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetScrollBarBackgroundImage.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, height, id, itemHeight, leftWidth, maxLineY, minLineY, rightWidth, scrollBarHeight, totalLineCount } = newState
+  const { deltaY, finalDeltaY, height, id, inlineChanges, itemHeight, leftWidth, maxLineY, minLineY, rightWidth, scrollBarHeight, totalLineCount } = newState
   const topSpacerHeight = minLineY * itemHeight
   const bottomSpacerHeight = Math.max(totalLineCount - maxLineY, 0) * itemHeight
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
+  const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState
   const staticCss = getCss()
   const css = `
@@ -181,7 +183,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .ScrollBar {
-  background: rgba(128, 128, 128, 0.15);
+  background-color: rgba(128, 128, 128, 0.15);
+  background-image: ${scrollBarBackgroundImage};
   border-radius: 4px;
   height: 100%;
   position: absolute;

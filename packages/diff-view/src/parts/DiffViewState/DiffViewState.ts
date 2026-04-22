@@ -13,8 +13,10 @@ export interface DiffViewState {
   readonly contentRight: string
   readonly deltaY: number
   readonly diffMode: DiffMode
+  readonly errorLeftCodeFrame: string
   readonly errorLeftMessage: string
   readonly errorLeftStack: string
+  readonly errorRightCodeFrame: string
   readonly errorRightMessage: string
   readonly errorRightStack: string
   readonly finalDeltaY: number

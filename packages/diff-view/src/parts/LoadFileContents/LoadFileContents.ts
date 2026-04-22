@@ -7,8 +7,10 @@ export const loadFileContents = async (uriLeft: string, uriRight: string): Promi
   return {
     contentLeft: leftResult.content,
     contentRight: rightResult.content,
+    errorLeftCodeFrame: leftResult.errorCodeFrame,
     errorLeftMessage: leftResult.errorMessage,
     errorLeftStack: leftResult.errorStack,
+    errorRightCodeFrame: rightResult.errorCodeFrame,
     errorRightMessage: rightResult.errorMessage,
     errorRightStack: rightResult.errorStack,
   }

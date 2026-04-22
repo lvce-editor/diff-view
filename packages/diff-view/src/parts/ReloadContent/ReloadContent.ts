@@ -27,15 +27,17 @@ export const reloadContent = async (
   contentLeft: string,
   contentRight: string,
   errorLeftMessage: string,
+  errorLeftCodeFrame: string,
   errorLeftStack: string,
   errorRightMessage: string,
+  errorRightCodeFrame: string,
   errorRightStack: string,
 ): Promise<DiffViewState> => {
   const { assetDir, height, itemHeight, knownImageExtensions, minimumSliderSize, minLineY, platform, uriLeft, uriRight } = state
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
-  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftStack)
-  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightStack)
+  const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftCodeFrame, errorLeftStack)
+  const displayedContentRight = getDisplayedContent(contentRight, errorRightMessage, errorRightCodeFrame, errorRightStack)
   const totalLineCountLeft = renderModeLeft === 'image' ? 1 : getLineCount(displayedContentLeft)
   const totalLineCountRight = renderModeRight === 'image' ? 1 : getLineCount(displayedContentRight)
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
@@ -55,8 +57,10 @@ export const reloadContent = async (
     ...state,
     contentLeft,
     contentRight,
+    errorLeftCodeFrame,
     errorLeftMessage,
     errorLeftStack,
+    errorRightCodeFrame,
     errorRightMessage,
     errorRightStack,
     imageSrcLeft,

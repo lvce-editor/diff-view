@@ -12,7 +12,7 @@ struct Greeter {
     let name: String
 
     func message() -> String {
-        return "Hello, \(name)"
+        return "Hello, \\(name)"
     }
 }
 `,
@@ -25,7 +25,7 @@ struct Greeter {
     let name: String
 
     func message() -> String {
-        return "Hi, \(name)"
+        return "Hi, \\(name)"
     }
 }
 `,

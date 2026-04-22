@@ -8,8 +8,6 @@ const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly stri
   }
 }
 
-export const skip = 1
-
 const toError = (error: unknown, fallbackMessage: string): Error => {
   if (error instanceof Error) {
     return error
@@ -58,13 +56,17 @@ const afterAnchor = true`,
   const rightRows = Locator('.DiffEditorContentRight .EditorRow')
   const leftLineNumbers = Locator('.DiffEditorContentLeft .DiffEditorLineNumber')
   const rightLineNumbers = Locator('.DiffEditorContentRight .DiffEditorLineNumber')
+  const rightEmptyLineNumbers = Locator('.DiffEditorContentRight .DiffEditorLineNumberEmpty')
+  const rightGutterItems = Locator('.DiffEditorContentRight .DiffEditorGutter > div')
   const deletedRows = Locator('.DiffEditorContentLeft .EditorRow.Deletion')
   const insertedRows = Locator('.DiffEditorContentRight .EditorRow.Insertion')
 
   await expect(leftRows).toHaveCount(5)
   await expect(rightRows).toHaveCount(5)
   await expect(leftLineNumbers).toHaveCount(5)
-  await expect(rightLineNumbers).toHaveCount(5)
+  await expect(rightLineNumbers).toHaveCount(4)
+  await expect(rightEmptyLineNumbers).toHaveCount(1)
+  await expect(rightGutterItems).toHaveCount(5)
   await expect(deletedRows).toHaveCount(1)
   await expect(insertedRows).toHaveCount(0)
   await expect(deletedRows.nth(0)).toHaveText('renderItem()')
@@ -76,8 +78,8 @@ const afterAnchor = true`,
     (): Promise<void> => expectRowsToHaveText(expect, rightRows, ['const beforeAnchor = true', 'renderItem()', 'renderItem()', '', 'const afterAnchor = true']),
   ])
   await expectOneOf([
-    (): Promise<void> => expectRowsToHaveText(expect, rightLineNumbers, ['1', '', '2', '3', '4']),
-    (): Promise<void> => expectRowsToHaveText(expect, rightLineNumbers, ['1', '2', '', '3', '4']),
-    (): Promise<void> => expectRowsToHaveText(expect, rightLineNumbers, ['1', '2', '3', '', '4']),
+    (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '', '2', '3', '4']),
+    (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '2', '', '3', '4']),
+    (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '2', '3', '', '4']),
   ])
 }

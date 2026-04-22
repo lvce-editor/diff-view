@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.many-lines-deleted'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const deletedLines = Array.from({ length: 30 }, (_, index) => `deleted line ${index + 1}`)
@@ -14,11 +12,12 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
+  const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const deletedRows = Locator('.DiffEditorContentLeft .EditorRow.Deletion')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRows).toHaveCount(30)
-  await expect(deletedRows).toContainText('deleted line 1')
-  await expect(deletedRows).toContainText('deleted line 30')
+  await expect(contentLeft).toContainText('deleted line 1')
+  await expect(contentLeft).toContainText('deleted line 30')
   await expect(afterRows).toHaveText('')
 }

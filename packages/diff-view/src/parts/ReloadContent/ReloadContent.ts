@@ -1,4 +1,4 @@
-import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import type { DiffViewState, RenderMode } from '../DiffViewState/DiffViewState.ts'
 import { getInlineDiffState } from '../GetInlineDiffState/GetInlineDiffState.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
@@ -7,6 +7,20 @@ import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 import { loadImageSrc } from '../LoadImageSrc/LoadImageSrc.ts'
 import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
+
+const loadImages = async (
+  renderModeLeft: RenderMode,
+  renderModeRight: RenderMode,
+  errorLeftMessage: string,
+  errorRightMessage: string,
+  uriLeft: string,
+  uriRight: string,
+): Promise<readonly [string, string]> => {
+  return Promise.all([
+    renderModeLeft === 'image' && !errorLeftMessage ? loadImageSrc(uriLeft) : Promise.resolve(''),
+    renderModeRight === 'image' && !errorRightMessage ? loadImageSrc(uriRight) : Promise.resolve(''),
+  ])
+}
 
 export const reloadContent = async (
   state: DiffViewState,
@@ -35,10 +49,7 @@ export const reloadContent = async (
   const canHighlightRight = renderModeRight === 'text' && !errorRightMessage
   const syntaxHighlightingState =
     canHighlightLeft || canHighlightRight ? await loadSyntaxHighlighting(contentLeft, contentRight, uriLeft, uriRight, platform, assetDir) : undefined
-  const [imageSrcLeft, imageSrcRight] = await Promise.all([
-    renderModeLeft === 'image' && !errorLeftMessage ? loadImageSrc(uriLeft) : Promise.resolve(''),
-    renderModeRight === 'image' && !errorRightMessage ? loadImageSrc(uriRight) : Promise.resolve(''),
-  ])
+  const [imageSrcLeft, imageSrcRight] = await loadImages(renderModeLeft, renderModeRight, errorLeftMessage, errorRightMessage, uriLeft, uriRight)
 
   const nextState = {
     ...state,

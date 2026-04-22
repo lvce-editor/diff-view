@@ -12,8 +12,6 @@ const getContent = (): string => {
 
 export const name = 'diff.five-thousand-lines-added'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, ``)

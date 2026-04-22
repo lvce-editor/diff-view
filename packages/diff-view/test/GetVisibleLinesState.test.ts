@@ -17,12 +17,12 @@ test('getVisibleLinesState returns visible lines for both panes', (): void => {
 
   expect(result).toEqual({
     visibleLinesLeft: [
-      { lineNumber: 2, tokens: [], type: VisibleLineType.Normal },
-      { lineNumber: 3, tokens: [], type: VisibleLineType.Normal },
+      { lineNumber: 2, tokens: [{ text: 'left-2', type: '' }], type: VisibleLineType.Normal },
+      { lineNumber: 3, tokens: [{ text: 'left-3', type: '' }], type: VisibleLineType.Normal },
     ],
     visibleLinesRight: [
-      { lineNumber: 2, tokens: [], type: VisibleLineType.Normal },
-      { lineNumber: 3, tokens: [], type: VisibleLineType.Normal },
+      { lineNumber: 2, tokens: [{ text: 'right-2', type: '' }], type: VisibleLineType.Normal },
+      { lineNumber: 3, tokens: [{ text: 'right-3', type: '' }], type: VisibleLineType.Normal },
     ],
   })
 })

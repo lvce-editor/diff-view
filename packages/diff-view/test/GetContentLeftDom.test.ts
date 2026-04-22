@@ -134,7 +134,7 @@ test('getContentLeftDom renders load errors when available', (): void => {
     },
     text('Error: file not found'),
     {
-      childCount: 1,
+      childCount: 2,
       type: VirtualDomElements.Div,
     },
     text('    at read missing file '),

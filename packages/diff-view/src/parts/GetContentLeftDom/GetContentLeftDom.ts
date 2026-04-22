@@ -9,6 +9,7 @@ import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 export const getContentLeftDom = (
   contentLeft: string,
   errorMessage = '',
+  errorCodeFrame = '',
   errorStack = '',
   allowedLinkSchemes: readonly string[] = defaultAllowedLinkSchemes,
   lineNumbers = true,
@@ -24,6 +25,7 @@ export const getContentLeftDom = (
     ClassNames.DiffEditorContentLeft,
     contentLeft,
     errorMessage,
+    errorCodeFrame,
     errorStack,
     allowedLinkSchemes,
     lineNumbers,

@@ -6,9 +6,7 @@ import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetS
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, height, id, inlineChanges, itemHeight, leftWidth, maxLineY, minLineY, rightWidth, scrollBarHeight, totalLineCount } = newState
-  const topSpacerHeight = minLineY * itemHeight
-  const bottomSpacerHeight = Math.max(totalLineCount - maxLineY, 0) * itemHeight
+  const { deltaY, finalDeltaY, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState
@@ -20,8 +18,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --RightWidth: ${rightWidth}px;
   --DiffEditorHeight: ${height}px;
   --EditorRowHeight: ${itemHeight}px;
-  --TopSpacerHeight: ${topSpacerHeight}px;
-  --BottomSpacerHeight: ${bottomSpacerHeight}px;
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
 }
@@ -163,14 +159,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditorErrorMessage {
   font-weight: 600;
-}
-
-.DiffEditorSpacerTop {
-  height: var(--TopSpacerHeight);
-}
-
-.DiffEditorSpacerBottom {
-  height: var(--BottomSpacerHeight);
 }
 
 .Sash {

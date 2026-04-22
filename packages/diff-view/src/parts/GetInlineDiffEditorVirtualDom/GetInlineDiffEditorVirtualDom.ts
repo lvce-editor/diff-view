@@ -18,7 +18,7 @@ export const getInlineDiffEditorVirtualDom = (
   const visibleRows = rows.slice(minLineY, maxLineY)
   const contentChildCount = lineNumbers ? 2 : 1
   const scrollBarActive = visibleRows.length < rows.length
-  const rowsChildCount = visibleRows.length + 2
+  const rowsChildCount = visibleRows.length
   const lineNumberDom = lineNumbers
     ? [
         {
@@ -47,17 +47,7 @@ export const getInlineDiffEditorVirtualDom = (
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
     ...visibleRows.flatMap(getInlineDiffRowDom),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
     ...scrollBarDom,
   ]
 }

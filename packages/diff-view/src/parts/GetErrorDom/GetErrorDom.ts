@@ -2,15 +2,17 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getErrorCodeFrameDom } from '../GetErrorCodeFrameDom/GetErrorCodeFrameDom.ts'
 import { getErrorStackDom } from '../GetErrorStackDom/GetErrorStackDom.ts'
 
 export const getErrorDom = (
   contentClassName: string,
   errorMessage: string,
+  errorCodeFrame: string,
   errorStack: string,
   allowedLinkSchemes: readonly string[] = defaultAllowedLinkSchemes,
 ): readonly VirtualDomNode[] => {
-  const childCount = errorStack ? 2 : 1
+  const childCount = 1 + Number(Boolean(errorCodeFrame)) + Number(Boolean(errorStack))
   return [
     {
       childCount: 1,
@@ -28,6 +30,7 @@ export const getErrorDom = (
       type: VirtualDomElements.Div,
     },
     text(errorMessage),
+    ...getErrorCodeFrameDom(errorCodeFrame),
     ...getErrorStackDom(errorStack, allowedLinkSchemes),
   ]
 }

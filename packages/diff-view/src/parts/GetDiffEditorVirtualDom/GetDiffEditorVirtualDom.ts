@@ -15,8 +15,10 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     contentLeft,
     contentRight,
     diffMode,
+    errorLeftCodeFrame,
     errorLeftMessage,
     errorLeftStack,
+    errorRightCodeFrame,
     errorRightMessage,
     errorRightStack,
     inlineChanges,
@@ -46,6 +48,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   const leftDom = getContentLeftDom(
     contentLeft,
     errorLeftMessage,
+    errorLeftCodeFrame,
     errorLeftStack,
     allowedLinkSchemes,
     showLineNumbers,
@@ -60,6 +63,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   const rightDom = getContentRightDom(
     contentRight,
     errorRightMessage,
+    errorRightCodeFrame,
     errorRightStack,
     allowedLinkSchemes,
     showLineNumbers,

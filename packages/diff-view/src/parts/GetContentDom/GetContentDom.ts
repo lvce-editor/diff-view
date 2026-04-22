@@ -12,6 +12,7 @@ export const getContentDom = (
   contentClassName: string,
   content: string,
   errorMessage: string,
+  errorCodeFrame: string,
   errorStack: string,
   allowedLinkSchemes: readonly string[],
   lineNumbers: boolean,
@@ -25,11 +26,11 @@ export const getContentDom = (
   itemHeight = 20,
 ): readonly VirtualDomNode[] => {
   if (errorMessage) {
-    return getErrorDom(contentClassName, errorMessage, errorStack, allowedLinkSchemes)
+    return getErrorDom(contentClassName, errorMessage, errorCodeFrame, errorStack, allowedLinkSchemes)
   }
   const lines = visibleLines.length > 0 ? visibleLines : getVisibleLines(content, totalLineCount, inlineChanges, minLineY, maxLineY, side, tokenizedLines)
   const rows = getVisibleLinesDom(lines)
-  const rowsChildCount = lines.length + 2
+  const rowsChildCount = lines.length
 
   if (lineNumbers) {
     return getContentDomWithLineNumbers(contentClassName, lines, rowsChildCount, rows, itemHeight)

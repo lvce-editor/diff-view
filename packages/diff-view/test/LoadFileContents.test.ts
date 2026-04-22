@@ -48,8 +48,10 @@ test.skip('loadFileContents loads both files in order', async (): Promise<void> 
   expect(result).toEqual({
     contentLeft: 'before-content',
     contentRight: 'after-content',
+    errorLeftCodeFrame: '',
     errorLeftMessage: '',
     errorLeftStack: '',
+    errorRightCodeFrame: '',
     errorRightMessage: '',
     errorRightStack: '',
   })
@@ -87,8 +89,10 @@ test.skip('loadFileContents captures per-side read errors', async (): Promise<vo
   expect(result).toEqual({
     contentLeft: 'before-content',
     contentRight: '',
+    errorLeftCodeFrame: '',
     errorLeftMessage: '',
     errorLeftStack: '',
+    errorRightCodeFrame: '',
     errorRightMessage: 'file not found',
     errorRightStack: 'Error: file not found\n    at read missing file',
   })

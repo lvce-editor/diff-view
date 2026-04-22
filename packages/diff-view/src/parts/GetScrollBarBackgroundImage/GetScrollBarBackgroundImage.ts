@@ -13,6 +13,10 @@ interface ScrollBarMarker {
   readonly start: number
 }
 
+const formatPercentage = (value: number): string => {
+  return String(Number(value.toFixed(4)))
+}
+
 const getScrollBarMarkerType = (changeType: number | undefined): ScrollBarMarkerType | '' => {
   if (changeType === InlineDiffChangeType.Insertion) {
     return 'added'
@@ -68,7 +72,9 @@ const getScrollBarMarkersForSide = (rows: ReturnType<typeof getVisibleInlineDiff
 }
 
 const getScrollBarMarkerBackgroundImage = ({ color, end, start }: ScrollBarMarker): string => {
-  return `linear-gradient(to bottom, transparent ${start}%, ${color} ${start}%, ${color} ${end}%, transparent ${end}%)`
+  const formattedStart = formatPercentage(start)
+  const formattedEnd = formatPercentage(end)
+  return `linear-gradient(to bottom, transparent ${formattedStart}%, ${color} ${formattedStart}%, ${color} ${formattedEnd}%, transparent ${formattedEnd}%)`
 }
 
 export const getScrollBarBackgroundImage = (inlineChanges: readonly InlineDiffChange[], totalLineCount: number): string => {

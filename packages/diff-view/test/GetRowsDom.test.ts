@@ -20,20 +20,10 @@ test('getRowsDom renders the rows container and spacers', (): void => {
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('row-1'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })

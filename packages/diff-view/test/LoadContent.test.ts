@@ -1,5 +1,7 @@
 import { expect, jest, test } from '@jest/globals'
+import { RpcId } from '@lvce-editor/constants'
 import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
+import { registerMockRpc } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
@@ -52,8 +54,10 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     contentLeft: 'before-content',
     contentRight: 'after-content\nsecond-line',
     deltaY: 0,
+    errorLeftCodeFrame: '',
     errorLeftMessage: '',
     errorLeftStack: '',
+    errorRightCodeFrame: '',
     errorRightMessage: '',
     errorRightStack: '',
     finalDeltaY: 0,
@@ -104,6 +108,16 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 test('loadContent stores pane load errors instead of throwing', async (): Promise<void> => {
   const error = new Error('file not found: /tmp/missing.txt')
   error.stack = 'Error: file not found: /tmp/missing.txt\n    at read missing file'
+  const errorWorkerRpc = registerMockRpc(RpcId.ErrorWorker, {
+    'Errors.prepare': async (value: unknown): Promise<unknown> => {
+      expect(value).toBe(error)
+      return {
+        codeFrame: '> 1 | missing()\n    | ^^^^^^^',
+        message: 'file not found: /tmp/missing.txt',
+        stack: 'Error: file not found: /tmp/missing.txt\n    at read missing file',
+      }
+    },
+  })
   const extensionHostRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
       throw new Error('should not invoke extension host')
@@ -134,24 +148,27 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
   const result = await loadContent(state, { minLineY: 0 })
 
   expect(extensionHostRpc.invocations).toEqual([])
+  expect(errorWorkerRpc.invocations).toEqual([['Errors.prepare', error]])
   expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/missing.txt']])
   expect(diffWorkerRpc.invocations).toEqual([])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
     contentRight: '',
     deltaY: 0,
+    errorLeftCodeFrame: '',
     errorLeftMessage: '',
     errorLeftStack: '',
+    errorRightCodeFrame: '> 1 | missing()\n    | ^^^^^^^',
     errorRightMessage: 'file not found: /tmp/missing.txt',
     errorRightStack: 'Error: file not found: /tmp/missing.txt\n    at read missing file',
-    finalDeltaY: 40,
+    finalDeltaY: 100,
     initial: false,
     maxLineY: 2,
     minLineY: 0,
     scrollBarActive: true,
     scrollBarHeight: 30,
     totalLineCountLeft: 1,
-    totalLineCountRight: 4,
+    totalLineCountRight: 7,
     uriLeft: 'data://before-content',
     uriRight: '/tmp/missing.txt',
   })
@@ -201,8 +218,10 @@ test('loadContent sets image render mode when a side has an image extension', as
   expect(result).toMatchObject({
     contentLeft: 'binary-image-content',
     contentRight: 'after-content\nsecond-line',
+    errorLeftCodeFrame: '',
     errorLeftMessage: '',
     errorLeftStack: '',
+    errorRightCodeFrame: '',
     errorRightMessage: '',
     errorRightStack: '',
     imageSrcLeft: 'blob:before.png',

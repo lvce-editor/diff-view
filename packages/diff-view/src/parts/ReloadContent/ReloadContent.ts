@@ -75,10 +75,6 @@ export const reloadContent = async (
     totalLineCountLeft: nextState.totalLineCountLeft,
     totalLineCountRight: nextState.totalLineCountRight,
   })
-<<<<<<< HEAD
-  console.log({ visibleLinesLeft, visibleLinesRight, inlineChanges })
-=======
->>>>>>> origin/main
 
   return {
     ...nextState,

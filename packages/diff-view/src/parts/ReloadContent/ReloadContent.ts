@@ -4,6 +4,7 @@ import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
+import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 import { loadImageSrc } from '../LoadImageSrc/LoadImageSrc.ts'
 import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
 
@@ -39,7 +40,7 @@ export const reloadContent = async (
     renderModeRight === 'image' && !errorRightMessage ? loadImageSrc(uriRight) : Promise.resolve(''),
   ])
 
-  return {
+  const nextState = {
     ...state,
     contentLeft,
     contentRight,
@@ -61,5 +62,10 @@ export const reloadContent = async (
     totalLineCountLeft,
     totalLineCountRight,
     ...getScrollState(height, itemHeight, totalLineCount, minimumSliderSize, minLineY * itemHeight),
+  }
+
+  return {
+    ...nextState,
+    ...getVisibleLinesState(nextState),
   }
 }

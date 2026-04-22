@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.partial-emoji-profession-zwj'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `role: 🧑‍💻`)
@@ -14,11 +12,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const beforeChanged = Locator('.DiffEditorContentLeft .DiffToken--changed')
-  const afterChanged = Locator('.DiffEditorContentRight .DiffToken--changed')
+  const beforeDeletion = Locator('.DiffEditorContentLeft .EditorRow.Deletion')
+  const afterInsertion = Locator('.DiffEditorContentRight .EditorRow.Insertion')
 
   await expect(beforePane).toContainText('role: 🧑‍💻')
   await expect(afterPane).toContainText('role: 🧑‍🎨')
-  await expect(beforeChanged.first()).toBeVisible()
-  await expect(afterChanged.first()).toBeVisible()
+  await expect(beforeDeletion.first()).toBeVisible()
+  await expect(afterInsertion.first()).toBeVisible()
 }

@@ -74,12 +74,9 @@ test('getErrorDom renders an error message and stack trace', (): void => {
 })
 
 test('getErrorDom applies the allowed link scheme allowlist', (): void => {
-  const result = getErrorDom(
-    ClassNames.DiffEditorContentLeft,
-    'file not found',
-    'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)',
-    ['https'],
-  )
+  const result = getErrorDom(ClassNames.DiffEditorContentLeft, 'file not found', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)', [
+    'https',
+  ])
 
   expect(result).toEqual([
     {

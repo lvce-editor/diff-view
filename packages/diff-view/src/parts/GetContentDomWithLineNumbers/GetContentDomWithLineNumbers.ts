@@ -2,39 +2,8 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { getLineNumberDom } from '../GetLineNumberDom/GetLineNumberDom.ts'
-
-export const getGutterDom = (visibleLines: readonly VisibleLine[]): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: visibleLines.length,
-      className: ClassNames.DiffEditorGutter,
-      type: VirtualDomElements.Div,
-    },
-    ...visibleLines.flatMap((line) => getLineNumberDom(line.lineNumber)),
-  ]
-}
-
-export const getRowsDom = (rowsChildCount: number, rows: readonly VirtualDomNode[]): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: rowsChildCount,
-      className: ClassNames.DiffEditorRows,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    ...rows,
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
-  ]
-}
+import { getGutterDom } from './GetGutterDom/GetGutterDom.ts'
+import { getRowsDom } from './GetRowsDom/GetRowsDom.ts'
 
 export const getContentDomWithLineNumbers = (
   contentClassName: string,

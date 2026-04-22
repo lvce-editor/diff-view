@@ -7,7 +7,7 @@ import { reloadContent } from '../ReloadContent/ReloadContent.ts'
 export const loadContent = async (state: DiffViewState, savedState: unknown): Promise<DiffViewState> => {
   const { uri } = state
   const [uriLeft, uriRight] = getInlineDiffUris(uri)
-  const { contentLeft, contentRight, errorLeftMessage, errorLeftCodeFrame, errorLeftStack, errorRightMessage, errorRightCodeFrame, errorRightStack } = await loadFileContents(
+  const { contentLeft, contentRight, errorLeftCodeFrame, errorLeftMessage, errorLeftStack, errorRightCodeFrame, errorRightMessage, errorRightStack } = await loadFileContents(
     uriLeft,
     uriRight,
   )

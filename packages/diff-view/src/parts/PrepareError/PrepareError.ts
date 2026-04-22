@@ -1,7 +1,7 @@
 import { ErrorWorker } from '@lvce-editor/rpc-registry'
+import type { PrettyError } from '../PrettyError/PrettyError.ts'
 import { getErrorMessage } from '../GetErrorMessage/GetErrorMessage.ts'
 import { getErrorStack } from '../GetErrorStack/GetErrorStack.ts'
-import type { PrettyError } from '../PrettyError/PrettyError.ts'
 
 interface PreparedErrorLike {
   readonly codeFrame?: unknown

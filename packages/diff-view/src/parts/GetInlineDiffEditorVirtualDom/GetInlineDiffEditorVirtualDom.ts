@@ -2,9 +2,10 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
+import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 import { getInlineDiffLineNumberDom } from './GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
 import { getInlineDiffRowDom } from './GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
-import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
 export const getInlineDiffEditorVirtualDom = (
   contentLeft: string,
@@ -32,7 +33,7 @@ export const getInlineDiffEditorVirtualDom = (
   return [
     {
       childCount: scrollBarActive ? 2 : 1,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
+      className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
       type: VirtualDomElements.Div,
     },
     {

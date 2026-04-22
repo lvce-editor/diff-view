@@ -22,3 +22,9 @@ test('getScrollBarBackgroundImage returns none when there are no changes', (): v
   expect(getScrollBarBackgroundImage([], 0)).toBe('none')
   expect(getScrollBarBackgroundImage([], 4)).toBe('none')
 })
+
+test('getScrollBarBackgroundImage rounds percentage markers to four decimals', (): void => {
+  expect(getScrollBarBackgroundImage([{ leftIndex: 1, rightIndex: 1, type: 1 }], 250000)).toBe(
+    'linear-gradient(to bottom, transparent 0%, rgba(46, 160, 67, 0.72) 0%, rgba(46, 160, 67, 0.72) 0.0004%, transparent 0.0004%)',
+  )
+})

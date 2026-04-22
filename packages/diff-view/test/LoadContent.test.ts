@@ -61,6 +61,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     errorRightMessage: '',
     errorRightStack: '',
     finalDeltaY: 0,
+    gutterWidthVariable: 9,
     initial: false,
     inlineChanges: [
       { leftIndex: 0, rightIndex: 0, type: 2 },

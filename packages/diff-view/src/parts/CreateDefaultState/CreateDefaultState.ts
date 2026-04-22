@@ -17,6 +17,7 @@ export const createDefaultState = (): DiffViewState => ({
   finalDeltaY: 0,
   focus: 0,
   gitRoot: '',
+  gutterWidthVariable: 9,
   handleOffset: 0,
   headerHeight: 40,
   height: 100,

@@ -8,6 +8,7 @@ test('createDefaultState sets up image render defaults', (): void => {
   expect(result.allowedLinkSchemes).toEqual(['http', 'https', 'file'])
   expect(result.knownImageExtensions).toEqual(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg', '.bmp', '.ico'])
   expect(result.diffMode).toBe('side-by-side')
+  expect(result.gutterWidthVariable).toBe(9)
   expect(result.lineNumbers).toBe(true)
   expect(result.layout).toBe('horizontal')
   expect(result.renderModeLeft).toBe('text')

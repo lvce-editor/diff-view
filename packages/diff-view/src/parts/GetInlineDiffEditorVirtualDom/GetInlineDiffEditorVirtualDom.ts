@@ -1,58 +1,10 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import { getInlineDiffRows, InlineDiffRowType, type InlineDiffRow } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
+import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
+import { getInlineDiffLineNumberDom } from './GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
+import { getInlineDiffRowDom } from './GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
-
-const getInlineDiffLineNumberText = (row: InlineDiffRow): string => {
-  const left = row.lineNumberLeft === null ? '-' : String(row.lineNumberLeft)
-  const right = row.lineNumberRight === null ? '-' : String(row.lineNumberRight)
-  return `${left} ${right}`
-}
-
-const getInlineDiffLineNumberDom = (row: InlineDiffRow): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
-      type: VirtualDomElements.Div,
-    },
-    text(getInlineDiffLineNumberText(row)),
-  ]
-}
-
-const getRowClassName = (row: InlineDiffRow): string => {
-  switch (row.type) {
-    case InlineDiffRowType.Deletion:
-      return ClassNames.EditorRowDeletion
-    case InlineDiffRowType.Insertion:
-      return ClassNames.EditorRowInsertion
-    default:
-      return ClassNames.EditorRow
-  }
-}
-
-const getRowText = (row: InlineDiffRow): string => {
-  switch (row.type) {
-    case InlineDiffRowType.Deletion:
-      return `- ${row.text}`
-    case InlineDiffRowType.Insertion:
-      return `+ ${row.text}`
-    default:
-      return `  ${row.text}`
-  }
-}
-
-const getInlineDiffRowDom = (row: InlineDiffRow): readonly VirtualDomNode[] => {
-  return [
-    {
-      childCount: 1,
-      className: getRowClassName(row),
-      type: VirtualDomElements.Div,
-    },
-    text(getRowText(row)),
-  ]
-}
 
 export const getInlineDiffEditorVirtualDom = (
   contentLeft: string,

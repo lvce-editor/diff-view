@@ -3,6 +3,7 @@ import * as Create2 from '../Create2/Create2.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
+import { handleResize } from '../HandleResize/HandleResize.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
 import { handleSashPointerMove } from '../HandleSashPointerMove/HandleSashPointerMove.ts'
 import { handleSashPointerUp } from '../HandleSashPointerUp/HandleSashPointerUp.ts'
@@ -24,6 +25,7 @@ export const commandMap = {
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
+  'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
   'DiffView.handleSashPointerMove': wrapCommand(handleSashPointerMove),
   'DiffView.handleSashPointerUp': wrapCommand(handleSashPointerUp),

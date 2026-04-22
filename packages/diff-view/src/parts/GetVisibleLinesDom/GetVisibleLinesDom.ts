@@ -21,10 +21,10 @@ const getTokenDom = (token: VisibleLineToken): readonly VirtualDomNode[] => {
 }
 
 const getRowClassName = (type: VisibleLine['type'], side: DiffSide): string => {
-  if (side === 'left' && type === VisibleLineType.Removed) {
+  if (type === VisibleLineType.Removed) {
     return ClassNames.EditorRowDeletion
   }
-  if (side === 'right' && type === VisibleLineType.Added) {
+  if (type === VisibleLineType.Added) {
     return ClassNames.EditorRowInsertion
   }
   return ClassNames.EditorRow

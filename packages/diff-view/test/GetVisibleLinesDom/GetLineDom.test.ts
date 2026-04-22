@@ -32,7 +32,7 @@ test('getLineDom renders token spans inside a row', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.EditorRowInsertion,
       type: VirtualDomElements.Div,
     },

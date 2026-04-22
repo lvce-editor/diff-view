@@ -251,7 +251,7 @@ test('getContentLeftDom renders syntax-highlighted token spans', (): void => {
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 2,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },

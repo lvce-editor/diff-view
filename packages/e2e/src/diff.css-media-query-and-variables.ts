@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.css-media-query-and-variables'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -57,8 +55,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
-  const insertedRows = Locator('.DiffEditorContentRight .DiffRow.Insertion')
+  const deletedRows = Locator('.DiffEditorContentLeft .EditorRow.Deletion')
+  const insertedRows = Locator('.DiffEditorContentRight .EditorRow.Insertion')
 
   await expect(beforePane).toContainText('--gap: 8px')
   await expect(beforePane).toContainText('--accent: #ff6600')

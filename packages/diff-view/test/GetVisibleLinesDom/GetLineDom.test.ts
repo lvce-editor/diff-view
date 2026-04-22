@@ -5,7 +5,7 @@ import { getLineDom } from '../../src/parts/GetVisibleLinesDom/GetLineDom/GetLin
 import { VisibleLineType } from '../../src/parts/VisibleLine/VisibleLine.ts'
 
 test('getLineDom renders an empty visible line as a blank row', (): void => {
-  const result = getLineDom({ lineNumber: 1, tokens: [], type: VisibleLineType.Normal }, 'left')
+  const result = getLineDom({ lineNumber: 1, tokens: [], type: VisibleLineType.Normal })
 
   expect(result).toEqual([
     {
@@ -18,17 +18,14 @@ test('getLineDom renders an empty visible line as a blank row', (): void => {
 })
 
 test('getLineDom renders token spans inside a row', (): void => {
-  const result = getLineDom(
-    {
-      lineNumber: 1,
-      tokens: [
-        { text: 'const', type: 'Token Keyword' },
-        { text: ' answer = 1', type: 'Token Text' },
-      ],
-      type: VisibleLineType.Added,
-    },
-    'right',
-  )
+  const result = getLineDom({
+    lineNumber: 1,
+    tokens: [
+      { text: 'const', type: 'Token Keyword' },
+      { text: ' answer = 1', type: 'Token Text' },
+    ],
+    type: VisibleLineType.Added,
+  })
 
   expect(result).toEqual([
     {

@@ -4,15 +4,13 @@ import type { VisibleLine } from '../../VisibleLine/VisibleLine.ts'
 import { getRowClassName } from '../GetRowClassName/GetRowClassName.ts'
 import { getTokenDom } from '../GetTokenDom/GetTokenDom.ts'
 
-type DiffSide = 'left' | 'right'
-
-export const getLineDom = (line: VisibleLine, side: DiffSide): readonly VirtualDomNode[] => {
+export const getLineDom = (line: VisibleLine): readonly VirtualDomNode[] => {
   const children = line.tokens.length === 0 ? [text('')] : line.tokens.flatMap(getTokenDom)
   const childCount = line.tokens.length === 0 ? 1 : line.tokens.length
   return [
     {
       childCount,
-      className: getRowClassName(line.type, side),
+      className: getRowClassName(line.type),
       type: VirtualDomElements.Div,
     },
     ...children,

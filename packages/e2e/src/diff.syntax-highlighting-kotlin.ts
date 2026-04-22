@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-kotlin'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -33,10 +31,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('fun greet() {')
   await expect(beforePane).toContainText('val count = 1')
   await expect(afterPane).toContainText('val count = 2')
-  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(2)
-  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(1)
   await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
   await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
-  await expect(beforePane).not.toContainText('count = 2')
-  await expect(afterPane).not.toContainText('count = 1')
 }

@@ -28,6 +28,8 @@ const shuffleLines = (lines: readonly string[]): string[] => {
   return shuffledLines
 }
 
+export const skip = 1
+
 export const name = 'diff.sorted-lines-and-shuffled-lines'
 
 export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {

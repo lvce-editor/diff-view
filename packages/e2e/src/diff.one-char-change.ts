@@ -13,8 +13,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
   const changedTokens = Locator('.DiffToken--changed')
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')

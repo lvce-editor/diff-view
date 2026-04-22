@@ -43,8 +43,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const beforeRows = Locator('.DiffPane--before .DiffRow')
-  const afterRows = Locator('.DiffPane--after .DiffRow')
+  const beforeRows = Locator('.DiffEditorContentLeft .DiffRow')
+  const afterRows = Locator('.DiffEditorContentRight .DiffRow')
 
   await expect(beforeRows.nth(0)).toHaveText('line 1')
   await expect(beforeRows.nth(1)).toHaveText('line 2')

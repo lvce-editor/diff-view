@@ -12,11 +12,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
-  await expect(Locator('.DiffPane--before .DiffToken--changed')).toHaveCount(2)
-  await expect(Locator('.DiffPane--after .DiffToken--changed')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentLeft .DiffToken--changed')).toHaveCount(2)
+  await expect(Locator('.DiffEditorContentRight .DiffToken--changed')).toHaveCount(2)
   await expect(beforePane).not.toContainText('loadUserProfileCard')
   await expect(afterPane).not.toContainText('loadUserProfileSummary')
 }

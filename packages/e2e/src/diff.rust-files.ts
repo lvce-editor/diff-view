@@ -26,8 +26,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await Workspace.setPath(tmpDir)
   await DiffView.open(`${tmpDir}/left.rs`, `${tmpDir}/right.rs`)
 
-  const beforePane = Locator('.DiffPane--before')
-  const afterPane = Locator('.DiffPane--after')
+  const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toContainText('pub fn greet() {')
   await expect(beforePane).toContainText('let message = "hello";')

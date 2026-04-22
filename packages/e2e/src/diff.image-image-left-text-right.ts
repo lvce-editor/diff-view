@@ -13,7 +13,7 @@ export const test: Test = async (api) => {
   await DiffView.open(`${tmpDir}/image-left-text-right.png`, `${tmpDir}/right.txt`)
 
   const beforeImage = Locator('.DiffPane--before .ImageElement')
-  const afterPane = Locator('.DiffPane--after')
+  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await api.expect(beforeImage).toHaveAttribute('alt', 'left.png')
   await api.expect(beforeImage).toHaveAttribute('src', /^data:image\/png;base64,/ as unknown as string)

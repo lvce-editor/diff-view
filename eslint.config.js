@@ -11,6 +11,6 @@ export default [
     },
   },
   {
-    ignores: ['/**/fixtures/**'],
+    ignores: ['**/fixtures/**'],
   },
 ]

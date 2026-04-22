@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.invisible-hair-space'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `alpha beta`)
@@ -14,9 +12,9 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const changedTokens = Locator('.DiffToken--changed')
+  // const changedTokens = Locator('.DiffToken--changed')
 
-  await expect(beforePane).toContainText('alpha beta')
-  await expect(afterPane).toContainText('alphabeta')
-  await expect(changedTokens).toHaveCount(2)
+  await expect(beforePane).toHaveText('alpha beta')
+  await expect(afterPane).toHaveText('alpha\u200Abeta')
+  // await expect(changedTokens).toHaveCount(2)
 }

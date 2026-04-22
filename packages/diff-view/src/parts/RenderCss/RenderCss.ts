@@ -80,6 +80,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   white-space: pre;
 }
 
+.DiffEditorLineNumberEmpty {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
 .DiffEditorRows {
   contain: strict;
   flex: 1;
@@ -170,7 +175,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   height: ${getSashWidth()}px;
 }
 
-.ScrollBar {
+.DiffScrollBar {
   background-color: rgba(128, 128, 128, 0.15);
   background-image: ${scrollBarBackgroundImage};
   border-radius: 4px;
@@ -181,7 +186,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   width: 8px;
 }
 
-.ScrollBarThumb {
+.DiffScrollBarThumb {
   background: rgba(128, 128, 128, 0.45);
   border-radius: 4px;
   cursor: pointer;

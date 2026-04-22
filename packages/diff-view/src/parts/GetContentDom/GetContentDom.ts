@@ -23,6 +23,7 @@ export const getContentDom = (
   side: 'left' | 'right',
   tokenizedLines: readonly TokenizedLine[] = [],
   visibleLines: readonly VisibleLine[] = [],
+  itemHeight = 20,
 ): readonly VirtualDomNode[] => {
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorCodeFrame, errorStack, allowedLinkSchemes)
@@ -32,7 +33,7 @@ export const getContentDom = (
   const rowsChildCount = lines.length
 
   if (lineNumbers) {
-    return getContentDomWithLineNumbers(contentClassName, lines, rowsChildCount, rows)
+    return getContentDomWithLineNumbers(contentClassName, lines, rowsChildCount, rows, itemHeight)
   }
 
   return getContentDomWithoutLineNumbers(contentClassName, rowsChildCount, rows)

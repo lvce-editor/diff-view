@@ -17,5 +17,5 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await expect(contentLeft).toHaveText('')
   await expect(contentRight).toHaveText('def')
-  await expect(Locator('.ScrollBar')).toHaveCount(0)
+  await expect(Locator('.DiffScrollBar')).toHaveCount(0)
 }

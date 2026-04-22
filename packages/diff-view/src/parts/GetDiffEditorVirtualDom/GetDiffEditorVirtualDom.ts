@@ -22,6 +22,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     errorRightMessage,
     errorRightStack,
     inlineChanges,
+    itemHeight,
     layout,
     lineNumbers,
     maxLineY,
@@ -57,6 +58,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     inlineChanges,
     tokenizedLinesLeft,
     visibleLinesLeft,
+    itemHeight,
   )
   const rightDom = getContentRightDom(
     contentRight,
@@ -71,6 +73,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     inlineChanges,
     tokenizedLinesRight,
     visibleLinesRight,
+    itemHeight,
   )
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const dom: readonly VirtualDomNode[] = [

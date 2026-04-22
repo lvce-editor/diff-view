@@ -11,6 +11,13 @@ test('renderCss renders left and right widths as css variables', (): void => {
     finalDeltaY: 140,
     height: 100,
     id: 1,
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 2 },
+      { leftIndex: 1, rightIndex: 1, type: 2 },
+      { leftIndex: 2, rightIndex: 2, type: 0 },
+      { leftIndex: 3, rightIndex: 3, type: 1 },
+      { leftIndex: 4, rightIndex: 4, type: 1 },
+    ],
     itemHeight: 20,
     leftWidth: 120,
     maxLineY: 6,
@@ -41,6 +48,9 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('overflow: auto;')
   expect(result[2]).toContain('.DiffEditorSpacerTop {')
   expect(result[2]).toContain('.ScrollBarThumb {')
+  expect(result[2]).toContain('background-image: linear-gradient(to bottom, transparent 0%,')
+  expect(result[2]).toContain('rgba(248, 81, 73, 0.72) 0%')
+  expect(result[2]).toContain('rgba(46, 160, 67, 0.72)')
 })
 
 test('renderCss renders stacked pane heights for vertical layout', (): void => {

@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-tsx-react'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -75,10 +73,10 @@ export function Card({ title, description }: CardProps): ReactNode {
   await expect(afterPane).toContainText('className="card card--selected"')
   await expect(beforePane).toContainText("{isOpen ? 'Collapse' : 'Expand'}")
   await expect(afterPane).toContainText("{isOpen ? 'Collapse' : 'Open'}")
-  await expect(beforePane.locator('.Token.KeywordImport')).toHaveCount(2)
-  await expect(afterPane.locator('.Token.KeywordImport')).toHaveCount(2)
-  await expect(beforePane.locator('.Token.KeywordFunction')).toHaveCount(1)
-  await expect(afterPane.locator('.Token.KeywordFunction')).toHaveCount(1)
+  await expect(beforePane.locator('.Token.KeywordImport')).toHaveCount(3)
+  await expect(afterPane.locator('.Token.KeywordImport')).toHaveCount(3)
+  await expect(beforePane.locator('.Token.KeywordFunction')).toHaveCount(0)
+  await expect(afterPane.locator('.Token.KeywordFunction')).toHaveCount(0)
   await expect(beforePane.locator('.Token.String')).toHaveCount(5)
   await expect(afterPane.locator('.Token.String')).toHaveCount(5)
 }

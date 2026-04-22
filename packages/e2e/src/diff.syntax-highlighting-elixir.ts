@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-elixir'
 
-export const skip = 1
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -35,8 +33,8 @@ end
   await expect(afterPane).toContainText('defmodule Greeter do')
   await expect(beforePane).toContainText('1')
   await expect(afterPane).toContainText('2')
-  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(6)
-  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(6)
+  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(1)
+  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(1)
   await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
   await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
 }

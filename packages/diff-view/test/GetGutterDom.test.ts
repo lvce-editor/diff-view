@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import { getGutterDom, getRowsDom } from '../src/parts/GetContentDomWithLineNumbers/GetContentDomWithLineNumbers.ts'
+import { getGutterDom } from '../src/parts/GetContentDomWithLineNumbers/GetGutterDom/GetGutterDom.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('getGutterDom renders the gutter and line numbers', (): void => {
@@ -36,40 +36,5 @@ test('getGutterDom renders the gutter and line numbers', (): void => {
       type: VirtualDomElements.Div,
     },
     text('4'),
-  ])
-})
-
-test('getRowsDom renders the rows container and spacers', (): void => {
-  const result = getRowsDom(4, [
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-      type: VirtualDomElements.Div,
-    },
-    text('row-1'),
-  ])
-
-  expect(result).toEqual([
-    {
-      childCount: 4,
-      className: ClassNames.DiffEditorRows,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.EditorRow,
-      type: VirtualDomElements.Div,
-    },
-    text('row-1'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })

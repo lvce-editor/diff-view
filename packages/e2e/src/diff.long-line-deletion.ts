@@ -14,7 +14,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
 
-  const deletedRow = Locator('.DiffEditorContentLeft .DiffRow--deleted')
+  const deletedRow = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRow).toBeVisible()

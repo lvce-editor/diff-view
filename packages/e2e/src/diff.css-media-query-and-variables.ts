@@ -57,7 +57,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const deletedRows = Locator('.DiffEditorContentLeft .DiffRow--deleted')
+  const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
   const insertedRows = Locator('.DiffEditorContentRight .DiffRow--inserted')
 
   await expect(beforePane).toContainText('--gap: 8px')

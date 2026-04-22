@@ -16,7 +16,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
-  await expect(beforePane.locator('.DiffRow--deleted')).toHaveCount(1)
+  await expect(beforePane.locator('..EditorRow.Deletion')).toHaveCount(1)
   await expect(afterRows).toHaveText('')
   await expect(afterPane.locator('.DiffRow--inserted')).toHaveCount(0)
 }

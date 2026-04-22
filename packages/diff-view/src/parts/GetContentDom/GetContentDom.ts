@@ -28,7 +28,7 @@ export const getContentDom = (
   }
   const lines = visibleLines.length > 0 ? visibleLines : getVisibleLines(content, totalLineCount, inlineChanges, minLineY, maxLineY, side, tokenizedLines)
   const rows = getVisibleLinesDom(lines)
-  const rowsChildCount = lines.length + 2
+  const rowsChildCount = lines.length
 
   if (lineNumbers) {
     return getContentDomWithLineNumbers(contentClassName, lines, rowsChildCount, rows)

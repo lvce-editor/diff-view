@@ -57,11 +57,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
@@ -73,11 +68,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     text('second-before'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -118,11 +108,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
@@ -134,11 +119,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     text('second-after'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -173,21 +153,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('before-content'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -206,21 +176,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('after-content'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -285,21 +245,11 @@ test.skip('getDiffEditorVirtualDom renders image panes when render mode is image
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('after-content'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 
@@ -351,21 +301,11 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text(''),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -424,21 +364,11 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
     text('before-content'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
     {
       childCount: 0,
       className: `${ClassNames.Sash} ${ClassNames.SashVertical}`,
@@ -538,11 +468,6 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 1,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
@@ -566,11 +491,6 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
       type: VirtualDomElements.Div,
     },
     text('  shared'),
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ])
 })
 

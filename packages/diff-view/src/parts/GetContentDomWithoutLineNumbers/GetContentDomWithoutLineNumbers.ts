@@ -14,16 +14,6 @@ export const getContentDomWithoutLineNumbers = (contentClassName: string, rowsCh
       className: contentClassName,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerTop,
-      type: VirtualDomElements.Div,
-    },
     ...rows,
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorSpacerBottom,
-      type: VirtualDomElements.Div,
-    },
   ]
 }

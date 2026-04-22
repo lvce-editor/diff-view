@@ -469,11 +469,13 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('Error: file not found'),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('    at read missing file'),

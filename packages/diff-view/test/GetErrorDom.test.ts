@@ -53,11 +53,13 @@ test('getErrorDom renders an error message and stack trace', (): void => {
     },
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('Error: file not found'),
     {
       childCount: 2,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('    at read missing file '),
@@ -102,11 +104,13 @@ test('getErrorDom applies the allowed link scheme allowlist', (): void => {
     },
     {
       childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('Error: file not found'),
     {
       childCount: 2,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     text('    at read missing file '),

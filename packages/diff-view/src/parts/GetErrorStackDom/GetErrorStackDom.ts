@@ -45,6 +45,7 @@ const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: readonly st
     return [
       {
         childCount: 1,
+        className: ClassNames.DiffEditorErrorStackLine,
         type: VirtualDomElements.Div,
       },
       text(stackLine),
@@ -56,6 +57,7 @@ const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: readonly st
   return [
     {
       childCount: prefix ? 2 : 1,
+      className: ClassNames.DiffEditorErrorStackLine,
       type: VirtualDomElements.Div,
     },
     ...(prefix ? [text(prefix)] : []),

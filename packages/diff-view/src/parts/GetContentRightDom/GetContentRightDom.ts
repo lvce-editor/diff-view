@@ -2,6 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
+import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
@@ -9,6 +10,7 @@ export const getContentRightDom = (
   contentRight: string,
   errorMessage = '',
   errorStack = '',
+  allowedLinkSchemes: readonly string[] = defaultAllowedLinkSchemes,
   lineNumbers = true,
   totalLineCount = contentRight ? contentRight.split('\n').length : 1,
   minLineY = 0,
@@ -22,6 +24,7 @@ export const getContentRightDom = (
     contentRight,
     errorMessage,
     errorStack,
+    allowedLinkSchemes,
     lineNumbers,
     totalLineCount,
     minLineY,

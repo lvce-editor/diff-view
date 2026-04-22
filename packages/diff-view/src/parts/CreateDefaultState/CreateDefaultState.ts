@@ -1,6 +1,8 @@
 import type { DiffViewState as DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 
 export const createDefaultState = (): DiffViewState => ({
+  allowedLinkSchemes: defaultAllowedLinkSchemes,
   assetDir: '',
   contentLeft: '',
   contentRight: '',

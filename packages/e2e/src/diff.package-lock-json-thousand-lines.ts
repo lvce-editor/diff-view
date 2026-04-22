@@ -100,7 +100,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const scrollBar = Locator('.ScrollBar')
+  const scrollBar = Locator('.DiffScrollBar')
 
   await expect(beforePane).toContainText('"version": "1.0.0"')
   await expect(afterPane).toContainText('"version": "1.0.1"')

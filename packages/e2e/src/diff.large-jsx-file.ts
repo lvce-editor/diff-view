@@ -10,7 +10,7 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   const tmpDir = await FileSystem.loadFixture(fixtureUrl)
   await Workspace.setPath(tmpDir)
 
-  await Main.openUri(`diff://${tmpDir}/before.txt<->${tmpDir}/after.txt`)
+  await Main.openUri(`diff://${tmpDir}/before.jsx<->${tmpDir}/after.jsx`)
 
   const beforeDeletion = Locator('.EditorRow.Deletion')
   await expect(beforeDeletion).toHaveText('a')

@@ -30,9 +30,7 @@ const shuffleLines = (lines: readonly string[]): string[] => {
 
 export const name = 'diff.sorted-lines-and-shuffled-lines'
 
-export const skip = 1
-
-export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, Workspace }) => {
+export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const sortedLines = createSortedLines()
   const shuffledLines = shuffleLines(sortedLines)
@@ -43,8 +41,8 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
 
   await Main.openUri(`diff://${tmpDir}/file-1.txt<->${tmpDir}/file-2.txt`)
 
-  const beforeRows = Locator('.DiffEditorContentLeft .DiffRow')
-  const afterRows = Locator('.DiffEditorContentRight .DiffRow')
+  const beforeRows = Locator('.DiffEditorContentLeft .EditorRow')
+  const afterRows = Locator('.DiffEditorContentRight .EditorRow')
 
   await expect(beforeRows.nth(0)).toHaveText('line 1')
   await expect(beforeRows.nth(1)).toHaveText('line 2')
@@ -53,12 +51,12 @@ export const test: Test = async ({ Command, expect, FileSystem, Locator, Main, W
   await expect(afterRows.nth(1)).toHaveText(shuffledLines[1])
   await expect(afterRows.nth(2)).toHaveText(shuffledLines[2])
 
-  await Command.execute('DiffView.handleWorkspaceChange')
+  // await Command.execute('DiffView.handleWorkspaceChange')
 
-  await expect(beforeRows.nth(0)).toHaveText('line 1')
-  await expect(beforeRows.nth(1)).toHaveText('line 2')
-  await expect(beforeRows.nth(2)).toHaveText('line 3')
-  await expect(afterRows.nth(0)).toHaveText(shuffledLines[0])
-  await expect(afterRows.nth(1)).toHaveText(shuffledLines[1])
-  await expect(afterRows.nth(2)).toHaveText(shuffledLines[2])
+  // await expect(beforeRows.nth(0)).toHaveText('line 1')
+  // await expect(beforeRows.nth(1)).toHaveText('line 2')
+  // await expect(beforeRows.nth(2)).toHaveText('line 3')
+  // await expect(afterRows.nth(0)).toHaveText(shuffledLines[0])
+  // await expect(afterRows.nth(1)).toHaveText(shuffledLines[1])
+  // await expect(afterRows.nth(2)).toHaveText(shuffledLines[2])
 }

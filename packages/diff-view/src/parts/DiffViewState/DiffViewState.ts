@@ -7,6 +7,7 @@ export type Layout = 'vertical' | 'horizontal'
 export type DiffMode = 'inline' | 'side-by-side'
 
 export interface DiffViewState {
+  readonly allowedLinkSchemes: readonly string[]
   readonly assetDir: string
   readonly contentLeft: string
   readonly contentRight: string

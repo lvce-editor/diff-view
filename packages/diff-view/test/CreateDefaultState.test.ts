@@ -5,6 +5,7 @@ test('createDefaultState sets up image render defaults', (): void => {
   const result = createDefaultState()
 
   expect(result.inlineChanges).toEqual([])
+  expect(result.allowedLinkSchemes).toEqual(['http', 'https', 'file'])
   expect(result.knownImageExtensions).toEqual(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.svg', '.bmp', '.ico'])
   expect(result.diffMode).toBe('side-by-side')
   expect(result.lineNumbers).toBe(true)

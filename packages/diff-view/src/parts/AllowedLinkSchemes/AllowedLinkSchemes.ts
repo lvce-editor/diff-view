@@ -1,0 +1,1 @@
+export const defaultAllowedLinkSchemes = ['http', 'https', 'file'] as const

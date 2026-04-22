@@ -1,26 +1,32 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
-const stackLocationRegex = /((?:https?:\/\/|file:\/\/\/?|\/)[^\s)]+):(\d+):(\d+)\)?$/
+const stackLocationRegex = /((?:[a-zA-Z][a-zA-Z0-9+.-]*:\/\/|\/)[^\s)]+):(\d+):(\d+)\)?$/
 
-const getStackLineLink = (stackLine: string): string => {
+const getStackLineHref = (location: string, allowedLinkSchemes: readonly string[]): string => {
+  const scheme = location.startsWith('/') ? 'file' : location.slice(0, location.indexOf(':'))
+  if (allowedLinkSchemes.includes(scheme)) {
+    return scheme === 'file' ? `file://${location.startsWith('file://') ? location.slice('file://'.length) : location}` : location
+  }
+  return '#'
+}
+
+const getStackLineLocation = (stackLine: string): string => {
   const match = stackLine.match(stackLocationRegex)
   if (!match) {
     return ''
   }
   const [, location] = match
-  if (location.startsWith('/')) {
-    return `file://${location}`
-  }
   return location
 }
 
-const getStackLineLabel = (href: string): string => {
-  if (!href) {
+const getStackLineLabel = (location: string): string => {
+  if (!location) {
     return ''
   }
-  const pathname = href.startsWith('file://') ? href.slice('file://'.length) : href
+  const pathname = location.startsWith('file://') ? location.slice('file://'.length) : location
   const fileName = pathname.slice(pathname.lastIndexOf('/') + 1)
   return `(${fileName})`
 }
@@ -33,9 +39,9 @@ const getStackLinePrefix = (stackLine: string): string => {
   return stackLine.slice(0, stackLine.length - match[0].length).replace(/\($/, '')
 }
 
-const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
-  const href = getStackLineLink(stackLine)
-  if (!href) {
+const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: readonly string[]): readonly VirtualDomNode[] => {
+  const location = getStackLineLocation(stackLine)
+  if (!location) {
     return [
       {
         childCount: 1,
@@ -45,7 +51,8 @@ const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
     ]
   }
   const prefix = getStackLinePrefix(stackLine)
-  const label = getStackLineLabel(href)
+  const href = getStackLineHref(location, allowedLinkSchemes)
+  const label = getStackLineLabel(location)
   return [
     {
       childCount: prefix ? 2 : 1,
@@ -64,7 +71,7 @@ const getErrorStackLineDom = (stackLine: string): readonly VirtualDomNode[] => {
   ]
 }
 
-export const getErrorStackDom = (errorStack: string): readonly VirtualDomNode[] => {
+export const getErrorStackDom = (errorStack: string, allowedLinkSchemes: readonly string[] = defaultAllowedLinkSchemes): readonly VirtualDomNode[] => {
   if (!errorStack) {
     return []
   }
@@ -75,6 +82,6 @@ export const getErrorStackDom = (errorStack: string): readonly VirtualDomNode[] 
       className: ClassNames.DiffEditorErrorStack,
       type: VirtualDomElements.Div,
     },
-    ...stackLines.flatMap(getErrorStackLineDom),
+    ...stackLines.flatMap((stackLine) => getErrorStackLineDom(stackLine, allowedLinkSchemes)),
   ]
 }

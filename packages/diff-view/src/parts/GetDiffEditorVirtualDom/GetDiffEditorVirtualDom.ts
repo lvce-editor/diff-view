@@ -11,6 +11,7 @@ import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 
 export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualDomNode[] => {
   const {
+    allowedLinkSchemes,
     contentLeft,
     contentRight,
     diffMode,
@@ -45,6 +46,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     contentLeft,
     errorLeftMessage,
     errorLeftStack,
+    allowedLinkSchemes,
     showLineNumbers,
     totalLineCountLeft,
     minLineY,
@@ -57,6 +59,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     contentRight,
     errorRightMessage,
     errorRightStack,
+    allowedLinkSchemes,
     showLineNumbers,
     totalLineCountRight,
     minLineY,

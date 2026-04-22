@@ -39,3 +39,34 @@ test('getErrorStackDom renders the stack trace', (): void => {
     text('(missing-file.js)'),
   ])
 })
+
+test('getErrorStackDom blocks disallowed link schemes', (): void => {
+  const result = getErrorStackDom('Error: unsafe link\n    at read suspicious file (javascript://example.com/evil.js:12:34)')
+
+  expect(result).toEqual([
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorErrorStack,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      type: VirtualDomElements.Div,
+    },
+    text('Error: unsafe link'),
+    {
+      childCount: 2,
+      type: VirtualDomElements.Div,
+    },
+    text('    at read suspicious file '),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorErrorStackLink,
+      href: '#',
+      rel: 'noreferrer',
+      target: '_blank',
+      type: VirtualDomElements.A,
+    },
+    text('(evil.js)'),
+  ])
+})

@@ -38,8 +38,8 @@ export const handleWheel = (state: DiffViewState, deltaMode: number, eventDeltaY
     minLineY: scrollState.minLineY,
     tokenizedLinesLeft,
     tokenizedLinesRight,
-      totalLineCountLeft,
-      totalLineCountRight,
+    totalLineCountLeft,
+    totalLineCountRight,
   })
   return {
     ...state,

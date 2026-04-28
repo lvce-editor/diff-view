@@ -6,21 +6,40 @@ import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSche
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
-export const getContentLeftDom = (
-  contentLeft: string,
-  errorMessage = '',
+interface GetContentLeftDomOptions {
+  readonly allowedLinkSchemes?: readonly string[]
+  readonly contentLeft: string
+  readonly errorCodeFrame?: string
+  readonly errorMessage?: string
+  readonly errorStack?: string
+  readonly inlineChanges?: readonly InlineDiffChange[]
+  readonly itemHeight?: number
+  readonly lineNumbers?: boolean
+  readonly maxLineY?: number
+  readonly minLineY?: number
+  readonly tokenizedLines?: readonly TokenizedLine[]
+  readonly totalLineCount?: number
+  readonly visibleLines?: readonly VisibleLine[]
+}
+
+export const getContentLeftDom = ({
+  allowedLinkSchemes = defaultAllowedLinkSchemes,
+  contentLeft,
   errorCodeFrame = '',
+  errorMessage = '',
   errorStack = '',
-  allowedLinkSchemes: readonly string[] = defaultAllowedLinkSchemes,
-  lineNumbers = true,
-  totalLineCount = contentLeft ? contentLeft.split('\n').length : 1,
-  minLineY = 0,
-  maxLineY = totalLineCount,
-  inlineChanges: readonly InlineDiffChange[] = [],
-  tokenizedLines: readonly TokenizedLine[] = [],
-  visibleLines: readonly VisibleLine[] = [],
+  inlineChanges = [],
   itemHeight = 20,
-): readonly VirtualDomNode[] => {
+  lineNumbers = true,
+  maxLineY,
+  minLineY = 0,
+  tokenizedLines = [],
+  totalLineCount,
+  visibleLines = [],
+}: GetContentLeftDomOptions): readonly VirtualDomNode[] => {
+  const resolvedTotalLineCount = totalLineCount ?? (contentLeft ? contentLeft.split('\n').length : 1)
+  const resolvedMaxLineY = maxLineY ?? resolvedTotalLineCount
+
   return getContentDom(
     ClassNames.DiffEditorContentLeft,
     contentLeft,
@@ -29,9 +48,9 @@ export const getContentLeftDom = (
     errorStack,
     allowedLinkSchemes,
     lineNumbers,
-    totalLineCount,
+    resolvedTotalLineCount,
     minLineY,
-    maxLineY,
+    resolvedMaxLineY,
     inlineChanges,
     'left',
     tokenizedLines,

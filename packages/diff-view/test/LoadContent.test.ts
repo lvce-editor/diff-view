@@ -411,3 +411,111 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
     tokenizedLinesRight: [['const', 'Token Keyword', ' right = 2', 'Token Text']],
   })
 })
+
+test('loadContent preserves syntax highlighting for the other pane when one tokenizer fails to load', async (): Promise<void> => {
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
+      expect([beforeLines, afterLines]).toEqual([['const leftValue = 1'], ['const rightValue = 2']])
+      return [{ leftIndex: 0, rightIndex: 0, type: 0 }]
+    },
+  })
+  const extensionManagementWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
+      expect([platform, assetDir]).toEqual([8, '/tmp/assets-fallback'])
+      return [
+        {
+          extensions: ['.left.ts'],
+          id: 'left-typescript',
+          tokenize: '/remote/extensions/left/tokenize.js',
+        },
+        {
+          extensions: ['.right.ts'],
+          id: 'right-typescript',
+          tokenize: '/remote/extensions/right/tokenize.js',
+        },
+      ]
+    },
+  })
+  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
+      if (uri === 'file:///tmp/left.left.ts') {
+        return 'const leftValue = 1'
+      }
+      if (uri === 'file:///tmp/right.right.ts') {
+        return 'const rightValue = 2'
+      }
+      throw new Error(`unexpected params: ${String(uri)}`)
+    },
+  })
+  const syntaxHighlightingWorkerRpc = {
+    dispose: (): void => {},
+    invocations: [] as unknown[][],
+    invoke: async (method: string, ...params: readonly unknown[]): Promise<unknown> => {
+      syntaxHighlightingWorkerRpc.invocations = [...syntaxHighlightingWorkerRpc.invocations, [method, ...params]]
+      if (method === 'Tokenizer.load') {
+        const [languageId] = params
+        if (languageId === 'left-typescript') {
+          throw new Error('failed to load left tokenizer')
+        }
+        return undefined
+      }
+      if (method === 'Tokenizer.tokenizeCodeBlock') {
+        const [codeBlock, languageId] = params
+        if (codeBlock === 'const rightValue = 2' && languageId === 'right-typescript') {
+          return [['const', 'Token Keyword', ' rightValue = ', 'Token Text', '2', 'Token Numeric']]
+        }
+      }
+      throw new Error(`unexpected method: ${method}`)
+    },
+    set: (): void => {},
+  }
+  SyntaxHighlightingWorker.set(syntaxHighlightingWorkerRpc as any)
+
+  const state = {
+    ...createDefaultState(),
+    assetDir: '/tmp/assets-fallback',
+    height: 40,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    platform: 8,
+    uri: 'inline-diff:///tmp/left.left.ts<->/tmp/right.right.ts',
+  }
+
+  const result = await loadContent(state, { minLineY: 0 })
+
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['const leftValue = 1'], ['const rightValue = 2']]])
+  expect(extensionManagementWorkerRpc.invocations).toEqual([['Extensions.getLanguages', 8, '/tmp/assets-fallback']])
+  expect(fileSystemWorkerRpc.invocations).toEqual([
+    ['FileSystem.readFile', 'file:///tmp/left.left.ts'],
+    ['FileSystem.readFile', 'file:///tmp/right.right.ts'],
+  ])
+  expect(syntaxHighlightingWorkerRpc.invocations).toEqual([
+    ['Tokenizer.load', 'left-typescript', '/remote/extensions/left/tokenize.js'],
+    ['Tokenizer.load', 'right-typescript', '/remote/extensions/right/tokenize.js'],
+    ['Tokenizer.tokenizeCodeBlock', 'const rightValue = 2', 'right-typescript', '/remote/extensions/right/tokenize.js'],
+  ])
+  expect(result).toMatchObject({
+    languageIdLeft: 'left-typescript',
+    languageIdRight: 'right-typescript',
+    tokenizedLinesLeft: [],
+    tokenizedLinesRight: [['const', 'Token Keyword', ' rightValue = ', 'Token Text', '2', 'Token Numeric']],
+    visibleLinesLeft: [
+      {
+        lineNumber: 1,
+        tokens: [{ text: 'const leftValue = 1', type: '' }],
+        type: VisibleLineType.Normal,
+      },
+    ],
+    visibleLinesRight: [
+      {
+        lineNumber: 1,
+        tokens: [
+          { text: 'const', type: 'Token Keyword' },
+          { text: ' rightValue = ', type: 'Token Text' },
+          { text: '2', type: 'Token Numeric' },
+        ],
+        type: VisibleLineType.Normal,
+      },
+    ],
+  })
+})

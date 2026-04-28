@@ -5,7 +5,14 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentLeftDom } from '../src/parts/GetContentLeftDom/GetContentLeftDom.ts'
 
 test('getContentLeftDom renders each left line inside an EditorRow', (): void => {
-  const result = getContentLeftDom('before-content\nsecond-line', '', '', '', defaultAllowedLinkSchemes, true, 2, 0, 2)
+  const result = getContentLeftDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentLeft: 'before-content\nsecond-line',
+    lineNumbers: true,
+    maxLineY: 2,
+    minLineY: 0,
+    totalLineCount: 2,
+  })
 
   expect(result).toEqual([
     {
@@ -56,7 +63,14 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
 })
 
 test('getContentLeftDom omits the gutter when line numbers are disabled', (): void => {
-  const result = getContentLeftDom('before-content\nsecond-line', '', '', '', defaultAllowedLinkSchemes, false, 2, 0, 2)
+  const result = getContentLeftDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentLeft: 'before-content\nsecond-line',
+    lineNumbers: false,
+    maxLineY: 2,
+    minLineY: 0,
+    totalLineCount: 2,
+  })
 
   expect(result).toEqual([
     {
@@ -85,7 +99,11 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
 })
 
 test('getContentLeftDom renders load errors when available', (): void => {
-  const result = getContentLeftDom('', 'file not found', '', 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)')
+  const result = getContentLeftDom({
+    contentLeft: '',
+    errorMessage: 'file not found',
+    errorStack: 'Error: file not found\n    at read missing file (/tmp/missing-file.js:12:34)',
+  })
 
   expect(result).toEqual([
     {
@@ -132,11 +150,19 @@ test('getContentLeftDom renders load errors when available', (): void => {
 })
 
 test('getContentLeftDom renders paired deletion and insertion on the same row', (): void => {
-  const result = getContentLeftDom('shared-line\ndeleted-line', '', '', '', defaultAllowedLinkSchemes, true, 2, 0, 2, [
-    { leftIndex: 0, rightIndex: 0, type: 0 },
-    { leftIndex: 1, rightIndex: 1, type: 2 },
-    { leftIndex: 1, rightIndex: 1, type: 1 },
-  ])
+  const result = getContentLeftDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentLeft: 'shared-line\ndeleted-line',
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 0 },
+      { leftIndex: 1, rightIndex: 1, type: 2 },
+      { leftIndex: 1, rightIndex: 1, type: 1 },
+    ],
+    lineNumbers: true,
+    maxLineY: 2,
+    minLineY: 0,
+    totalLineCount: 2,
+  })
 
   expect(result).toEqual([
     {
@@ -187,19 +213,16 @@ test('getContentLeftDom renders paired deletion and insertion on the same row', 
 })
 
 test('getContentLeftDom renders syntax-highlighted token spans', (): void => {
-  const result = getContentLeftDom(
-    'const answer = 1',
-    '',
-    '',
-    '',
-    defaultAllowedLinkSchemes,
-    true,
-    1,
-    0,
-    1,
-    [],
-    [['const', 'Token Keyword', ' answer = 1', 'Token Text']],
-  )
+  const result = getContentLeftDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentLeft: 'const answer = 1',
+    inlineChanges: [],
+    lineNumbers: true,
+    maxLineY: 1,
+    minLineY: 0,
+    tokenizedLines: [['const', 'Token Keyword', ' answer = 1', 'Token Text']],
+    totalLineCount: 1,
+  })
 
   expect(result).toEqual([
     {

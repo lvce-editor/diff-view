@@ -45,36 +45,36 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const diffEditorLayoutClass = layout === 'vertical' ? ClassNames.DiffEditorVertical : ClassNames.DiffEditorHorizontal
   const sashLayoutClass = layout === 'vertical' ? ClassNames.SashHorizontal : ClassNames.SashVertical
-  const leftDom = getContentLeftDom(
+  const leftDom = getContentLeftDom({
+    allowedLinkSchemes,
     contentLeft,
-    errorLeftMessage,
-    errorLeftCodeFrame,
-    errorLeftStack,
-    allowedLinkSchemes,
-    showLineNumbers,
-    totalLineCountLeft,
-    minLineY,
-    maxLineY,
+    errorCodeFrame: errorLeftCodeFrame,
+    errorMessage: errorLeftMessage,
+    errorStack: errorLeftStack,
     inlineChanges,
-    tokenizedLinesLeft,
-    visibleLinesLeft,
     itemHeight,
-  )
-  const rightDom = getContentRightDom(
+    lineNumbers: showLineNumbers,
+    maxLineY,
+    minLineY,
+    tokenizedLines: tokenizedLinesLeft,
+    totalLineCount: totalLineCountLeft,
+    visibleLines: visibleLinesLeft,
+  })
+  const rightDom = getContentRightDom({
+    allowedLinkSchemes,
     contentRight,
-    errorRightMessage,
-    errorRightCodeFrame,
-    errorRightStack,
-    allowedLinkSchemes,
-    showLineNumbers,
-    totalLineCountRight,
-    minLineY,
-    maxLineY,
+    errorCodeFrame: errorRightCodeFrame,
+    errorMessage: errorRightMessage,
+    errorStack: errorRightStack,
     inlineChanges,
-    tokenizedLinesRight,
-    visibleLinesRight,
     itemHeight,
-  )
+    lineNumbers: showLineNumbers,
+    maxLineY,
+    minLineY,
+    tokenizedLines: tokenizedLinesRight,
+    totalLineCount: totalLineCountRight,
+    visibleLines: visibleLinesRight,
+  })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const dom: readonly VirtualDomNode[] = [
     {

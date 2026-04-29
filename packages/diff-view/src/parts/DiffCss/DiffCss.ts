@@ -13,6 +13,7 @@ export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boole
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
     oldState.rightWidth === newState.rightWidth &&
+    oldState.scrollBarBackgroundImage === newState.scrollBarBackgroundImage &&
     oldState.scrollBarHeight === newState.scrollBarHeight &&
     oldState.totalLineCount === newState.totalLineCount
   )

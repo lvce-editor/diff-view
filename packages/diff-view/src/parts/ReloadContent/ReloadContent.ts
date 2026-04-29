@@ -3,6 +3,7 @@ import { getGutterWidthVariable } from '../GetGutterWidthVariable/GetGutterWidth
 import { getInlineDiffState } from '../GetInlineDiffState/GetInlineDiffState.ts'
 import { getLineCount } from '../GetLineCount/GetLineCount.ts'
 import { getRenderMode } from '../GetRenderMode/GetRenderMode.ts'
+import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetScrollBarBackgroundImage.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getDisplayedContent } from '../GetTotalLineCount/GetTotalLineCount.ts'
 import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
@@ -54,6 +55,7 @@ export const reloadContent = async (
   const syntaxHighlightingState =
     canHighlightLeft || canHighlightRight ? await loadSyntaxHighlighting(contentLeft, contentRight, uriLeft, uriRight, platform, assetDir) : undefined
   const [imageSrcLeft, imageSrcRight] = await loadImages(renderModeLeft, renderModeRight, errorLeftMessage, errorRightMessage, uriLeft, uriRight)
+  const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
 
   const nextState = {
     ...state,
@@ -74,6 +76,7 @@ export const reloadContent = async (
     languageIdRight: syntaxHighlightingState?.languageIdRight || 'unknown',
     renderModeLeft,
     renderModeRight,
+    scrollBarBackgroundImage,
     tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || [],
     tokenizedLinesRight: syntaxHighlightingState?.tokenizedLinesRight || [],
     totalLineCount,

@@ -6,7 +6,7 @@ import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetS
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
+  const { deltaY, diffScrollBarWidth, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState
@@ -21,6 +21,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --RightWidth: ${rightWidth}px;
   --GutterWidth: ${gutterWidthVariable}px;
   --DiffEditorHeight: ${height}px;
+  --DiffScrollBarWidth: ${diffScrollBarWidth}px;
   --EditorRowHeight: ${itemHeight}px;
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
@@ -184,27 +185,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .SashHorizontal {
   cursor: row-resize;
   height: ${getSashWidth()}px;
-}
-
-.DiffScrollBar {
-  background-color: rgba(128, 128, 128, 0.15);
-  background-image: var(--ScrollBarBackgroundImage);
-  border-radius: 4px;
-  height: 100%;
-  position: absolute;
-  right: 2px;
-  top: 0;
-  width: 8px;
-}
-
-.DiffScrollBarThumb {
-  background: rgba(128, 128, 128, 0.45);
-  border-radius: 4px;
-  cursor: pointer;
-  height: var(--ScrollBarHeight);
-  position: absolute;
-  top: var(--ScrollBarThumbTop);
-  width: 100%;
 }
 
 ${staticCss}

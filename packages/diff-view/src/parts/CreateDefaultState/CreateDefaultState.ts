@@ -8,6 +8,7 @@ export const createDefaultState = (): DiffViewState => ({
   contentRight: '',
   deltaY: 0,
   diffMode: 'side-by-side',
+  diffScrollBarWidth: 8,
   errorLeftCodeFrame: '',
   errorLeftMessage: '',
   errorLeftStack: '',

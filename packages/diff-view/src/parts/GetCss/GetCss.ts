@@ -1,5 +1,26 @@
 export const getCss = (): string => {
   return `
+.DiffScrollBar {
+  background-color: rgba(128, 128, 128, 0.15);
+  background-image: var(--ScrollBarBackgroundImage);
+  border-radius: 4px;
+  height: 100%;
+  position: absolute;
+  right: 2px;
+  top: 0;
+  width: var(--DiffScrollBarWidth);
+}
+
+.DiffScrollBarThumb {
+  background: rgba(128, 128, 128, 0.45);
+  border-radius: 4px;
+  cursor: pointer;
+  height: var(--ScrollBarHeight);
+  position: absolute;
+  top: var(--ScrollBarThumbTop);
+  width: 100%;
+}
+
 .DiffEditorErrorCodeFrame,
 .DiffEditorErrorStack {
   background: rgba(0, 0, 0, 0.22);

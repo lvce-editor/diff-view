@@ -51,6 +51,7 @@ export const createDefaultState = (): DiffViewState => ({
   rightWidth: 48,
   root: '/',
   scrollBarActive: false,
+  scrollBarBackgroundImage: 'none',
   scrollBarDragOffsetY: 0,
   scrollBarHeight: 0,
   splitButtonEnabled: false,

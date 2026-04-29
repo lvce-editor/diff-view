@@ -2,13 +2,11 @@ import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getCss } from '../GetCss/GetCss.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
-import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetScrollBarBackgroundImage.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
+  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, itemHeight, leftWidth, rightWidth, scrollBarBackgroundImage, scrollBarHeight } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
-  const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState
   const staticCss = getCss()
   const gutterWidth = 'var(--GutterWidth)'
@@ -20,18 +18,22 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
   --GutterWidth: ${gutterWidthVariable}px;
-  --DiffEditorHeight: ${height}px;
   --EditorRowHeight: ${itemHeight}px;
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
+  --DiffEditorSashLeft: 20px;
 }
+
 
 .DiffEditor {
   display: flex;
-  height: var(--DiffEditorHeight);
   position: relative;
   width: 100%;
+}
+
+.DiffEditor .Sash {
+  left: var(--DiffEditorSashLeft);
 }
 
 .DiffEditorHorizontal {

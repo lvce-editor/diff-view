@@ -6,7 +6,8 @@ import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetS
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, diffScrollBarWidth, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } = newState
+  const { deltaY, diffScrollBarWidth, finalDeltaY, gutterWidthVariable, height, id, inlineChanges, itemHeight, leftWidth, rightWidth, scrollBarHeight, totalLineCount } =
+    newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const scrollBarBackgroundImage = getScrollBarBackgroundImage(inlineChanges, totalLineCount)
   const { layout } = newState

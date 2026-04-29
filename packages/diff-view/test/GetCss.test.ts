@@ -4,6 +4,8 @@ import { getCss } from '../src/parts/GetCss/GetCss.ts'
 test('getCss includes the shared error styles', (): void => {
   const css = getCss()
 
+  expect(css).toContain('.DiffScrollBar')
+  expect(css).toContain('width: var(--DiffScrollBarWidth);')
   expect(css).toContain('.DiffEditorErrorCodeFrame')
   expect(css).toContain('.DiffEditorErrorStack')
   expect(css).toContain('.DiffEditorErrorStackLink')

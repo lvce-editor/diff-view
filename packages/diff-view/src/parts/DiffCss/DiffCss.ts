@@ -3,6 +3,7 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return (
     oldState.deltaY === newState.deltaY &&
+    oldState.diffScrollBarWidth === newState.diffScrollBarWidth &&
     oldState.diffMode === newState.diffMode &&
     oldState.finalDeltaY === newState.finalDeltaY &&
     oldState.gutterWidthVariable === newState.gutterWidthVariable &&

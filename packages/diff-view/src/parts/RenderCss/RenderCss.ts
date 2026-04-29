@@ -24,12 +24,18 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
+  --DiffEditorSashLeft: 20px;
 }
+
 
 .DiffEditor {
   display: flex;
   position: relative;
   width: 100%;
+}
+
+.DiffEditor .Sash {
+  left: var(--DiffEditorSashLeft);
 }
 
 .DiffEditorHorizontal {

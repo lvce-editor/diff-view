@@ -3,6 +3,21 @@ import { ViewletCommand } from '@lvce-editor/constants'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { renderCss } from '../src/parts/RenderCss/RenderCss.ts'
 
+test('renderCss uses cached scroll bar background image from state', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    id: 1,
+    scrollBarBackgroundImage: 'linear-gradient(to bottom, transparent 10%, red 10%, red 20%, transparent 20%)',
+  }
+
+  const result = renderCss(oldState, newState)
+
+  expect(result[0]).toBe(ViewletCommand.SetCss)
+  expect(result[1]).toBe(1)
+  expect(result[2]).toContain('--ScrollBarBackgroundImage: linear-gradient(to bottom, transparent 10%, red 10%, red 20%, transparent 20%);')
+})
+
 test.skip('renderCss renders left and right widths as css variables', (): void => {
   const oldState = createDefaultState()
   const newState = {

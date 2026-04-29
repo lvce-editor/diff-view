@@ -20,7 +20,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
   --GutterWidth: ${gutterWidthVariable}px;
-  --DiffEditorHeight: ${height}px;
   --EditorRowHeight: ${itemHeight}px;
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
@@ -29,7 +28,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditor {
   display: flex;
-  height: var(--DiffEditorHeight);
   position: relative;
   width: 100%;
 }

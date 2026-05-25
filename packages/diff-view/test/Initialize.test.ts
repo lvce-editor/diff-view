@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-disabled-tests */
+
 import { expect, test } from '@jest/globals'
 import { ExtensionHost, RendererWorker, TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import { initialize } from '../src/parts/Initialize/Initialize.ts'

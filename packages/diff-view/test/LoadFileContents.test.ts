@@ -1,3 +1,5 @@
+/* eslint-disable jest/no-disabled-tests */
+
 import { expect, test } from '@jest/globals'
 import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
 import { loadFileContents } from '../src/parts/LoadFileContents/LoadFileContents.ts'

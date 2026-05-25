@@ -1,5 +1,12 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
+  for (let index = 0; index < texts.length; index += 1) {
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
+  }
+}
+
 export const name = 'sample.diff-editor-insertion-at-start-and-end'
 
 export const skip = 1
@@ -26,23 +33,8 @@ d`,
   const leftLineNumbers = Locator('.DiffEditorContentLeft .DiffEditorLineNumber')
   const rightLineNumbers = Locator('.DiffEditorContentRight .DiffEditorLineNumber')
 
-  await expect(leftRows.nth(0)).toHaveText('')
-  await expect(leftRows.nth(1)).toHaveText('')
-  await expect(leftRows.nth(2)).toHaveText('1c')
-  await expect(leftRows.nth(3)).toHaveText('')
-
-  await expect(rightRows.nth(0)).toHaveText('1a')
-  await expect(rightRows.nth(1)).toHaveText('2b')
-  await expect(rightRows.nth(2)).toHaveText('3c')
-  await expect(rightRows.nth(3)).toHaveText('4d')
-
-  await expect(leftLineNumbers.nth(0)).toHaveText('')
-  await expect(leftLineNumbers.nth(1)).toHaveText('')
-  await expect(leftLineNumbers.nth(2)).toHaveText('1')
-  await expect(leftLineNumbers.nth(3)).toHaveText('')
-
-  await expect(rightLineNumbers.nth(0)).toHaveText('1')
-  await expect(rightLineNumbers.nth(1)).toHaveText('2')
-  await expect(rightLineNumbers.nth(2)).toHaveText('3')
-  await expect(rightLineNumbers.nth(3)).toHaveText('4')
+  await expectRowsToHaveText(expect, leftRows, ['', '', '1c', ''])
+  await expectRowsToHaveText(expect, rightRows, ['1a', '2b', '3c', '4d'])
+  await expectRowsToHaveText(expect, leftLineNumbers, ['', '', '1', ''])
+  await expectRowsToHaveText(expect, rightLineNumbers, ['1', '2', '3', '4'])
 }

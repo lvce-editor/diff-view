@@ -96,11 +96,12 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const scrollBar = Locator('.DiffScrollBar')
 
   await expect(beforePane).toContainText(`lockfileVersion: '9.0'`)
   await expect(afterPane).toContainText(`lockfileVersion: '9.0'`)
   await expect(beforePane).toContainText(`'pkg-181':`)
   await expect(beforePane).toContainText(`version: 9.9.9`)
   await expect(afterPane).toContainText(`version: 9.10.0`)
-  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
+  await expect(scrollBar).toHaveCount(1)
 }

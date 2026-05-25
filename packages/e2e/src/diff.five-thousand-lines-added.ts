@@ -22,11 +22,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const insertedRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const scrollBar = Locator('.DiffScrollBar')
 
   await expect(contentLeft).toHaveText('')
   await expect(contentRight).toContainText('line 1')
-  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
+  await expect(scrollBar).toHaveCount(1)
 
   // await contentRight.dispatchEvent('wheel', { bubbles: true, deltaMode: 0, deltaY: 100_000 })
 

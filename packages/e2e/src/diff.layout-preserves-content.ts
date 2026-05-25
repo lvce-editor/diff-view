@@ -15,14 +15,16 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const horizontalLayout = Locator('.DiffPrototypeLayout--horizontal')
+  const verticalLayout = Locator('.DiffPrototypeLayout--vertical')
 
-  await expect(Locator('.DiffPrototypeLayout--horizontal')).toBeVisible()
+  await expect(horizontalLayout).toBeVisible()
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')
 
   await Command.execute('DiffView.setLayout', 'vertical')
 
-  await expect(Locator('.DiffPrototypeLayout--vertical')).toBeVisible()
+  await expect(verticalLayout).toBeVisible()
   await expect(beforePane).toContainText('const value = cat')
   await expect(afterPane).toContainText('const value = cut')
 }

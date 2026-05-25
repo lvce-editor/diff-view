@@ -40,9 +40,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const numericTokensLeft = Locator('.DiffEditorContentLeft .Token.Numeric')
+  const numericTokensRight = Locator('.DiffEditorContentRight .Token.Numeric')
 
   await expect(beforePane).toContainText('"version": "1.0.0"')
   await expect(afterPane).toContainText('"version": "1.0.1"')
-  await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
+  await expect(numericTokensLeft).toHaveCount(1)
+  await expect(numericTokensRight).toHaveCount(1)
 }

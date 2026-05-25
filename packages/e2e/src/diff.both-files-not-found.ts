@@ -11,10 +11,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const beforeError = Locator('.DiffEditorContentLeft .DiffEditorErrorMessage')
   const afterError = Locator('.DiffEditorContentRight .DiffEditorErrorMessage')
   const errorStacks = Locator('.DiffEditorErrorStack')
-  const errorStackLinks = Locator('.DiffEditorErrorStackLink')
 
   await expect(beforeError).toBeVisible()
   await expect(afterError).toBeVisible()
   await expect(errorStacks).toHaveCount(2)
-  // await expect(errorStackLinks).toHaveCount(2)
 }

@@ -13,9 +13,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const deletedRows = Locator('.DiffEditorContentLeft ..EditorRow.Deletion')
   const insertedRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const beforeRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(deletedRows).toHaveCount(2)
   await expect(insertedRows).toHaveCount(2)
-  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('return oldValue')
-  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('return nextValue')
+  await expect(beforeRows).toContainText('return oldValue')
+  await expect(afterRows).toContainText('return nextValue')
 }

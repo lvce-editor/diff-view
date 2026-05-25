@@ -23,9 +23,10 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforeRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const scrollBar = Locator('.DiffScrollBar')
 
   await expect(beforeRows).toBeVisible()
   await expect(beforeRows).toContainText('deleted line 1')
   await expect(afterRows).toHaveText('')
-  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
+  await expect(scrollBar).toHaveCount(1)
 }

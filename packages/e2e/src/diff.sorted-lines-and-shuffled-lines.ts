@@ -28,6 +28,13 @@ const shuffleLines = (lines: readonly string[]): string[] => {
   return shuffledLines
 }
 
+const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
+  for (let index = 0; index < texts.length; index += 1) {
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
+  }
+}
+
 export const skip = 1
 
 export const name = 'diff.sorted-lines-and-shuffled-lines'
@@ -46,12 +53,8 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   const beforeRows = Locator('.DiffEditorContentLeft .EditorRow')
   const afterRows = Locator('.DiffEditorContentRight .EditorRow')
 
-  await expect(beforeRows.nth(0)).toHaveText('line 1')
-  await expect(beforeRows.nth(1)).toHaveText('line 2')
-  await expect(beforeRows.nth(2)).toHaveText('line 3')
-  await expect(afterRows.nth(0)).toHaveText(shuffledLines[0])
-  await expect(afterRows.nth(1)).toHaveText(shuffledLines[1])
-  await expect(afterRows.nth(2)).toHaveText(shuffledLines[2])
+  await expectRowsToHaveText(expect, beforeRows, ['line 1', 'line 2', 'line 3'])
+  await expectRowsToHaveText(expect, afterRows, [shuffledLines[0], shuffledLines[1], shuffledLines[2]])
 
   // await Command.execute('DiffView.handleWorkspaceChange')
 

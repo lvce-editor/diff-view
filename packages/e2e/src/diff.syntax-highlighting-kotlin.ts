@@ -26,13 +26,17 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const keywordTokensLeft = Locator('.DiffEditorContentLeft .Token.Keyword')
+  const keywordTokensRight = Locator('.DiffEditorContentRight .Token.Keyword')
+  const numericTokensLeft = Locator('.DiffEditorContentLeft .Token.Numeric')
+  const numericTokensRight = Locator('.DiffEditorContentRight .Token.Numeric')
 
   await expect(beforePane).toContainText('fun greet() {')
   await expect(afterPane).toContainText('fun greet() {')
   await expect(beforePane).toContainText('val count = 1')
   await expect(afterPane).toContainText('val count = 2')
-  await expect(Locator('.DiffEditorContentLeft .Token.Keyword')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentRight .Token.Keyword')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
+  await expect(keywordTokensLeft).toHaveCount(1)
+  await expect(keywordTokensRight).toHaveCount(1)
+  await expect(numericTokensLeft).toHaveCount(1)
+  await expect(numericTokensRight).toHaveCount(1)
 }

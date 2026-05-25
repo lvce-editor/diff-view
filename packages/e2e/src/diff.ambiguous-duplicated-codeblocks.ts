@@ -4,7 +4,8 @@ export const name = 'diff.ambiguous-duplicated-codeblocks'
 
 const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
   for (let index = 0; index < texts.length; index += 1) {
-    await expect(rows.nth(index)).toHaveText(texts[index])
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
   }
 }
 
@@ -74,11 +75,7 @@ const afterAnchor = true`,
   await expect(rightEmptyLineNumbers).toHaveCount(1)
   await expect(deletedRows).toHaveCount(5)
   await expect(insertedRows).toHaveCount(0)
-  await expect(deletedRows.nth(0)).toHaveText('if (enabled) {')
-  await expect(deletedRows.nth(1)).toHaveText('  prepare()')
-  await expect(deletedRows.nth(2)).toHaveText('  render()')
-  await expect(deletedRows.nth(3)).toHaveText('  cleanup()')
-  await expect(deletedRows.nth(4)).toHaveText('}')
+  await expectRowsToHaveText(expect, deletedRows, ['if (enabled) {', '  prepare()', '  render()', '  cleanup()', '}'])
 
   await expectOneOf([
     (): Promise<void> =>
@@ -93,5 +90,6 @@ const afterAnchor = true`,
     (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '2', '3', '4', '5', '6', '', '7', '8', '9', '10', '11', '12']),
     (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '', '12']),
   ])
-  await expect(rightEmptyLineNumbers.nth(0)).toHaveAttribute('style', 'height: 100px;')
+  const firstRightEmptyLineNumber = rightEmptyLineNumbers.nth(0)
+  await expect(firstRightEmptyLineNumber).toHaveAttribute('style', 'height: 100px;')
 }

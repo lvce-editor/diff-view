@@ -1,5 +1,12 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
+  for (let index = 0; index < texts.length; index += 1) {
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
+  }
+}
+
 export const name = 'diff.css-three-lines-added'
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
@@ -33,7 +40,5 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('display: flex')
   await expect(afterPane).toContainText('padding: 12px')
   await expect(insertedRows).toHaveCount(3)
-  await expect(insertedRows.nth(0)).toHaveText('  color: red;')
-  await expect(insertedRows.nth(1)).toHaveText('  display: flex;')
-  await expect(insertedRows.nth(2)).toHaveText('  padding: 12px;')
+  await expectRowsToHaveText(expect, insertedRows, ['  color: red;', '  display: flex;', '  padding: 12px;'])
 }

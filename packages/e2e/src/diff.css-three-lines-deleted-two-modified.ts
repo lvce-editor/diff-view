@@ -1,5 +1,12 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
+  for (let index = 0; index < texts.length; index += 1) {
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
+  }
+}
+
 export const name = 'diff.css-three-lines-deleted-two-modified'
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
@@ -43,11 +50,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('background: black')
   await expect(deletedRows).toHaveCount(5)
   await expect(insertedRows).toHaveCount(2)
-  await expect(deletedRows.nth(0)).toHaveText('  color: red;')
-  await expect(deletedRows.nth(1)).toHaveText('  background: white;')
-  await expect(deletedRows.nth(2)).toHaveText('  border: 1px solid red;')
-  await expect(deletedRows.nth(3)).toHaveText('  margin: 8px;')
-  await expect(deletedRows.nth(4)).toHaveText('  padding: 12px;')
-  await expect(insertedRows.nth(0)).toHaveText('  color: blue;')
-  await expect(insertedRows.nth(1)).toHaveText('  background: black;')
+  await expectRowsToHaveText(expect, deletedRows, ['  color: red;', '  background: white;', '  border: 1px solid red;', '  margin: 8px;', '  padding: 12px;'])
+  await expectRowsToHaveText(expect, insertedRows, ['  color: blue;', '  background: black;'])
 }

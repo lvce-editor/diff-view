@@ -30,10 +30,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toContainText(`export let name = 'world'`)
   await expect(afterPane).toContainText(`export let name = 'svelte'`)
   await expect(beforePane).toContainText('<h1>Hello {name}</h1>')
   await expect(afterPane).toContainText('<h1>Hello {name}</h1>')
-  await expect(Locator('.DiffToken--changed')).toHaveCount(2)
+  await expect(changedTokens).toHaveCount(2)
 }

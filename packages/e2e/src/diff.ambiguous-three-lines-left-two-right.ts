@@ -4,7 +4,8 @@ export const name = 'diff.ambiguous-three-lines-left-two-right'
 
 const expectRowsToHaveText = async (expect: any, rows: any, texts: readonly string[]): Promise<void> => {
   for (let index = 0; index < texts.length; index += 1) {
-    await expect(rows.nth(index)).toHaveText(texts[index])
+    const row = rows.nth(index)
+    await expect(row).toHaveText(texts[index])
   }
 }
 
@@ -69,7 +70,8 @@ const afterAnchor = true`,
   await expect(rightGutterItems).toHaveCount(5)
   await expect(deletedRows).toHaveCount(1)
   await expect(insertedRows).toHaveCount(0)
-  await expect(deletedRows.nth(0)).toHaveText('renderItem()')
+  const firstDeletedRow = deletedRows.nth(0)
+  await expect(firstDeletedRow).toHaveText('renderItem()')
 
   await expectRowsToHaveText(expect, leftRows, ['const beforeAnchor = true', 'renderItem()', 'renderItem()', 'renderItem()', 'const afterAnchor = true'])
   await expectOneOf([

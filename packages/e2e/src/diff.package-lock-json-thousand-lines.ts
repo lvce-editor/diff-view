@@ -19,6 +19,48 @@ const getResolvedUrl = (packageName: string, version: string): string => {
   return `https://registry.npmjs.org/${encodeURIComponent(packageName)}/-/${tarballName}-${version}.tgz`
 }
 
+const getPackageDependencies = (packageNumber: number, side: 'left' | 'right'): Record<string, string> => {
+  const dependencies: Record<string, string> = {}
+
+  if (packageNumber > 1) {
+    const previousPackageId = String(packageNumber - 1).padStart(3, '0')
+    dependencies[`pkg-${previousPackageId}`] = `^${getPackageVersion(packageNumber - 1, side)}`
+  }
+
+  if (packageNumber > 4 && packageNumber % 4 === 0) {
+    const linkedPackageId = String(packageNumber - 4).padStart(3, '0')
+    dependencies[`pkg-${linkedPackageId}`] = `^${getPackageVersion(packageNumber - 4, side)}`
+  }
+
+  if (packageNumber > 5 && packageNumber % 5 === 0) {
+    const scopedDependencyId = String(packageNumber - 5).padStart(3, '0')
+    dependencies[`@scope/pkg-${scopedDependencyId}`] = `^${getPackageVersion(packageNumber - 5, side)}`
+  }
+
+  return dependencies
+}
+
+const getPackageEntry = (packageNumber: number, side: 'left' | 'right'): [string, unknown] => {
+  const packageId = String(packageNumber).padStart(3, '0')
+  const packageName = packageNumber % 5 === 0 ? `@scope/pkg-${packageId}` : `pkg-${packageId}`
+  const version = getPackageVersion(packageNumber, side)
+  const dependencies = getPackageDependencies(packageNumber, side)
+
+  return [
+    `node_modules/${packageName}`,
+    {
+      dependencies: Object.keys(dependencies).length > 0 ? dependencies : undefined,
+      engines: {
+        node: '>=20',
+      },
+      integrity: `sha512-${String(packageNumber).padStart(4, '0')}${side === 'left' ? 'aaa' : 'bbb'}`,
+      license: packageNumber % 2 === 0 ? 'MIT' : 'ISC',
+      resolved: getResolvedUrl(packageName, version),
+      version,
+    },
+  ]
+}
+
 const getPackageLockContent = (side: 'left' | 'right'): string => {
   const packageEntries: Array<[string, unknown]> = [
     [
@@ -37,40 +79,7 @@ const getPackageLockContent = (side: 'left' | 'right'): string => {
   ]
 
   for (let packageNumber = 1; packageNumber <= packageCount; packageNumber++) {
-    const packageId = String(packageNumber).padStart(3, '0')
-    const packageName = packageNumber % 5 === 0 ? `@scope/pkg-${packageId}` : `pkg-${packageId}`
-    const version = getPackageVersion(packageNumber, side)
-    const packagePath = `node_modules/${packageName}`
-    const dependencies: Record<string, string> = {}
-
-    if (packageNumber > 1) {
-      const previousPackageId = String(packageNumber - 1).padStart(3, '0')
-      dependencies[`pkg-${previousPackageId}`] = `^${getPackageVersion(packageNumber - 1, side)}`
-    }
-
-    if (packageNumber > 4 && packageNumber % 4 === 0) {
-      const linkedPackageId = String(packageNumber - 4).padStart(3, '0')
-      dependencies[`pkg-${linkedPackageId}`] = `^${getPackageVersion(packageNumber - 4, side)}`
-    }
-
-    if (packageNumber > 5 && packageNumber % 5 === 0) {
-      const scopedDependencyId = String(packageNumber - 5).padStart(3, '0')
-      dependencies[`@scope/pkg-${scopedDependencyId}`] = `^${getPackageVersion(packageNumber - 5, side)}`
-    }
-
-    packageEntries.push([
-      packagePath,
-      {
-        dependencies: Object.keys(dependencies).length > 0 ? dependencies : undefined,
-        engines: {
-          node: '>=20',
-        },
-        integrity: `sha512-${String(packageNumber).padStart(4, '0')}${side === 'left' ? 'aaa' : 'bbb'}`,
-        license: packageNumber % 2 === 0 ? 'MIT' : 'ISC',
-        resolved: getResolvedUrl(packageName, version),
-        version,
-      },
-    ])
+    packageEntries.push(getPackageEntry(packageNumber, side))
   }
 
   const packages = Object.fromEntries(packageEntries)

@@ -29,6 +29,77 @@ const findLookAheadMatch = (lines: readonly string[], startIndex: number, needle
   return -1
 }
 
+const addContextRow = (rows: InlineDiffRow[], text: string, lineNumberLeft: number, lineNumberRight: number): void => {
+  rows.push({
+    lineNumberLeft,
+    lineNumberRight,
+    text,
+    type: InlineDiffRowType.Context,
+  })
+}
+
+const addDeletionRow = (rows: InlineDiffRow[], text: string, lineNumberLeft: number): void => {
+  rows.push({
+    lineNumberLeft,
+    lineNumberRight: null,
+    text,
+    type: InlineDiffRowType.Deletion,
+  })
+}
+
+const addInsertionRow = (rows: InlineDiffRow[], text: string, lineNumberRight: number): void => {
+  rows.push({
+    lineNumberLeft: null,
+    lineNumberRight,
+    text,
+    type: InlineDiffRowType.Insertion,
+  })
+}
+
+const appendDeletionsUntil = (
+  rows: InlineDiffRow[],
+  leftLines: readonly string[],
+  leftIndex: number,
+  leftMatch: number,
+  leftLineNumber: number,
+): { leftIndex: number; leftLineNumber: number } => {
+  let nextLeftIndex = leftIndex
+  let nextLeftLineNumber = leftLineNumber
+  while (nextLeftIndex < leftMatch) {
+    addDeletionRow(rows, leftLines[nextLeftIndex], nextLeftLineNumber)
+    nextLeftIndex++
+    nextLeftLineNumber++
+  }
+  return {
+    leftIndex: nextLeftIndex,
+    leftLineNumber: nextLeftLineNumber,
+  }
+}
+
+const appendInsertionsUntil = (
+  rows: InlineDiffRow[],
+  rightLines: readonly string[],
+  rightIndex: number,
+  rightMatch: number,
+  rightLineNumber: number,
+): { rightIndex: number; rightLineNumber: number } => {
+  let nextRightIndex = rightIndex
+  let nextRightLineNumber = rightLineNumber
+  while (nextRightIndex < rightMatch) {
+    addInsertionRow(rows, rightLines[nextRightIndex], nextRightLineNumber)
+    nextRightIndex++
+    nextRightLineNumber++
+  }
+  return {
+    rightIndex: nextRightIndex,
+    rightLineNumber: nextRightLineNumber,
+  }
+}
+
+const shouldUseLeftMatch = (leftMatch: number, rightMatch: number, leftIndex: number, rightIndex: number): boolean => {
+  return leftMatch !== -1 && (rightMatch === -1 || leftMatch - leftIndex <= rightMatch - rightIndex)
+}
+
 export const getInlineDiffRows = (contentLeft: string, contentRight: string): readonly InlineDiffRow[] => {
   const leftLines = getLines(contentLeft)
   const rightLines = getLines(contentRight)
@@ -43,12 +114,7 @@ export const getInlineDiffRows = (contentLeft: string, contentRight: string): re
     const rightLine = rightLines[rightIndex]
 
     if (leftIndex < leftLines.length && rightIndex < rightLines.length && leftLine === rightLine) {
-      rows.push({
-        lineNumberLeft: leftLineNumber,
-        lineNumberRight: rightLineNumber,
-        text: leftLine,
-        type: InlineDiffRowType.Context,
-      })
+      addContextRow(rows, leftLine, leftLineNumber, rightLineNumber)
       leftIndex++
       rightIndex++
       leftLineNumber++
@@ -60,53 +126,29 @@ export const getInlineDiffRows = (contentLeft: string, contentRight: string): re
       const leftMatch = findLookAheadMatch(leftLines, leftIndex + 1, rightLine)
       const rightMatch = findLookAheadMatch(rightLines, rightIndex + 1, leftLine)
 
-      if (leftMatch !== -1 && (rightMatch === -1 || leftMatch - leftIndex <= rightMatch - rightIndex)) {
-        while (leftIndex < leftMatch) {
-          rows.push({
-            lineNumberLeft: leftLineNumber,
-            lineNumberRight: null,
-            text: leftLines[leftIndex],
-            type: InlineDiffRowType.Deletion,
-          })
-          leftIndex++
-          leftLineNumber++
-        }
+      if (shouldUseLeftMatch(leftMatch, rightMatch, leftIndex, rightIndex)) {
+        const nextState = appendDeletionsUntil(rows, leftLines, leftIndex, leftMatch, leftLineNumber)
+        leftIndex = nextState.leftIndex
+        leftLineNumber = nextState.leftLineNumber
         continue
       }
 
       if (rightMatch !== -1) {
-        while (rightIndex < rightMatch) {
-          rows.push({
-            lineNumberLeft: null,
-            lineNumberRight: rightLineNumber,
-            text: rightLines[rightIndex],
-            type: InlineDiffRowType.Insertion,
-          })
-          rightIndex++
-          rightLineNumber++
-        }
+        const nextState = appendInsertionsUntil(rows, rightLines, rightIndex, rightMatch, rightLineNumber)
+        rightIndex = nextState.rightIndex
+        rightLineNumber = nextState.rightLineNumber
         continue
       }
     }
 
     if (leftIndex < leftLines.length) {
-      rows.push({
-        lineNumberLeft: leftLineNumber,
-        lineNumberRight: null,
-        text: leftLines[leftIndex],
-        type: InlineDiffRowType.Deletion,
-      })
+      addDeletionRow(rows, leftLines[leftIndex], leftLineNumber)
       leftIndex++
       leftLineNumber++
     }
 
     if (rightIndex < rightLines.length) {
-      rows.push({
-        lineNumberLeft: null,
-        lineNumberRight: rightLineNumber,
-        text: rightLines[rightIndex],
-        type: InlineDiffRowType.Insertion,
-      })
+      addInsertionRow(rows, rightLines[rightIndex], rightLineNumber)
       rightIndex++
       rightLineNumber++
     }

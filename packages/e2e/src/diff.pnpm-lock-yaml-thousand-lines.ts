@@ -58,9 +58,11 @@ const getPackageLockContent = (side: 'left' | 'right'): string => {
   for (let packageNumber = 1; packageNumber <= packageCount; packageNumber++) {
     const packageName = getPackageName(packageNumber)
     const version = getPackageVersion(packageNumber, side)
+    const packageSpecifier = `${packageName}@${version}`
+    const resolution = `sha512-${String(packageNumber).padStart(4, '0')}${side === 'left' ? 'aaa' : 'bbb'}`
 
-    lines.push(`  ${quoteYaml(`${packageName}@${version}`)}:`)
-    lines.push(`    resolution: {integrity: sha512-${String(packageNumber).padStart(4, '0')}${side === 'left' ? 'aaa' : 'bbb'}}`)
+    lines.push(`  ${quoteYaml(packageSpecifier)}:`)
+    lines.push(`    resolution: {integrity: ${resolution}}`)
     lines.push(`    engines: {node: '>=20'}`)
 
     if (packageNumber % 3 === 0) {

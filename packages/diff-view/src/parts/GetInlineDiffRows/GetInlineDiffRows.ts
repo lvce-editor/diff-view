@@ -116,12 +116,12 @@ export const getInlineDiffRows = (contentLeft: string, contentRight: string): re
       const rightMatch = findLookAheadMatch(rightLines, rightIndex + 1, leftLine)
 
       if (shouldUseLeftMatch(leftMatch, rightMatch, leftIndex, rightIndex)) {
-        ;({ leftIndex, leftLineNumber } = appendDeletionsUntil(leftIndex, leftMatch, leftLineNumber))
+        ; ({ leftIndex, leftLineNumber } = appendDeletionsUntil(leftIndex, leftMatch, leftLineNumber))
         continue
       }
 
       if (rightMatch !== -1) {
-        ;({ rightIndex, rightLineNumber } = appendInsertionsUntil(rightIndex, rightMatch, rightLineNumber))
+        ; ({ rightIndex, rightLineNumber } = appendInsertionsUntil(rightIndex, rightMatch, rightLineNumber))
         continue
       }
     }

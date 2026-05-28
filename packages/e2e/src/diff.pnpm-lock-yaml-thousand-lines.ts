@@ -27,7 +27,7 @@ const getPackageVersion = (packageNumber: number, side: 'left' | 'right'): strin
 }
 
 const quoteYaml = (value: string): string => {
-  return `'${value.replaceAll(`'`, `''`)}'`
+  return "'" + value.replaceAll("'", "''") + "'"
 }
 
 const getPackageLockContent = (side: 'left' | 'right'): string => {

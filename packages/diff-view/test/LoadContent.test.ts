@@ -15,7 +15,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       if (protocol === 'file' && path === '/tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
-      throw new Error(`unexpected params: ${String(protocol)} ${String(path)}`)
+      throw new Error(`unexpected params: ${protocol} ${path}`)
     },
   })
   const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
@@ -23,7 +23,7 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
       if (uri === 'file:///tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
   })
   const diffWorkerRpc = DiffWorker.registerMockRpc({
@@ -129,7 +129,7 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
       if (uri === 'file:///tmp/missing.txt') {
         throw error
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
   })
   const diffWorkerRpc = DiffWorker.registerMockRpc({
@@ -190,13 +190,13 @@ test('loadContent sets image render mode when a side has an image extension', as
       if (uri === 'file:///tmp/after.txt') {
         return 'after-content\nsecond-line'
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
     'FileSystem.readFileAsBlob': async (uri: string): Promise<unknown> => {
       if (uri === 'file:///tmp/before.png') {
         return {}
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
   })
 
@@ -263,7 +263,7 @@ test('loadContent expands total line count for inline mode when replacements spl
       if (uri === 'file:///tmp/after.txt') {
         return 'same\nafter\nshared'
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
   })
 
@@ -355,7 +355,7 @@ test('loadContent resolves language ids and tokenizes both panes when syntax met
       if (uri === 'file:///tmp/right.ts') {
         return 'const right = 2'
       }
-      throw new Error(`unexpected params: ${String(uri)}`)
+      throw new Error(`unexpected params: ${uri}`)
     },
   })
   const syntaxHighlightingWorkerRpc = {

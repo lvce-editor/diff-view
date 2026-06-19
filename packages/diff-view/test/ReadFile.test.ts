@@ -47,7 +47,7 @@ test('readFile reads file content through file system worker', async (): Promise
   const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri !== 'file:///tmp/after.txt') {
-        throw new Error(`unexpected params: ${String(uri)}`)
+        throw new Error(`unexpected params: ${uri}`)
       }
       return 'after-content'
     },
@@ -64,7 +64,7 @@ test('readFile reads memfs content through the memory file system command', asyn
   const extensionHostRpc = ExtensionHost.registerMockRpc({
     'FileSystemMemory.readFile': async (path: string): Promise<string> => {
       if (path !== '/workspace/file.txt') {
-        throw new Error(`unexpected params: ${String(path)}`)
+        throw new Error(`unexpected params: ${path}`)
       }
       return 'memfs-content'
     },
@@ -80,7 +80,7 @@ test('readFile reads non-file protocols through extension host', async (): Promi
   const extensionHostRpc = ExtensionHost.registerMockRpc({
     'ExtensionHostFileSystem.readFile': async (protocol: string, path: string): Promise<string> => {
       if (protocol !== 'git' || path !== 'HEAD~1:src/file.ts') {
-        throw new Error(`unexpected params: ${String(protocol)} ${String(path)}`)
+        throw new Error(`unexpected params: ${protocol} ${path}`)
       }
       return 'git-content'
     },

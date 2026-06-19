@@ -5,7 +5,7 @@ export const name = 'diff.invisible-soft-hyphen'
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `cooperate`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `co\u00ADoperate`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `co\u{AD}operate`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
@@ -15,6 +15,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   // const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toContainText('cooperate')
-  await expect(afterPane).toContainText('co\u00ADoperate')
+  await expect(afterPane).toContainText('co\u{AD}operate')
   // await expect(changedTokens).toHaveCount(2)
 }

@@ -5,7 +5,7 @@ export const name = 'diff.invisible-hair-space'
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `alpha beta`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha\u200Abeta`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha\u{200A}beta`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
@@ -15,6 +15,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   // const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toHaveText('alpha beta')
-  await expect(afterPane).toHaveText('alpha\u200Abeta')
+  await expect(afterPane).toHaveText('alpha\u{200A}beta')
   // await expect(changedTokens).toHaveCount(2)
 }

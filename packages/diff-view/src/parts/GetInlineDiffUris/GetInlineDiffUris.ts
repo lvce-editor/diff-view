@@ -18,7 +18,6 @@ export const getInlineDiffUris = (uri: string): readonly [string, string] => {
   }
   if (uri.startsWith(diffPrefix)) {
     return parseDiffUris(uri.slice(diffPrefix.length))
-  } else {
-    return ['', uri]
   }
+  return ['', uri]
 }

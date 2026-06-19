@@ -14,6 +14,18 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
   const css = `
 :root {
+  --DiffBackground: #0b0d10;
+  --DiffForeground: rgba(255, 255, 255, 0.88);
+  --DiffGutterBackground: #0f1218;
+  --DiffGutterForeground: rgba(255, 255, 255, 0.58);
+  --DiffSeparatorColor: rgba(255, 255, 255, 0.12);
+  --DiffMissingLineBackground: rgba(255, 255, 255, 0.035);
+  --DiffDeletionBackground: rgba(248, 81, 73, 0.2);
+  --DiffDeletionForeground: #ffb3ad;
+  --DiffDeletionAccent: #ff5f6d;
+  --DiffInsertionBackground: rgba(46, 160, 67, 0.22);
+  --DiffInsertionForeground: #b7f7c0;
+  --DiffInsertionAccent: #3fb950;
   --ItemHeight: ${itemHeight}px;
   --LeftWidth: ${leftWidth}px;
   --RightWidth: ${rightWidth}px;
@@ -27,6 +39,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 
 .DiffEditor {
+  background: var(--DiffBackground);
+  color: var(--DiffForeground);
   display: flex;
   position: relative;
   width: 100%;
@@ -68,14 +82,16 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorGutter {
+  background: var(--DiffGutterBackground);
+  border-right: 1px solid var(--DiffSeparatorColor);
   box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--DiffGutterForeground);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
   font-family: monospace;
+  font-variant-numeric: tabular-nums;
   overflow: hidden;
-  padding: 0 8px 0 12px;
   text-align: right;
   user-select: none;
   width: calc(${gutterWidth} + ${gutterPaddingWidth}px);
@@ -86,18 +102,39 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorLineNumber {
+  border-left: 2px solid transparent;
   box-sizing: border-box;
   height: var(--ItemHeight);
   line-height: var(--ItemHeight);
+  padding: 0 10px 0 6px;
   white-space: pre;
 }
 
+.DiffEditor .DiffEditorLineNumber {
+  color: var(--DiffGutterForeground);
+}
+
+.DiffEditor .DiffEditorLineNumberDeletion {
+  background: var(--DiffDeletionBackground);
+  border-left-color: var(--DiffDeletionAccent);
+  color: var(--DiffDeletionAccent);
+}
+
+.DiffEditor .DiffEditorLineNumberInsertion {
+  background: var(--DiffInsertionBackground);
+  border-left-color: var(--DiffInsertionAccent);
+  color: var(--DiffInsertionAccent);
+}
+
 .DiffEditorLineNumberEmpty {
+  background-color: var(--DiffMissingLineBackground);
+  background-image: repeating-linear-gradient(135deg, transparent 0, transparent 5px, rgba(255, 255, 255, 0.06) 5px, rgba(255, 255, 255, 0.06) 6px);
   box-sizing: border-box;
   flex-shrink: 0;
 }
 
 .DiffEditorRows {
+  background: var(--DiffBackground);
   contain: strict;
   cursor: text;
   flex: 1;
@@ -110,17 +147,26 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   box-sizing: border-box;
   height: var(--ItemHeight);
   line-height: var(--ItemHeight);
+  padding: 0 12px;
   white-space: pre;
 }
 
 .DiffEditor .Deletion {
-  background: rgba(255, 0, 0, 0.16);
-  color: #ffb3b3;
+  background: var(--DiffDeletionBackground);
+  box-shadow: inset 3px 0 var(--DiffDeletionAccent);
+  color: var(--DiffDeletionForeground);
 }
 
 .DiffEditor .Insertion {
-  background: rgba(0, 128, 0, 0.18);
-  color: #b7f7c0;
+  background: var(--DiffInsertionBackground);
+  box-shadow: inset 3px 0 var(--DiffInsertionAccent);
+  color: var(--DiffInsertionForeground);
+}
+
+.DiffEditorLineMissing {
+  background-color: var(--DiffMissingLineBackground);
+  background-image: repeating-linear-gradient(135deg, transparent 0, transparent 5px, rgba(255, 255, 255, 0.06) 5px, rgba(255, 255, 255, 0.06) 6px);
+  box-shadow: none;
 }
 
 .ImageContent {

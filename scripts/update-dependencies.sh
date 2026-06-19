@@ -16,11 +16,7 @@ fi
 
 function updateDependencies {
   echo "updating dependencies..."
-<<<<<<< HEAD
-  OUTPUT=`ncu -u -x @types/node -x rollup -x lerna -x @babel/preset-typescript -x @lvce-editor/eslint-config`
-=======
   OUTPUT=`ncu -u -x @types/node -x rollup -x lerna -x @babel/preset-typescript`
->>>>>>> origin/main
   SUB='All dependencies match the latest package versions'
   if [[ "$OUTPUT" == *"$SUB"* ]]; then
     echo "$OUTPUT"

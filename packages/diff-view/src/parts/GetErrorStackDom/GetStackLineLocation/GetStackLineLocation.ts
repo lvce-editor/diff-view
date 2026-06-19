@@ -1,10 +1,9 @@
-import { stackLocationRegex } from '../StackLocationRegex/StackLocationRegex.ts'
+import { parseStackLocation } from '../StackLocationRegex/StackLocationRegex.ts'
 
 export const getStackLineLocation = (stackLine: string): string => {
-  const match = stackLine.match(stackLocationRegex)
+  const match = parseStackLocation(stackLine)
   if (!match) {
     return ''
   }
-  const [, location] = match
-  return location
+  return match.location
 }

@@ -33,7 +33,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const insertedRows = Locator('.DiffEditorContentRight .Inserted')
 
   await expect(beforePane).toContainText('.button')
   await expect(afterPane).toContainText('.button')

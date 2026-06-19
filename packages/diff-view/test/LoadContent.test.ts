@@ -108,7 +108,9 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
 
 test('loadContent stores pane load errors instead of throwing', async (): Promise<void> => {
   const error = new Error('file not found: /tmp/missing.txt')
-  error.stack = 'Error: file not found: /tmp/missing.txt\n    at read missing file'
+  Object.defineProperty(error, 'stack', {
+    value: 'Error: file not found: /tmp/missing.txt\n    at read missing file',
+  })
   const errorWorkerRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (value: unknown): Promise<unknown> => {
       expect(value).toBe(error)

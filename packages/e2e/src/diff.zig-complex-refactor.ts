@@ -3,6 +3,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 export const name = 'diff.zig-complex-refactor'
 
 export const skip = 1
+const openBrace = '{'
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -25,7 +26,7 @@ pub fn main() !void {
 
     const allocator = arena.allocator();
     const port = try parsePort("8080");
-    std.debug.print("port={d}\\n", .{port});
+    std.debug.print("port=${openBrace}d}\\n", .${openBrace}port});
     _ = allocator;
 }
 `,
@@ -51,7 +52,7 @@ pub fn main() !void {
     const allocator = gpa.allocator();
     const config = Config{};
     const port = try parsePort("8080");
-    std.debug.print("{s}:{d}\\n", .{ config.host, port });
+    std.debug.print("${openBrace}s}:${openBrace}d}\\n", .${openBrace} config.host, port });
     _ = allocator;
 }
 `,

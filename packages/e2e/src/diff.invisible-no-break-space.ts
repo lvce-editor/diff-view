@@ -6,8 +6,9 @@ export const skip = 1
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
+  const noBreakSpace = decodeURIComponent('%C2%A0')
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `alpha beta`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha\u{A0}beta`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha${noBreakSpace}beta`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
@@ -17,6 +18,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toContainText('alpha beta')
-  await expect(afterPane).toContainText('alphabeta')
+  await expect(afterPane).toContainText(`alpha${noBreakSpace}beta`)
   await expect(changedTokens).toHaveCount(2)
 }

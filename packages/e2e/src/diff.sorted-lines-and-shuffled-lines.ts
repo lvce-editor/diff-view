@@ -22,7 +22,9 @@ const shuffleLines = (lines: readonly string[]): string[] => {
 
   for (let index = shuffledLines.length - 1; index > 0; index--) {
     const randomIndex = Math.floor(random() * (index + 1))
-    ;[shuffledLines[index], shuffledLines[randomIndex]] = [shuffledLines[randomIndex], shuffledLines[index]]
+    const currentLine = shuffledLines[index]
+    shuffledLines[index] = shuffledLines[randomIndex]
+    shuffledLines[randomIndex] = currentLine
   }
 
   return shuffledLines
@@ -46,12 +48,18 @@ export const test: Test = async ({ expect, FileSystem, Locator, Main, Workspace 
   const beforeRows = Locator('.DiffEditorContentLeft .EditorRow')
   const afterRows = Locator('.DiffEditorContentRight .EditorRow')
 
-  await expect(beforeRows.nth(0)).toHaveText('line 1')
-  await expect(beforeRows.nth(1)).toHaveText('line 2')
-  await expect(beforeRows.nth(2)).toHaveText('line 3')
-  await expect(afterRows.nth(0)).toHaveText(shuffledLines[0])
-  await expect(afterRows.nth(1)).toHaveText(shuffledLines[1])
-  await expect(afterRows.nth(2)).toHaveText(shuffledLines[2])
+  const expectedLocator0 = beforeRows.nth(0)
+  await expect(expectedLocator0).toHaveText('line 1')
+  const expectedLocator1 = beforeRows.nth(1)
+  await expect(expectedLocator1).toHaveText('line 2')
+  const expectedLocator2 = beforeRows.nth(2)
+  await expect(expectedLocator2).toHaveText('line 3')
+  const expectedLocator3 = afterRows.nth(0)
+  await expect(expectedLocator3).toHaveText(shuffledLines[0])
+  const expectedLocator4 = afterRows.nth(1)
+  await expect(expectedLocator4).toHaveText(shuffledLines[1])
+  const expectedLocator5 = afterRows.nth(2)
+  await expect(expectedLocator5).toHaveText(shuffledLines[2])
 
   // await Command.execute('DiffView.handleWorkspaceChange')
 

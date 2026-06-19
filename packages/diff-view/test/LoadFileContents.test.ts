@@ -59,7 +59,9 @@ test('loadFileContents loads both files in order', async (): Promise<void> => {
 
 test('loadFileContents captures per-side read errors', async (): Promise<void> => {
   const error = new Error('file not found')
-  error.stack = 'Error: file not found\n    at read missing file'
+  Object.defineProperty(error, 'stack', {
+    value: 'Error: file not found\n    at read missing file',
+  })
   const extensionHostRpc = {
     dispose: (): void => {},
     invoke: async (): Promise<string> => {

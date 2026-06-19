@@ -27,7 +27,8 @@ const getPackageVersion = (packageNumber: number, side: 'left' | 'right'): strin
 }
 
 const quoteYaml = (value: string): string => {
-  return `'${value.replaceAll(`'`, `''`)}'`
+  const escapedValue = value.replaceAll(`'`, `''`)
+  return `'${escapedValue}'`
 }
 
 const getPackageLockContent = (side: 'left' | 'right'): string => {
@@ -58,8 +59,9 @@ const getPackageLockContent = (side: 'left' | 'right'): string => {
   for (let packageNumber = 1; packageNumber <= packageCount; packageNumber++) {
     const packageName = getPackageName(packageNumber)
     const version = getPackageVersion(packageNumber, side)
+    const packageVersion = `${packageName}@${version}`
 
-    lines.push(`  ${quoteYaml(`${packageName}@${version}`)}:`)
+    lines.push(`  ${quoteYaml(packageVersion)}:`)
     lines.push(`    resolution: {integrity: sha512-${String(packageNumber).padStart(4, '0')}${side === 'left' ? 'aaa' : 'bbb'}}`)
     lines.push(`    engines: {node: '>=20'}`)
 
@@ -100,5 +102,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(beforePane).toContainText(`'pkg-181':`)
   await expect(beforePane).toContainText(`version: 9.9.9`)
   await expect(afterPane).toContainText(`version: 9.10.0`)
-  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
+  const expectedLocator0 = Locator('.DiffScrollBar')
+  await expect(expectedLocator0).toHaveCount(1)
 }

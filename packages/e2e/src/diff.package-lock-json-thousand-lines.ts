@@ -19,6 +19,29 @@ const getResolvedUrl = (packageName: string, version: string): string => {
   return `https://registry.npmjs.org/${encodeURIComponent(packageName)}/-/${tarballName}-${version}.tgz`
 }
 
+const getPackageDependency = (packageName: string, packageNumber: number, side: 'left' | 'right'): readonly [string, string] => {
+  const packageId = String(packageNumber).padStart(3, '0')
+  return [`${packageName}${packageId}`, `^${getPackageVersion(packageNumber, side)}`]
+}
+
+const getPackageDependencies = (packageNumber: number, side: 'left' | 'right'): Record<string, string> | undefined => {
+  const dependencies: Array<readonly [string, string]> = []
+
+  if (packageNumber > 1) {
+    dependencies.push(getPackageDependency('pkg-', packageNumber - 1, side))
+  }
+
+  if (packageNumber > 4 && packageNumber % 4 === 0) {
+    dependencies.push(getPackageDependency('pkg-', packageNumber - 4, side))
+  }
+
+  if (packageNumber > 5 && packageNumber % 5 === 0) {
+    dependencies.push(getPackageDependency('@scope/pkg-', packageNumber - 5, side))
+  }
+
+  return dependencies.length > 0 ? Object.fromEntries(dependencies) : undefined
+}
+
 const getPackageLockContent = (side: 'left' | 'right'): string => {
   const packageEntries: Array<[string, unknown]> = [
     [
@@ -41,27 +64,11 @@ const getPackageLockContent = (side: 'left' | 'right'): string => {
     const packageName = packageNumber % 5 === 0 ? `@scope/pkg-${packageId}` : `pkg-${packageId}`
     const version = getPackageVersion(packageNumber, side)
     const packagePath = `node_modules/${packageName}`
-    const dependencies: Record<string, string> = {}
-
-    if (packageNumber > 1) {
-      const previousPackageId = String(packageNumber - 1).padStart(3, '0')
-      dependencies[`pkg-${previousPackageId}`] = `^${getPackageVersion(packageNumber - 1, side)}`
-    }
-
-    if (packageNumber > 4 && packageNumber % 4 === 0) {
-      const linkedPackageId = String(packageNumber - 4).padStart(3, '0')
-      dependencies[`pkg-${linkedPackageId}`] = `^${getPackageVersion(packageNumber - 4, side)}`
-    }
-
-    if (packageNumber > 5 && packageNumber % 5 === 0) {
-      const scopedDependencyId = String(packageNumber - 5).padStart(3, '0')
-      dependencies[`@scope/pkg-${scopedDependencyId}`] = `^${getPackageVersion(packageNumber - 5, side)}`
-    }
 
     packageEntries.push([
       packagePath,
       {
-        dependencies: Object.keys(dependencies).length > 0 ? dependencies : undefined,
+        dependencies: getPackageDependencies(packageNumber, side),
         engines: {
           node: '>=20',
         },

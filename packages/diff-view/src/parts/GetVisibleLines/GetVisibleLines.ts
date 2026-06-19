@@ -10,6 +10,16 @@ import { getVisibleLineType } from './GetVisibleLineType/GetVisibleLineType.ts'
 
 type DiffSide = 'left' | 'right'
 
+const getInlineChangeLineIndex = (inlineChange: InlineDiffChange | undefined, side: DiffSide): number => {
+  if (!inlineChange) {
+    return -1
+  }
+  if (side === 'left') {
+    return inlineChange.leftIndex
+  }
+  return inlineChange.rightIndex
+}
+
 export const getVisibleLines = (
   content: string,
   totalLineCount: number,
@@ -33,7 +43,7 @@ export const getVisibleLines = (
     .map((visibleRow) => {
       const inlineChange = side === 'left' ? visibleRow.leftChange : visibleRow.rightChange
       const type = inlineChange ? getVisibleLineType(inlineChange, side) : VisibleLineTypeValue.Normal
-      const lineIndex = inlineChange ? (side === 'left' ? inlineChange.leftIndex : inlineChange.rightIndex) : -1
+      const lineIndex = getInlineChangeLineIndex(inlineChange, side)
       const tokens = inlineChange && lineIndex >= 0 ? getTokens(tokenizedLines, lineIndex, getLine(lines, lineIndex)) : []
       return {
         lineNumber: lineIndex >= 0 ? lineIndex + 1 : -1,

@@ -43,6 +43,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await expect(beforePane).toContainText('"version": "1.0.0"')
   await expect(afterPane).toContainText('"version": "1.0.1"')
-  await expect(Locator('.DiffEditorContentLeft .Token.Numeric')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentRight .Token.Numeric')).toHaveCount(1)
+  const expectedLocator0 = Locator('.DiffEditorContentLeft .Token.Numeric')
+  await expect(expectedLocator0).toHaveCount(1)
+  const expectedLocator1 = Locator('.DiffEditorContentRight .Token.Numeric')
+  await expect(expectedLocator1).toHaveCount(1)
 }

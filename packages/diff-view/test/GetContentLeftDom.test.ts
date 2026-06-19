@@ -188,7 +188,7 @@ test('getContentLeftDom renders paired deletion and insertion on the same row', 
     text('1'),
     {
       childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
+      className: `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberDeletion}`,
       type: VirtualDomElements.Div,
     },
     text('2'),

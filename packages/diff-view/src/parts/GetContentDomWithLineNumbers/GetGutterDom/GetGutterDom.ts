@@ -28,7 +28,7 @@ export const getGutterDom = (visibleLines: readonly VisibleLine[], itemHeight: n
       childCount++
       emptyLineCount = 0
     }
-    children.push(...getLineNumberDom(line.lineNumber))
+    children.push(...getLineNumberDom(line.lineNumber, line.type))
     childCount++
   }
 

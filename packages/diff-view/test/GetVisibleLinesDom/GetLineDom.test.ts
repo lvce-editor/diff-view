@@ -47,3 +47,16 @@ test('getLineDom renders token spans inside a row', (): void => {
     text(' answer = 1'),
   ])
 })
+
+test('getLineDom renders missing side lines with a placeholder class', (): void => {
+  const result = getLineDom({ lineNumber: -1, tokens: [], type: VisibleLineType.Normal })
+
+  expect(result).toEqual([
+    {
+      childCount: 1,
+      className: `${ClassNames.EditorRow} ${ClassNames.DiffEditorLineMissing}`,
+      type: VirtualDomElements.Div,
+    },
+    text(''),
+  ])
+})

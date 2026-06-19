@@ -100,3 +100,41 @@ test('getGutterDom collapses consecutive empty line numbers into a single placeh
     text('5'),
   ])
 })
+
+test('getGutterDom styles changed line numbers', (): void => {
+  const result = getGutterDom(
+    [
+      {
+        lineNumber: 2,
+        tokens: [],
+        type: VisibleLineType.Removed,
+      },
+      {
+        lineNumber: 3,
+        tokens: [],
+        type: VisibleLineType.Added,
+      },
+    ],
+    20,
+  )
+
+  expect(result).toEqual([
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberDeletion}`,
+      type: VirtualDomElements.Div,
+    },
+    text('2'),
+    {
+      childCount: 1,
+      className: `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberInsertion}`,
+      type: VirtualDomElements.Div,
+    },
+    text('3'),
+  ])
+})

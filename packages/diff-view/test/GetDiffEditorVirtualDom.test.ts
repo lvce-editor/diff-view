@@ -184,7 +184,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
   ])
 })
 
-test.skip('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
+test('getDiffEditorVirtualDom renders image panes when render mode is image', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'ignored-left-content',
@@ -446,16 +446,16 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
     text('1 1'),
     {
       childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
+      className: `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberDeletion}`,
       type: VirtualDomElements.Div,
     },
-    text('2 -'),
+    text('2 '),
     {
       childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
+      className: `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberInsertion}`,
       type: VirtualDomElements.Div,
     },
-    text('- 2'),
+    text(' 2'),
     {
       childCount: 1,
       className: ClassNames.DiffEditorLineNumber,

@@ -23,9 +23,20 @@ interface ChangedRangeState {
   readonly rangeStart: number
 }
 
+interface FinishedRangeState {
+  readonly ranges: readonly CharacterRange[]
+  readonly rangeStart: number
+}
+
+interface TokenSegmentState {
+  readonly cursor: number
+  readonly tokens: readonly VisibleLineToken[]
+}
+
 interface TokenRangeState {
   readonly cursor: number
   readonly nextRangeIndex: number
+  readonly tokens: readonly VisibleLineToken[]
 }
 
 const maxInlineDiffMatrixSize = 10_000
@@ -75,24 +86,29 @@ const getChangedRangesFallback = (chars: readonly string[], prefixLength: number
   return [{ end, start }]
 }
 
-const getSubsequenceLengths = (diffChars: readonly string[], diffOtherChars: readonly string[]): readonly number[][] => {
+const getSubsequenceLengths = (diffChars: readonly string[], diffOtherChars: readonly string[]): readonly (readonly number[])[] => {
   const rowCount = diffChars.length + 1
   const columnCount = diffOtherChars.length + 1
   const lengths = Array.from({ length: rowCount }, (): number[] => Array(columnCount).fill(0))
   for (let row = diffChars.length - 1; row >= 0; row--) {
     for (let column = diffOtherChars.length - 1; column >= 0; column--) {
-      lengths[row][column] =
-        diffChars[row] === diffOtherChars[column] ? lengths[row + 1][column + 1] + 1 : Math.max(lengths[row + 1][column], lengths[row][column + 1])
+      lengths[row][column] = diffChars[row] === diffOtherChars[column] ? lengths[row + 1][column + 1] + 1 : Math.max(lengths[row + 1][column], lengths[row][column + 1])
     }
   }
   return lengths
 }
 
-const finishRange = (ranges: CharacterRange[], rangeStart: number, offset: number): number => {
+const finishRange = (ranges: readonly CharacterRange[], rangeStart: number, offset: number): FinishedRangeState => {
   if (rangeStart !== -1 && rangeStart !== offset) {
-    ranges.push({ end: offset, start: rangeStart })
+    return {
+      ranges: [...ranges, { end: offset, start: rangeStart }],
+      rangeStart: -1,
+    }
   }
-  return -1
+  return {
+    ranges,
+    rangeStart: -1,
+  }
 }
 
 const advanceDeletedCharacter = (rangeStart: number, offset: number, char: string): ChangedRangeState => {
@@ -106,10 +122,10 @@ const getMatrixChangedRanges = (
   chars: readonly string[],
   diffChars: readonly string[],
   diffOtherChars: readonly string[],
-  lengths: readonly number[][],
+  lengths: readonly (readonly number[])[],
   prefixLength: number,
 ): readonly CharacterRange[] => {
-  const ranges: CharacterRange[] = []
+  let ranges: readonly CharacterRange[] = []
   let row = 0
   let column = 0
   let offset = getCharacterOffset(chars, prefixLength)
@@ -117,7 +133,8 @@ const getMatrixChangedRanges = (
 
   while (row < diffChars.length && column < diffOtherChars.length) {
     if (diffChars[row] === diffOtherChars[column]) {
-      rangeStart = finishRange(ranges, rangeStart, offset)
+      const finishedRangeState = finishRange(ranges, rangeStart, offset)
+      ;({ ranges, rangeStart } = finishedRangeState)
       offset += diffChars[row].length
       row++
       column++
@@ -125,8 +142,7 @@ const getMatrixChangedRanges = (
     }
     if (lengths[row + 1][column] >= lengths[row][column + 1]) {
       const state = advanceDeletedCharacter(rangeStart, offset, diffChars[row])
-      offset = state.offset
-      rangeStart = state.rangeStart
+      ;({ offset, rangeStart } = state)
       row++
       continue
     }
@@ -135,13 +151,11 @@ const getMatrixChangedRanges = (
 
   while (row < diffChars.length) {
     const state = advanceDeletedCharacter(rangeStart, offset, diffChars[row])
-    offset = state.offset
-    rangeStart = state.rangeStart
+    ;({ offset, rangeStart } = state)
     row++
   }
 
-  finishRange(ranges, rangeStart, offset)
-  return ranges
+  return finishRange(ranges, rangeStart, offset).ranges
 }
 
 const getChangedRanges = (text: string, otherText: string): readonly CharacterRange[] => {
@@ -174,18 +188,11 @@ const mergeChangedClassName = (className: string): string => {
   return `${className} ${ClassNames.DiffTokenChanged}`
 }
 
-const appendTokenSlice = (
-  changedTokens: VisibleLineToken[],
-  token: VisibleLineToken,
-  tokenStart: number,
-  sliceStart: number,
-  sliceEnd: number,
-  type: string,
-): void => {
-  changedTokens.push({
+const getTokenSlice = (token: VisibleLineToken, tokenStart: number, sliceStart: number, sliceEnd: number, type: string): VisibleLineToken => {
+  return {
     text: token.text.slice(sliceStart - tokenStart, sliceEnd - tokenStart),
     type,
-  })
+  }
 }
 
 const skipFinishedRanges = (ranges: readonly CharacterRange[], rangeIndex: number, tokenStart: number): number => {
@@ -196,44 +203,37 @@ const skipFinishedRanges = (ranges: readonly CharacterRange[], rangeIndex: numbe
   return nextRangeIndex
 }
 
-const applyRangeToToken = (
-  changedTokens: VisibleLineToken[],
-  token: VisibleLineToken,
-  tokenStart: number,
-  tokenEnd: number,
-  range: CharacterRange,
-  cursor: number,
-): number => {
+const applyRangeToToken = (token: VisibleLineToken, tokenStart: number, tokenEnd: number, range: CharacterRange, cursor: number): TokenSegmentState => {
   const changedStart = Math.max(range.start, tokenStart)
   const changedEnd = Math.min(range.end, tokenEnd)
+  const tokens: VisibleLineToken[] = []
   if (cursor < changedStart) {
-    appendTokenSlice(changedTokens, token, tokenStart, cursor, changedStart, token.type)
+    tokens.push(getTokenSlice(token, tokenStart, cursor, changedStart, token.type))
   }
   if (changedStart < changedEnd) {
-    appendTokenSlice(changedTokens, token, tokenStart, changedStart, changedEnd, mergeChangedClassName(token.type))
+    tokens.push(getTokenSlice(token, tokenStart, changedStart, changedEnd, mergeChangedClassName(token.type)))
   }
-  return changedEnd
+  return {
+    cursor: changedEnd,
+    tokens,
+  }
 }
 
-const applyRangesToToken = (
-  changedTokens: VisibleLineToken[],
-  token: VisibleLineToken,
-  tokenStart: number,
-  tokenEnd: number,
-  rangeIndex: number,
-  ranges: readonly CharacterRange[],
-): TokenRangeState => {
+const applyRangesToToken = (token: VisibleLineToken, tokenStart: number, tokenEnd: number, rangeIndex: number, ranges: readonly CharacterRange[]): TokenRangeState => {
   let cursor = tokenStart
   let nextRangeIndex = rangeIndex
+  let tokens: readonly VisibleLineToken[] = []
   while (nextRangeIndex < ranges.length && ranges[nextRangeIndex].start < tokenEnd) {
     const range = ranges[nextRangeIndex]
-    cursor = applyRangeToToken(changedTokens, token, tokenStart, tokenEnd, range, cursor)
+    const tokenSegmentState = applyRangeToToken(token, tokenStart, tokenEnd, range, cursor)
+    ;({ cursor } = tokenSegmentState)
+    tokens = [...tokens, ...tokenSegmentState.tokens]
     if (range.end > tokenEnd) {
-      return { cursor, nextRangeIndex }
+      return { cursor, nextRangeIndex, tokens }
     }
     nextRangeIndex++
   }
-  return { cursor, nextRangeIndex }
+  return { cursor, nextRangeIndex, tokens }
 }
 
 const applyChangedRanges = (tokens: readonly VisibleLineToken[], ranges: readonly CharacterRange[]): readonly VisibleLineToken[] => {
@@ -247,9 +247,10 @@ const applyChangedRanges = (tokens: readonly VisibleLineToken[], ranges: readonl
   for (const token of tokens) {
     const tokenEnd = tokenStart + token.text.length
     rangeIndex = skipFinishedRanges(ranges, rangeIndex, tokenStart)
-    const { cursor, nextRangeIndex } = applyRangesToToken(changedTokens, token, tokenStart, tokenEnd, rangeIndex, ranges)
+    const { cursor, nextRangeIndex, tokens } = applyRangesToToken(token, tokenStart, tokenEnd, rangeIndex, ranges)
+    changedTokens.push(...tokens)
     if (cursor < tokenEnd) {
-      appendTokenSlice(changedTokens, token, tokenStart, cursor, tokenEnd, token.type)
+      changedTokens.push(getTokenSlice(token, tokenStart, cursor, tokenEnd, token.type))
     }
     tokenStart = tokenEnd
     rangeIndex = nextRangeIndex

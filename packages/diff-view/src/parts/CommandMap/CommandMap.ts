@@ -2,13 +2,10 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
-<<<<<<< HEAD
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
-=======
 import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
->>>>>>> origin/main
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleCopy } from '../HandleCopy/HandleCopy.ts'
@@ -37,13 +34,10 @@ export const commandMap = {
   'DiffView.create': Create2.create2,
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
-<<<<<<< HEAD
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
-=======
   'DiffView.handleClickAction': wrapCommand(handleClickAction),
->>>>>>> origin/main
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
   'DiffView.handleCopy': wrapCommand(handleCopy),

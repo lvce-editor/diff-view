@@ -92,6 +92,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .InlineDiffEditorContent {
   display: flex;
+  flex-direction: row;
   height: 100%;
   overflow: hidden;
 }

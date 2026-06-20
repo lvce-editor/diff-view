@@ -2,20 +2,17 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.image-image-left-text-right'
 
-export const skip = 1
-
 export const test: Test = async (api) => {
-  const { DiffView, expect, FileSystem, Locator } = api
+  const { DiffView, FileSystem, Locator } = api
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/image-left-text-right.png`, 'fixture')
-  await FileSystem.writeFile(`${tmpDir}/right.txt`, 'fixture')
+  await FileSystem.writeFile(`${tmpDir}/image-left-text-right.txt`, 'const rightValue = 42')
 
-  await DiffView.open(`${tmpDir}/image-left-text-right.png`, `${tmpDir}/right.txt`)
+  await DiffView.open(`${tmpDir}/image-left-text-right.png`, `${tmpDir}/image-left-text-right.txt`)
 
-  const beforeImage = Locator('.DiffPane--before .ImageElement')
-  const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const beforeImage = Locator('.DiffEditorContentLeft .ImageElement')
 
-  await api.expect(beforeImage).toHaveAttribute('alt', 'left.png')
-  await api.expect(beforeImage).toHaveAttribute('src', /^data:image\/png;base64,/ as unknown as string)
-  await expect(afterPane).toContainText('const rightValue = 42')
+  await api.expect(beforeImage).toBeVisible()
+  await api.expect(beforeImage).toHaveAttribute('alt', `${tmpDir}/image-left-text-right.png`)
+  await DiffView.shouldHaveContentRight('const rightValue = 42')
 }

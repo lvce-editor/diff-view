@@ -10,9 +10,7 @@ const getLabel = (showWhitespace: boolean): string => {
 
 export const getWhitespaceToggleDom = (showWhitespace: boolean): readonly VirtualDomNode[] => {
   const label = getLabel(showWhitespace)
-  const className = showWhitespace
-    ? `${ClassNames.DiffEditorWhitespaceToggle} ${ClassNames.DiffEditorWhitespaceToggleActive}`
-    : ClassNames.DiffEditorWhitespaceToggle
+  const className = showWhitespace ? `${ClassNames.DiffEditorWhitespaceToggle} ${ClassNames.DiffEditorWhitespaceToggleActive}` : ClassNames.DiffEditorWhitespaceToggle
   return [
     {
       childCount: 1,

@@ -83,7 +83,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
@@ -121,6 +121,14 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     text('second-after'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.Input,
+      value: '',
+    },
   ])
 })
 
@@ -174,7 +182,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
@@ -184,6 +192,14 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     text('after-content'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.Input,
+      value: '',
+    },
   ])
 })
 
@@ -264,7 +280,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffEditorContentRight,
       type: VirtualDomElements.Div,
     },
@@ -274,6 +290,14 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     text('after-content'),
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.Input,
+      value: '',
+    },
   ])
 })
 

@@ -155,13 +155,15 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorInput {
   background: transparent;
   border: 0;
+  color: transparent;
   cursor: text;
   height: 100%;
   inset: 0;
-  opacity: 0;
+  outline: none;
   padding: 0;
   position: absolute;
   width: 100%;
+  z-index: 1;
 }
 
 .DiffEditor .Deletion {

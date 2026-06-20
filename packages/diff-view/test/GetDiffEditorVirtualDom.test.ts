@@ -1,5 +1,4 @@
 import { expect, test } from '@jest/globals'
-import { WhenExpression } from '@lvce-editor/constants'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
@@ -188,12 +187,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
   ])
 })
 
-test('getDiffEditorVirtualDom renders the hidden right editor input when focused', (): void => {
+test('getDiffEditorVirtualDom renders the hidden right editor input for text panes', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
     contentLeft: 'before-content',
     contentRight: 'after-content',
-    focus: WhenExpression.FocusEditorText,
     inputValue: 'typed',
     maxLineY: 1,
     totalLineCount: 1,

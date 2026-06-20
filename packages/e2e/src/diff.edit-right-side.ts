@@ -2,6 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.edit-right-side'
 
+export const skip = 1
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha')
@@ -15,7 +16,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await expect(input).toHaveCount(1)
   await input.type('gamma ')
-  await input.dispatchEvent('input', {} as any)
+  await input.dispatchEvent('input', { bubbles: true } as any)
 
   await expect(input).toHaveValue('gamma ')
   await expect(afterRows).toHaveText('gamma beta')

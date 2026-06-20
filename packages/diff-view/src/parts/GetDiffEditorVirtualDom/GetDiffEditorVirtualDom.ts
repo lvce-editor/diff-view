@@ -76,10 +76,10 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
       : getContentRightDom({
           allowedLinkSchemes,
           contentRight,
+          editable: true,
           errorCodeFrame: errorRightCodeFrame,
           errorMessage: errorRightMessage,
           errorStack: errorRightStack,
-          editable: true,
           inlineChanges,
           inputValue,
           itemHeight,

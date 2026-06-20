@@ -11,10 +11,10 @@ import * as InputName from '../InputName/InputName.ts'
 interface GetContentRightDomOptions {
   readonly allowedLinkSchemes?: readonly string[]
   readonly contentRight: string
+  readonly editable?: boolean
   readonly errorCodeFrame?: string
   readonly errorMessage?: string
   readonly errorStack?: string
-  readonly editable?: boolean
   readonly inlineChanges?: readonly InlineDiffChange[]
   readonly inputValue?: string
   readonly itemHeight?: number
@@ -29,10 +29,10 @@ interface GetContentRightDomOptions {
 export const getContentRightDom = ({
   allowedLinkSchemes = defaultAllowedLinkSchemes,
   contentRight,
+  editable = false,
   errorCodeFrame = '',
   errorMessage = '',
   errorStack = '',
-  editable = false,
   inlineChanges = [],
   inputValue = '',
   itemHeight = 20,

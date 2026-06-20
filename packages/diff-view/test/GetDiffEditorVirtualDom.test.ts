@@ -123,6 +123,11 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     },
     text('second-after'),
     {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 0,
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
@@ -203,6 +208,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     },
     text('after-content'),
     {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 0,
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
@@ -232,6 +242,11 @@ test('getDiffEditorVirtualDom renders the hidden right editor input for text pan
     totalLineCount: 1,
   })
 
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: ClassNames.DiffEditorInputWrapper,
+    type: VirtualDomElements.Div,
+  })
   expect(result).toContainEqual({
     childCount: 0,
     className: ClassNames.DiffEditorInput,
@@ -309,6 +324,11 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     text('after-content'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 0,
       className: ClassNames.DiffEditorInput,

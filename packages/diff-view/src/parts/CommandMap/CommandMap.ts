@@ -4,6 +4,7 @@ import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
+import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
 import { handleResize } from '../HandleResize/HandleResize.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
@@ -20,6 +21,7 @@ import { renderEventListeners } from '../RenderEventListeners/RenderEventListene
 import { saveState } from '../SaveState/SaveState.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
@@ -27,6 +29,7 @@ export const commandMap = {
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
+  'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
   'DiffView.handleInput': wrapCommand(handleInput),
   'DiffView.handleResize': wrapCommand(handleResize),
@@ -44,6 +47,7 @@ export const commandMap = {
   'DiffView.saveState': saveState,
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),
+  'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),
   'DiffView.terminate': terminate,
   'Initialize.initialize': Initialize.initialize,
 }

@@ -15,8 +15,10 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
-  await expect(Locator('.DiffEditorContentLeft .DiffToken--changed')).toHaveCount(1)
-  await expect(Locator('.DiffEditorContentRight .DiffToken--changed')).toHaveCount(1)
+  const expectedLocator0 = Locator('.DiffEditorContentLeft .DiffToken--changed')
+  await expect(expectedLocator0).toHaveCount(1)
+  const expectedLocator1 = Locator('.DiffEditorContentRight .DiffToken--changed')
+  await expect(expectedLocator1).toHaveCount(1)
   await expect(beforePane).not.toContainText('const value = cut')
   await expect(afterPane).not.toContainText('const value = cat')
 }

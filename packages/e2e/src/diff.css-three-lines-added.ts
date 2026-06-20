@@ -33,7 +33,10 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(afterPane).toContainText('display: flex')
   await expect(afterPane).toContainText('padding: 12px')
   await expect(insertedRows).toHaveCount(3)
-  await expect(insertedRows.nth(0)).toHaveText('  color: red;')
-  await expect(insertedRows.nth(1)).toHaveText('  display: flex;')
-  await expect(insertedRows.nth(2)).toHaveText('  padding: 12px;')
+  const expectedLocator0 = insertedRows.nth(0)
+  await expect(expectedLocator0).toHaveText('  color: red;')
+  const expectedLocator1 = insertedRows.nth(1)
+  await expect(expectedLocator1).toHaveText('  display: flex;')
+  const expectedLocator2 = insertedRows.nth(2)
+  await expect(expectedLocator2).toHaveText('  padding: 12px;')
 }

@@ -7,7 +7,7 @@ export const skip = 1
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `alpha beta`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha\u200Bbeta`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `alpha\u{200B}beta`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)

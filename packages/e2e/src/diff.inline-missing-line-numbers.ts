@@ -27,9 +27,14 @@ d`,
 
   await expect(leftLineNumbers).toHaveCount(5)
 
-  await expect(leftLineNumbers.nth(0)).toHaveText('1')
-  await expect(leftLineNumbers.nth(1)).toHaveText('')
-  await expect(leftLineNumbers.nth(2)).toHaveText('')
-  await expect(leftLineNumbers.nth(3)).toHaveText('')
-  await expect(leftLineNumbers.nth(4)).toHaveText('')
+  const expectedLocator0 = leftLineNumbers.nth(0)
+  await expect(expectedLocator0).toHaveText('1')
+  const expectedLocator1 = leftLineNumbers.nth(1)
+  await expect(expectedLocator1).toHaveText('')
+  const expectedLocator2 = leftLineNumbers.nth(2)
+  await expect(expectedLocator2).toHaveText('')
+  const expectedLocator3 = leftLineNumbers.nth(3)
+  await expect(expectedLocator3).toHaveText('')
+  const expectedLocator4 = leftLineNumbers.nth(4)
+  await expect(expectedLocator4).toHaveText('')
 }

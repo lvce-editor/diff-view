@@ -26,7 +26,8 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
 
   await expect(beforePane).toHaveText('')
-  await expect(Locator('.DiffScrollBar')).toHaveCount(1)
+  const expectedLocator0 = Locator('.DiffScrollBar')
+  await expect(expectedLocator0).toHaveCount(1)
   await expect(afterPane).toContainText('added line 1')
 
   await Command.execute('DiffView.handleWheel', 0, 9999)

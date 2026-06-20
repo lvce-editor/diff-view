@@ -4,7 +4,7 @@ import { getProtocol } from '../GetProtocol/GetProtocol.ts'
 const getFileExtension = (uri: string): string => {
   const protocol = getProtocol(uri)
   const path = getPath(protocol, uri)
-  const cleanPath = path.split('?')[0].split('#')[0]
+  const cleanPath = path.split('?', 1)[0].split('#', 1)[0]
   const extensionIndex = cleanPath.lastIndexOf('.')
   if (extensionIndex === -1) {
     return ''

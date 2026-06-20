@@ -6,8 +6,9 @@ export const skip = 1
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
+  const byteOrderMark = decodeURIComponent('%EF%BB%BF')
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `alpha`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `\uFEFFalpha`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `${byteOrderMark}alpha`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
@@ -17,6 +18,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toContainText('alpha')
-  await expect(afterPane).toContainText('\uFEFFalpha')
+  await expect(afterPane).toContainText(`${byteOrderMark}alpha`)
   await expect(changedTokens).toHaveCount(2)
 }

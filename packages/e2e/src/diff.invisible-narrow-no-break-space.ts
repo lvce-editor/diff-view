@@ -5,7 +5,7 @@ export const name = 'diff.invisible-narrow-no-break-space'
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, `hello world`)
-  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `hello\u202Fworld`)
+  await FileSystem.writeFile(`${tmpDir}/file-2.txt`, `hello\u{202F}world`)
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/file-1.txt`, `${tmpDir}/file-2.txt`)
@@ -15,6 +15,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   // const changedTokens = Locator('.DiffToken--changed')
 
   await expect(beforePane).toHaveText('hello world')
-  await expect(afterPane).toHaveText('hello\u202Fworld')
+  await expect(afterPane).toHaveText('hello\u{202F}world')
   // await expect(changedTokens).toHaveCount(2)
 }

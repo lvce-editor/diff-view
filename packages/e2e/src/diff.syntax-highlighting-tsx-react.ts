@@ -1,6 +1,7 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.syntax-highlighting-tsx-react'
+const openBrace = '{'
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -13,7 +14,7 @@ type CardProps = {
   readonly subtitle: string
 }
 
-export function Card({ title, subtitle }: CardProps): ReactNode {
+export function Card(${openBrace} title, subtitle }: CardProps): ReactNode {
   const [isOpen, setIsOpen] = useState(false)
   const items = useMemo(() => [title, subtitle].filter(Boolean), [title, subtitle])
 
@@ -24,7 +25,7 @@ export function Card({ title, subtitle }: CardProps): ReactNode {
       </button>
       <ul>
         {items.map((item) => (
-          <li key={item}>{item}</li>
+          <li key=${openBrace}item}>${openBrace}item}</li>
         ))}
       </ul>
     </article>
@@ -41,7 +42,7 @@ type CardProps = {
   readonly description: string
 }
 
-export function Card({ title, description }: CardProps): ReactNode {
+export function Card(${openBrace} title, description }: CardProps): ReactNode {
   const [isOpen, setIsOpen] = useState(true)
   const items = useMemo(() => [title, description].filter(Boolean), [title, description])
 
@@ -52,7 +53,7 @@ export function Card({ title, description }: CardProps): ReactNode {
       </button>
       <ul>
         {items.map((item) => (
-          <li key={item}>{item}</li>
+          <li key=${openBrace}item}>${openBrace}item}</li>
         ))}
       </ul>
     </article>

@@ -32,10 +32,6 @@ const count = 2
 
   const contentLeft = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const contentRight = Locator('.DiffEditorContentRight .DiffEditorRows')
-  const keywordTokensLeft = Locator('.DiffEditorContentLeft .Token.Keyword')
-  const keywordTokensRight = Locator('.DiffEditorContentRight .Token.Keyword')
-  const numericTokensLeft = Locator('.DiffEditorContentLeft .Token.Numeric')
-  const numericTokensRight = Locator('.DiffEditorContentRight .Token.Numeric')
 
   await expect(contentLeft).toContainText('<template>')
   await expect(contentRight).toContainText('<template>')

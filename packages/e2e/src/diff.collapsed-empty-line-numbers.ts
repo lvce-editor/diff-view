@@ -27,7 +27,9 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const rightEmptyLineNumbers = Locator('.DiffEditorContentRight .DiffEditorLineNumberEmpty')
 
   await expect(rightLineNumbers).toHaveCount(1)
-  await expect(rightLineNumbers.nth(0)).toHaveText('1')
+  const expectedLocator0 = rightLineNumbers.nth(0)
+  await expect(expectedLocator0).toHaveText('1')
   await expect(rightEmptyLineNumbers).toHaveCount(1)
-  await expect(rightEmptyLineNumbers.nth(0)).toHaveAttribute('style', 'height: 220px;')
+  const expectedLocator1 = rightEmptyLineNumbers.nth(0)
+  await expect(expectedLocator1).toHaveAttribute('style', 'height: 220px;')
 }

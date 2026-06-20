@@ -17,6 +17,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await expect(hero).toContainText('Long Inline Change')
   await expect(changedTokens).toHaveCount(4)
-  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('loadUserProfileSummary')
-  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('loadUserProfileCard')
+  const expectedLocator0 = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  await expect(expectedLocator0).toContainText('loadUserProfileSummary')
+  const expectedLocator1 = Locator('.DiffEditorContentRight .DiffEditorRows')
+  await expect(expectedLocator1).toContainText('loadUserProfileCard')
 }

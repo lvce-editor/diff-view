@@ -205,6 +205,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   color: var(--DiffInsertionForeground);
 }
 
+.DiffToken--changed {
+  background: rgba(245, 158, 11, 0.22);
+  border-radius: 4px;
+}
+
 .DiffEditorLineMissing {
   background-color: var(--DiffMissingLineBackground);
   background-image: repeating-linear-gradient(135deg, transparent 0, transparent 5px, rgba(255, 255, 255, 0.06) 5px, rgba(255, 255, 255, 0.06) 6px);

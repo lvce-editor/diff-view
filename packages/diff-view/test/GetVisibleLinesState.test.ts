@@ -60,3 +60,51 @@ test('getVisibleLinesState hides line numbers for rows without a matching source
     ],
   })
 })
+
+test('getVisibleLinesState highlights a one-character change inside paired lines', (): void => {
+  const result = getVisibleLinesState({
+    contentLeft: 'const value = cat',
+    contentRight: 'const value = cut',
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 2 },
+      { leftIndex: 0, rightIndex: 0, type: 1 },
+    ],
+    maxLineY: 1,
+    minLineY: 0,
+    tokenizedLinesLeft: [],
+    tokenizedLinesRight: [],
+    totalLineCountLeft: 1,
+    totalLineCountRight: 1,
+  })
+
+  expect(result.visibleLinesLeft[0].tokens).toEqual([
+    { text: 'const value = c', type: '' },
+    { text: 'a', type: 'DiffToken--changed' },
+    { text: 't', type: '' },
+  ])
+  expect(result.visibleLinesRight[0].tokens).toEqual([
+    { text: 'const value = c', type: '' },
+    { text: 'u', type: 'DiffToken--changed' },
+    { text: 't', type: '' },
+  ])
+})
+
+test('getVisibleLinesState highlights multiple changed spans inside a long token', (): void => {
+  const result = getVisibleLinesState({
+    contentLeft: 'function loadUserProfileSummary() {}',
+    contentRight: 'function loadUserProfileCard() {}',
+    inlineChanges: [
+      { leftIndex: 0, rightIndex: 0, type: 2 },
+      { leftIndex: 0, rightIndex: 0, type: 1 },
+    ],
+    maxLineY: 1,
+    minLineY: 0,
+    tokenizedLinesLeft: [],
+    tokenizedLinesRight: [],
+    totalLineCountLeft: 1,
+    totalLineCountRight: 1,
+  })
+
+  expect(result.visibleLinesLeft[0].tokens.filter((token) => token.type === 'DiffToken--changed')).toHaveLength(2)
+  expect(result.visibleLinesRight[0].tokens.filter((token) => token.type === 'DiffToken--changed')).toHaveLength(2)
+})

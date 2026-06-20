@@ -41,7 +41,12 @@ test('handleInput inserts input at the start of the right content and recomputes
     visibleLinesRight: [
       {
         lineNumber: 1,
-        tokens: [{ text: 'gamma beta', type: '' }],
+        tokens: [
+          { text: 'g', type: 'DiffToken--changed' },
+          { text: 'a', type: '' },
+          { text: 'mma bet', type: 'DiffToken--changed' },
+          { text: 'a', type: '' },
+        ],
         type: VisibleLineType.Added,
       },
     ],

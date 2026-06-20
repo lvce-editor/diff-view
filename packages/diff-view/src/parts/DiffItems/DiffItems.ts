@@ -2,6 +2,8 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return (
+    oldState.contentLeft === newState.contentLeft &&
+    oldState.contentRight === newState.contentRight &&
     oldState.deltaY === newState.deltaY &&
     oldState.diffMode === newState.diffMode &&
     oldState.lineNumbers === newState.lineNumbers &&

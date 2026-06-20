@@ -5,6 +5,7 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
+import { getDiffModeToggleDom } from '../GetDiffModeToggleDom/GetDiffModeToggleDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
@@ -26,6 +27,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     imageSrcLeft,
     imageSrcRight,
     inlineChanges,
+    inputValue,
     itemHeight,
     layout,
     lineNumbers,
@@ -75,10 +77,12 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
       : getContentRightDom({
           allowedLinkSchemes,
           contentRight,
+          editable: true,
           errorCodeFrame: errorRightCodeFrame,
           errorMessage: errorRightMessage,
           errorStack: errorRightStack,
           inlineChanges,
+          inputValue,
           itemHeight,
           lineNumbers: showLineNumbers,
           maxLineY,
@@ -88,10 +92,12 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           visibleLines: visibleLinesRight,
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
+  const modeToggleDom = getDiffModeToggleDom(diffMode)
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: scrollBarActive ? 4 : 3,
+      childCount: scrollBarActive ? 5 : 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
+      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -99,6 +105,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,
+    ...modeToggleDom,
     ...scrollBarDom,
   ]
   return dom

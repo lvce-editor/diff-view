@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import * as DiffType from '../src/parts/DiffType/DiffType.ts'
 import { getRenderer } from '../src/parts/GetRenderer/GetRenderer.ts'
 import { renderCss } from '../src/parts/RenderCss/RenderCss.ts'
+import { renderFocus } from '../src/parts/RenderFocus/RenderFocus.ts'
 import { renderFocusContext } from '../src/parts/RenderFocusContext/RenderFocusContext.ts'
 import { renderIncremental } from '../src/parts/RenderIncremental/RenderIncremental.ts'
 import { renderItems } from '../src/parts/RenderItems/RenderItems.ts'
@@ -9,6 +10,7 @@ import { renderValue } from '../src/parts/RenderValue/RenderValue.ts'
 
 test.each([
   [DiffType.RenderCss, renderCss],
+  [DiffType.RenderFocus, renderFocus],
   [DiffType.RenderFocusContext, renderFocusContext],
   [DiffType.RenderIncremental, renderIncremental],
   [DiffType.RenderItems, renderItems],

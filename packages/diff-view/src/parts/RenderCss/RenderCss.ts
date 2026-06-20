@@ -50,6 +50,27 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   left: var(--DiffEditorSashLeft);
 }
 
+.DiffEditorModeToggle {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  color: var(--DiffForeground);
+  cursor: pointer;
+  display: inline-flex;
+  font: 12px system-ui, sans-serif;
+  height: 28px;
+  padding: 0 10px;
+  position: absolute;
+  right: 14px;
+  top: 8px;
+  z-index: 2;
+}
+
+.DiffEditorModeToggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .DiffEditorHorizontal {
   flex-direction: row;
 }
@@ -71,6 +92,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .InlineDiffEditorContent {
   display: flex;
+  flex-direction: row;
   height: 100%;
   overflow: hidden;
 }
@@ -79,6 +101,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorContentRight {
   display: flex;
   overflow: hidden;
+  position: relative;
 }
 
 .DiffEditorGutter {
@@ -149,6 +172,20 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 12px;
   white-space: pre;
+}
+
+.DiffEditorInput {
+  background: transparent;
+  border: 0;
+  color: transparent;
+  cursor: text;
+  height: 100%;
+  inset: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 1;
 }
 
 .DiffEditor .Deletion {

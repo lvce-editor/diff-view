@@ -1,5 +1,4 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
-import { WhenExpression } from '@lvce-editor/constants'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
@@ -24,7 +23,6 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     errorRightCodeFrame,
     errorRightMessage,
     errorRightStack,
-    focus,
     imageSrcLeft,
     imageSrcRight,
     inlineChanges,
@@ -81,7 +79,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           errorCodeFrame: errorRightCodeFrame,
           errorMessage: errorRightMessage,
           errorStack: errorRightStack,
-          focused: focus === WhenExpression.FocusEditorText,
+          editable: true,
           inlineChanges,
           inputValue,
           itemHeight,

@@ -14,7 +14,7 @@ interface GetContentRightDomOptions {
   readonly errorCodeFrame?: string
   readonly errorMessage?: string
   readonly errorStack?: string
-  readonly focused?: boolean
+  readonly editable?: boolean
   readonly inlineChanges?: readonly InlineDiffChange[]
   readonly inputValue?: string
   readonly itemHeight?: number
@@ -32,7 +32,7 @@ export const getContentRightDom = ({
   errorCodeFrame = '',
   errorMessage = '',
   errorStack = '',
-  focused = false,
+  editable = false,
   inlineChanges = [],
   inputValue = '',
   itemHeight = 20,
@@ -63,7 +63,7 @@ export const getContentRightDom = ({
     visibleLines,
     itemHeight,
   )
-  if (!focused || errorMessage) {
+  if (!editable || errorMessage) {
     return contentDom
   }
   const [outer, content, ...rest] = contentDom

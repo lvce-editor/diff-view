@@ -1,5 +1,6 @@
 import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import * as ActionName from '../src/parts/ActionName/ActionName.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
@@ -19,7 +20,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -129,6 +130,15 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Input,
       value: '',
     },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Inline diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Inline'),
   ])
 })
 
@@ -146,7 +156,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -200,6 +210,15 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Input,
       value: '',
     },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Inline diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Inline'),
   ])
 })
 
@@ -238,7 +257,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -298,6 +317,15 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Input,
       value: '',
     },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Inline diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Inline'),
   ])
 })
 
@@ -316,7 +344,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
 
   expect(result.slice(0, 10)).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -380,7 +408,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -457,6 +485,15 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     text('    at read missing file'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Inline diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Inline'),
   ])
 })
 
@@ -474,7 +511,7 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
 
   expect(result).toEqual([
     {
-      childCount: 1,
+      childCount: 2,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -541,6 +578,15 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
       type: VirtualDomElements.Div,
     },
     text('  shared'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Side by side diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Side by side'),
   ])
 })
 
@@ -557,7 +603,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   })
 
   expect(result[0]).toEqual({
-    childCount: 3,
+    childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
     onClick: DomEventListenerFunctions.HandleClickAt,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,

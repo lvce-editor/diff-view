@@ -1,6 +1,7 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { getDiffModeToggleDom } from '../GetDiffModeToggleDom/GetDiffModeToggleDom.ts'
 import { getInlineDiffLineNumberDom } from '../GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
 import { getInlineDiffRowDom } from '../GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
@@ -19,6 +20,7 @@ export const getInlineDiffEditorVirtualDom = (
   const contentChildCount = lineNumbers ? 2 : 1
   const scrollBarActive = visibleRows.length < rows.length
   const rowsChildCount = visibleRows.length
+  const modeToggleDom = getDiffModeToggleDom('inline')
   const lineNumberDom = lineNumbers
     ? [
         {
@@ -32,7 +34,7 @@ export const getInlineDiffEditorVirtualDom = (
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   return [
     {
-      childCount: scrollBarActive ? 2 : 1,
+      childCount: scrollBarActive ? 3 : 2,
       className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
       type: VirtualDomElements.Div,
     },
@@ -48,6 +50,7 @@ export const getInlineDiffEditorVirtualDom = (
       type: VirtualDomElements.Div,
     },
     ...visibleRows.flatMap(getInlineDiffRowDom),
+    ...modeToggleDom,
     ...scrollBarDom,
   ]
 }

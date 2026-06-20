@@ -2,6 +2,7 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
+import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
@@ -20,12 +21,14 @@ import { renderEventListeners } from '../RenderEventListeners/RenderEventListene
 import { saveState } from '../SaveState/SaveState.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
   'DiffView.create': Create2.create2,
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
+  'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
   'DiffView.handleInput': wrapCommand(handleInput),
@@ -45,5 +48,6 @@ export const commandMap = {
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.terminate': terminate,
+  'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),
   'Initialize.initialize': Initialize.initialize,
 }

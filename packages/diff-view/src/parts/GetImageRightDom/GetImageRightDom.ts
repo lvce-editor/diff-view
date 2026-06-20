@@ -6,12 +6,7 @@ export const getImageRightDom = (uriRight: string, imageSrc: string): readonly V
   return [
     {
       childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {

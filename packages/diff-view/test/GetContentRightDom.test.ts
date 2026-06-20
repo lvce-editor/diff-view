@@ -16,13 +16,8 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -71,12 +66,7 @@ test('getContentRightDom renders load errors when available', (): void => {
   expect(result).toEqual([
     {
       childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -105,13 +95,8 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -165,13 +150,8 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {

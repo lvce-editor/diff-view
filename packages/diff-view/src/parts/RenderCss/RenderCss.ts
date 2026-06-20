@@ -34,7 +34,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
-  --DiffEditorSashLeft: 20px;
 }
 
 
@@ -44,10 +43,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   display: flex;
   position: relative;
   width: 100%;
-}
-
-.DiffEditor .Sash {
-  left: var(--DiffEditorSashLeft);
 }
 
 .DiffEditorModeToggle,

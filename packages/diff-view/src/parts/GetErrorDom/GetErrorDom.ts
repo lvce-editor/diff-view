@@ -15,13 +15,8 @@ export const getErrorDom = (
   const childCount = 1 + Number(Boolean(errorCodeFrame)) + Number(Boolean(errorStack))
   return [
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount,
-      className: `${contentClassName} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${contentClassName} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {

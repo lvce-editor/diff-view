@@ -14,13 +14,8 @@ export const getContentDomWithLineNumbers = (
 ): readonly VirtualDomNode[] => {
   return [
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: contentClassName,
+      className: `${ClassNames.DiffEditorContent} ${contentClassName}`,
       type: VirtualDomElements.Div,
     },
     ...getGutterDom(visibleLines, itemHeight),

@@ -5,13 +5,8 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 export const getContentDomWithoutLineNumbers = (contentClassName: string, rowsChildCount: number, rows: readonly VirtualDomNode[]): readonly VirtualDomNode[] => {
   return [
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: rowsChildCount,
-      className: contentClassName,
+      className: `${ClassNames.DiffEditorContent} ${contentClassName}`,
       type: VirtualDomElements.Div,
     },
     ...rows,

@@ -16,13 +16,8 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -74,13 +69,8 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -107,13 +97,8 @@ test('getContentLeftDom renders load errors when available', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: `${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -166,13 +151,8 @@ test('getContentLeftDom renders paired deletion and insertion on the same row', 
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -226,13 +206,8 @@ test('getContentLeftDom renders syntax-highlighted token spans', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {

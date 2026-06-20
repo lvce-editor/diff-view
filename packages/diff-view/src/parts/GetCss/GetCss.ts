@@ -27,8 +27,5 @@ export const getCss = (): string => {
   white-space: nowrap;
 }
 
-.DiffEditor .Sash {
-  position: relative;
-}
   `
 }

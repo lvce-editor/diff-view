@@ -28,13 +28,8 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -79,13 +74,8 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 3,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -179,12 +169,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     },
     {
       childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -201,13 +186,8 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -315,12 +295,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     },
     {
       childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -343,13 +318,8 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentRight,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -405,7 +375,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     uriRight: '/tmp/after.txt',
   })
 
-  expect(result.slice(0, 10)).toEqual([
+  expect(result.slice(0, 9)).toEqual([
     {
       childCount: 5,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
@@ -415,13 +385,8 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -479,13 +444,8 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: ClassNames.DiffEditorContentLeft,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -518,13 +478,8 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -691,7 +646,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
     onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,
   })
-  expect(result[9]).toEqual({
+  expect(result[8]).toEqual({
     childCount: 0,
     className: `${ClassNames.Sash} ${ClassNames.SashHorizontal}`,
     name: 'sash',

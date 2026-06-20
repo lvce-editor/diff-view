@@ -13,8 +13,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
   const input = Locator('.DiffEditorInput')
 
+  await expect(input).toHaveCount(1)
   await input.type('gamma ')
+  await input.dispatchEvent('input', '{}')
 
+  await expect(input).toHaveValue('gamma ')
   await expect(afterRows).toHaveText('gamma beta')
   await expect(afterRows.locator('.EditorRow').first()).toHaveClass('EditorRow Insertion')
 }

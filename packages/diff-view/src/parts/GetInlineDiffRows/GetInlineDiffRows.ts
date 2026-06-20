@@ -4,10 +4,11 @@ import { getDeletionRow } from './GetDeletionRow/GetDeletionRow.ts'
 import { getInsertionRow } from './GetInsertionRow/GetInsertionRow.ts'
 import { getLines } from './GetLines/GetLines.ts'
 import { getLookAheadRows } from './GetLookAheadRows/GetLookAheadRows.ts'
+import { InlineDiffRowType as InlineDiffRowTypeValue } from './InlineDiffRowType/InlineDiffRowType.ts'
 
 export { type InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
-export { InlineDiffRowType } from './InlineDiffRowType/InlineDiffRowType.ts'
-export type { InlineDiffRowType } from './InlineDiffRowType/InlineDiffRowType.ts'
+export const InlineDiffRowType = InlineDiffRowTypeValue
+export type InlineDiffRowType = (typeof InlineDiffRowType)[keyof typeof InlineDiffRowType]
 
 export const getInlineDiffRows = (contentLeft: string, contentRight: string): readonly InlineDiffRow[] => {
   const leftLines = getLines(contentLeft)

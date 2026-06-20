@@ -1,5 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, FileSystemWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { readFile } from '../src/parts/ReadFile/ReadFile.ts'
 
 test('readFile returns empty content for untitled uri', async (): Promise<void> => {
@@ -74,6 +74,28 @@ test('readFile reads memfs content through the memory file system command', asyn
 
   expect(result).toBe('memfs-content')
   expect(extensionHostRpc.invocations).toEqual([['FileSystemMemory.readFile', '/workspace/file.txt']])
+})
+
+test('readFile reads fetch content through renderer file system', async (): Promise<void> => {
+  const extensionHostRpc = ExtensionHost.registerMockRpc({
+    'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
+      throw new Error('should not call extension host file system for fetch uris')
+    },
+  })
+  const rendererWorkerRpc = RendererWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
+      if (uri !== 'fetch:///playground/package-lock.json') {
+        throw new Error(`unexpected params: ${uri}`)
+      }
+      return 'fetch-content'
+    },
+  })
+
+  const result = await readFile('fetch:///playground/package-lock.json')
+
+  expect(result).toBe('fetch-content')
+  expect(extensionHostRpc.invocations).toEqual([])
+  expect(rendererWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'fetch:///playground/package-lock.json']])
 })
 
 test('readFile reads non-file protocols through extension host', async (): Promise<void> => {

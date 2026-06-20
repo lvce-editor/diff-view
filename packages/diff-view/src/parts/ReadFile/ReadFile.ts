@@ -1,4 +1,4 @@
-import { ExtensionHost, FileSystemWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionHost, FileSystemWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { getPath } from '../GetPath/GetPath.ts'
 import { getProtocol } from '../GetProtocol/GetProtocol.ts'
 import { toFileUri } from '../ToFileUri/ToFileUri.ts'
@@ -13,6 +13,9 @@ export const readFile = async (uri: string): Promise<string> => {
   }
   if (protocol === 'file') {
     return FileSystemWorker.readFile(toFileUri(uri))
+  }
+  if (protocol === 'fetch') {
+    return RendererWorker.readFile(uri)
   }
   const path = getPath(protocol, uri)
   if (protocol === 'memfs') {

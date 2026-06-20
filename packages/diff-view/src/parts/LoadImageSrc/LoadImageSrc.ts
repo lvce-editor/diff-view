@@ -1,6 +1,6 @@
 import { FileSystemWorker } from '@lvce-editor/rpc-registry'
-import { getProtocol } from '../GetProtocol/GetProtocol.ts'
 import { getPath } from '../GetPath/GetPath.ts'
+import { getProtocol } from '../GetProtocol/GetProtocol.ts'
 import { toFileUri } from '../ToFileUri/ToFileUri.ts'
 
 const readImageContent = async (uri: string, protocol: string): Promise<unknown> => {

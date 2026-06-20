@@ -2,9 +2,15 @@ import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
+import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
+import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
+import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
+import { handleCopy } from '../HandleCopy/HandleCopy.ts'
+import { handleCut } from '../HandleCut/HandleCut.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import { handlePaste } from '../HandlePaste/HandlePaste.ts'
 import { handleResize } from '../HandleResize/HandleResize.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
 import { handleSashPointerMove } from '../HandleSashPointerMove/HandleSashPointerMove.ts'
@@ -26,9 +32,15 @@ export const commandMap = {
   'DiffView.create': Create2.create2,
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
+  'DiffView.getMenuEntries': getMenuEntries,
+  'DiffView.getMenuEntries2': getMenuEntries2,
+  'DiffView.getMenuIds': getMenuIds,
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
+  'DiffView.handleCopy': wrapCommand(handleCopy),
+  'DiffView.handleCut': wrapCommand(handleCut),
   'DiffView.handleInput': wrapCommand(handleInput),
+  'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
   'DiffView.handleSashPointerMove': wrapCommand(handleSashPointerMove),

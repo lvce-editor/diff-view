@@ -1,3 +1,5 @@
+import { MenuEntryId } from '@lvce-editor/constants'
+
 export const getMenuIds = (): readonly number[] => {
-  return []
+  return [MenuEntryId.SourceControl]
 }

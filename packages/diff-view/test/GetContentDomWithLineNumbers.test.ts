@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentDomWithLineNumbers } from '../src/parts/GetContentDomWithLineNumbers/GetContentDomWithLineNumbers.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
-test('getContentDomWithLineNumbers builds gutter and rows dom with empty line groups', (): void => {
+test('getContentDomWithLineNumbers builds gutter and rows dom with empty line numbers', (): void => {
   const rows = [
     {
       childCount: 0,

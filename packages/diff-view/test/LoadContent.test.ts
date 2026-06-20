@@ -194,9 +194,9 @@ test('loadContent sets image render mode when a side has an image extension', as
       }
       throw new Error(`unexpected params: ${uri}`)
     },
-    'FileSystem.readFileAsBlob': async (uri: string): Promise<unknown> => {
-      if (uri === 'file:///tmp/before.png') {
-        return {}
+    'FileSystem.readFileAsBuffer': async (uri: string): Promise<unknown> => {
+      if (uri === '/tmp/before.png') {
+        return new Uint8Array([1, 2, 3])
       }
       throw new Error(`unexpected params: ${uri}`)
     },
@@ -216,7 +216,7 @@ test('loadContent sets image render mode when a side has an image extension', as
   expect(fileSystemWorkerRpc.invocations).toEqual([
     ['FileSystem.readFile', 'file:///tmp/before.png'],
     ['FileSystem.readFile', 'file:///tmp/after.txt'],
-    ['FileSystem.readFileAsBlob', 'file:///tmp/before.png'],
+    ['FileSystem.readFileAsBuffer', '/tmp/before.png'],
   ])
   expect(result).toMatchObject({
     contentLeft: 'binary-image-content',

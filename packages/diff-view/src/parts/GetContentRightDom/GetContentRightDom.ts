@@ -75,6 +75,11 @@ export const getContentRightDom = ({
     },
     ...rest,
     {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 0,
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,

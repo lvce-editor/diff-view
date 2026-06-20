@@ -174,6 +174,12 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   white-space: pre;
 }
 
+.DiffEditorInputWrapper {
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
 .DiffEditorInput {
   background: transparent;
   border: 0;
@@ -185,7 +191,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   padding: 0;
   position: absolute;
   width: 100%;
-  z-index: 1;
 }
 
 .DiffEditor .Deletion {

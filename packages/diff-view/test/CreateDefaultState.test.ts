@@ -15,4 +15,5 @@ test('createDefaultState sets up image render defaults', (): void => {
   expect(result.renderModeRight).toBe('text')
   expect(result.totalLineCountLeft).toBe(1)
   expect(result.totalLineCountRight).toBe(1)
+  expect(result.wordWrap).toBe(false)
 })

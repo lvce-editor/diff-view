@@ -5,15 +5,24 @@ import * as ActionName from '../ActionName/ActionName.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
+const getLabel = (diffMode: DiffMode): string => {
+  return diffMode === 'inline' ? 'Side by side' : 'Inline'
+}
+
+const getTitle = (diffMode: DiffMode): string => {
+  const label = getLabel(diffMode)
+  return `Switch to ${label} diff`
+}
+
 export const getDiffModeToggleDom = (diffMode: DiffMode): readonly VirtualDomNode[] => {
-  const label = diffMode === 'inline' ? 'Side by side' : 'Inline'
+  const label = getLabel(diffMode)
   return [
     {
       childCount: 1,
       className: ClassNames.DiffEditorModeToggle,
       name: ActionName.ToggleDiffMode,
       onClick: DomEventListenerFunctions.HandleClickAction,
-      title: `Switch to ${label} diff`,
+      title: getTitle(diffMode),
       type: VirtualDomElements.Button,
     },
     text(label),

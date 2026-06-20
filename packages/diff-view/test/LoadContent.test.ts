@@ -82,7 +82,12 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     visibleLinesLeft: [
       {
         lineNumber: 1,
-        tokens: [{ text: 'before-content', type: '' }],
+        tokens: [
+          { text: 'be', type: 'DiffToken--changed' },
+          { text: 'f', type: '' },
+          { text: 'or', type: 'DiffToken--changed' },
+          { text: 'e-content', type: '' },
+        ],
         type: VisibleLineType.Removed,
       },
       {
@@ -94,7 +99,10 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
     visibleLinesRight: [
       {
         lineNumber: 1,
-        tokens: [{ text: 'after-content', type: '' }],
+        tokens: [
+          { text: 'aft', type: 'DiffToken--changed' },
+          { text: 'er-content', type: '' },
+        ],
         type: VisibleLineType.Added,
       },
       {
@@ -301,7 +309,12 @@ test('loadContent expands total line count for inline mode when replacements spl
       },
       {
         lineNumber: 2,
-        tokens: [{ text: 'before', type: '' }],
+        tokens: [
+          { text: 'be', type: 'DiffToken--changed' },
+          { text: 'f', type: '' },
+          { text: 'or', type: 'DiffToken--changed' },
+          { text: 'e', type: '' },
+        ],
         type: VisibleLineType.Removed,
       },
       {
@@ -318,7 +331,10 @@ test('loadContent expands total line count for inline mode when replacements spl
       },
       {
         lineNumber: 2,
-        tokens: [{ text: 'after', type: '' }],
+        tokens: [
+          { text: 'aft', type: 'DiffToken--changed' },
+          { text: 'er', type: '' },
+        ],
         type: VisibleLineType.Added,
       },
       {

@@ -82,8 +82,12 @@ export const DiffEditorRows = 'DiffEditorRows'
 export const DiffEditorHorizontal = 'DiffEditorHorizontal'
 export const DiffEditorModeToggle = 'DiffEditorModeToggle'
 export const DiffEditorVertical = 'DiffEditorVertical'
+<<<<<<< HEAD
 export const DiffEditorWhitespaceToggle = 'DiffEditorWhitespaceToggle'
 export const DiffEditorWhitespaceToggleActive = 'DiffEditorWhitespaceToggleActive'
+=======
+export const DiffTokenChanged = 'DiffToken--changed'
+>>>>>>> origin/main
 export const Editor = 'Editor'
 export const EditorCompletionItem = 'EditorCompletionItem'
 export const EditorCompletionItemDeprecated = 'EditorCompletionItemDeprecated'

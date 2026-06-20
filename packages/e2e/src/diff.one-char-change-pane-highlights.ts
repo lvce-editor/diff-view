@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.one-char-change-pane-highlights'
 
-export const skip = 1
+// export const skip = 1
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -19,6 +19,6 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(expectedLocator0).toHaveCount(1)
   const expectedLocator1 = Locator('.DiffEditorContentRight .DiffToken--changed')
   await expect(expectedLocator1).toHaveCount(1)
-  await expect(beforePane).not.toContainText('const value = cut')
-  await expect(afterPane).not.toContainText('const value = cat')
+  await expect(beforePane).toHaveText('const value = cat')
+  await expect(afterPane).toHaveText('const value = cut')
 }

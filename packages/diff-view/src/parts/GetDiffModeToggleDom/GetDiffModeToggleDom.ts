@@ -1,8 +1,8 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { DiffMode } from '../DiffViewState/DiffViewState.ts'
 import * as ActionName from '../ActionName/ActionName.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
-import type { DiffMode } from '../DiffViewState/DiffViewState.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
 export const getDiffModeToggleDom = (diffMode: DiffMode): readonly VirtualDomNode[] => {

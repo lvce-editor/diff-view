@@ -1,3 +1,4 @@
+export const DiffEditorInput = 'DiffEditorInput'
 export const SourceControlInput = 'SourceControlInput'
 export const ViewAsTree = 'ViewAsTree'
 export const CommitAndPush = 'CommitAndPush'

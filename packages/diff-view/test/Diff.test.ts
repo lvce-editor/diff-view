@@ -13,11 +13,24 @@ test('diff returns the renderers for changed state groups', (): void => {
     inputValue: 'changed',
   }
 
-  expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocusContext])
+  expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocus, DiffType.RenderFocusContext])
 })
 
 test('diff returns no renderers when states are equal', (): void => {
   const state = createDefaultState()
 
   expect(diff(state, state)).toEqual([])
+})
+
+test('diff returns incremental renderer when right content changes without line count changes', (): void => {
+  const oldState = {
+    ...createDefaultState(),
+    contentRight: 'beta',
+  }
+  const newState = {
+    ...oldState,
+    contentRight: 'gamma beta',
+  }
+
+  expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental])
 })

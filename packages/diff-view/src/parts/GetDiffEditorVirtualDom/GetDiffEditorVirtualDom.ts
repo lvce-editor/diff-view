@@ -26,6 +26,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     imageSrcLeft,
     imageSrcRight,
     inlineChanges,
+    inputValue,
     itemHeight,
     layout,
     lineNumbers,
@@ -75,10 +76,12 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
       : getContentRightDom({
           allowedLinkSchemes,
           contentRight,
+          editable: true,
           errorCodeFrame: errorRightCodeFrame,
           errorMessage: errorRightMessage,
           errorStack: errorRightStack,
           inlineChanges,
+          inputValue,
           itemHeight,
           lineNumbers: showLineNumbers,
           maxLineY,
@@ -92,6 +95,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     {
       childCount: scrollBarActive ? 4 : 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
+      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,

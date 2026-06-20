@@ -42,7 +42,7 @@ test('getGutterDom renders the gutter and line numbers', (): void => {
   ])
 })
 
-test('getGutterDom collapses consecutive empty line numbers into a single placeholder block', (): void => {
+test('getGutterDom renders empty line numbers as row-aligned nodes', (): void => {
   const result = getGutterDom(
     [
       {
@@ -76,7 +76,7 @@ test('getGutterDom collapses consecutive empty line numbers into a single placeh
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 5,
       className: ClassNames.DiffEditorGutter,
       type: VirtualDomElements.Div,
     },
@@ -87,11 +87,23 @@ test('getGutterDom collapses consecutive empty line numbers into a single placeh
     },
     text('1'),
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorLineNumberEmpty,
-      style: 'height: 60px;',
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
       type: VirtualDomElements.Div,
     },
+    text(''),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text(''),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text(''),
     {
       childCount: 1,
       className: ClassNames.DiffEditorLineNumber,

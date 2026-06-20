@@ -4,7 +4,7 @@ import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import { getContentDomWithLineNumbers } from '../src/parts/GetContentDomWithLineNumbers/GetContentDomWithLineNumbers.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
-test('getContentDomWithLineNumbers builds gutter and rows dom with empty line groups', (): void => {
+test('getContentDomWithLineNumbers builds gutter and rows dom with empty line numbers', (): void => {
   const rows = [
     {
       childCount: 0,
@@ -49,7 +49,7 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line gr
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 4,
       className: ClassNames.DiffEditorGutter,
       type: VirtualDomElements.Div,
     },
@@ -60,11 +60,17 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line gr
     },
     text('1'),
     {
-      childCount: 0,
-      className: ClassNames.DiffEditorLineNumberEmpty,
-      style: 'height: 36px;',
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
       type: VirtualDomElements.Div,
     },
+    text(''),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text(''),
     {
       childCount: 1,
       className: ClassNames.DiffEditorLineNumber,

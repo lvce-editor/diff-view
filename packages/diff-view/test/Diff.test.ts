@@ -34,3 +34,13 @@ test('diff returns incremental renderer when right content changes without line 
 
   expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental])
 })
+
+test('diff returns incremental renderer when show whitespace changes', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    showWhitespace: true,
+  }
+
+  expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental])
+})

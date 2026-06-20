@@ -11,6 +11,14 @@ test('handleClickAction toggles diff mode for the mode toggle action', (): void 
   expect(result.diffMode).toBe('inline')
 })
 
+test('handleClickAction toggles whitespace for the whitespace toggle action', (): void => {
+  const state = createDefaultState()
+
+  const result = handleClickAction(state, ActionName.ToggleWhitespace)
+
+  expect(result.showWhitespace).toBe(true)
+})
+
 test('handleClickAction ignores unknown actions', (): void => {
   const state = createDefaultState()
 

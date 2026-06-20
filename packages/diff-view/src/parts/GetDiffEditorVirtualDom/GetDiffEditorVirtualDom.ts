@@ -11,6 +11,7 @@ import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getSashDom } from '../GetSashDom/GetSashDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+import { getWhitespaceToggleDom } from '../GetWhitespaceToggleDom/GetWhitespaceToggleDom.ts'
 
 export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualDomNode[] => {
   const {
@@ -36,6 +37,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     renderModeLeft,
     renderModeRight,
     scrollBarActive,
+    showWhitespace,
     tokenizedLinesLeft,
     tokenizedLinesRight,
     totalLineCountLeft,
@@ -47,7 +49,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   } = state
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
-    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY)
+    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, showWhitespace)
   }
 
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
@@ -93,9 +95,10 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const modeToggleDom = getDiffModeToggleDom(diffMode)
+  const whitespaceToggleDom = getWhitespaceToggleDom(showWhitespace)
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: scrollBarActive ? 5 : 4,
+      childCount: scrollBarActive ? 6 : 5,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -105,6 +108,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,
+    ...whitespaceToggleDom,
     ...modeToggleDom,
     ...scrollBarDom,
   ]

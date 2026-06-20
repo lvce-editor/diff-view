@@ -30,6 +30,7 @@ import { saveState } from '../SaveState/SaveState.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
+import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
@@ -65,5 +66,6 @@ export const commandMap = {
   'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),
+  'DiffView.toggleWhitespace': wrapCommand(toggleWhitespace),
   'Initialize.initialize': Initialize.initialize,
 }

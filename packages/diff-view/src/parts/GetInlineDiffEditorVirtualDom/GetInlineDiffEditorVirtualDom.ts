@@ -6,6 +6,7 @@ import { getInlineDiffLineNumberDom } from '../GetInlineDiffLineNumberDom/GetInl
 import { getInlineDiffRowDom } from '../GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+import { getWhitespaceToggleDom } from '../GetWhitespaceToggleDom/GetWhitespaceToggleDom.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
 export const getInlineDiffEditorVirtualDom = (
@@ -14,6 +15,7 @@ export const getInlineDiffEditorVirtualDom = (
   lineNumbers: boolean,
   minLineY: number,
   maxLineY: number,
+  showWhitespace: boolean,
 ): readonly VirtualDomNode[] => {
   const rows = getInlineDiffRows(contentLeft, contentRight)
   const visibleRows = rows.slice(minLineY, maxLineY)
@@ -21,6 +23,7 @@ export const getInlineDiffEditorVirtualDom = (
   const scrollBarActive = visibleRows.length < rows.length
   const rowsChildCount = visibleRows.length
   const modeToggleDom = getDiffModeToggleDom('inline')
+  const whitespaceToggleDom = getWhitespaceToggleDom(showWhitespace)
   const lineNumberDom = lineNumbers
     ? [
         {
@@ -34,7 +37,7 @@ export const getInlineDiffEditorVirtualDom = (
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   return [
     {
-      childCount: scrollBarActive ? 3 : 2,
+      childCount: scrollBarActive ? 4 : 3,
       className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
       type: VirtualDomElements.Div,
     },
@@ -50,6 +53,7 @@ export const getInlineDiffEditorVirtualDom = (
       type: VirtualDomElements.Div,
     },
     ...visibleRows.flatMap(getInlineDiffRowDom),
+    ...whitespaceToggleDom,
     ...modeToggleDom,
     ...scrollBarDom,
   ]

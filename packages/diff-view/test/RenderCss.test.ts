@@ -105,6 +105,7 @@ test('renderCss includes inline diff styling hooks', (): void => {
 
   expect(result[2]).toContain('.InlineDiffEditor {')
   expect(result[2]).toContain('.InlineDiffEditorContent {')
+  expect(result[2]).toContain('flex-direction: row;')
   expect(result[2]).toContain('.Insertion {')
   expect(result[2]).toContain('.Deletion {')
 })

@@ -35,3 +35,26 @@ test('setDiffMode returns the same state when mode is unchanged', (): void => {
 
   expect(result).toBe(state)
 })
+
+test('setDiffMode switches back to side-by-side mode', (): void => {
+  const state = {
+    ...createDefaultState(),
+    contentLeft: 'same\nbefore\nshared',
+    contentRight: 'same\nafter\nshared',
+    diffMode: 'inline' as const,
+    height: 40,
+    itemHeight: 20,
+    minimumSliderSize: 30,
+    totalLineCount: 4,
+  }
+
+  const result = setDiffMode(state, 'side-by-side')
+
+  expect(result).toMatchObject({
+    diffMode: 'side-by-side',
+    finalDeltaY: 20,
+    maxLineY: 2,
+    minLineY: 0,
+    totalLineCount: 3,
+  })
+})

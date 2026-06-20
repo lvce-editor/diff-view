@@ -50,6 +50,27 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   left: var(--DiffEditorSashLeft);
 }
 
+.DiffEditorModeToggle {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  color: var(--DiffForeground);
+  cursor: pointer;
+  display: inline-flex;
+  font: 12px system-ui, sans-serif;
+  height: 28px;
+  padding: 0 10px;
+  position: absolute;
+  right: 14px;
+  top: 8px;
+  z-index: 2;
+}
+
+.DiffEditorModeToggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .DiffEditorHorizontal {
   flex-direction: row;
 }
@@ -71,6 +92,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .InlineDiffEditorContent {
   display: flex;
+  flex-direction: row;
   height: 100%;
   overflow: hidden;
 }

@@ -73,6 +73,7 @@ export interface DiffViewState {
   readonly visibleLinesLeft: readonly VisibleLine[]
   readonly visibleLinesRight: readonly VisibleLine[]
   readonly width: number
+  readonly wordWrap: boolean
   readonly workspacePath: string
   readonly x: number
   readonly y: number

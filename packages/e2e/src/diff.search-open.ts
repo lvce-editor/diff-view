@@ -1,0 +1,31 @@
+import type { Test } from '@lvce-editor/test-with-playwright'
+
+export const name = 'diff.search-open'
+
+export const skip = 1
+
+export const test: Test = async ({ DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
+  const tmpDir = await FileSystem.getTmpDir()
+  await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha\nbeta')
+  await FileSystem.writeFile(`${tmpDir}/after.txt`, 'alpha\ngamma')
+  await Workspace.setPath(tmpDir)
+
+  await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
+
+  await KeyBoard.press('Control+f')
+
+  const searchWidget = Locator('.DiffSearchWidget')
+  const searchInput = Locator('.DiffSearchInput')
+  const matchCount = Locator('.DiffSearchMatchCount')
+  const previousButton = Locator('.DiffSearchPrevious')
+  const nextButton = Locator('.DiffSearchNext')
+  const closeButton = Locator('.DiffSearchClose')
+
+  await expect(searchWidget).toBeVisible()
+  await expect(searchInput).toBeFocused()
+  await expect(searchInput).toHaveValue('')
+  await expect(matchCount).toHaveText('0 of 0')
+  await expect(previousButton).toBeVisible()
+  await expect(nextButton).toBeVisible()
+  await expect(closeButton).toBeVisible()
+}

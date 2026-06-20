@@ -9,6 +9,9 @@ const createSvgDataUri = (label, accent) => {
 
 const imageDataUris = {
   avif: `data:image/avif;base64,${placeholderBase64}`,
+  bmp: `data:image/bmp;base64,${placeholderBase64}`,
+  gif: `data:image/gif;base64,${placeholderBase64}`,
+  ico: `data:image/x-icon;base64,${placeholderBase64}`,
   jpg: `data:image/jpeg;base64,${placeholderBase64}`,
   png: `data:image/png;base64,${placeholderBase64}`,
   webp: `data:image/webp;base64,${placeholderBase64}`,
@@ -76,11 +79,76 @@ const fixtures = {
       type: 'image',
     },
   },
+  'image-bmp-valid-both': {
+    hero: 'BMP Images',
+    before: {
+      alt: 'left.bmp',
+      src: imageDataUris.bmp,
+      type: 'image',
+    },
+    after: {
+      alt: 'right.bmp',
+      src: imageDataUris.bmp,
+      type: 'image',
+    },
+  },
+  'image-gif-valid-both': {
+    hero: 'GIF Images',
+    before: {
+      alt: 'left.gif',
+      src: imageDataUris.gif,
+      type: 'image',
+    },
+    after: {
+      alt: 'right.gif',
+      src: imageDataUris.gif,
+      type: 'image',
+    },
+  },
+  'image-ico-valid-both': {
+    hero: 'ICO Images',
+    before: {
+      alt: 'left.ico',
+      src: imageDataUris.ico,
+      type: 'image',
+    },
+    after: {
+      alt: 'right.ico',
+      src: imageDataUris.ico,
+      type: 'image',
+    },
+  },
+  'image-invalid-both': {
+    hero: 'Invalid Images',
+    before: {
+      alt: 'left-invalid.svg',
+      errorMessage: 'Failed to load image: left-invalid.svg',
+      type: 'image',
+    },
+    after: {
+      alt: 'right-invalid.svg',
+      errorMessage: 'Failed to load image: right-invalid.svg',
+      type: 'image',
+    },
+  },
   'image-invalid-left-valid-right': {
     hero: 'Invalid Left Image',
     before: {
       alt: 'left-invalid.svg',
       errorMessage: 'Failed to load image: left-invalid.svg',
+      type: 'image',
+    },
+    after: {
+      alt: 'right-valid.svg',
+      src: createSvgDataUri('right', '#0f766e'),
+      type: 'image',
+    },
+  },
+  'image-missing-left-valid-right': {
+    hero: 'Missing Left Image',
+    before: {
+      alt: 'missing-left.svg',
+      errorMessage: 'Failed to load image: missing-left.svg',
       type: 'image',
     },
     after: {
@@ -149,6 +217,19 @@ const fixtures = {
     after: {
       alt: 'right.png',
       src: imageDataUris.png,
+      type: 'image',
+    },
+  },
+  'image-valid-left-invalid-right': {
+    hero: 'Invalid Right Image',
+    before: {
+      alt: 'left-valid.svg',
+      src: createSvgDataUri('left', '#2563eb'),
+      type: 'image',
+    },
+    after: {
+      alt: 'right-invalid.svg',
+      errorMessage: 'Failed to load image: right-invalid.svg',
       type: 'image',
     },
   },

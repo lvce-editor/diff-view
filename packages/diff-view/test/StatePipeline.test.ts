@@ -45,7 +45,7 @@ test('diff2 returns the diff modules selected for the stored state pair', (): vo
   DiffViewStates.set(uid, oldState, newState)
 
   expect(diff2(uid)).toEqual(Diff.diff(oldState, newState))
-  expect(diff2(uid)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocusContext])
+  expect(diff2(uid)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocus, DiffType.RenderFocusContext])
 })
 
 test('renderIncremental returns an empty patch list for identical dom trees', (): void => {

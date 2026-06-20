@@ -1,10 +1,12 @@
-import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
+import { VirtualDomElements, type VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import type { InlineDiffChange } from '../InlineDiffChange/InlineDiffChange.ts'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
+import * as InputName from '../InputName/InputName.ts'
 
 interface GetContentRightDomOptions {
   readonly allowedLinkSchemes?: readonly string[]
@@ -12,7 +14,9 @@ interface GetContentRightDomOptions {
   readonly errorCodeFrame?: string
   readonly errorMessage?: string
   readonly errorStack?: string
+  readonly focused?: boolean
   readonly inlineChanges?: readonly InlineDiffChange[]
+  readonly inputValue?: string
   readonly itemHeight?: number
   readonly lineNumbers?: boolean
   readonly maxLineY?: number
@@ -28,7 +32,9 @@ export const getContentRightDom = ({
   errorCodeFrame = '',
   errorMessage = '',
   errorStack = '',
+  focused = false,
   inlineChanges = [],
+  inputValue = '',
   itemHeight = 20,
   lineNumbers = true,
   maxLineY,
@@ -40,7 +46,7 @@ export const getContentRightDom = ({
   const resolvedTotalLineCount = totalLineCount ?? (contentRight ? contentRight.split('\n').length : 1)
   const resolvedMaxLineY = maxLineY ?? resolvedTotalLineCount
 
-  return getContentDom(
+  const contentDom = getContentDom(
     ClassNames.DiffEditorContentRight,
     contentRight,
     errorMessage,
@@ -57,4 +63,24 @@ export const getContentRightDom = ({
     visibleLines,
     itemHeight,
   )
+  if (!focused || errorMessage) {
+    return contentDom
+  }
+  const [outer, content, ...rest] = contentDom
+  return [
+    outer,
+    {
+      ...content,
+      childCount: content.childCount + 1,
+    },
+    ...rest,
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.Input,
+      value: inputValue,
+    },
+  ]
 }

@@ -13,7 +13,13 @@ test('diff returns the renderers for changed state groups', (): void => {
     inputValue: 'changed',
   }
 
-  expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocusContext])
+  expect(diff(oldState, newState)).toEqual([
+    DiffType.RenderIncremental,
+    DiffType.RenderValue,
+    DiffType.RenderCss,
+    DiffType.RenderFocus,
+    DiffType.RenderFocusContext,
+  ])
 })
 
 test('diff returns no renderers when states are equal', (): void => {

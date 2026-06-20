@@ -79,6 +79,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorContentRight {
   display: flex;
   overflow: hidden;
+  position: relative;
 }
 
 .DiffEditorGutter {
@@ -149,6 +150,17 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 12px;
   white-space: pre;
+}
+
+.DiffEditorInput {
+  border: 0;
+  height: 1px;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
 }
 
 .DiffEditor .Deletion {

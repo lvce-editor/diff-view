@@ -9,12 +9,7 @@ test('getErrorDom renders an error message without a stack trace', (): void => {
   expect(result).toEqual([
     {
       childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 1,
-      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -31,13 +26,8 @@ test('getErrorDom renders an error message and stack trace', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: `${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -80,13 +70,8 @@ test('getErrorDom applies the allowed link scheme allowlist', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: `${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {
@@ -132,13 +117,8 @@ test('getErrorDom renders an error message with code frame and stack trace', ():
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 3,
-      className: `${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       type: VirtualDomElements.Div,
     },
     {

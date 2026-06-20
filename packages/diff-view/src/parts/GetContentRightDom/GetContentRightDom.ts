@@ -66,9 +66,8 @@ export const getContentRightDom = ({
   if (!editable || errorMessage) {
     return contentDom
   }
-  const [outer, content, ...rest] = contentDom
+  const [content, ...rest] = contentDom
   return [
-    outer,
     {
       ...content,
       childCount: content.childCount + 1,

@@ -39,13 +39,8 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line nu
 
   expect(result).toEqual([
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorContent,
-      type: VirtualDomElements.Div,
-    },
-    {
       childCount: 2,
-      className: 'CustomContent',
+      className: `${ClassNames.DiffEditorContent} CustomContent`,
       type: VirtualDomElements.Div,
     },
     {

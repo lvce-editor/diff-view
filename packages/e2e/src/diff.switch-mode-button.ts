@@ -4,12 +4,18 @@ export const name = 'diff.switch-mode-button'
 
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/before.txt`, `same
+  await FileSystem.writeFile(
+    `${tmpDir}/before.txt`,
+    `same
 before
-shared`)
-  await FileSystem.writeFile(`${tmpDir}/after.txt`, `same
+shared`,
+  )
+  await FileSystem.writeFile(
+    `${tmpDir}/after.txt`,
+    `same
 after
-shared`)
+shared`,
+  )
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)

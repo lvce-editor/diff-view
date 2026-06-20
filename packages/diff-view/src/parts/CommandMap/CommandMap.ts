@@ -15,6 +15,8 @@ import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/Handle
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
+import { jumpToNextChange } from '../JumpToNextChange/JumpToNextChange.ts'
+import { jumpToPreviousChange } from '../JumpToPreviousChange/JumpToPreviousChange.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
@@ -41,6 +43,8 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
   'DiffView.handleWheel': wrapCommand(handleWheel),
   'DiffView.initialize': Initialize.initialize,
+  'DiffView.jumpToNextChange': wrapCommand(jumpToNextChange),
+  'DiffView.jumpToPreviousChange': wrapCommand(jumpToPreviousChange),
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,

@@ -40,7 +40,7 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenersFunctions.HandleClickAction,
-      params: ['handleActionClick', EventExpression.TargetName],
+      params: ['handleClickAction', EventExpression.TargetName],
     },
     {
       name: DomEventListenersFunctions.HandleSashPointerDown,

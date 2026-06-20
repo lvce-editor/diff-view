@@ -50,7 +50,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   left: var(--DiffEditorSashLeft);
 }
 
-.DiffEditorModeToggle {
+.DiffEditorModeToggle,
+.DiffEditorWhitespaceToggle {
   align-items: center;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -67,8 +68,18 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   z-index: 2;
 }
 
-.DiffEditorModeToggle:hover {
+.DiffEditorWhitespaceToggle {
+  right: 96px;
+}
+
+.DiffEditorModeToggle:hover,
+.DiffEditorWhitespaceToggle:hover {
   background: rgba(255, 255, 255, 0.14);
+}
+
+.DiffEditorWhitespaceToggleActive {
+  background: rgba(74, 144, 226, 0.24);
+  border-color: rgba(116, 178, 255, 0.58);
 }
 
 .DiffEditorHorizontal {

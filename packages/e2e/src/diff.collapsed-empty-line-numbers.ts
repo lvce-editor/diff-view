@@ -12,7 +12,6 @@ const getDeletedContent = (): string => {
   return lines.join('\n')
 }
 
-export const skip = 1
 
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()

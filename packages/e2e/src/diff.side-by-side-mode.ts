@@ -14,8 +14,13 @@ shared`)
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
-  await expect(Locator('.DiffEditorHorizontal')).toBeVisible()
-  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('before')
-  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('after')
-  await expect(Locator('.DiffEditorModeToggle')).toHaveText('Inline')
+  const diffEditorHorizontal = Locator('.DiffEditorHorizontal')
+  const contentLeftRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRightRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const modeToggle = Locator('.DiffEditorModeToggle')
+
+  await expect(diffEditorHorizontal).toBeVisible()
+  await expect(contentLeftRows).toContainText('before')
+  await expect(contentRightRows).toContainText('after')
+  await expect(modeToggle).toHaveText('Inline')
 }

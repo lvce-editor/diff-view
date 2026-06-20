@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.switch-mode-button'
 
-export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, `same
 before
@@ -14,21 +14,27 @@ shared`)
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
+  const diffEditorHorizontal = Locator('.DiffEditorHorizontal')
+  const inlineDiffEditor = Locator('.InlineDiffEditor')
+  const inlineDiffEditorRows = Locator('.InlineDiffEditor .DiffEditorRows')
+  const contentLeftRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
+  const contentRightRows = Locator('.DiffEditorContentRight .DiffEditorRows')
   const modeToggle = Locator('.DiffEditorModeToggle')
-  await expect(Locator('.DiffEditorHorizontal')).toBeVisible()
+
+  await expect(diffEditorHorizontal).toBeVisible()
   await expect(modeToggle).toHaveText('Inline')
 
-  await modeToggle.click()
+  await Command.execute('DiffView.toggleDiffMode')
 
-  await expect(Locator('.InlineDiffEditor')).toBeVisible()
-  await expect(Locator('.InlineDiffEditor .DiffEditorRows')).toContainText('- before')
-  await expect(Locator('.InlineDiffEditor .DiffEditorRows')).toContainText('+ after')
+  await expect(inlineDiffEditor).toBeVisible()
+  await expect(inlineDiffEditorRows).toContainText('- before')
+  await expect(inlineDiffEditorRows).toContainText('+ after')
   await expect(modeToggle).toHaveText('Side by side')
 
-  await modeToggle.click()
+  await Command.execute('DiffView.toggleDiffMode')
 
-  await expect(Locator('.DiffEditorHorizontal')).toBeVisible()
-  await expect(Locator('.DiffEditorContentLeft .DiffEditorRows')).toContainText('before')
-  await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('after')
+  await expect(diffEditorHorizontal).toBeVisible()
+  await expect(contentLeftRows).toContainText('before')
+  await expect(contentRightRows).toContainText('after')
   await expect(modeToggle).toHaveText('Inline')
 }

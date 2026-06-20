@@ -30,6 +30,7 @@ alpha added`,
   const matchCount = Locator('.DiffSearchMatchCount')
   const inlineMatches = Locator('.InlineDiffEditor .DiffSearchMatch')
   const currentMatch = Locator('.InlineDiffEditor .DiffSearchMatchCurrent')
+  const horizontalMatches = Locator('.DiffEditorHorizontal .DiffSearchMatch')
 
   await searchInput.type('alpha')
   await searchInput.dispatchEvent('input', { bubbles: true } as any)
@@ -41,5 +42,5 @@ alpha added`,
 
   await Command.execute('DiffView.setDiffMode', 'side-by-side')
   await expect(matchCount).toHaveText('1 of 4')
-  await expect(Locator('.DiffEditorHorizontal .DiffSearchMatch')).toHaveCount(4)
+  await expect(horizontalMatches).toHaveCount(4)
 }

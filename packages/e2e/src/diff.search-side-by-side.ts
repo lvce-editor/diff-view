@@ -28,8 +28,6 @@ omega alpha`,
 
   const searchInput = Locator('.DiffSearchInput')
   const matchCount = Locator('.DiffSearchMatchCount')
-  const previousButton = Locator('.DiffSearchPrevious')
-  const nextButton = Locator('.DiffSearchNext')
   const matches = Locator('.DiffSearchMatch')
   const currentMatch = Locator('.DiffSearchMatchCurrent')
   const leftMatches = Locator('.DiffEditorContentLeft .DiffSearchMatch')
@@ -45,9 +43,9 @@ omega alpha`,
   await expect(currentMatch).toHaveCount(1)
   await expect(currentMatch).toHaveText('alpha')
 
-  await nextButton.click()
+  await KeyBoard.press('Enter')
   await expect(matchCount).toHaveText('2 of 5')
 
-  await previousButton.click()
+  await KeyBoard.press('Shift+Enter')
   await expect(matchCount).toHaveText('1 of 5')
 }

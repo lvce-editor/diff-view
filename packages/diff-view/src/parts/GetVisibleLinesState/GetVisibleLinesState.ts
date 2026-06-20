@@ -32,7 +32,7 @@ export const getVisibleLinesState = ({
   totalLineCountRight,
 }: VisibleLinesStateInput): VisibleLinesStateOutput => {
   return {
-    visibleLinesLeft: getVisibleLines(contentLeft, totalLineCountLeft, inlineChanges, minLineY, maxLineY, 'left', tokenizedLinesLeft),
-    visibleLinesRight: getVisibleLines(contentRight, totalLineCountRight, inlineChanges, minLineY, maxLineY, 'right', tokenizedLinesRight),
+    visibleLinesLeft: getVisibleLines(contentLeft, contentRight, totalLineCountLeft, inlineChanges, minLineY, maxLineY, 'left', tokenizedLinesLeft),
+    visibleLinesRight: getVisibleLines(contentRight, contentLeft, totalLineCountRight, inlineChanges, minLineY, maxLineY, 'right', tokenizedLinesRight),
   }
 }

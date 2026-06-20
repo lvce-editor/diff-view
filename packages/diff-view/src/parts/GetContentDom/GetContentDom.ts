@@ -28,7 +28,7 @@ export const getContentDom = (
   if (errorMessage) {
     return getErrorDom(contentClassName, errorMessage, errorCodeFrame, errorStack, allowedLinkSchemes)
   }
-  const lines = visibleLines.length > 0 ? visibleLines : getVisibleLines(content, totalLineCount, inlineChanges, minLineY, maxLineY, side, tokenizedLines)
+  const lines = visibleLines.length > 0 ? visibleLines : getVisibleLines(content, '', totalLineCount, inlineChanges, minLineY, maxLineY, side, tokenizedLines)
   const rows = getVisibleLinesDom(lines)
   const rowsChildCount = lines.length
 

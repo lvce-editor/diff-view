@@ -15,7 +15,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   await expect(input).toHaveCount(1)
   await input.type('gamma ')
-  await input.dispatchEvent('input', '{}')
+  await input.dispatchEvent('input', {} as any)
 
   await expect(input).toHaveValue('gamma ')
   await expect(afterRows).toHaveText('gamma beta')

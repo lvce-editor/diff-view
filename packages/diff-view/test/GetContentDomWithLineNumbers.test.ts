@@ -49,7 +49,7 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line nu
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 4,
+      childCount: 3,
       className: ClassNames.DiffEditorGutter,
       type: VirtualDomElements.Div,
     },
@@ -60,17 +60,11 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line nu
     },
     text('1'),
     {
-      childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
+      childCount: 0,
+      className: ClassNames.DiffEditorLineNumberEmpty,
+      style: 'height: 36px;',
       type: VirtualDomElements.Div,
     },
-    text(''),
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorLineNumber,
-      type: VirtualDomElements.Div,
-    },
-    text(''),
     {
       childCount: 1,
       className: ClassNames.DiffEditorLineNumber,

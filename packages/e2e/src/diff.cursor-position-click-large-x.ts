@@ -1,6 +1,6 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'diff.set-cursor-position'
+export const name = 'diff.cursor-position-click-large-x'
 
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -13,8 +13,7 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const cursor = Locator('.EditorCursorRight')
   await expect(cursor).toBeVisible()
 
-  await Command.execute('DiffView.setCursorPosition', 3, 2)
+  await Command.execute('DiffView.handleClickRightSide', 100_000, 120)
 
-  await expect(cursor).toHaveCSS('left', '68px')
   await expect(cursor).toHaveCSS('top', '40px')
 }

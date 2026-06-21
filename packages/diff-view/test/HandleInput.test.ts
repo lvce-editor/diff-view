@@ -82,14 +82,14 @@ test('handleInput applies the hidden input value before the stable right content
 test('handleInput supports shrinking the hidden input value', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
-      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gammabeta']])
+      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gammaBeta']])
       return []
     },
   })
   const state = {
     ...createDefaultState(),
     contentLeft: 'alpha',
-    contentRight: 'gamma beta',
+    contentRight: 'gamma Beta',
     inputValue: 'gamma ',
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
@@ -97,8 +97,8 @@ test('handleInput supports shrinking the hidden input value', async (): Promise<
 
   const result = await handleInput(state, 'gamma')
 
-  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gammabeta']]])
-  expect(result.contentRight).toBe('gammabeta')
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gammaBeta']]])
+  expect(result.contentRight).toBe('gammaBeta')
   expect(result.inputValue).toBe('gamma')
 })
 

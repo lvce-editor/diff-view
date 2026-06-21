@@ -8,14 +8,14 @@ import { insertLineBreak } from '../src/parts/InsertLineBreak/InsertLineBreak.ts
 test('insertLineBreak inserts a newline into the edit buffer', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
-      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gamma', 'beta']])
+      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gamma', 'Beta']])
       return []
     },
   })
   const state = {
     ...createDefaultState(),
     contentLeft: 'alpha',
-    contentRight: 'gammabeta',
+    contentRight: 'gammaBeta',
     inputValue: 'gamma',
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
@@ -23,8 +23,8 @@ test('insertLineBreak inserts a newline into the edit buffer', async (): Promise
 
   const result = await insertLineBreak(state)
 
-  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gamma', 'beta']]])
-  expect(result.contentRight).toBe('gamma\nbeta')
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gamma', 'Beta']]])
+  expect(result.contentRight).toBe('gamma\nBeta')
   expect(result.inputValue).toBe('gamma\n')
   expect(result.totalLineCountRight).toBe(2)
 })
@@ -50,14 +50,14 @@ test('insertLineBreak returns the same state when max input lines is reached', a
 test('deleteLeft deletes the previous edit buffer character', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
-      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gammabeta']])
+      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gammaBeta']])
       return []
     },
   })
   const state = {
     ...createDefaultState(),
     contentLeft: 'alpha',
-    contentRight: 'gamma beta',
+    contentRight: 'gamma Beta',
     inputValue: 'gamma ',
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
@@ -65,8 +65,8 @@ test('deleteLeft deletes the previous edit buffer character', async (): Promise<
 
   const result = await deleteLeft(state)
 
-  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gammabeta']]])
-  expect(result.contentRight).toBe('gammabeta')
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gammaBeta']]])
+  expect(result.contentRight).toBe('gammaBeta')
   expect(result.inputValue).toBe('gamma')
 })
 

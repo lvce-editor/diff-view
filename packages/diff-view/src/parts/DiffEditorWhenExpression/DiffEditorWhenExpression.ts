@@ -1,1 +1,1 @@
-export const FocusDiffEditorText = 812221
+export const FocusDiffEditorText = 812_221

@@ -19,7 +19,7 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
     return state
   }
 
-  const totalLineCountLeft = state.totalLineCountLeft
+  const { totalLineCountLeft } = state
   const contentRight = `${inputValue}${getBaseContentRight(state)}`
   const totalLineCountRight = getLineCount(contentRight)
   const canComputeInlineDiff = state.renderModeLeft === 'text' && !state.errorLeftMessage

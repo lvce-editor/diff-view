@@ -20,7 +20,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
@@ -74,7 +74,11 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< Updated upstream
       childCount: 3,
+=======
+      childCount: 5,
+>>>>>>> Stashed changes
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -166,7 +170,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
@@ -192,7 +196,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< Updated upstream
       childCount: 2,
+=======
+      childCount: 4,
+>>>>>>> Stashed changes
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -292,7 +300,7 @@ test('getDiffEditorVirtualDom renders search when visible', (): void => {
   })
 
   expect(result[0]).toEqual({
-    childCount: 3,
+    childCount: 2,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal} ${ClassNames.DiffEditorWithSearch}`,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onWheel: DomEventListenerFunctions.HandleWheel,
@@ -349,7 +357,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
@@ -381,7 +389,11 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
+<<<<<<< Updated upstream
       childCount: 2,
+=======
+      childCount: 4,
+>>>>>>> Stashed changes
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -431,6 +443,54 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
   ])
 })
 
+test('getDiffEditorVirtualDom renders buttons inside right image pane', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'before-content',
+    imageSrcRight: 'blob:after.png',
+    maxLineY: 1,
+    renderModeRight: 'image',
+    showWhitespace: true,
+    totalLineCount: 1,
+    uriLeft: '/tmp/before.txt',
+    uriRight: '/tmp/after.png',
+  })
+
+  const rightContentIndex = result.findIndex((node) => node.className === `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`)
+
+  expect(result[rightContentIndex]).toEqual({
+    childCount: 2,
+    className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+    onClick: DomEventListenerFunctions.HandleClickRightSide,
+    type: VirtualDomElements.Div,
+  })
+  expect(result.slice(rightContentIndex + 3, rightContentIndex + 8)).toEqual([
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: `${ClassNames.DiffEditorWhitespaceToggle} ${ClassNames.DiffEditorWhitespaceToggleActive}`,
+      name: ActionName.ToggleWhitespace,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Hide whitespace',
+      type: VirtualDomElements.Button,
+    },
+    text('Hide whitespace'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorModeToggle,
+      name: ActionName.ToggleDiffMode,
+      onClick: DomEventListenerFunctions.HandleClickAction,
+      title: 'Switch to Inline diff',
+      type: VirtualDomElements.Button,
+    },
+    text('Inline'),
+  ])
+})
+
 test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty left pane', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),
@@ -446,7 +506,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
 
   expect(result.slice(0, 9)).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
@@ -505,7 +565,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
 
   expect(result).toEqual([
     {
-      childCount: 4,
+      childCount: 3,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
@@ -547,7 +607,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -719,7 +779,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   })
 
   expect(result[0]).toEqual({
-    childCount: 4,
+    childCount: 3,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onWheel: DomEventListenerFunctions.HandleWheel,

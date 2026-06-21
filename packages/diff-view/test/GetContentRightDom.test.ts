@@ -4,6 +4,12 @@ import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/Allow
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
+<<<<<<< Updated upstream
+=======
+import { getDiffEditorButtonsDom } from '../src/parts/GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
+import * as InputName from '../src/parts/InputName/InputName.ts'
+import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
+>>>>>>> Stashed changes
 
 test('getContentRightDom renders each right line inside an EditorRow', (): void => {
   const result = getContentRightDom({
@@ -17,7 +23,7 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
 
   expect(result).toEqual([
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -56,9 +62,87 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     text('second-line'),
+    ...getDiffEditorButtonsDom('sideBySide', false),
   ])
 })
 
+<<<<<<< Updated upstream
+=======
+test('getContentRightDom renders cursor for editable right content', (): void => {
+  const result = getContentRightDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentRight: 'after-content',
+    editable: true,
+    lineNumbers: true,
+    maxLineY: 1,
+    minLineY: 1,
+    totalLineCount: 1,
+    visibleLines: [
+      {
+        lineNumber: 1,
+        tokens: [{ text: 'after-content', type: '' }],
+        type: VisibleLineType.Normal,
+      },
+    ],
+  })
+
+  expect(result).toEqual([
+    {
+      childCount: 5,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('after-content'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.TextArea,
+      value: '',
+    },
+    ...getDiffEditorButtonsDom('sideBySide', false),
+  ])
+})
+
+>>>>>>> Stashed changes
 test('getContentRightDom renders load errors when available', (): void => {
   const result = getContentRightDom({
     contentRight: '',
@@ -67,7 +151,7 @@ test('getContentRightDom renders load errors when available', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 1,
+      childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -78,6 +162,7 @@ test('getContentRightDom renders load errors when available', (): void => {
       type: VirtualDomElements.Div,
     },
     text('permission denied'),
+    ...getDiffEditorButtonsDom('sideBySide', false),
   ])
 })
 
@@ -98,7 +183,7 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
 
   expect(result).toEqual([
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -137,6 +222,7 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
       type: VirtualDomElements.Div,
     },
     text('added-line'),
+    ...getDiffEditorButtonsDom('sideBySide', false),
   ])
 })
 
@@ -154,7 +240,7 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
 
   expect(result).toEqual([
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -192,5 +278,6 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
       type: VirtualDomElements.Span,
     },
     text(' answer = 1'),
+    ...getDiffEditorButtonsDom('sideBySide', false),
   ])
 })

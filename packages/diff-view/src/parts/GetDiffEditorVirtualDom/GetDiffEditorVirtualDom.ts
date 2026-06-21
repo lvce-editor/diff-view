@@ -5,7 +5,6 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
-import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import { getDiffSearchHeaderDom } from '../GetDiffSearchHeaderDom/GetDiffSearchHeaderDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
@@ -36,18 +35,16 @@ const getDiffEditorWithSearchDom = (
   sashLayoutClass: string,
   leftDom: readonly VirtualDomNode[],
   rightDom: readonly VirtualDomNode[],
-  buttonsDom: readonly VirtualDomNode[],
   scrollBarDom: readonly VirtualDomNode[],
   scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
   return [
-    getRootDom(scrollBarActive ? 4 : 3, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass} ${ClassNames.DiffEditorWithSearch}`),
+    getRootDom(scrollBarActive ? 3 : 2, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass} ${ClassNames.DiffEditorWithSearch}`),
     ...getDiffSearchHeaderDom(),
     getEditorBodyDom(diffEditorLayoutClass),
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,
-    ...buttonsDom,
     ...scrollBarDom,
   ]
 }
@@ -57,16 +54,14 @@ const getDiffEditorWithoutSearchDom = (
   sashLayoutClass: string,
   leftDom: readonly VirtualDomNode[],
   rightDom: readonly VirtualDomNode[],
-  buttonsDom: readonly VirtualDomNode[],
   scrollBarDom: readonly VirtualDomNode[],
   scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
   return [
-    getRootDom(scrollBarActive ? 5 : 4, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`),
+    getRootDom(scrollBarActive ? 4 : 3, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`),
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,
-    ...buttonsDom,
     ...scrollBarDom,
   ]
 }
@@ -134,10 +129,11 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
         })
   const rightDom =
     renderModeRight === 'image' && !errorRightMessage
-      ? getImageRightDom(uriRight, imageSrcRight)
+      ? getImageRightDom(uriRight, imageSrcRight, diffMode, showWhitespace)
       : getContentRightDom({
           allowedLinkSchemes,
           contentRight,
+          diffMode,
           editable: true,
           errorCodeFrame: errorRightCodeFrame,
           errorMessage: errorRightMessage,
@@ -148,14 +144,14 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           lineNumbers: showLineNumbers,
           maxLineY,
           minLineY,
+          showWhitespace,
           tokenizedLines: tokenizedLinesRight,
           totalLineCount: totalLineCountRight,
           visibleLines: visibleLinesRight,
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
-  const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)
   if (searchVisible) {
-    return getDiffEditorWithSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
+    return getDiffEditorWithSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, scrollBarDom, scrollBarActive)
   }
-  return getDiffEditorWithoutSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
+  return getDiffEditorWithoutSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, scrollBarDom, scrollBarActive)
 }

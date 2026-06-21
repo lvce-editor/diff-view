@@ -6,6 +6,7 @@ import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSche
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
+import { getCursorDom } from '../GetCursorDom/GetCursorDom.ts'
 import * as InputName from '../InputName/InputName.ts'
 
 interface GetContentRightDomOptions {
@@ -90,13 +91,15 @@ export const getContentRightDom = ({
     ]
   }
   const [content, ...rest] = contentDom
+  const cursorDom = getCursorDom()
   return [
     {
       ...content,
-      childCount: content.childCount + 1,
+      childCount: content.childCount + 2,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
     },
     ...rest,
+    ...cursorDom,
     ...getInputWrapperDom(inputValue),
   ]
 }

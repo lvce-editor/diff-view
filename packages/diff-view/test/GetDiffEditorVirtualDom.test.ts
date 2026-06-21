@@ -74,7 +74,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -113,6 +113,16 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     text('second-after'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,
@@ -192,7 +202,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -203,6 +213,16 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     text('after-content'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,
@@ -381,7 +401,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -392,6 +412,16 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     text('after-content'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
     {
       childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,

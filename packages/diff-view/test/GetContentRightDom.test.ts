@@ -4,6 +4,8 @@ import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/Allow
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
+import * as InputName from '../src/parts/InputName/InputName.ts'
+import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('getContentRightDom renders each right line inside an EditorRow', (): void => {
   const result = getContentRightDom({
@@ -56,6 +58,79 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
       type: VirtualDomElements.Div,
     },
     text('second-line'),
+  ])
+})
+
+test('getContentRightDom renders cursor for editable right content', (): void => {
+  const result = getContentRightDom({
+    allowedLinkSchemes: defaultAllowedLinkSchemes,
+    contentRight: 'after-content',
+    editable: true,
+    lineNumbers: true,
+    maxLineY: 1,
+    minLineY: 1,
+    totalLineCount: 1,
+    visibleLines: [
+      {
+        lineNumber: 1,
+        tokens: [{ text: 'after-content', type: '' }],
+        type: VisibleLineType.Normal,
+      },
+    ],
+  })
+
+  expect(result).toEqual([
+    {
+      childCount: 4,
+      className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorGutter,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorLineNumber,
+      type: VirtualDomElements.Div,
+    },
+    text('1'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorRows,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.EditorRow,
+      type: VirtualDomElements.Div,
+    },
+    text('after-content'),
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
+      className: ClassNames.DiffEditorInputWrapper,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffEditorInput,
+      name: InputName.DiffEditorInput,
+      onInput: DomEventListenerFunctions.HandleInput,
+      type: VirtualDomElements.Input,
+      value: '',
+    },
   ])
 })
 

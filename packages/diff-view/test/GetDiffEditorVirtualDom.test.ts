@@ -294,7 +294,6 @@ test('getDiffEditorVirtualDom renders search when visible', (): void => {
   expect(result[0]).toEqual({
     childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal} ${ClassNames.DiffEditorWithSearch}`,
-    onClick: DomEventListenerFunctions.HandleClickAt,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,

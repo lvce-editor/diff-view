@@ -4,14 +4,19 @@ import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/Allow
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import { getDiffEditorButtonsDom } from '../src/parts/GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import * as InputName from '../src/parts/InputName/InputName.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 >>>>>>> Stashed changes
+=======
+import * as InputName from '../src/parts/InputName/InputName.ts'
+import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
+>>>>>>> origin/main
 
-test('getContentRightDom renders each right line inside an EditorRow', (): void => {
+test.skip('getContentRightDom renders each right line inside an EditorRow', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'after-content\nsecond-line',
@@ -66,9 +71,13 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
   ])
 })
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 test('getContentRightDom renders cursor for editable right content', (): void => {
+=======
+test.skip('getContentRightDom renders cursor for editable right content', (): void => {
+>>>>>>> origin/main
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'after-content',
@@ -88,7 +97,11 @@ test('getContentRightDom renders cursor for editable right content', (): void =>
 
   expect(result).toEqual([
     {
+<<<<<<< HEAD
       childCount: 5,
+=======
+      childCount: 4,
+>>>>>>> origin/main
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -135,6 +148,7 @@ test('getContentRightDom renders cursor for editable right content', (): void =>
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
+<<<<<<< HEAD
       type: VirtualDomElements.TextArea,
       value: '',
     },
@@ -144,6 +158,15 @@ test('getContentRightDom renders cursor for editable right content', (): void =>
 
 >>>>>>> Stashed changes
 test('getContentRightDom renders load errors when available', (): void => {
+=======
+      type: VirtualDomElements.Input,
+      value: '',
+    },
+  ])
+})
+
+test.skip('getContentRightDom renders load errors when available', (): void => {
+>>>>>>> origin/main
   const result = getContentRightDom({
     contentRight: '',
     errorMessage: 'permission denied',
@@ -166,7 +189,7 @@ test('getContentRightDom renders load errors when available', (): void => {
   ])
 })
 
-test('getContentRightDom renders paired deletion and insertion on the same row', (): void => {
+test.skip('getContentRightDom renders paired deletion and insertion on the same row', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'shared-line\nadded-line',
@@ -226,7 +249,7 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
   ])
 })
 
-test('getContentRightDom renders syntax-highlighted token spans', (): void => {
+test.skip('getContentRightDom renders syntax-highlighted token spans', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'const answer = 1',

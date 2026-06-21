@@ -6,11 +6,15 @@ import { handleClickRightSide } from '../src/parts/HandleClickRightSide/HandleCl
 test('handleClickRightSide focuses the editable right side', (): void => {
   const state = createDefaultState()
 
-  const result = handleClickRightSide(state)
+  const result = handleClickRightSide(state, 41, 20)
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: 1,
+    rightEditor: {
+      cursorColumnIndex: 0,
+      cursorRowIndex: 1,
+    },
   })
 })
 
@@ -21,10 +25,14 @@ test('handleClickRightSide increments focusVersion when already focused', (): vo
     focusVersion: 4,
   }
 
-  const result = handleClickRightSide(state)
+  const result = handleClickRightSide(state, 98, 40)
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: 5,
+    rightEditor: {
+      cursorColumnIndex: 1,
+      cursorRowIndex: 2,
+    },
   })
 })

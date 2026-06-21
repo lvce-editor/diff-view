@@ -1,12 +1,13 @@
-import type { InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
-import { getContextRow } from './GetContextRow/GetContextRow.ts'
-import { getDeletionRow } from './GetDeletionRow/GetDeletionRow.ts'
-import { getInsertionRow } from './GetInsertionRow/GetInsertionRow.ts'
-import { getLines } from './GetLines/GetLines.ts'
-import { getLookAheadRows } from './GetLookAheadRows/GetLookAheadRows.ts'
-import { InlineDiffRowType as InlineDiffRowTypeValue } from './InlineDiffRowType/InlineDiffRowType.ts'
+import type { InlineDiffRow } from '../InlineDiffRow/InlineDiffRow.ts'
+import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
+import { getContextRow } from '../GetContextRow/GetContextRow.ts'
+import { getDeletionRow } from '../GetDeletionRow/GetDeletionRow.ts'
+import { getInsertionRow } from '../GetInsertionRow/GetInsertionRow.ts'
+import { getLines } from '../GetLines/GetLines.ts'
+import { getLookAheadRows } from '../GetLookAheadRows/GetLookAheadRows.ts'
+import { InlineDiffRowType as InlineDiffRowTypeValue } from '../InlineDiffRowType/InlineDiffRowType.ts'
 
-export { type InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
+export { type InlineDiffRow } from '../InlineDiffRow/InlineDiffRow.ts'
 export const InlineDiffRowType = InlineDiffRowTypeValue
 export type InlineDiffRowType = (typeof InlineDiffRowType)[keyof typeof InlineDiffRowType]
 
@@ -18,7 +19,7 @@ const getGitButtonsRow = (): InlineDiffRow => {
   return {
     lineNumberLeft: null,
     lineNumberRight: null,
-    text: 'Accept current change | Accept incoming change | Accept both',
+    text: DiffStrings.acceptCurrentChangeAcceptIncomingChangeAcceptBoth(),
     type: InlineDiffRowTypeValue.GitButtons,
   }
 }
@@ -27,7 +28,7 @@ const getIncomingChangeRow = (): InlineDiffRow => {
   return {
     lineNumberLeft: null,
     lineNumberRight: null,
-    text: 'Incoming Change',
+    text: DiffStrings.incomingChange(),
     type: InlineDiffRowTypeValue.IncomingChange,
   }
 }

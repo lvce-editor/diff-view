@@ -7,11 +7,15 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import type { DiffMode } from '../DiffViewState/DiffViewState.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 import { getCursorDom } from '../GetCursorDom/GetCursorDom.ts'
 import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 >>>>>>> Stashed changes
+=======
+import { getCursorDom } from '../GetCursorDom/GetCursorDom.ts'
+>>>>>>> origin/main
 import * as InputName from '../InputName/InputName.ts'
 
 interface GetContentRightDomOptions {
@@ -103,17 +107,23 @@ export const getContentRightDom = ({
     ]
   }
   const [content, ...rest] = contentDom
+  const cursorDom = getCursorDom()
   return [
     {
       ...content,
+<<<<<<< HEAD
 <<<<<<< Updated upstream
       childCount: content.childCount + 1,
 =======
       childCount: content.childCount + 3,
 >>>>>>> Stashed changes
+=======
+      childCount: content.childCount + 2,
+>>>>>>> origin/main
       onClick: DomEventListenerFunctions.HandleClickRightSide,
     },
     ...rest,
+    ...cursorDom,
     ...getInputWrapperDom(inputValue),
     ...buttonsDom,
   ]

@@ -10,7 +10,6 @@ const getAddedContent = (): string => {
 
 export const name = 'diff.many-lines-added'
 
-
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   const addedContent = getAddedContent()

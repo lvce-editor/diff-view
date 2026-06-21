@@ -16,7 +16,6 @@ const getDeletedContent = (): string => {
 
 export const name = 'diff.five-hundred-thousand-lines-deleted'
 
-
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
 

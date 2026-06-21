@@ -2,6 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
+import { getDiffSearchHeaderDom } from '../GetDiffSearchHeaderDom/GetDiffSearchHeaderDom.ts'
 import { getInlineDiffLineNumberDom } from '../GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
 import { getInlineDiffRowDom } from '../GetInlineDiffRowDom/GetInlineDiffRowDom.ts'
 import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
@@ -14,6 +15,7 @@ export const getInlineDiffEditorVirtualDom = (
   lineNumbers: boolean,
   minLineY: number,
   maxLineY: number,
+  searchVisible: boolean,
   showWhitespace: boolean,
 ): readonly VirtualDomNode[] => {
   const rows = getInlineDiffRows(contentLeft, contentRight)
@@ -33,12 +35,14 @@ export const getInlineDiffEditorVirtualDom = (
       ]
     : []
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
+  const searchHeaderDom = searchVisible ? getDiffSearchHeaderDom() : []
   return [
     {
-      childCount: scrollBarActive ? 3 : 2,
+      childCount: (scrollBarActive ? 3 : 2) + (searchVisible ? 1 : 0),
       className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
       type: VirtualDomElements.Div,
     },
+    ...searchHeaderDom,
     {
       childCount: contentChildCount,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.InlineDiffEditorContent}`,

@@ -267,6 +267,57 @@ test('getDiffEditorVirtualDom renders the hidden right editor input for text pan
   })
 })
 
+test('getDiffEditorVirtualDom does not render search by default', (): void => {
+  const result = getDiffEditorVirtualDom(createDefaultState())
+
+  expect(result).not.toContainEqual({
+    childCount: 1,
+    className: ClassNames.DiffSearchHeader,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).not.toContainEqual({
+    childCount: 0,
+    className: ClassNames.DiffSearchInput,
+    inputType: 'search',
+    placeholder: 'Search',
+    type: VirtualDomElements.Input,
+    value: '',
+  })
+})
+
+test('getDiffEditorVirtualDom renders search when visible', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    searchVisible: true,
+  })
+
+  expect(result[0]).toEqual({
+    childCount: 3,
+    className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal} ${ClassNames.DiffEditorWithSearch}`,
+    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
+    onWheel: DomEventListenerFunctions.HandleWheel,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: ClassNames.DiffSearchHeader,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual({
+    childCount: 0,
+    className: ClassNames.DiffSearchInput,
+    inputType: 'search',
+    placeholder: 'Search',
+    type: VirtualDomElements.Input,
+    value: '',
+  })
+  expect(result).toContainEqual({
+    childCount: 3,
+    className: `${ClassNames.DiffEditorBody} ${ClassNames.DiffEditorHorizontal}`,
+    type: VirtualDomElements.Div,
+  })
+})
+
 test('getDiffEditorVirtualDom marks the whitespace toggle active when showWhitespace is true', (): void => {
   const result = getDiffEditorVirtualDom({
     ...createDefaultState(),

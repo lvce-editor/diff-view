@@ -43,6 +43,47 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   width: 100%;
 }
 
+.DiffEditorWithSearch {
+  flex-direction: column;
+}
+
+.DiffEditorBody {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.DiffSearchHeader {
+  align-items: center;
+  background: var(--DiffGutterBackground);
+  border-bottom: 1px solid var(--DiffSeparatorColor);
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  height: 40px;
+  padding: 6px 12px;
+}
+
+.DiffSearchInput {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--DiffForeground);
+  font: 13px system-ui, sans-serif;
+  height: 28px;
+  max-width: 320px;
+  min-width: 120px;
+  outline: none;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.DiffSearchInput:focus {
+  border-color: rgba(116, 178, 255, 0.72);
+}
+
 .DiffEditorButtons {
   align-items: center;
   display: inline-flex;
@@ -83,6 +124,19 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditorVertical {
   flex-direction: column;
+}
+
+.DiffEditorWithSearch.DiffEditorHorizontal,
+.DiffEditorWithSearch.DiffEditorVertical {
+  flex-direction: column;
+}
+
+.DiffEditorBody.DiffEditorVertical {
+  flex-direction: column;
+}
+
+.DiffEditorBody.DiffEditorHorizontal {
+  flex-direction: row;
 }
 
 .InlineDiffEditor {

@@ -22,6 +22,7 @@ import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/Handle
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
+import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { jumpToNextChange } from '../JumpToNextChange/JumpToNextChange.ts'
 import { jumpToPreviousChange } from '../JumpToPreviousChange/JumpToPreviousChange.ts'
@@ -31,6 +32,7 @@ import { renderEventListeners } from '../RenderEventListeners/RenderEventListene
 import { saveState } from '../SaveState/SaveState.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 
@@ -59,6 +61,7 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
   'DiffView.handleWheel': wrapCommand(handleWheel),
+  'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,
   'DiffView.jumpToNextChange': wrapCommand(jumpToNextChange),
   'DiffView.jumpToPreviousChange': wrapCommand(jumpToPreviousChange),
@@ -68,6 +71,7 @@ export const commandMap = {
   'DiffView.saveState': saveState,
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),
+  'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),
   'DiffView.toggleWhitespace': wrapCommand(toggleWhitespace),

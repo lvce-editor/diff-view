@@ -48,6 +48,16 @@ test('diff2 returns the diff modules selected for the stored state pair', (): vo
   expect(diff2(uid)).toEqual([DiffType.RenderIncremental, DiffType.RenderValue, DiffType.RenderCss, DiffType.RenderFocus, DiffType.RenderFocusContext])
 })
 
+test('diff includes item render when search visibility changes', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    searchVisible: true,
+  }
+
+  expect(Diff.diff(oldState, newState)).toContain(DiffType.RenderIncremental)
+})
+
 test('renderIncremental returns an empty patch list for identical dom trees', (): void => {
   const state = createDefaultState()
 

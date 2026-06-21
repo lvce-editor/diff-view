@@ -4,17 +4,9 @@ import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/Allow
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 import { getDiffEditorButtonsDom } from '../src/parts/GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import * as InputName from '../src/parts/InputName/InputName.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
->>>>>>> Stashed changes
-=======
-import * as InputName from '../src/parts/InputName/InputName.ts'
-import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
->>>>>>> origin/main
 
 test.skip('getContentRightDom renders each right line inside an EditorRow', (): void => {
   const result = getContentRightDom({
@@ -71,13 +63,7 @@ test.skip('getContentRightDom renders each right line inside an EditorRow', (): 
   ])
 })
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 test('getContentRightDom renders cursor for editable right content', (): void => {
-=======
-test.skip('getContentRightDom renders cursor for editable right content', (): void => {
->>>>>>> origin/main
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'after-content',
@@ -97,11 +83,7 @@ test.skip('getContentRightDom renders cursor for editable right content', (): vo
 
   expect(result).toEqual([
     {
-<<<<<<< HEAD
       childCount: 5,
-=======
-      childCount: 4,
->>>>>>> origin/main
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -148,25 +130,13 @@ test.skip('getContentRightDom renders cursor for editable right content', (): vo
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-<<<<<<< HEAD
       type: VirtualDomElements.TextArea,
       value: '',
     },
     ...getDiffEditorButtonsDom('sideBySide', false),
   ])
 })
-
->>>>>>> Stashed changes
 test('getContentRightDom renders load errors when available', (): void => {
-=======
-      type: VirtualDomElements.Input,
-      value: '',
-    },
-  ])
-})
-
-test.skip('getContentRightDom renders load errors when available', (): void => {
->>>>>>> origin/main
   const result = getContentRightDom({
     contentRight: '',
     errorMessage: 'permission denied',

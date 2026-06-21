@@ -19,16 +19,8 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
     },
     {
       name: DomEventListenersFunctions.HandleClickRightSide,
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      params: ['handleClickRightSide'],
-=======
       params: ['handleClickRightSide', EventExpression.ClientX, EventExpression.ClientY],
       preventDefault: true,
->>>>>>> Stashed changes
-=======
-      params: ['handleClickRightSide', EventExpression.ClientX, EventExpression.ClientY],
->>>>>>> origin/main
     },
     {
       name: DomEventListenersFunctions.HandleMouseOverAt,

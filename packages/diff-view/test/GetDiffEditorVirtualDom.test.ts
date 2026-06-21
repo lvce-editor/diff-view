@@ -74,15 +74,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      childCount: 3,
-=======
       childCount: 5,
->>>>>>> Stashed changes
-=======
-      childCount: 4,
->>>>>>> origin/main
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -210,15 +202,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      childCount: 2,
-=======
       childCount: 4,
->>>>>>> Stashed changes
-=======
-      childCount: 3,
->>>>>>> origin/main
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -417,15 +401,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-      childCount: 2,
-=======
       childCount: 4,
->>>>>>> Stashed changes
-=======
-      childCount: 3,
->>>>>>> origin/main
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,

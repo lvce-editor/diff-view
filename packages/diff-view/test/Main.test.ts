@@ -9,6 +9,8 @@ test('main calls listen', async () => {
   await expect(Main.main()).rejects.toThrow()
   const commandIds = getCommandIds()
   expect(commandIds.length).toBeGreaterThan(0)
+  expect(commandIds).toContain('showSearch')
+  expect(commandIds).toContain('hideSearch')
 })
 
 test('handles listen error', async () => {

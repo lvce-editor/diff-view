@@ -6,11 +6,70 @@ import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEven
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
 import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
+import { getDiffSearchHeaderDom } from '../GetDiffSearchHeaderDom/GetDiffSearchHeaderDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getSashDom } from '../GetSashDom/GetSashDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+
+const getRootDom = (childCount: number, className: string): VirtualDomNode => {
+  return {
+    childCount,
+    className,
+    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
+    onWheel: DomEventListenerFunctions.HandleWheel,
+    type: VirtualDomElements.Div,
+  }
+}
+
+const getEditorBodyDom = (diffEditorLayoutClass: string): VirtualDomNode => {
+  return {
+    childCount: 3,
+    className: `${ClassNames.DiffEditorBody} ${diffEditorLayoutClass}`,
+    type: VirtualDomElements.Div,
+  }
+}
+
+const getDiffEditorWithSearchDom = (
+  diffEditorLayoutClass: string,
+  sashLayoutClass: string,
+  leftDom: readonly VirtualDomNode[],
+  rightDom: readonly VirtualDomNode[],
+  buttonsDom: readonly VirtualDomNode[],
+  scrollBarDom: readonly VirtualDomNode[],
+  scrollBarActive: boolean,
+): readonly VirtualDomNode[] => {
+  return [
+    getRootDom(scrollBarActive ? 4 : 3, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass} ${ClassNames.DiffEditorWithSearch}`),
+    ...getDiffSearchHeaderDom(),
+    getEditorBodyDom(diffEditorLayoutClass),
+    ...leftDom,
+    getSashDom(sashLayoutClass),
+    ...rightDom,
+    ...buttonsDom,
+    ...scrollBarDom,
+  ]
+}
+
+const getDiffEditorWithoutSearchDom = (
+  diffEditorLayoutClass: string,
+  sashLayoutClass: string,
+  leftDom: readonly VirtualDomNode[],
+  rightDom: readonly VirtualDomNode[],
+  buttonsDom: readonly VirtualDomNode[],
+  scrollBarDom: readonly VirtualDomNode[],
+  scrollBarActive: boolean,
+): readonly VirtualDomNode[] => {
+  return [
+    getRootDom(scrollBarActive ? 5 : 4, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`),
+    ...leftDom,
+    getSashDom(sashLayoutClass),
+    ...rightDom,
+    ...buttonsDom,
+    ...scrollBarDom,
+  ]
+}
 
 export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualDomNode[] => {
   const {
@@ -36,6 +95,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     renderModeLeft,
     renderModeRight,
     scrollBarActive,
+    searchVisible,
     showWhitespace,
     tokenizedLinesLeft,
     tokenizedLinesRight,
@@ -48,7 +108,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   } = state
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
-    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, showWhitespace)
+    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, searchVisible, showWhitespace)
   }
 
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
@@ -94,19 +154,8 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)
-  const dom: readonly VirtualDomNode[] = [
-    {
-      childCount: scrollBarActive ? 5 : 4,
-      className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
-      onContextMenu: DomEventListenerFunctions.HandleContextMenu,
-      onWheel: DomEventListenerFunctions.HandleWheel,
-      type: VirtualDomElements.Div,
-    },
-    ...leftDom,
-    getSashDom(sashLayoutClass),
-    ...rightDom,
-    ...buttonsDom,
-    ...scrollBarDom,
-  ]
-  return dom
+  if (searchVisible) {
+    return getDiffEditorWithSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
+  }
+  return getDiffEditorWithoutSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
 }

@@ -5,6 +5,7 @@ import { getInsertionRow } from './GetInsertionRow/GetInsertionRow.ts'
 import { getLines } from './GetLines/GetLines.ts'
 import { getLookAheadRows } from './GetLookAheadRows/GetLookAheadRows.ts'
 import { InlineDiffRowType as InlineDiffRowTypeValue } from './InlineDiffRowType/InlineDiffRowType.ts'
+import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 
 export { type InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
 export const InlineDiffRowType = InlineDiffRowTypeValue
@@ -18,7 +19,7 @@ const getGitButtonsRow = (): InlineDiffRow => {
   return {
     lineNumberLeft: null,
     lineNumberRight: null,
-    text: 'Accept current change | Accept incoming change | Accept both',
+    text: DiffStrings.acceptCurrentChangeAcceptIncomingChangeAcceptBoth(),
     type: InlineDiffRowTypeValue.GitButtons,
   }
 }
@@ -27,7 +28,7 @@ const getIncomingChangeRow = (): InlineDiffRow => {
   return {
     lineNumberLeft: null,
     lineNumberRight: null,
-    text: 'Incoming Change',
+    text: DiffStrings.incomingChange(),
     type: InlineDiffRowTypeValue.IncomingChange,
   }
 }

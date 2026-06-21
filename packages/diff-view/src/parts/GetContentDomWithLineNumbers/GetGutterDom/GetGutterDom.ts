@@ -2,16 +2,8 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleLine } from '../../VisibleLine/VisibleLine.ts'
 import * as ClassNames from '../../ClassNames/ClassNames.ts'
+import { getEmptyLineNumberDom } from '../../GetEmptyLineNumberDom/GetEmptyLineNumberDom.ts'
 import { getLineNumberDom } from '../../GetLineNumberDom/GetLineNumberDom.ts'
-
-const getEmptyLineNumberDom = (emptyLineCount: number, itemHeight: number): VirtualDomNode => {
-  return {
-    childCount: 0,
-    className: ClassNames.DiffEditorLineNumberEmpty,
-    style: `height: ${emptyLineCount * itemHeight}px;`,
-    type: VirtualDomElements.Div,
-  }
-}
 
 export const getGutterDom = (visibleLines: readonly VisibleLine[], itemHeight: number): readonly VirtualDomNode[] => {
   const children: VirtualDomNode[] = []

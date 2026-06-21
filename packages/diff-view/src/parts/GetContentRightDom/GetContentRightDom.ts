@@ -26,6 +26,22 @@ interface GetContentRightDomOptions {
   readonly visibleLines?: readonly VisibleLine[]
 }
 
+const getInputWrapperDom = (inputValue: string): readonly VirtualDomNode[] => [
+  {
+    childCount: 1,
+    className: ClassNames.DiffEditorInputWrapper,
+    type: VirtualDomElements.Div,
+  },
+  {
+    childCount: 0,
+    className: ClassNames.DiffEditorInput,
+    name: InputName.DiffEditorInput,
+    onInput: DomEventListenerFunctions.HandleInput,
+    type: VirtualDomElements.Input,
+    value: inputValue,
+  },
+]
+
 export const getContentRightDom = ({
   allowedLinkSchemes = defaultAllowedLinkSchemes,
   contentRight,
@@ -73,18 +89,6 @@ export const getContentRightDom = ({
       childCount: content.childCount + 1,
     },
     ...rest,
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorInputWrapper,
-      type: VirtualDomElements.Div,
-    },
-    {
-      childCount: 0,
-      className: ClassNames.DiffEditorInput,
-      name: InputName.DiffEditorInput,
-      onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
-      value: inputValue,
-    },
+    ...getInputWrapperDom(inputValue),
   ]
 }

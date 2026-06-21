@@ -1,5 +1,5 @@
-import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 import type { InlineDiffRow } from '../InlineDiffRow/InlineDiffRow.ts'
+import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 import { getContextRow } from '../GetContextRow/GetContextRow.ts'
 import { getDeletionRow } from '../GetDeletionRow/GetDeletionRow.ts'
 import { getInsertionRow } from '../GetInsertionRow/GetInsertionRow.ts'

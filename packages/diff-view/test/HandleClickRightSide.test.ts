@@ -4,7 +4,10 @@ import * as DiffEditorWhenExpression from '../src/parts/DiffEditorWhenExpression
 import { handleClickRightSide } from '../src/parts/HandleClickRightSide/HandleClickRightSide.ts'
 
 test('handleClickRightSide focuses the editable right side', (): void => {
-  const state = createDefaultState()
+  const state = {
+    ...createDefaultState(),
+    totalLineCountRight: 2,
+  }
 
   const result = handleClickRightSide(state, 41, 20)
 
@@ -23,6 +26,7 @@ test('handleClickRightSide increments focusVersion when already focused', (): vo
     ...createDefaultState(),
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: 4,
+    totalLineCountRight: 3,
   }
 
   const result = handleClickRightSide(state, 98, 40)

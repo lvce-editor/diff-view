@@ -20,16 +20,3 @@ export const getSashPointerMoveWidths = (state: DiffViewState, clientX: number, 
     rightWidth,
   }
 }
-
-export const handleSashPointerMove = (state: DiffViewState, clientX: number, clientY: number): DiffViewState => {
-  const { isResizing } = state
-  if (!isResizing) {
-    return state
-  }
-  const { leftWidth, rightWidth } = getSashPointerMoveWidths(state, clientX, clientY)
-  return {
-    ...state,
-    leftWidth,
-    rightWidth,
-  }
-}

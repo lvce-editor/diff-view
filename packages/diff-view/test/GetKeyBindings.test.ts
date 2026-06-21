@@ -26,5 +26,35 @@ test('getKeyBindings includes diff editor editing keybindings', (): void => {
       key: KeyCode.Delete,
       when: DiffEditorWhenExpression.FocusDiffEditorText,
     },
+    {
+      command: 'DiffView.moveCursorLeft',
+      key: KeyCode.LeftArrow,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
+    {
+      command: 'DiffView.moveCursorRight',
+      key: KeyCode.RightArrow,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
+    {
+      command: 'DiffView.moveCursorUp',
+      key: KeyCode.UpArrow,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
+    {
+      command: 'DiffView.moveCursorDown',
+      key: KeyCode.DownArrow,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
+    {
+      command: 'DiffView.moveCursorToStartOfLine',
+      key: KeyCode.Home,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
+    {
+      command: 'DiffView.moveCursorToEndOfLine',
+      key: KeyCode.End,
+      when: DiffEditorWhenExpression.FocusDiffEditorText,
+    },
   ])
 })

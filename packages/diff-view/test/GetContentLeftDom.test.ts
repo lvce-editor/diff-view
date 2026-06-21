@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../src/parts/GetContentLeftDom/GetContentLeftDom.ts'
 
 test('getContentLeftDom renders each left line inside an EditorRow', (): void => {
@@ -18,6 +19,7 @@ test('getContentLeftDom renders each left line inside an EditorRow', (): void =>
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -71,6 +73,7 @@ test('getContentLeftDom omits the gutter when line numbers are disabled', (): vo
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -99,6 +102,7 @@ test('getContentLeftDom renders load errors when available', (): void => {
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft} ${ClassNames.DiffEditorError}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -153,6 +157,7 @@ test('getContentLeftDom renders paired deletion and insertion on the same row', 
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -208,6 +213,7 @@ test('getContentLeftDom renders syntax-highlighted token spans', (): void => {
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {

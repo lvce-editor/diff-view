@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import { defaultAllowedLinkSchemes } from '../src/parts/AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../src/parts/DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRightDom.ts'
 
 test('getContentRightDom renders each right line inside an EditorRow', (): void => {
@@ -18,6 +19,7 @@ test('getContentRightDom renders each right line inside an EditorRow', (): void 
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -67,6 +69,7 @@ test('getContentRightDom renders load errors when available', (): void => {
     {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -97,6 +100,7 @@ test('getContentRightDom renders paired deletion and insertion on the same row',
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -152,6 +156,7 @@ test('getContentRightDom renders syntax-highlighted token spans', (): void => {
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {

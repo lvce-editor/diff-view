@@ -14,8 +14,12 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleFocus'],
     },
     {
-      name: DomEventListenersFunctions.HandleClickAt,
-      params: ['handleClickAt', EventExpression.ClientX, EventExpression.ClientY, EventExpression.TargetName],
+      name: DomEventListenersFunctions.HandleClickLeftSide,
+      params: ['handleClickLeftSide'],
+    },
+    {
+      name: DomEventListenersFunctions.HandleClickRightSide,
+      params: ['handleClickRightSide'],
     },
     {
       name: DomEventListenersFunctions.HandleMouseOverAt,

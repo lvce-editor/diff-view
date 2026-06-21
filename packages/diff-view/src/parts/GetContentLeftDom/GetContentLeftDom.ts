@@ -4,6 +4,7 @@ import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSchemes.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentDom } from '../GetContentDom/GetContentDom.ts'
 
 interface GetContentLeftDomOptions {
@@ -40,7 +41,7 @@ export const getContentLeftDom = ({
   const resolvedTotalLineCount = totalLineCount ?? (contentLeft ? contentLeft.split('\n').length : 1)
   const resolvedMaxLineY = maxLineY ?? resolvedTotalLineCount
 
-  return getContentDom(
+  const [content, ...rest] = getContentDom(
     ClassNames.DiffEditorContentLeft,
     contentLeft,
     errorMessage,
@@ -57,4 +58,11 @@ export const getContentLeftDom = ({
     visibleLines,
     itemHeight,
   )
+  return [
+    {
+      ...content,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
+    },
+    ...rest,
+  ]
 }

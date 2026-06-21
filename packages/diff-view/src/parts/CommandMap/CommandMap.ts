@@ -7,6 +7,8 @@ import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
 import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
+import { handleClickLeftSide } from '../HandleClickLeftSide/HandleClickLeftSide.ts'
+import { handleClickRightSide } from '../HandleClickRightSide/HandleClickRightSide.ts'
 import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleCopy } from '../HandleCopy/HandleCopy.ts'
 import { handleCut } from '../HandleCut/HandleCut.ts'
@@ -42,6 +44,8 @@ export const commandMap = {
   'DiffView.getMenuIds': getMenuIds,
   'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
+  'DiffView.handleClickLeftSide': wrapCommand(handleClickLeftSide),
+  'DiffView.handleClickRightSide': wrapCommand(handleClickRightSide),
   'DiffView.handleContextMenu': wrapCommand(handleContextMenu),
   'DiffView.handleCopy': wrapCommand(handleCopy),
   'DiffView.handleCut': wrapCommand(handleCut),

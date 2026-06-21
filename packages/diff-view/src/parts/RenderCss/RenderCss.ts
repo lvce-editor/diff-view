@@ -107,7 +107,10 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditorContentLeft,
 .DiffEditorContentRight {
+  align-items: stretch;
   display: flex;
+  min-height: 0;
+  min-width: 0;
   overflow: hidden;
   position: relative;
 }
@@ -166,10 +169,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 .DiffEditorRows {
   background: var(--DiffBackground);
-  contain: strict;
+  contain: layout paint style;
   cursor: text;
-  flex: 1;
+  flex: 1 1 auto;
   font-family: monospace;
+  height: 100%;
   min-width: 0;
   overflow: hidden;
 }

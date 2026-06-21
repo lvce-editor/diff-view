@@ -45,6 +45,16 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   width: 100%;
 }
 
+.DiffEditorButtons {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  position: absolute;
+  right: 14px;
+  top: 8px;
+  z-index: 2;
+}
+
 .DiffEditorModeToggle,
 .DiffEditorWhitespaceToggle {
   align-items: center;
@@ -57,14 +67,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   font: 12px system-ui, sans-serif;
   height: 28px;
   padding: 0 10px;
-  position: absolute;
-  right: 14px;
-  top: 8px;
-  z-index: 2;
-}
-
-.DiffEditorWhitespaceToggle {
-  right: 96px;
 }
 
 .DiffEditorModeToggle:hover,

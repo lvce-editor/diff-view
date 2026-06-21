@@ -20,7 +20,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
 
   expect(result).toEqual([
     {
-      childCount: 5,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -126,6 +126,11 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       value: '',
     },
     {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 1,
       className: ClassNames.DiffEditorWhitespaceToggle,
       name: ActionName.ToggleWhitespace,
@@ -160,7 +165,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
 
   expect(result).toEqual([
     {
-      childCount: 5,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -208,6 +213,11 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       onInput: DomEventListenerFunctions.HandleInput,
       type: VirtualDomElements.Input,
       value: '',
+    },
+    {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
     },
     {
       childCount: 1,
@@ -286,7 +296,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
 
   expect(result).toEqual([
     {
-      childCount: 5,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -342,6 +352,11 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       value: '',
     },
     {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 1,
       className: ClassNames.DiffEditorWhitespaceToggle,
       name: ActionName.ToggleWhitespace,
@@ -377,7 +392,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
 
   expect(result.slice(0, 9)).toEqual([
     {
-      childCount: 5,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -436,7 +451,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
 
   expect(result).toEqual([
     {
-      childCount: 5,
+      childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -504,6 +519,11 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     },
     text('    at read missing file'),
     {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 1,
       className: ClassNames.DiffEditorWhitespaceToggle,
       name: ActionName.ToggleWhitespace,
@@ -538,7 +558,7 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
 
   expect(result).toEqual([
     {
-      childCount: 3,
+      childCount: 2,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
       type: VirtualDomElements.Div,
     },
@@ -606,6 +626,11 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
     },
     text('  shared'),
     {
+      childCount: 2,
+      className: ClassNames.DiffEditorButtons,
+      type: VirtualDomElements.Div,
+    },
+    {
       childCount: 1,
       className: ClassNames.DiffEditorWhitespaceToggle,
       name: ActionName.ToggleWhitespace,
@@ -639,7 +664,7 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   })
 
   expect(result[0]).toEqual({
-    childCount: 5,
+    childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
     onClick: DomEventListenerFunctions.HandleClickAt,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,

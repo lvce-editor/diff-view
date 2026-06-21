@@ -5,13 +5,12 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getContentLeftDom } from '../GetContentLeftDom/GetContentLeftDom.ts'
 import { getContentRightDom } from '../GetContentRightDom/GetContentRightDom.ts'
-import { getDiffModeToggleDom } from '../GetDiffModeToggleDom/GetDiffModeToggleDom.ts'
+import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import { getImageLeftDom } from '../GetImageLeftDom/GetImageLeftDom.ts'
 import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getSashDom } from '../GetSashDom/GetSashDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
-import { getWhitespaceToggleDom } from '../GetWhitespaceToggleDom/GetWhitespaceToggleDom.ts'
 
 export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualDomNode[] => {
   const {
@@ -94,11 +93,10 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           visibleLines: visibleLinesRight,
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
-  const modeToggleDom = getDiffModeToggleDom(diffMode)
-  const whitespaceToggleDom = getWhitespaceToggleDom(showWhitespace)
+  const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)
   const dom: readonly VirtualDomNode[] = [
     {
-      childCount: scrollBarActive ? 6 : 5,
+      childCount: scrollBarActive ? 5 : 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
       onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
@@ -108,8 +106,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,
-    ...whitespaceToggleDom,
-    ...modeToggleDom,
+    ...buttonsDom,
     ...scrollBarDom,
   ]
   return dom

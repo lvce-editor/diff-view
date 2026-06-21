@@ -2,8 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.image-invalid-left-valid-right'
 
-export const test: Test = async (api) => {
-  const { DiffView, expect, FileSystem, Locator } = api
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/image-invalid-left-valid-right.svg`, 'fixture')
 
@@ -13,6 +12,6 @@ export const test: Test = async (api) => {
   const afterImage = Locator('.DiffEditorContentRight .ImageElement')
 
   await expect(beforeError).toBeVisible()
-  await api.expect(afterImage).toBeVisible()
-  await api.expect(afterImage).toHaveAttribute('alt', `${tmpDir}/image-invalid-left-valid-right.svg`)
+  await expect(afterImage).toBeVisible()
+  await expect(afterImage).toHaveAttribute('alt', `${tmpDir}/image-invalid-left-valid-right.svg`)
 }

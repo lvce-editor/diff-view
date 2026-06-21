@@ -44,3 +44,16 @@ test('diff returns incremental renderer when show whitespace changes', (): void 
 
   expect(diff(oldState, newState)).toEqual([DiffType.RenderIncremental])
 })
+
+test('diff returns css renderer when right cursor position changes', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    rightEditor: {
+      cursorColumnIndex: 2,
+      cursorRowIndex: 3,
+    },
+  }
+
+  expect(diff(oldState, newState)).toEqual([DiffType.RenderCss])
+})

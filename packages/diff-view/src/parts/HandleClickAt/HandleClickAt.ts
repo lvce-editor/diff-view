@@ -7,5 +7,5 @@ export const handleClickAt = (state: DiffViewState, clientX: number, clientY: nu
   if (!isRightSide) {
     return state
   }
-  return handleClickRightSide(state)
+  return handleClickRightSide(state, clientX, clientY)
 }

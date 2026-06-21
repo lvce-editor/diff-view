@@ -1,15 +1,36 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, itemHeight, leftWidth, rightWidth, scrollBarBackgroundImage, scrollBarHeight } = newState
+  const {
+    deltaY,
+    finalDeltaY,
+    gutterWidthVariable,
+    height,
+    id,
+    itemHeight,
+    leftWidth,
+    lineNumbers,
+    minLineY,
+    renderModeLeft,
+    renderModeRight,
+    rightEditor,
+    rightWidth,
+    scrollBarBackgroundImage,
+    scrollBarHeight,
+  } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const { layout } = newState
   const gutterWidth = 'var(--GutterWidth)'
   const gutterPaddingWidth = 20
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
+  const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
+  const rightCursorGutterWidth = showLineNumbers ? gutterWidthVariable + CursorConstants.GutterPaddingWidth : 0
+  const rightCursorLeft = rightCursorGutterWidth + CursorConstants.RowPaddingLeft + rightEditor.cursorColumnIndex * CursorConstants.CharWidth
+  const rightCursorTop = (rightEditor.cursorRowIndex - minLineY) * CursorConstants.LineHeight
   const css = `
 :root {
   --DiffBackground: #0b0d10;
@@ -148,6 +169,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   height: 100%;
   overflow: hidden;
   user-select: text;
+  flex-direction: row;
 }
 
 .InlineDiffEditorContent {
@@ -240,6 +262,27 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 12px;
   white-space: pre;
+}
+
+.DiffEditorSelections {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.EditorCursor {
+  background: red;
+  height: var(--ItemHeight);
+  left: var(--CursorLeft);
+  position: absolute;
+  top: var(--CursorTop);
+  width: 2px;
+}
+
+.EditorCursorRight {
+  --CursorLeft: ${rightCursorLeft}px;
+  --CursorTop: ${rightCursorTop}px;
 }
 
 .DiffEditorInputWrapper {

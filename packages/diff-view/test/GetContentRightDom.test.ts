@@ -59,7 +59,7 @@ test.skip('getContentRightDom renders each right line inside an EditorRow', (): 
       type: VirtualDomElements.Div,
     },
     text('second-line'),
-    ...getDiffEditorButtonsDom('sideBySide', false),
+    ...getDiffEditorButtonsDom('side-by-side', false),
   ])
 })
 
@@ -133,7 +133,7 @@ test('getContentRightDom renders cursor for editable right content', (): void =>
       type: VirtualDomElements.TextArea,
       value: '',
     },
-    ...getDiffEditorButtonsDom('sideBySide', false),
+    ...getDiffEditorButtonsDom('side-by-side', false),
   ])
 })
 test('getContentRightDom renders load errors when available', (): void => {
@@ -155,7 +155,7 @@ test('getContentRightDom renders load errors when available', (): void => {
       type: VirtualDomElements.Div,
     },
     text('permission denied'),
-    ...getDiffEditorButtonsDom('sideBySide', false),
+    ...getDiffEditorButtonsDom('side-by-side', false),
   ])
 })
 
@@ -215,7 +215,7 @@ test.skip('getContentRightDom renders paired deletion and insertion on the same 
       type: VirtualDomElements.Div,
     },
     text('added-line'),
-    ...getDiffEditorButtonsDom('sideBySide', false),
+    ...getDiffEditorButtonsDom('side-by-side', false),
   ])
 })
 
@@ -271,6 +271,6 @@ test.skip('getContentRightDom renders syntax-highlighted token spans', (): void 
       type: VirtualDomElements.Span,
     },
     text(' answer = 1'),
-    ...getDiffEditorButtonsDom('sideBySide', false),
+    ...getDiffEditorButtonsDom('side-by-side', false),
   ])
 })

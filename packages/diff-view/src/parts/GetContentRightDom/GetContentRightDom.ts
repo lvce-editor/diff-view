@@ -50,7 +50,7 @@ const getInputWrapperDom = (inputValue: string): readonly VirtualDomNode[] => [
 export const getContentRightDom = ({
   allowedLinkSchemes = defaultAllowedLinkSchemes,
   contentRight,
-  diffMode = 'sideBySide',
+  diffMode = 'side-by-side',
   editable = false,
   errorCodeFrame = '',
   errorMessage = '',

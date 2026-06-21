@@ -6,14 +6,19 @@ import { handleClickAt } from '../src/parts/HandleClickAt/HandleClickAt.ts'
 test('handleClickAt focuses the editable right side for horizontal layout clicks', (): void => {
   const state = {
     ...createDefaultState(),
+    gutterWidthVariable: 18,
     leftWidth: 40,
     x: 10,
   }
 
-  const result = handleClickAt(state, 60, 5, '')
+  const result = handleClickAt(state, 10 + 40 + 18 + 20 + 12 + 27, 40, '')
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
+    rightEditor: {
+      cursorColumnIndex: 3,
+      cursorRowIndex: 2,
+    },
   })
 })
 
@@ -32,14 +37,19 @@ test('handleClickAt ignores horizontal layout clicks in the left side', (): void
 test('handleClickAt focuses the editable right side for vertical layout clicks', (): void => {
   const state = {
     ...createDefaultState(),
+    gutterWidthVariable: 18,
     layout: 'vertical' as const,
     leftWidth: 40,
     y: 10,
   }
 
-  const result = handleClickAt(state, 5, 60, '')
+  const result = handleClickAt(state, 18 + 20 + 12 + 18, 10 + 40 + 60, '')
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
+    rightEditor: {
+      cursorColumnIndex: 2,
+      cursorRowIndex: 3,
+    },
   })
 })

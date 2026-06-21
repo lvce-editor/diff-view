@@ -212,6 +212,10 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   color: var(--DiffInsertionAccent);
 }
 
+.DiffEditor .DiffEditorLineNumberMeta {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .DiffEditorLineNumberEmpty {
   background-color: var(--DiffMissingLineBackground);
   background-image: repeating-linear-gradient(135deg, transparent 0, transparent 5px, rgba(255, 255, 255, 0.06) 5px, rgba(255, 255, 255, 0.06) 6px);
@@ -268,6 +272,20 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   background: var(--DiffInsertionBackground);
   box-shadow: inset 3px 0 var(--DiffInsertionAccent);
   color: var(--DiffInsertionForeground);
+}
+
+.DiffEditor .GitButtons {
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+}
+
+.DiffEditor .IncomingChange {
+  background: rgba(46, 160, 67, 0.16);
+  box-shadow: inset 3px 0 var(--DiffInsertionAccent);
+  color: rgba(183, 247, 192, 0.95);
+  font-size: 12px;
 }
 
 .DiffToken--changed {

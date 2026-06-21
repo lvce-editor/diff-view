@@ -23,3 +23,10 @@ test('getLineNumberClassName returns the insertion line number class', (): void 
   expect(getLineNumberClassName(VisibleLineType.Added)).toBe(expected)
   expect(getLineNumberClassName(InlineDiffRowType.Insertion)).toBe(expected)
 })
+
+test('getLineNumberClassName returns meta class for decorator rows', (): void => {
+  const expected = `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberMeta}`
+
+  expect(getLineNumberClassName(InlineDiffRowType.GitButtons)).toBe(expected)
+  expect(getLineNumberClassName(InlineDiffRowType.IncomingChange)).toBe(expected)
+})

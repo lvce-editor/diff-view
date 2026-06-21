@@ -188,3 +188,50 @@ test('getInlineDiffRows uses lookahead rows for inserted lines', (): void => {
     },
   ])
 })
+
+test('getInlineDiffRows inserts decorator rows for merge conflict markers', (): void => {
+  expect(getInlineDiffRows('<<<<<<< HEAD\ncurrent\n=======\nincoming\n>>>>>>> branch', '<<<<<<< HEAD\ncurrent\n=======\nincoming\n>>>>>>> branch')).toEqual([
+    {
+      lineNumberLeft: null,
+      lineNumberRight: null,
+      text: 'Accept current change | Accept incoming change | Accept both',
+      type: InlineDiffRowType.GitButtons,
+    },
+    {
+      lineNumberLeft: 1,
+      lineNumberRight: 1,
+      text: '<<<<<<< HEAD',
+      type: InlineDiffRowType.Context,
+    },
+    {
+      lineNumberLeft: 2,
+      lineNumberRight: 2,
+      text: 'current',
+      type: InlineDiffRowType.Context,
+    },
+    {
+      lineNumberLeft: 3,
+      lineNumberRight: 3,
+      text: '=======',
+      type: InlineDiffRowType.Context,
+    },
+    {
+      lineNumberLeft: null,
+      lineNumberRight: null,
+      text: 'Incoming Change',
+      type: InlineDiffRowType.IncomingChange,
+    },
+    {
+      lineNumberLeft: 4,
+      lineNumberRight: 4,
+      text: 'incoming',
+      type: InlineDiffRowType.Context,
+    },
+    {
+      lineNumberLeft: 5,
+      lineNumberRight: 5,
+      text: '>>>>>>> branch',
+      type: InlineDiffRowType.Context,
+    },
+  ])
+})

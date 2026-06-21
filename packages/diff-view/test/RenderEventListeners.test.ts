@@ -48,5 +48,6 @@ test('renderEventListeners registers tracked sash pointer listeners', (): void =
   expect(result).toContainEqual({
     name: DomEventListenerFunctions.HandleClickRightSide,
     params: ['handleClickRightSide', EventExpression.ClientX, EventExpression.ClientY],
+    preventDefault: true,
   })
 })

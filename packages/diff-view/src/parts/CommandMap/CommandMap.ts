@@ -1,7 +1,10 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
+import { deleteLeft } from '../DeleteLeft/DeleteLeft.ts'
+import { deleteRight } from '../DeleteRight/DeleteRight.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
+import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
@@ -24,6 +27,7 @@ import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScro
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
+import { insertLineBreak } from '../InsertLineBreak/InsertLineBreak.ts'
 import { jumpToNextChange } from '../JumpToNextChange/JumpToNextChange.ts'
 import { jumpToPreviousChange } from '../JumpToPreviousChange/JumpToPreviousChange.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
@@ -39,8 +43,11 @@ import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
   'DiffView.create': Create2.create2,
+  'DiffView.deleteLeft': wrapCommand(deleteLeft),
+  'DiffView.deleteRight': wrapCommand(deleteRight),
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
+  'DiffView.getKeyBindings': getKeyBindings,
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
@@ -63,6 +70,7 @@ export const commandMap = {
   'DiffView.handleWheel': wrapCommand(handleWheel),
   'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,
+  'DiffView.insertLineBreak': wrapCommand(insertLineBreak),
   'DiffView.jumpToNextChange': wrapCommand(jumpToNextChange),
   'DiffView.jumpToPreviousChange': wrapCommand(jumpToPreviousChange),
   'DiffView.loadContent': wrapCommand(loadContent),

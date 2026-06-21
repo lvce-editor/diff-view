@@ -37,7 +37,7 @@ const getInputWrapperDom = (inputValue: string): readonly VirtualDomNode[] => [
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    type: VirtualDomElements.Input,
+    type: VirtualDomElements.TextArea,
     value: inputValue,
   },
 ]

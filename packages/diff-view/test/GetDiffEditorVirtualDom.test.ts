@@ -123,7 +123,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {
@@ -213,7 +213,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {
@@ -262,7 +262,7 @@ test('getDiffEditorVirtualDom renders the hidden right editor input for text pan
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    type: VirtualDomElements.Input,
+    type: VirtualDomElements.TextArea,
     value: 'typed',
   })
 })
@@ -402,7 +402,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {

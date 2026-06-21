@@ -12,6 +12,6 @@ test('handleContextMenu shows context menu and does not change state', async ():
 
   const result = await handleContextMenu(state, 2, 10, 20)
 
-  expect(mockRpc.invocations).toEqual([['ContextMenu.show2', 1, 22, 10, 20, { menuId: 22 }]])
+  expect(mockRpc.invocations).toEqual([['ContextMenu.show2', 1, 321678, 10, 20, { menuId: 22 }]])
   expect(result).toBe(state)
 })

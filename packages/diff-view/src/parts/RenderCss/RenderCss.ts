@@ -1,6 +1,5 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
-import { getCss } from '../GetCss/GetCss.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
@@ -8,7 +7,6 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const { deltaY, finalDeltaY, gutterWidthVariable, height, id, itemHeight, leftWidth, rightWidth, scrollBarBackgroundImage, scrollBarHeight } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const { layout } = newState
-  const staticCss = getCss()
   const gutterWidth = 'var(--GutterWidth)'
   const gutterPaddingWidth = 20
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
@@ -328,7 +326,32 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 
 }
 
-${staticCss}
+.DiffEditorErrorCodeFrame,
+.DiffEditorErrorStack {
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid rgba(248, 81, 73, 0.6);
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: rgba(255, 255, 255, 0.86);
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 100%;
+  min-width: 0;
+  overflow: auto;
+  padding: 8px 10px;
+  user-select: text;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.DiffEditorErrorStackLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
 `
   return [ViewletCommand.SetCss, id, css]
 }

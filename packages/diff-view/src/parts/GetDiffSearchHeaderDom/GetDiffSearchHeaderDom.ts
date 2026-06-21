@@ -1,6 +1,7 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 
 export const getDiffSearchHeaderDom = (): readonly VirtualDomNode[] => {
   return [
@@ -13,7 +14,7 @@ export const getDiffSearchHeaderDom = (): readonly VirtualDomNode[] => {
       childCount: 0,
       className: ClassNames.DiffSearchInput,
       inputType: 'search',
-      placeholder: 'Search',
+      placeholder: DiffStrings.search(),
       type: VirtualDomElements.Input,
       value: '',
     },

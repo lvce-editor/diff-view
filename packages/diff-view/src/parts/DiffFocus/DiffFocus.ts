@@ -1,5 +1,5 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
-  return oldState.focus === newState.focus
+  return oldState.focus === newState.focus && oldState.focusVersion === newState.focusVersion
 }

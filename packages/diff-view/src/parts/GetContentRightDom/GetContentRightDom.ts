@@ -64,13 +64,21 @@ export const getContentRightDom = ({
     itemHeight,
   )
   if (!editable || errorMessage) {
-    return contentDom
+    const [content, ...rest] = contentDom
+    return [
+      {
+        ...content,
+        onClick: DomEventListenerFunctions.HandleClickRightSide,
+      },
+      ...rest,
+    ]
   }
   const [content, ...rest] = contentDom
   return [
     {
       ...content,
       childCount: content.childCount + 1,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
     },
     ...rest,
     {

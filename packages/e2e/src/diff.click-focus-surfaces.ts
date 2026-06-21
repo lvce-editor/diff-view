@@ -12,17 +12,19 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   const leftRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const rightRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const input = Locator('.DiffEditorInput')
   const firstLineNumber = Locator('.DiffEditorContentLeft .DiffEditorLineNumber').first()
   const verticalSash = Locator('.SashVertical').first()
   const inlineEditor = Locator('.InlineDiffEditor')
 
-  await Command.execute('DiffView.handleClickAt', 5, 5, '')
+  await Command.execute('DiffView.handleClickLeftSide')
   await expect(leftRows).toContainText('alpha')
 
-  await Command.execute('DiffView.handleClickAt', 300, 5, '')
+  await Command.execute('DiffView.handleClickRightSide')
+  await expect(input).toBeFocused()
   await expect(rightRows).toContainText('beta')
 
-  await Command.execute('DiffView.handleClickAt', 5, 5, '')
+  await Command.execute('DiffView.handleClickLeftSide')
   await expect(firstLineNumber).toBeVisible()
   await expect(leftRows).toContainText('alpha')
 

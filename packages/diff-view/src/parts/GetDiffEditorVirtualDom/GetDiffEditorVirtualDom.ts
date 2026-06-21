@@ -98,7 +98,6 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     {
       childCount: scrollBarActive ? 5 : 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,

@@ -22,7 +22,6 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -30,6 +29,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -76,6 +76,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     {
       childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -167,7 +168,6 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -175,6 +175,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -193,6 +194,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -298,7 +300,6 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -306,6 +307,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -330,6 +332,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -394,7 +397,6 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -402,6 +404,7 @@ test('getDiffEditorVirtualDom only renders existing gutter numbers for an empty 
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -453,7 +456,6 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     {
       childCount: 4,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal}`,
-      onClick: DomEventListenerFunctions.HandleClickAt,
       onContextMenu: DomEventListenerFunctions.HandleContextMenu,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
@@ -461,6 +463,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -495,6 +498,7 @@ test('getDiffEditorVirtualDom renders pane errors without crashing', (): void =>
     {
       childCount: 2,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight} ${ClassNames.DiffEditorError}`,
+      onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {
@@ -666,7 +670,6 @@ test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', ()
   expect(result[0]).toEqual({
     childCount: 4,
     className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorVertical}`,
-    onClick: DomEventListenerFunctions.HandleClickAt,
     onContextMenu: DomEventListenerFunctions.HandleContextMenu,
     onWheel: DomEventListenerFunctions.HandleWheel,
     type: VirtualDomElements.Div,

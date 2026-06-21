@@ -1,12 +1,14 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
 export const getImageLeftDom = (uriLeft: string, imageSrc: string): readonly VirtualDomNode[] => {
   return [
     {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
+      onClick: DomEventListenerFunctions.HandleClickLeftSide,
       type: VirtualDomElements.Div,
     },
     {

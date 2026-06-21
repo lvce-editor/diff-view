@@ -2,18 +2,19 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { getClampedLeftWidth, getClampedPaneSize, getRemainingPaneSize, getRightWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 
 export const getSashPointerMoveWidths = (state: DiffViewState, clientX: number, clientY: number): { readonly leftWidth: number; readonly rightWidth: number } => {
-  if (state.layout === 'vertical') {
-    const rawTopHeight = clientY - state.y - state.resizeOffsetY
-    const leftWidth = getClampedPaneSize(state.height, rawTopHeight)
-    const rightWidth = getRemainingPaneSize(state.height, leftWidth)
+  const { height, layout, resizeOffsetX, resizeOffsetY, width, x, y } = state
+  if (layout === 'vertical') {
+    const rawTopHeight = clientY - y - resizeOffsetY
+    const leftWidth = getClampedPaneSize(height, rawTopHeight)
+    const rightWidth = getRemainingPaneSize(height, leftWidth)
     return {
       leftWidth,
       rightWidth,
     }
   }
-  const rawLeftWidth = clientX - state.x - state.resizeOffsetX
-  const leftWidth = getClampedLeftWidth(state.width, rawLeftWidth)
-  const rightWidth = getRightWidth(state.width, leftWidth)
+  const rawLeftWidth = clientX - x - resizeOffsetX
+  const leftWidth = getClampedLeftWidth(width, rawLeftWidth)
+  const rightWidth = getRightWidth(width, leftWidth)
   return {
     leftWidth,
     rightWidth,
@@ -21,7 +22,8 @@ export const getSashPointerMoveWidths = (state: DiffViewState, clientX: number, 
 }
 
 export const handleSashPointerMove = (state: DiffViewState, clientX: number, clientY: number): DiffViewState => {
-  if (!state.isResizing) {
+  const { isResizing } = state
+  if (!isResizing) {
     return state
   }
   const { leftWidth, rightWidth } = getSashPointerMoveWidths(state, clientX, clientY)

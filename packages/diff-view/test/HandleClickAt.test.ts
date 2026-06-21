@@ -8,6 +8,7 @@ test('handleClickAt focuses the editable right side for horizontal layout clicks
     ...createDefaultState(),
     gutterWidthVariable: 18,
     leftWidth: 40,
+    totalLineCountRight: 3,
     x: 10,
   }
 
@@ -40,6 +41,7 @@ test('handleClickAt focuses the editable right side for vertical layout clicks',
     gutterWidthVariable: 18,
     layout: 'vertical' as const,
     leftWidth: 40,
+    totalLineCountRight: 4,
     y: 10,
   }
 

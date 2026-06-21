@@ -181,8 +181,10 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 }
 
 .DiffEditorInputWrapper {
-  inset: 0;
+  contain: strict;
+  height: 0;
   position: absolute;
+  width: 0;
   z-index: 1;
 }
 
@@ -191,12 +193,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   border: 0;
   color: transparent;
   cursor: text;
-  height: 100%;
-  inset: 0;
+  height: 0;
   outline: none;
   padding: 0;
   position: absolute;
-  width: 100%;
+  width: 0;
 }
 
 .DiffEditor .Deletion {

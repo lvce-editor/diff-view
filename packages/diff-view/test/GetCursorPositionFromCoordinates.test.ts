@@ -5,8 +5,8 @@ import { getCursorPositionFromCoordinates } from '../src/parts/GetCursorPosition
 test('getCursorPositionFromCoordinates computes cursor position in horizontal layout', (): void => {
   const state = {
     ...createDefaultState(),
-    leftWidth: 100,
     gutterWidthVariable: 18,
+    leftWidth: 100,
     x: 10,
     y: 20,
   }

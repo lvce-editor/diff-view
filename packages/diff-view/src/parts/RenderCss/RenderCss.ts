@@ -1,15 +1,36 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
-  const { deltaY, finalDeltaY, gutterWidthVariable, height, id, itemHeight, leftWidth, rightWidth, scrollBarBackgroundImage, scrollBarHeight } = newState
+  const {
+    deltaY,
+    finalDeltaY,
+    gutterWidthVariable,
+    height,
+    id,
+    itemHeight,
+    leftWidth,
+    lineNumbers,
+    minLineY,
+    renderModeLeft,
+    renderModeRight,
+    rightEditor,
+    rightWidth,
+    scrollBarBackgroundImage,
+    scrollBarHeight,
+  } = newState
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const { layout } = newState
   const gutterWidth = 'var(--GutterWidth)'
   const gutterPaddingWidth = 20
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
+  const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
+  const rightCursorGutterWidth = showLineNumbers ? gutterWidthVariable + CursorConstants.GutterPaddingWidth : 0
+  const rightCursorLeft = rightCursorGutterWidth + CursorConstants.RowPaddingLeft + rightEditor.cursorColumnIndex * CursorConstants.CharWidth
+  const rightCursorTop = (rightEditor.cursorRowIndex - minLineY) * CursorConstants.LineHeight
   const css = `
 :root {
   --DiffBackground: #0b0d10;
@@ -41,6 +62,47 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   display: flex;
   position: relative;
   width: 100%;
+}
+
+.DiffEditorWithSearch {
+  flex-direction: column;
+}
+
+.DiffEditorBody {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+.DiffSearchHeader {
+  align-items: center;
+  background: var(--DiffGutterBackground);
+  border-bottom: 1px solid var(--DiffSeparatorColor);
+  box-sizing: border-box;
+  display: flex;
+  flex-shrink: 0;
+  height: 40px;
+  padding: 6px 12px;
+}
+
+.DiffSearchInput {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--DiffForeground);
+  font: 13px system-ui, sans-serif;
+  height: 28px;
+  max-width: 320px;
+  min-width: 120px;
+  outline: none;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.DiffSearchInput:focus {
+  border-color: rgba(116, 178, 255, 0.72);
 }
 
 .DiffEditorButtons {
@@ -85,6 +147,19 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   flex-direction: column;
 }
 
+.DiffEditorWithSearch.DiffEditorHorizontal,
+.DiffEditorWithSearch.DiffEditorVertical {
+  flex-direction: column;
+}
+
+.DiffEditorBody.DiffEditorVertical {
+  flex-direction: column;
+}
+
+.DiffEditorBody.DiffEditorHorizontal {
+  flex-direction: row;
+}
+
 .InlineDiffEditor {
   flex-direction: column;
 }
@@ -94,6 +169,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   height: 100%;
   overflow: hidden;
   user-select: text;
+  flex-direction: row;
 }
 
 .InlineDiffEditorContent {
@@ -158,6 +234,10 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   color: var(--DiffInsertionAccent);
 }
 
+.DiffEditor .DiffEditorLineNumberMeta {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .DiffEditorLineNumberEmpty {
   background-color: var(--DiffMissingLineBackground);
   background-image: repeating-linear-gradient(135deg, transparent 0, transparent 5px, rgba(255, 255, 255, 0.06) 5px, rgba(255, 255, 255, 0.06) 6px);
@@ -182,6 +262,27 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 12px;
   white-space: pre;
+}
+
+.DiffEditorSelections {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.EditorCursor {
+  background: red;
+  height: var(--ItemHeight);
+  left: var(--CursorLeft);
+  position: absolute;
+  top: var(--CursorTop);
+  width: 2px;
+}
+
+.EditorCursorRight {
+  --CursorLeft: ${rightCursorLeft}px;
+  --CursorTop: ${rightCursorTop}px;
 }
 
 .DiffEditorInputWrapper {
@@ -214,6 +315,20 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   background: var(--DiffInsertionBackground);
   box-shadow: inset 3px 0 var(--DiffInsertionAccent);
   color: var(--DiffInsertionForeground);
+}
+
+.DiffEditor .GitButtons {
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 12px;
+}
+
+.DiffEditor .IncomingChange {
+  background: rgba(46, 160, 67, 0.16);
+  box-shadow: inset 3px 0 var(--DiffInsertionAccent);
+  color: rgba(183, 247, 192, 0.95);
+  font-size: 12px;
 }
 
 .DiffToken--changed {

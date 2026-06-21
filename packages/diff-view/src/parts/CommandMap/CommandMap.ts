@@ -1,7 +1,10 @@
 import { terminate } from '@lvce-editor/viewlet-registry'
 import * as Create2 from '../Create2/Create2.ts'
+import { deleteLeft } from '../DeleteLeft/DeleteLeft.ts'
+import { deleteRight } from '../DeleteRight/DeleteRight.ts'
 import { diff2 } from '../Diff2/Diff2.ts'
 import { getCommandIds, wrapCommand } from '../DiffViewStates/DiffViewStates.ts'
+import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
@@ -22,23 +25,30 @@ import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/Handle
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
+import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
+import { insertLineBreak } from '../InsertLineBreak/InsertLineBreak.ts'
 import { jumpToNextChange } from '../JumpToNextChange/JumpToNextChange.ts'
 import { jumpToPreviousChange } from '../JumpToPreviousChange/JumpToPreviousChange.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import { saveState } from '../SaveState/SaveState.ts'
+import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
   'DiffView.create': Create2.create2,
+  'DiffView.deleteLeft': wrapCommand(deleteLeft),
+  'DiffView.deleteRight': wrapCommand(deleteRight),
   'DiffView.diff2': diff2,
   'DiffView.getCommandIds': getCommandIds,
+  'DiffView.getKeyBindings': getKeyBindings,
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
@@ -59,15 +69,19 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
   'DiffView.handleWheel': wrapCommand(handleWheel),
+  'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,
+  'DiffView.insertLineBreak': wrapCommand(insertLineBreak),
   'DiffView.jumpToNextChange': wrapCommand(jumpToNextChange),
   'DiffView.jumpToPreviousChange': wrapCommand(jumpToPreviousChange),
   'DiffView.loadContent': wrapCommand(loadContent),
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,
   'DiffView.saveState': saveState,
+  'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),
+  'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),
   'DiffView.toggleWhitespace': wrapCommand(toggleWhitespace),

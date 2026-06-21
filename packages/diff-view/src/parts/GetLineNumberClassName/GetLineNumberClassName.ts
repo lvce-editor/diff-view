@@ -11,5 +11,8 @@ export const getLineNumberClassName = (type: LineNumberType = VisibleLineType.No
   if (type === VisibleLineType.Added || type === InlineDiffRowType.Insertion) {
     return `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberInsertion}`
   }
+  if (type === InlineDiffRowType.GitButtons || type === InlineDiffRowType.IncomingChange) {
+    return `${ClassNames.DiffEditorLineNumber} ${ClassNames.DiffEditorLineNumberMeta}`
+  }
   return ClassNames.DiffEditorLineNumber
 }

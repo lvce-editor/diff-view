@@ -21,6 +21,7 @@ test('createDefaultState sets up image render defaults', (): void => {
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
   })
+  expect(result.searchVisible).toBe(false)
   expect(result.showWhitespace).toBe(false)
   expect(result.totalLineCountLeft).toBe(1)
   expect(result.totalLineCountRight).toBe(1)

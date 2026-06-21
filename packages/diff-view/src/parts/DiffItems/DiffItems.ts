@@ -10,6 +10,7 @@ export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boole
     oldState.layout === newState.layout &&
     oldState.maxLineY === newState.maxLineY &&
     oldState.minLineY === newState.minLineY &&
+    oldState.searchVisible === newState.searchVisible &&
     oldState.showWhitespace === newState.showWhitespace
   )
 }

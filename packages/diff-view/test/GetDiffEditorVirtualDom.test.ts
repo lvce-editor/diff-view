@@ -74,7 +74,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 3,
+      childCount: 4,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -115,6 +115,16 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
     text('second-after'),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,
       type: VirtualDomElements.Div,
     },
@@ -123,7 +133,7 @@ test('getDiffEditorVirtualDom renders left and right lines inside EditorRow wrap
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {
@@ -192,7 +202,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -205,6 +215,16 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
     text('after-content'),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,
       type: VirtualDomElements.Div,
     },
@@ -213,7 +233,7 @@ test('getDiffEditorVirtualDom omits line number gutters when disabled in state',
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {
@@ -262,8 +282,59 @@ test('getDiffEditorVirtualDom renders the hidden right editor input for text pan
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    type: VirtualDomElements.Input,
+    type: VirtualDomElements.TextArea,
     value: 'typed',
+  })
+})
+
+test('getDiffEditorVirtualDom does not render search by default', (): void => {
+  const result = getDiffEditorVirtualDom(createDefaultState())
+
+  expect(result).not.toContainEqual({
+    childCount: 1,
+    className: ClassNames.DiffSearchHeader,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).not.toContainEqual({
+    childCount: 0,
+    className: ClassNames.DiffSearchInput,
+    inputType: 'search',
+    placeholder: 'Search',
+    type: VirtualDomElements.Input,
+    value: '',
+  })
+})
+
+test('getDiffEditorVirtualDom renders search when visible', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    searchVisible: true,
+  })
+
+  expect(result[0]).toEqual({
+    childCount: 3,
+    className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.DiffEditorHorizontal} ${ClassNames.DiffEditorWithSearch}`,
+    onContextMenu: DomEventListenerFunctions.HandleContextMenu,
+    onWheel: DomEventListenerFunctions.HandleWheel,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: ClassNames.DiffSearchHeader,
+    type: VirtualDomElements.Div,
+  })
+  expect(result).toContainEqual({
+    childCount: 0,
+    className: ClassNames.DiffSearchInput,
+    inputType: 'search',
+    placeholder: 'Search',
+    type: VirtualDomElements.Input,
+    value: '',
+  })
+  expect(result).toContainEqual({
+    childCount: 3,
+    className: `${ClassNames.DiffEditorBody} ${ClassNames.DiffEditorHorizontal}`,
+    type: VirtualDomElements.Div,
   })
 })
 
@@ -330,7 +401,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 3,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
@@ -343,6 +414,16 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
     text('after-content'),
     {
       childCount: 1,
+      className: ClassNames.DiffEditorSelections,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 1,
       className: ClassNames.DiffEditorInputWrapper,
       type: VirtualDomElements.Div,
     },
@@ -351,7 +432,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
     {

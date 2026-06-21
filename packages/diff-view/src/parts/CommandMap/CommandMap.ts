@@ -34,6 +34,7 @@ import { loadContent } from '../LoadContent/LoadContent.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import { saveState } from '../SaveState/SaveState.ts'
+import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
 import { showSearch } from '../ShowSearch/ShowSearch.ts'
@@ -77,6 +78,7 @@ export const commandMap = {
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,
   'DiffView.saveState': saveState,
+  'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.showSearch': wrapCommand(showSearch),

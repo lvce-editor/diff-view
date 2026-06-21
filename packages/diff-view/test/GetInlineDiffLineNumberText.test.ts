@@ -21,3 +21,23 @@ test('getInlineDiffLineNumberText leaves absent line numbers blank', (): void =>
     }),
   ).toBe(' 5')
 })
+
+test('getInlineDiffLineNumberText hides line numbers for decorator rows', (): void => {
+  expect(
+    getInlineDiffLineNumberText({
+      lineNumberLeft: null,
+      lineNumberRight: null,
+      text: 'Accept current change | Accept incoming change | Accept both',
+      type: InlineDiffRowType.GitButtons,
+    }),
+  ).toBe('')
+
+  expect(
+    getInlineDiffLineNumberText({
+      lineNumberLeft: null,
+      lineNumberRight: null,
+      text: 'Incoming Change',
+      type: InlineDiffRowType.IncomingChange,
+    }),
+  ).toBe('')
+})

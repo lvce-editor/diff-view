@@ -14,3 +14,16 @@ test('isEqual returns false when cached scroll bar background image changes', ()
 
   expect(isEqual(oldState, newState)).toBe(false)
 })
+
+test('isEqual returns false when right cursor position changes', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    rightEditor: {
+      cursorColumnIndex: 2,
+      cursorRowIndex: 3,
+    },
+  }
+
+  expect(isEqual(oldState, newState)).toBe(false)
+})

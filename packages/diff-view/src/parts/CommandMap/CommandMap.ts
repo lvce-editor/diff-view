@@ -31,6 +31,7 @@ import { insertLineBreak } from '../InsertLineBreak/InsertLineBreak.ts'
 import { jumpToNextChange } from '../JumpToNextChange/JumpToNextChange.ts'
 import { jumpToPreviousChange } from '../JumpToPreviousChange/JumpToPreviousChange.ts'
 import { loadContent } from '../LoadContent/LoadContent.ts'
+import { moveCursorDown, moveCursorLeft, moveCursorRight, moveCursorToEndOfLine, moveCursorToStartOfLine, moveCursorUp } from '../MoveCursor/MoveCursor.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import { saveState } from '../SaveState/SaveState.ts'
@@ -75,6 +76,12 @@ export const commandMap = {
   'DiffView.jumpToNextChange': wrapCommand(jumpToNextChange),
   'DiffView.jumpToPreviousChange': wrapCommand(jumpToPreviousChange),
   'DiffView.loadContent': wrapCommand(loadContent),
+  'DiffView.moveCursorDown': wrapCommand(moveCursorDown),
+  'DiffView.moveCursorLeft': wrapCommand(moveCursorLeft),
+  'DiffView.moveCursorRight': wrapCommand(moveCursorRight),
+  'DiffView.moveCursorToEndOfLine': wrapCommand(moveCursorToEndOfLine),
+  'DiffView.moveCursorToStartOfLine': wrapCommand(moveCursorToStartOfLine),
+  'DiffView.moveCursorUp': wrapCommand(moveCursorUp),
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,
   'DiffView.saveState': saveState,

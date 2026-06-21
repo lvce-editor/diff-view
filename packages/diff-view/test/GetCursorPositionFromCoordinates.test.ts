@@ -7,6 +7,7 @@ test('getCursorPositionFromCoordinates computes cursor position in horizontal la
     ...createDefaultState(),
     gutterWidthVariable: 18,
     leftWidth: 100,
+    totalLineCountRight: 3,
     x: 10,
     y: 20,
   }
@@ -25,6 +26,7 @@ test('getCursorPositionFromCoordinates computes cursor position in vertical layo
     gutterWidthVariable: 18,
     layout: 'vertical' as const,
     leftWidth: 100,
+    totalLineCountRight: 4,
     x: 10,
     y: 20,
   }
@@ -41,6 +43,7 @@ test('getCursorPositionFromCoordinates includes minLineY', (): void => {
   const state = {
     ...createDefaultState(),
     minLineY: 5,
+    totalLineCountRight: 8,
     x: 0,
     y: 0,
   }
@@ -65,5 +68,19 @@ test('getCursorPositionFromCoordinates clamps negative positions', (): void => {
   expect(result).toEqual({
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+  })
+})
+
+test('getCursorPositionFromCoordinates clamps rows to the last right editor line', (): void => {
+  const state = {
+    ...createDefaultState(),
+    totalLineCountRight: 3,
+  }
+
+  const result = getCursorPositionFromCoordinates(state, 0, 1000)
+
+  expect(result).toEqual({
+    cursorColumnIndex: 0,
+    cursorRowIndex: 2,
   })
 })

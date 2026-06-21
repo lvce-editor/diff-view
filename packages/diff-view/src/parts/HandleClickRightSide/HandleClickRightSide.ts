@@ -4,13 +4,5 @@ import { getCursorPositionFromCoordinates } from '../GetCursorPositionFromCoordi
 
 export const handleClickRightSide = (state: DiffViewState, clientX: number, clientY: number): DiffViewState => {
   const cursorPosition = getCursorPositionFromCoordinates(state, clientX, clientY)
-  return {
-    ...state,
-    focus: DiffEditorWhenExpression.FocusDiffEditorText,
-    focusVersion: state.focusVersion + 1,
-    rightEditor: {
-      ...state.rightEditor,
-      ...cursorPosition,
-    },
-  }
+  return setCursorPosition(state, cursorPosition.cursorColumnIndex, cursorPosition.cursorRowIndex)
 }

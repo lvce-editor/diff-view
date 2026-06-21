@@ -308,6 +308,19 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   width: 100%;
 }
 
+:root {
+ --DiffSeparatorBackground: gray;
+ --DiffSeparatorWidth: 8px;
+
+}
+
+.DiffEditor .Sash {
+  position: relative;
+  width: var(--DiffSeparatorWidth);
+  background: var(--DiffSeparatorBackground);
+
+}
+
 ${staticCss}
 `
   return [ViewletCommand.SetCss, id, css]

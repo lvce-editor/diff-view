@@ -1,10 +1,10 @@
-import { WhenExpression } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import * as DiffEditorWhenExpression from '../DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
 
 export const handleClickRightSide = (state: DiffViewState): DiffViewState => {
   return {
     ...state,
-    focus: WhenExpression.FocusEditorText,
+    focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: state.focusVersion + 1,
   }
 }

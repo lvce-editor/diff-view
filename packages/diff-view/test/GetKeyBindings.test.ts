@@ -1,10 +1,11 @@
+import { expect, test } from '@jest/globals'
 import { WhenExpression } from '@lvce-editor/constants'
 import { KeyCode, KeyModifier } from '@lvce-editor/virtual-dom-worker'
-import type { KeyBinding } from '../KeyBinding/KeyBinding.ts'
-import * as DiffEditorWhenExpression from '../DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
+import * as DiffEditorWhenExpression from '../src/parts/DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
+import { getKeyBindings } from '../src/parts/GetKeyBindings/GetKeyBindings.ts'
 
-export const getKeyBindings = (): readonly KeyBinding[] => {
-  return [
+test('getKeyBindings includes diff editor editing keybindings', (): void => {
+  expect(getKeyBindings()).toEqual([
     {
       command: 'Source Control.acceptInput',
       key: KeyModifier.CtrlCmd | KeyCode.Enter,
@@ -25,5 +26,5 @@ export const getKeyBindings = (): readonly KeyBinding[] => {
       key: KeyCode.Delete,
       when: DiffEditorWhenExpression.FocusDiffEditorText,
     },
-  ]
-}
+  ])
+})

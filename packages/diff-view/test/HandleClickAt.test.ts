@@ -1,6 +1,6 @@
 import { expect, test } from '@jest/globals'
-import { WhenExpression } from '@lvce-editor/constants'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import * as DiffEditorWhenExpression from '../src/parts/DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
 import { handleClickAt } from '../src/parts/HandleClickAt/HandleClickAt.ts'
 
 test('handleClickAt focuses the editable right side for horizontal layout clicks', (): void => {
@@ -14,11 +14,15 @@ test('handleClickAt focuses the editable right side for horizontal layout clicks
   const result = handleClickAt(state, 10 + 40 + 18 + 20 + 12 + 27, 40, '')
 
   expect(result).toMatchObject({
+<<<<<<< HEAD
     focus: WhenExpression.FocusEditorText,
     rightEditor: {
       cursorColumnIndex: 3,
       cursorRowIndex: 2,
     },
+=======
+    focus: DiffEditorWhenExpression.FocusDiffEditorText,
+>>>>>>> origin/main
   })
 })
 
@@ -46,10 +50,14 @@ test('handleClickAt focuses the editable right side for vertical layout clicks',
   const result = handleClickAt(state, 18 + 20 + 12 + 18, 10 + 40 + 60, '')
 
   expect(result).toMatchObject({
+<<<<<<< HEAD
     focus: WhenExpression.FocusEditorText,
     rightEditor: {
       cursorColumnIndex: 2,
       cursorRowIndex: 3,
     },
+=======
+    focus: DiffEditorWhenExpression.FocusDiffEditorText,
+>>>>>>> origin/main
   })
 })

@@ -53,10 +53,10 @@ test('handleInput inserts input at the start of the right content and recomputes
   })
 })
 
-test('handleInput only applies the newly typed suffix when the hidden input already has a value', async (): Promise<void> => {
+test('handleInput applies the hidden input value before the stable right content', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
-      expect([beforeLines, afterLines]).toEqual([['alpha'], ['!gamma beta']])
+      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gamma !beta']])
       return [
         { leftIndex: 0, rightIndex: 0, type: 2 },
         { leftIndex: 0, rightIndex: 0, type: 1 },
@@ -74,9 +74,32 @@ test('handleInput only applies the newly typed suffix when the hidden input alre
 
   const result = await handleInput(state, 'gamma !')
 
-  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['!gamma beta']]])
-  expect(result.contentRight).toBe('!gamma beta')
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gamma !beta']]])
+  expect(result.contentRight).toBe('gamma !beta')
   expect(result.inputValue).toBe('gamma !')
+})
+
+test('handleInput supports shrinking the hidden input value', async (): Promise<void> => {
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (beforeLines: readonly string[], afterLines: readonly string[]): Promise<readonly unknown[]> => {
+      expect([beforeLines, afterLines]).toEqual([['alpha'], ['gammaBeta']])
+      return []
+    },
+  })
+  const state = {
+    ...createDefaultState(),
+    contentLeft: 'alpha',
+    contentRight: 'gamma Beta',
+    inputValue: 'gamma ',
+    totalLineCountLeft: 1,
+    totalLineCountRight: 1,
+  }
+
+  const result = await handleInput(state, 'gamma')
+
+  expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['alpha'], ['gammaBeta']]])
+  expect(result.contentRight).toBe('gammaBeta')
+  expect(result.inputValue).toBe('gamma')
 })
 
 test('handleInput returns the same state for unchanged input value', async (): Promise<void> => {

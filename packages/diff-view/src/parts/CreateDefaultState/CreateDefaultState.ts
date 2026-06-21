@@ -37,6 +37,10 @@ export const createDefaultState = (): DiffViewState => ({
   languageIdLeft: 'unknown',
   languageIdRight: 'unknown',
   layout: 'horizontal',
+  leftEditor: {
+    cursorColumnIndex: 0,
+    cursorRowIndex: 0,
+  },
   leftWidth: 48,
   lineNumbers: true,
   maxInputLines: 5,
@@ -49,6 +53,10 @@ export const createDefaultState = (): DiffViewState => ({
   renderModeRight: 'text',
   resizeOffsetX: 0,
   resizeOffsetY: 0,
+  rightEditor: {
+    cursorColumnIndex: 0,
+    cursorRowIndex: 0,
+  },
   rightWidth: 48,
   root: '/',
   scrollBarActive: false,

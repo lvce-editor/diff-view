@@ -6,6 +6,11 @@ export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
 export type DiffMode = 'inline' | 'side-by-side'
 
+export interface EditorState {
+  readonly cursorColumnIndex: number
+  readonly cursorRowIndex: number
+}
+
 export interface DiffViewState {
   readonly allowedLinkSchemes: readonly string[]
   readonly assetDir: string
@@ -42,6 +47,7 @@ export interface DiffViewState {
   readonly languageIdLeft: string
   readonly languageIdRight: string
   readonly layout: Layout
+  readonly leftEditor: EditorState
   readonly leftWidth: number
   readonly lineNumbers: boolean
   readonly maxInputLines: number
@@ -54,6 +60,7 @@ export interface DiffViewState {
   readonly renderModeRight: RenderMode
   readonly resizeOffsetX: number
   readonly resizeOffsetY: number
+  readonly rightEditor: EditorState
   readonly rightWidth: number
   readonly root: string
   readonly scrollBarActive: boolean

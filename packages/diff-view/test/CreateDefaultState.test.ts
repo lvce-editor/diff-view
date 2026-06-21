@@ -11,8 +11,16 @@ test('createDefaultState sets up image render defaults', (): void => {
   expect(result.gutterWidthVariable).toBe(9)
   expect(result.lineNumbers).toBe(true)
   expect(result.layout).toBe('horizontal')
+  expect(result.leftEditor).toEqual({
+    cursorColumnIndex: 0,
+    cursorRowIndex: 0,
+  })
   expect(result.renderModeLeft).toBe('text')
   expect(result.renderModeRight).toBe('text')
+  expect(result.rightEditor).toEqual({
+    cursorColumnIndex: 0,
+    cursorRowIndex: 0,
+  })
   expect(result.showWhitespace).toBe(false)
   expect(result.totalLineCountLeft).toBe(1)
   expect(result.totalLineCountRight).toBe(1)

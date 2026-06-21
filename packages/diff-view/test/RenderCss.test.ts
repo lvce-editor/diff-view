@@ -75,6 +75,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('.DiffEditorErrorStackLink {')
   expect(result[2]).toContain('border-left: 3px solid rgba(248, 81, 73, 0.6);')
   expect(result[2]).toContain('overflow: auto;')
+  expect(result[2]).toContain('text-underline-offset: 2px;')
   expect(result[2]).toContain('.DiffScrollBarThumb {')
   expect(result[2]).toContain('background-image: var(--ScrollBarBackgroundImage);')
 })

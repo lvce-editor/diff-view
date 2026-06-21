@@ -1,11 +1,11 @@
 import type { InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
+import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 import { getContextRow } from './GetContextRow/GetContextRow.ts'
 import { getDeletionRow } from './GetDeletionRow/GetDeletionRow.ts'
 import { getInsertionRow } from './GetInsertionRow/GetInsertionRow.ts'
 import { getLines } from './GetLines/GetLines.ts'
 import { getLookAheadRows } from './GetLookAheadRows/GetLookAheadRows.ts'
 import { InlineDiffRowType as InlineDiffRowTypeValue } from './InlineDiffRowType/InlineDiffRowType.ts'
-import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 
 export { type InlineDiffRow } from './InlineDiffRow/InlineDiffRow.ts'
 export const InlineDiffRowType = InlineDiffRowTypeValue

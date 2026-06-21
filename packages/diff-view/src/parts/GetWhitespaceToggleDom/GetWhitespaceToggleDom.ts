@@ -5,6 +5,7 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
+/* eslint-disable  sonarjs/no-selector-parameter */
 const getLabel = (showWhitespace: boolean): string => {
   return showWhitespace ? DiffStrings.hideWhitespace() : DiffStrings.showWhitespace()
 }

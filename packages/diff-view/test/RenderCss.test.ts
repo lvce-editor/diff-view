@@ -2,6 +2,7 @@ import { expect, test } from '@jest/globals'
 import { ViewletCommand } from '@lvce-editor/constants'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { renderCss } from '../src/parts/RenderCss/RenderCss.ts'
+import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('renderCss uses cached scroll bar background image from state', (): void => {
   const oldState = createDefaultState()
@@ -79,6 +80,40 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('text-underline-offset: 2px;')
   expect(result[2]).toContain('.DiffScrollBarThumb {')
   expect(result[2]).toContain('background-image: var(--ScrollBarBackgroundImage);')
+})
+
+test('renderCss renders height utility classes for empty line numbers', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    id: 1,
+    itemHeight: 20,
+    visibleLinesLeft: [
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+      {
+        lineNumber: -1,
+        tokens: [],
+        type: VisibleLineType.Normal,
+      },
+    ],
+    visibleLinesRight: [],
+  }
+
+  const result = renderCss(oldState, newState)
+
+  expect(result[0]).toBe(ViewletCommand.SetCss)
+  expect(result[1]).toBe(1)
+  expect(result[2]).toContain('.Height-60 {')
+  expect(result[2]).toContain('  height: 60px;')
 })
 
 test('renderCss renders stacked pane heights for vertical layout', (): void => {

@@ -56,8 +56,7 @@ test('getContentDomWithLineNumbers builds gutter and rows dom with empty line nu
     text('1'),
     {
       childCount: 0,
-      className: ClassNames.DiffEditorLineNumberEmpty,
-      style: 'height: 36px;',
+      className: `${ClassNames.DiffEditorLineNumberEmpty} Height-36`,
       type: VirtualDomElements.Div,
     },
     {

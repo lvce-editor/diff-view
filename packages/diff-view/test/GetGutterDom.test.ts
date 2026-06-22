@@ -88,8 +88,7 @@ test('getGutterDom collapses consecutive empty line numbers into a single placeh
     text('1'),
     {
       childCount: 0,
-      className: ClassNames.DiffEditorLineNumberEmpty,
-      style: 'height: 60px;',
+      className: `${ClassNames.DiffEditorLineNumberEmpty} Height-60`,
       type: VirtualDomElements.Div,
     },
     {

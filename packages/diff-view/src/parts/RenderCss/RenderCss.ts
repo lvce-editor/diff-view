@@ -1,8 +1,41 @@
 import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
+
+const getEmptyLineNumberHeights = (visibleLines: readonly VisibleLine[], itemHeight: number): readonly number[] => {
+  const heights: number[] = []
+  let emptyLineCount = 0
+
+  for (const line of visibleLines) {
+    if (line.lineNumber === -1) {
+      emptyLineCount++
+      continue
+    }
+
+    if (emptyLineCount > 0) {
+      heights.push(emptyLineCount * itemHeight)
+      emptyLineCount = 0
+    }
+  }
+
+  if (emptyLineCount > 0) {
+    heights.push(emptyLineCount * itemHeight)
+  }
+
+  return heights
+}
+
+const getEmptyLineNumberCss = (visibleLinesLeft: readonly VisibleLine[], visibleLinesRight: readonly VisibleLine[], itemHeight: number): string => {
+  const heights = new Set<number>([...getEmptyLineNumberHeights(visibleLinesLeft, itemHeight), ...getEmptyLineNumberHeights(visibleLinesRight, itemHeight)])
+
+  return [...heights]
+    .toSorted((a, b) => a - b)
+    .map((height) => `.Height-${height} {\n  height: ${height}px;\n}`)
+    .join('\n\n')
+}
 
 export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any => {
   const {
@@ -244,6 +277,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   box-sizing: border-box;
   flex-shrink: 0;
 }
+
+${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, itemHeight)}
 
 .DiffEditorRows {
   background: var(--DiffBackground);

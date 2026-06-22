@@ -100,5 +100,5 @@ const afterAnchor = true`,
     (): Promise<void> => expectRowsToHaveText(expect, rightGutterItems, ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '', '12']),
   ])
   const expectedLocator6 = rightEmptyLineNumbers.nth(0)
-  await expect(expectedLocator6).toHaveClass(/Height-100/)
+  await expect(expectedLocator6).toHaveClass('Height-100')
 }

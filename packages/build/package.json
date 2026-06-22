@@ -6,7 +6,8 @@
   "scripts": {
     "create:e2e-tests": "node --experimental-strip-types src/createE2ETests.ts",
     "measure": "node --experimental-strip-types src/measureMemory.ts",
-    "measure:visible": "node --experimental-strip-types src/measureMemory.ts --no-headless"
+    "measure:visible": "node --experimental-strip-types src/measureMemory.ts --no-headless",
+    "trigger-ci-branches": "bash ./trigger-ci-branches.sh"
   },
   "keywords": [],
   "author": "",

@@ -13,7 +13,6 @@ test('getLanguages returns languages from the extension worker', async (): Promi
 
   expect(result).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
   expect(extensionWorkerRpc.invocations).toEqual([['Extensions.getLanguages', 1, '/assets']])
-  extensionWorkerRpc.restore()
 })
 
 test('getLanguages caches results and returns cached on repeated calls', async (): Promise<void> => {
@@ -31,7 +30,6 @@ test('getLanguages caches results and returns cached on repeated calls', async (
   expect(result1).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
   expect(result2).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
   expect(callCount).toBe(1)
-  extensionWorkerRpc.restore()
 })
 
 test('getLanguages bypasses cache for different platform', async (): Promise<void> => {
@@ -47,7 +45,6 @@ test('getLanguages bypasses cache for different platform', async (): Promise<voi
   await getLanguages(2, '/assets')
 
   expect(callCount).toBe(2)
-  extensionWorkerRpc.restore()
 })
 
 test('getLanguages returns empty array when extensions return non-array', async (): Promise<void> => {
@@ -60,7 +57,6 @@ test('getLanguages returns empty array when extensions return non-array', async 
   const result = await getLanguages(1, '/assets')
 
   expect(result).toEqual([])
-  extensionWorkerRpc.restore()
 })
 
 test('getLanguages returns empty array when extension worker throws', async (): Promise<void> => {
@@ -73,5 +69,4 @@ test('getLanguages returns empty array when extension worker throws', async (): 
   const result = await getLanguages(1, '/assets')
 
   expect(result).toEqual([])
-  extensionWorkerRpc.restore()
 })

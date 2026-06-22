@@ -4,7 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { applyEditInput } from '../src/parts/ApplyEditInput/ApplyEditInput.ts'
 
 test('applyEditInput returns state when input value is unchanged', async (): Promise<void> => {
-  const diffWorkerRpc = DiffWorker.registerMockRpc({
+  using mockRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       return []
     },
@@ -16,11 +16,12 @@ test('applyEditInput returns state when input value is unchanged', async (): Pro
 
   const result = await applyEditInput(state, 'abc')
 
+  expect(mockRpc.invocances).toEqual([])
   expect(result).toBe(state)
 })
 
 test('applyEditInput inserts text at cursor position', async (): Promise<void> => {
-  const diffWorkerRpc = DiffWorker.registerMockRpc({
+  using mockRpc = DiffWorker.registerMockRpc({
     'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       return []
     },

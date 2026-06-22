@@ -467,6 +467,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   text-underline-offset: 2px;
   white-space: nowrap;
 }
+
+
+.DiffEditorContent {
+  flex: unset !important
+}
 `
   return [ViewletCommand.SetCss, id, css]
 }

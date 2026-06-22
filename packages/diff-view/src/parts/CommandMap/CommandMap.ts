@@ -16,6 +16,7 @@ import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleCopy } from '../HandleCopy/HandleCopy.ts'
 import { handleCut } from '../HandleCut/HandleCut.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
+import { handleBeforeInput } from '../HandleBeforeInput/HandleBeforeInput.ts'
 import { handlePaste } from '../HandlePaste/HandlePaste.ts'
 import { handleResize } from '../HandleResize/HandleResize.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
@@ -62,6 +63,7 @@ export const commandMap = {
   'DiffView.handleCopy': wrapCommand(handleCopy),
   'DiffView.handleCut': wrapCommand(handleCut),
   'DiffView.handleInput': wrapCommand(handleInput),
+  'DiffView.handleBeforeInput': wrapCommand(handleBeforeInput),
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),

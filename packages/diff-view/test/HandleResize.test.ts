@@ -21,7 +21,7 @@ test('handleResize updates scroll bounds and visible lines for a smaller viewpor
     y: 10,
   }
 
-  const result = handleResize(state, { width: 260, height: 40 })
+  const result = handleResize(state, { height: 40, width: 260 })
 
   expect(result).toEqual({
     ...state,

@@ -5,10 +5,7 @@ import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
-const getEmptyLineNumberHeights = (
-  visibleLines: readonly VisibleLine[],
-  itemHeight: number,
-): readonly number[] => {
+const getEmptyLineNumberHeights = (visibleLines: readonly VisibleLine[], itemHeight: number): readonly number[] => {
   const heights: number[] = []
   let emptyLineCount = 0
 
@@ -31,18 +28,11 @@ const getEmptyLineNumberHeights = (
   return heights
 }
 
-const getEmptyLineNumberCss = (
-  visibleLinesLeft: readonly VisibleLine[],
-  visibleLinesRight: readonly VisibleLine[],
-  itemHeight: number,
-): string => {
-  const heights = new Set<number>([
-    ...getEmptyLineNumberHeights(visibleLinesLeft, itemHeight),
-    ...getEmptyLineNumberHeights(visibleLinesRight, itemHeight),
-  ])
+const getEmptyLineNumberCss = (visibleLinesLeft: readonly VisibleLine[], visibleLinesRight: readonly VisibleLine[], itemHeight: number): string => {
+  const heights = new Set<number>([...getEmptyLineNumberHeights(visibleLinesLeft, itemHeight), ...getEmptyLineNumberHeights(visibleLinesRight, itemHeight)])
 
   return [...heights]
-    .sort((a, b) => a - b)
+    .toSorted((a, b) => a - b)
     .map((height) => `.Height-${height} {\n  height: ${height}px;\n}`)
     .join('\n\n')
 }

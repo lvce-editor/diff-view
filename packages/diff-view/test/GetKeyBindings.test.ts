@@ -1,6 +1,5 @@
 import { expect, test } from '@jest/globals'
-import { WhenExpression } from '@lvce-editor/constants'
-import { KeyCode, KeyModifier } from '@lvce-editor/virtual-dom-worker'
+import { KeyCode } from '@lvce-editor/virtual-dom-worker'
 import * as DiffEditorWhenExpression from '../src/parts/DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
 import { getKeyBindings } from '../src/parts/GetKeyBindings/GetKeyBindings.ts'
 

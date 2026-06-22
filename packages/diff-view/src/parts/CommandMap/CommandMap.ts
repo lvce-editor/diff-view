@@ -25,6 +25,7 @@ import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/Handle
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleSearchInput } from '../HandleSearchInput/HandleSearchInput.ts'
+import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
@@ -65,6 +66,7 @@ export const commandMap = {
   'DiffView.handleInput': wrapCommand(handleInput),
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
+  'DiffView.handleWorkspaceChange': wrapCommand(handleWorkspaceChange),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
   'DiffView.handleSashPointerMove': wrapCommand(handleSashPointerMove),
   'DiffView.handleSashPointerUp': wrapCommand(handleSashPointerUp),

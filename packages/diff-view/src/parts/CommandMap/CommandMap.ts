@@ -24,6 +24,7 @@ import { handleSashPointerUp } from '../HandleSashPointerUp/HandleSashPointerUp.
 import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/HandleScrollBarPointerDown.ts'
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
+import { handleSearchInput } from '../HandleSearchInput/HandleSearchInput.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
@@ -34,7 +35,6 @@ import { loadContent } from '../LoadContent/LoadContent.ts'
 import { moveCursorDown, moveCursorLeft, moveCursorRight, moveCursorToEndOfLine, moveCursorToStartOfLine, moveCursorUp } from '../MoveCursor/MoveCursor.ts'
 import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
-import { handleSearchInput } from '../HandleSearchInput/HandleSearchInput.ts'
 import { saveState } from '../SaveState/SaveState.ts'
 import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
@@ -62,7 +62,6 @@ export const commandMap = {
   'DiffView.handleCopy': wrapCommand(handleCopy),
   'DiffView.handleCut': wrapCommand(handleCut),
   'DiffView.handleInput': wrapCommand(handleInput),
-  'DiffView.handleSearchInput': wrapCommand(handleSearchInput),
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
@@ -71,6 +70,7 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerDown': wrapCommand(handleScrollBarPointerDown),
   'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
+  'DiffView.handleSearchInput': wrapCommand(handleSearchInput),
   'DiffView.handleWheel': wrapCommand(handleWheel),
   'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,

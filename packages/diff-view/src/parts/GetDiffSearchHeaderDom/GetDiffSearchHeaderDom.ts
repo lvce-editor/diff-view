@@ -45,8 +45,8 @@ export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string
     {
       childCount: 0,
       className: 'DiffSearchMatchCount',
-      type: VirtualDomElements.Div,
       text: `${total} of ${total}`,
+      type: VirtualDomElements.Div,
     },
   ]
 }

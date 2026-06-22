@@ -3,7 +3,13 @@ import { getNextPaneSizes } from '../GetNextPaneSizes/GetNextPaneSizes.ts'
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 
-export const handleResize = (state: DiffViewState, width: number, height: number): DiffViewState => {
+interface Dimensions {
+  height: number
+  width: number
+}
+
+export const handleResize = (state: DiffViewState, { height, width }: Readonly<Dimensions>): DiffViewState => {
+  // const {} = state
   if (state.width === width && state.height === height) {
     return state
   }

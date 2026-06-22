@@ -26,7 +26,6 @@ alpha added`,
   await KeyBoard.press('Control+f')
 
   const inlineEditor = Locator('.InlineDiffEditor')
-  const searchInput = Locator('.DiffSearchInput')
   const matchCount = Locator('.DiffSearchMatchCount')
   const inlineMatches = Locator('.InlineDiffEditor .DiffSearchMatch')
   const currentMatch = Locator('.InlineDiffEditor .DiffSearchMatchCurrent')

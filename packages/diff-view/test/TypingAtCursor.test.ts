@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { DiffWorker } from '@lvce-editor/rpc-registry'
-import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { applyEditInput } from '../src/parts/ApplyEditInput/ApplyEditInput.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { insertLineBreak } from '../src/parts/InsertLineBreak/InsertLineBreak.ts'
 
 test('typing inserts characters at the cursor position', async (): Promise<void> => {

@@ -37,7 +37,7 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
 
   const prefixLength = state.inputValue && state.contentRight.startsWith(state.inputValue) ? state.inputValue.length : 0
   const index = Math.max(0, fullIndex - prefixLength)
-  const lines = baseContent.split('\n')
+  // base content split into lines is available if needed
 
   const before = baseContent.slice(0, index)
   const after = baseContent.slice(index)

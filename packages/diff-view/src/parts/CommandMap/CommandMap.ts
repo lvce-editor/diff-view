@@ -8,6 +8,7 @@ import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { handleBeforeInput } from '../HandleBeforeInput/HandleBeforeInput.ts'
 import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickLeftSide } from '../HandleClickLeftSide/HandleClickLeftSide.ts'
@@ -16,7 +17,6 @@ import { handleContextMenu } from '../HandleContextMenu/HandleContextMenu.ts'
 import { handleCopy } from '../HandleCopy/HandleCopy.ts'
 import { handleCut } from '../HandleCut/HandleCut.ts'
 import { handleInput } from '../HandleInput/HandleInput.ts'
-import { handleBeforeInput } from '../HandleBeforeInput/HandleBeforeInput.ts'
 import { handlePaste } from '../HandlePaste/HandlePaste.ts'
 import { handleResize } from '../HandleResize/HandleResize.ts'
 import { handleSashPointerDown } from '../HandleSashPointerDown/HandleSashPointerDown.ts'
@@ -55,6 +55,7 @@ export const commandMap = {
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
+  'DiffView.handleBeforeInput': wrapCommand(handleBeforeInput),
   'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleClickLeftSide': wrapCommand(handleClickLeftSide),
@@ -63,7 +64,6 @@ export const commandMap = {
   'DiffView.handleCopy': wrapCommand(handleCopy),
   'DiffView.handleCut': wrapCommand(handleCut),
   'DiffView.handleInput': wrapCommand(handleInput),
-  'DiffView.handleBeforeInput': wrapCommand(handleBeforeInput),
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),

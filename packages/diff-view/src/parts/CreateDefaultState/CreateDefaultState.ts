@@ -64,6 +64,7 @@ export const createDefaultState = (): DiffViewState => ({
   scrollBarDragOffsetY: 0,
   scrollBarHeight: 0,
   searchVisible: false,
+  searchQuery: '',
   showWhitespace: false,
   splitButtonEnabled: false,
   tokenizedLinesLeft: [],

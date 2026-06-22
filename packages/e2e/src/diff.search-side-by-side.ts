@@ -25,8 +25,6 @@ omega alpha`,
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
   await KeyBoard.press('Control+f')
-
-  const searchInput = Locator('.DiffSearchInput')
   const matchCount = Locator('.DiffSearchMatchCount')
   const matches = Locator('.DiffSearchMatch')
   const currentMatch = Locator('.DiffSearchMatchCurrent')

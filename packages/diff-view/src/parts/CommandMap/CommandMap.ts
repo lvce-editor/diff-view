@@ -38,8 +38,8 @@ import { renderEventListeners } from '../RenderEventListeners/RenderEventListene
 import { saveState } from '../SaveState/SaveState.ts'
 import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
-import { setLayout } from '../SetLayout/SetLayout.ts'
 import { setFontFamily } from '../SetFontFamily/SetFontFamily.ts'
+import { setLayout } from '../SetLayout/SetLayout.ts'
 import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
@@ -91,8 +91,8 @@ export const commandMap = {
   'DiffView.saveState': saveState,
   'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
-  'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.setFontFamily': wrapCommand(setFontFamily),
+  'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),

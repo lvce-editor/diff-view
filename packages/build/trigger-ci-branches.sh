@@ -36,6 +36,10 @@ echo "Found ${#branches[@]} branches to trigger CI on."
 
 for br in "${branches[@]}"; do
   echo "---\nProcessing branch: $br"
+  if [ "$br" = "main" ]; then
+    echo "Skipping 'main' branch."
+    continue
+  fi
   git checkout "$br"
   # create an empty commit to trigger workflows
   git commit --allow-empty -m "trigger ci"

@@ -6,14 +6,14 @@ import { insertLineBreak } from '../src/parts/InsertLineBreak/InsertLineBreak.ts
 
 test('typing inserts characters at the cursor position', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
-    'Diff.diffInline': async (): Promise<readonly unknown[]> => []
+    'Diff.diffInline': async (): Promise<readonly unknown[]> => [],
   })
 
   const state = {
     ...createDefaultState(),
     contentLeft: '',
     contentRight: 'helloWorld',
-    inputValue: ' ',
+    inputValue: '',
     rightEditor: {
       cursorColumnIndex: 5,
       cursorRowIndex: 0,
@@ -31,7 +31,7 @@ test('typing inserts characters at the cursor position', async (): Promise<void>
 
 test('insertLineBreak at cursor splits the line', async (): Promise<void> => {
   const diffWorkerRpc = DiffWorker.registerMockRpc({
-    'Diff.diffInline': async (): Promise<readonly unknown[]> => []
+    'Diff.diffInline': async (): Promise<readonly unknown[]> => [],
   })
 
   const state = {

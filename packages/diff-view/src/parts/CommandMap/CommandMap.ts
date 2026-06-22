@@ -8,6 +8,7 @@ import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { handleBeforeInput } from '../HandleBeforeInput/HandleBeforeInput.ts'
 import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickLeftSide } from '../HandleClickLeftSide/HandleClickLeftSide.ts'
@@ -56,6 +57,7 @@ export const commandMap = {
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
+  'DiffView.handleBeforeInput': wrapCommand(handleBeforeInput),
   'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleClickLeftSide': wrapCommand(handleClickLeftSide),

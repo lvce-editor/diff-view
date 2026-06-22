@@ -4,7 +4,7 @@ export const name = 'diff.search-open'
 
 // export const skip = 1
 
-export const test: Test = async ({ Command, DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha\nbeta')
   await FileSystem.writeFile(`${tmpDir}/after.txt`, 'alpha\ngamma')

@@ -4,11 +4,11 @@ import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 
 interface Dimensions {
-  width: number
   height: number
+  width: number
 }
 
-export const handleResize = (state: DiffViewState, { width, height }: Dimensions): DiffViewState => {
+export const handleResize = (state: DiffViewState, { height, width }: Readonly<Dimensions>): DiffViewState => {
   // const {} = state
   if (state.width === width && state.height === height) {
     return state

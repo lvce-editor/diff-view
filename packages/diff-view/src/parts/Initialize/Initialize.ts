@@ -5,6 +5,7 @@ import { initializeErrorWorker } from '../InitializeErrorWorker/InitializeErrorW
 import { initializeExtensionManagementWorker } from '../InitializeExtensionManagementWorker/InitializeExtensionManagementWorker.ts'
 import { initializeFileSystemWorker } from '../InitializeFileSystemWorker/InitializeFileSystemWorker.ts'
 import { initializeSyntaxHighlightingWorker } from '../InitializeSyntaxHighlightingWorker/InitializeSyntaxHighlightingWorker.ts'
+import { initializeTextMeasurementWorker } from '../InitializeTextMeasurementWorker/InitializeTextMeasurementWorker.ts'
 
 export const initialize = async (): Promise<void> => {
   await Promise.all([
@@ -15,5 +16,6 @@ export const initialize = async (): Promise<void> => {
     initializeFileSystemWorker(),
     initializeErrorWorker(),
     initializeSyntaxHighlightingWorker(),
+    initializeTextMeasurementWorker(),
   ])
 }

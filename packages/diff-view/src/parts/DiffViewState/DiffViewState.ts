@@ -87,4 +87,5 @@ export interface DiffViewState {
   readonly workspacePath: string
   readonly x: number
   readonly y: number
+  readonly fontFamily: string
 }

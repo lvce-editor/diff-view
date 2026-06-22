@@ -83,4 +83,5 @@ export const createDefaultState = (): DiffViewState => ({
   workspacePath: '',
   x: 0,
   y: 0,
+  fontFamily: 'monospace',
 })

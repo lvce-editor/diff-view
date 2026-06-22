@@ -24,6 +24,7 @@ import { handleSashPointerUp } from '../HandleSashPointerUp/HandleSashPointerUp.
 import { handleScrollBarPointerDown } from '../HandleScrollBarPointerDown/HandleScrollBarPointerDown.ts'
 import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/HandleScrollBarPointerMove.ts'
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
+import { handleSearchInput } from '../HandleSearchInput/HandleSearchInput.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
 import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
@@ -69,6 +70,7 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerDown': wrapCommand(handleScrollBarPointerDown),
   'DiffView.handleScrollBarPointerMove': wrapCommand(handleScrollBarPointerMove),
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
+  'DiffView.handleSearchInput': wrapCommand(handleSearchInput),
   'DiffView.handleWheel': wrapCommand(handleWheel),
   'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,
@@ -84,6 +86,7 @@ export const commandMap = {
   'DiffView.moveCursorUp': wrapCommand(moveCursorUp),
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,
+  'DiffView.resize': wrapCommand(handleResize),
   'DiffView.saveState': saveState,
   'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),

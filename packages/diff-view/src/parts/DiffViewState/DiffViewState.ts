@@ -67,6 +67,7 @@ export interface DiffViewState {
   readonly scrollBarBackgroundImage: string
   readonly scrollBarDragOffsetY: number
   readonly scrollBarHeight: number
+  readonly searchQuery: string
   readonly searchVisible: boolean
   readonly showWhitespace: boolean
   readonly splitButtonEnabled: boolean

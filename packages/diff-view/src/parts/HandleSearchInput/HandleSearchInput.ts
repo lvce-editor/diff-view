@@ -4,5 +4,13 @@ export const handleSearchInput = async (state: DiffViewState, value: string): Pr
   return {
     ...state,
     searchQuery: value,
+    leftEditor: {
+      ...state.leftEditor,
+      searchQuery: value,
+    },
+    rightEditor: {
+      ...state.rightEditor,
+      searchQuery: value,
+    },
   }
 }

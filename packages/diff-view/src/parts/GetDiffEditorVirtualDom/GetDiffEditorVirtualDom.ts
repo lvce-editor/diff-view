@@ -39,10 +39,13 @@ const getDiffEditorWithSearchDom = (
   buttonsDom: readonly VirtualDomNode[],
   scrollBarDom: readonly VirtualDomNode[],
   scrollBarActive: boolean,
+  contentLeft: string,
+  contentRight: string,
+  searchQuery: string,
 ): readonly VirtualDomNode[] => {
   return [
     getRootDom(scrollBarActive ? 4 : 3, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass} ${ClassNames.DiffEditorWithSearch}`),
-    ...getDiffSearchHeaderDom(),
+    ...getDiffSearchHeaderDom(contentLeft, contentRight, searchQuery),
     getEditorBodyDom(diffEditorLayoutClass),
     ...leftDom,
     getSashDom(sashLayoutClass),
@@ -95,6 +98,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
     renderModeLeft,
     renderModeRight,
     scrollBarActive,
+    searchQuery,
     searchVisible,
     showWhitespace,
     tokenizedLinesLeft,
@@ -108,7 +112,7 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   } = state
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
-    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, searchVisible, showWhitespace)
+    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, searchVisible, searchQuery, showWhitespace)
   }
 
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
@@ -155,7 +159,18 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)
   if (searchVisible) {
-    return getDiffEditorWithSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
+    return getDiffEditorWithSearchDom(
+      diffEditorLayoutClass,
+      sashLayoutClass,
+      leftDom,
+      rightDom,
+      buttonsDom,
+      scrollBarDom,
+      scrollBarActive,
+      contentLeft,
+      contentRight,
+      searchQuery,
+    )
   }
   return getDiffEditorWithoutSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
 }

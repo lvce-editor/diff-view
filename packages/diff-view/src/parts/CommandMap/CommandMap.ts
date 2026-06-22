@@ -63,6 +63,7 @@ export const commandMap = {
   'DiffView.handleInput': wrapCommand(handleInput),
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
+  'DiffView.resize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),
   'DiffView.handleSashPointerMove': wrapCommand(handleSashPointerMove),
   'DiffView.handleSashPointerUp': wrapCommand(handleSashPointerUp),

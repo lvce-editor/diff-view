@@ -4,7 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { handleWorkspaceChange } from '../src/parts/HandleWorkspaceChange/HandleWorkspaceChange.ts'
 
 test('handleWorkspaceChange returns state unchanged when content has not changed', async (): Promise<void> => {
-  const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
+  FileSystemWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/before.txt') {
         return 'same content'
@@ -15,7 +15,6 @@ test('handleWorkspaceChange returns state unchanged when content has not changed
       throw new Error(`unexpected uri: ${uri}`)
     },
   })
-  const extensionHostRpc = createDefaultState().rpc as any
   const state = {
     ...createDefaultState(),
     contentLeft: 'same content',

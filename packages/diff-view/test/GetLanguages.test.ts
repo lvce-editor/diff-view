@@ -19,7 +19,7 @@ test('getLanguages returns languages from the extension worker', async (): Promi
 test('getLanguages caches results and returns cached on repeated calls', async (): Promise<void> => {
   clearLanguageCache()
   let callCount = 0
-  using mockRpc = ExtensionManagementWorker.registerMockRpc({
+  ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
       callCount++
       return [{ id: 'typescript', extensions: ['.ts'] }]
@@ -53,7 +53,7 @@ test('getLanguages bypasses cache for different platform', async (): Promise<voi
 
 test('getLanguages returns empty array when extensions return non-array', async (): Promise<void> => {
   clearLanguageCache()
-  using mockRpc = ExtensionManagementWorker.registerMockRpc({
+  ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (): Promise<unknown> => {
       return null
     },

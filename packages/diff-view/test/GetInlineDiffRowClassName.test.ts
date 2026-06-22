@@ -24,6 +24,6 @@ test('getInlineDiffRowClassName returns insertion class for Insertion type', ():
 })
 
 test('getInlineDiffRowClassName returns default class for unknown type', (): void => {
-  const row = { lineNumberLeft: 1, lineNumberRight: 1, text: 'context', type: InlineDiffRowType.Normal }
+  const row = { lineNumberLeft: 1, lineNumberRight: 1, text: 'context', type: InlineDiffRowType.Context }
   expect(getInlineDiffRowClassName(row)).toBe(ClassNames.EditorRow)
 })

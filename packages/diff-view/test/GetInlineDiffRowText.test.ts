@@ -23,6 +23,6 @@ test('getInlineDiffRowText prefixes insertion rows with "+ "', (): void => {
 })
 
 test('getInlineDiffRowText prefixes normal rows with spaces', (): void => {
-  const row = { lineNumberLeft: 1, lineNumberRight: 1, text: 'context', type: InlineDiffRowType.Normal }
+  const row = { lineNumberLeft: 1, lineNumberRight: 1, text: 'context', type: InlineDiffRowType.Context }
   expect(getInlineDiffRowText(row)).toBe('  context')
 })

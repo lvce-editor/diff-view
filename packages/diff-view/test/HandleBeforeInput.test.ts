@@ -18,7 +18,7 @@ test('handleBeforeInput applies insertText with data', async (): Promise<void> =
       cursorRowIndex: 0,
       cursorColumnIndex: 0,
     },
-    renderModeRight: 'text',
+    renderModeRight: 'text' as const,
     errorRightMessage: '',
     maxInputLines: 100,
   }

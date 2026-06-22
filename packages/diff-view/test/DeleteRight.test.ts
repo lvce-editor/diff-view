@@ -4,7 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { deleteRight } from '../src/parts/DeleteRight/DeleteRight.ts'
 
 test('deleteRight deletes a character to the right of the cursor', async (): Promise<void> => {
-  const diffWorkerRpc = DiffWorker.registerMockRpc({
+  DiffWorker.registerMockRpc({
     'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       return []
     },

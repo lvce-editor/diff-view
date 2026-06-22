@@ -4,7 +4,7 @@ import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaul
 import { deleteLeft } from '../src/parts/DeleteLeft/DeleteLeft.ts'
 
 test('deleteLeft deletes a character to the left of the cursor', async (): Promise<void> => {
-  const diffWorkerRpc = DiffWorker.registerMockRpc({
+  DiffWorker.registerMockRpc({
     'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       return []
     },
@@ -48,7 +48,7 @@ test('deleteLeft returns state when cursor is at the beginning', async (): Promi
 })
 
 test('deleteLeft uses inputValue when present', async (): Promise<void> => {
-  const diffWorkerRpc = DiffWorker.registerMockRpc({
+  DiffWorker.registerMockRpc({
     'Diff.diffInline': async (): Promise<readonly unknown[]> => {
       return []
     },

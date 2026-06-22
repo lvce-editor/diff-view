@@ -465,7 +465,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
 
 :root {
  --DiffSeparatorBackground: gray;
- --DiffSeparatorWidth: 8px;
+ --DiffSeparatorWidth: 6px;
 
 }
 

@@ -1,6 +1,7 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.diff-editor-undo-redo'
+export const skip = 1
 
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()

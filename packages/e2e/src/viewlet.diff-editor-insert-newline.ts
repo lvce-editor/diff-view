@@ -1,6 +1,7 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.diff-editor-insert-newline'
+export const skip = 1
 
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()

@@ -1,9 +1,80 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import { applyEditInput } from '../ApplyEditInput/ApplyEditInput.ts'
+import { getLineCount } from '../GetLineCount/GetLineCount.ts'
+import { getInlineDiffState } from '../GetInlineDiffState/GetInlineDiffState.ts'
+import { getGutterWidthVariable } from '../GetGutterWidthVariable/GetGutterWidthVariable.ts'
+import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetScrollBarBackgroundImage.ts'
+import { getScrollState } from '../GetScrollState/GetScrollState.ts'
+import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
+import * as InputSource from '../InputSource/InputSource.ts'
 
-export const deleteLeft = (state: DiffViewState): Promise<DiffViewState> => {
-  if (!state.inputValue) {
-    return Promise.resolve(state)
+const getBaseContentRight = (state: DiffViewState): string => {
+  if (state.inputValue && state.contentRight.startsWith(state.inputValue)) {
+    return state.contentRight.slice(state.inputValue.length)
   }
-  return applyEditInput(state, state.inputValue.slice(0, -1))
+  return state.contentRight
+}
+
+export const deleteLeft = async (state: DiffViewState): Promise<DiffViewState> => {
+  if (state.inputValue) {
+    return applyEditInput(state, state.inputValue.slice(0, -1))
+  }
+
+  const baseContent = getBaseContentRight(state)
+  const cursorRow = Math.max(0, Math.min(state.rightEditor.cursorRowIndex, getLineCount(baseContent) - 1))
+  const lines = baseContent.split('\n')
+  const currentLine = lines[cursorRow] ?? ''
+  const cursorCol = Math.max(0, Math.min(state.rightEditor.cursorColumnIndex, currentLine.length))
+
+  // compute absolute index
+  let index = 0
+  for (let i = 0; i < cursorRow; i++) {
+    index += (lines[i] ?? '').length + 1
+  }
+  index += cursorCol
+
+  if (index <= 0) {
+    return state
+  }
+
+  const contentRight = baseContent.slice(0, index - 1) + baseContent.slice(index)
+  const { totalLineCountLeft } = state
+  const totalLineCountRight = getLineCount(contentRight)
+  const canComputeInlineDiff = state.renderModeLeft === 'text' && !state.errorLeftMessage
+  const { inlineChanges, totalLineCount } = canComputeInlineDiff
+    ? await getInlineDiffState(state.contentLeft, contentRight)
+    : {
+        inlineChanges: [],
+        totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),
+      }
+  const scrollState = getScrollState(state.height, state.itemHeight, totalLineCount, state.minimumSliderSize, state.deltaY)
+  const nextState = {
+    ...state,
+    contentRight,
+    gutterWidthVariable: getGutterWidthVariable(Math.max(totalLineCountLeft, totalLineCountRight)),
+    inlineChanges,
+    inputSource: InputSource.User,
+    inputValue: '',
+    scrollBarBackgroundImage: getScrollBarBackgroundImage(inlineChanges, totalLineCount),
+    tokenizedLinesRight: [],
+    totalLineCount,
+    totalLineCountLeft,
+    totalLineCountRight,
+    ...scrollState,
+  }
+
+  return {
+    ...nextState,
+    ...getVisibleLinesState({
+      contentLeft: nextState.contentLeft,
+      contentRight: nextState.contentRight,
+      inlineChanges: nextState.inlineChanges,
+      maxLineY: nextState.maxLineY,
+      minLineY: nextState.minLineY,
+      tokenizedLinesLeft: nextState.tokenizedLinesLeft,
+      tokenizedLinesRight: nextState.tokenizedLinesRight,
+      totalLineCountLeft: nextState.totalLineCountLeft,
+      totalLineCountRight: nextState.totalLineCountRight,
+    }),
+  }
 }

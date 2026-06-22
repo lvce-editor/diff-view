@@ -1,12 +1,11 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'diff.edit-right-side'
+export const name = 'viewlet.diff-editor-paste-and-replace'
 
-export const skip = 1
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha')
-  await FileSystem.writeFile(`${tmpDir}/after.txt`, 'beta')
+  await FileSystem.writeFile(`${tmpDir}/before.txt`, 'one\ntwo\nthree')
+  await FileSystem.writeFile(`${tmpDir}/after.txt`, 'one\ntwo\nthree')
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
@@ -15,9 +14,9 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const input = Locator('.DiffEditorInput')
 
   await expect(input).toHaveCount(1)
-  await Command.execute('DiffView.handleInput', 'gamma ')
+  // simulate paste replacing 'two' with '2'
+  // set input to full content with replacement
+  await Command.execute('DiffView.handleInput', 'one\n2\nthree')
 
-  await expect(input).toHaveValue('gamma ')
-  await expect(afterRows).toHaveText('gamma beta')
-  await expect(afterRows.locator('.EditorRow').first()).toHaveClass('EditorRow Insertion')
+  await expect(afterRows).toHaveText('one\n2\nthree')
 }

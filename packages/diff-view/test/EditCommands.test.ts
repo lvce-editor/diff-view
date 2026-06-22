@@ -78,10 +78,10 @@ test('deleteLeft returns the same state for an empty edit buffer', async (): Pro
   expect(result).toBe(state)
 })
 
-test('deleteRight returns the same state at the prepend boundary', (): void => {
+test('deleteRight returns the same state at the prepend boundary', async (): Promise<void> => {
   const state = createDefaultState()
 
-  const result = deleteRight(state)
+  const result = await deleteRight(state)
 
   expect(result).toBe(state)
 })

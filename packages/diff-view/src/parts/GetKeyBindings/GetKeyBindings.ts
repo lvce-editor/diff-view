@@ -1,6 +1,6 @@
 import { KeyCode } from '@lvce-editor/virtual-dom-worker'
-import * as DiffEditorWhenExpression from '../DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
 import type { KeyBinding } from '../KeyBinding/KeyBinding.ts'
+import * as DiffEditorWhenExpression from '../DiffEditorWhenExpression/DiffEditorWhenExpression.ts'
 
 export const getKeyBindings = (): readonly KeyBinding[] => {
   return [

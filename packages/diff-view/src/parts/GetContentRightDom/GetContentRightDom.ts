@@ -27,7 +27,7 @@ interface GetContentRightDomOptions {
   readonly visibleLines?: readonly VisibleLine[]
 }
 
-const getInputWrapperDom = (inputValue: string): readonly VirtualDomNode[] => [
+const getInputWrapperDom = (inputValue: string, caretPosition = inputValue.length): readonly VirtualDomNode[] => [
   {
     childCount: 1,
     className: ClassNames.DiffEditorInputWrapper,
@@ -38,6 +38,8 @@ const getInputWrapperDom = (inputValue: string): readonly VirtualDomNode[] => [
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
+    selectionEnd: caretPosition,
+    selectionStart: caretPosition,
     type: VirtualDomElements.TextArea,
     value: inputValue,
   },

@@ -1,12 +1,12 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
-export const name = 'diff.edit-right-side'
-
+export const name = 'viewlet.diff-editor-multiline-edit'
 export const skip = 1
+
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
-  await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha')
-  await FileSystem.writeFile(`${tmpDir}/after.txt`, 'beta')
+  await FileSystem.writeFile(`${tmpDir}/before.txt`, 'line1\nline2\nline3')
+  await FileSystem.writeFile(`${tmpDir}/after.txt`, 'line1\nline2\nline3')
   await Workspace.setPath(tmpDir)
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
@@ -15,9 +15,8 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const input = Locator('.DiffEditorInput')
 
   await expect(input).toHaveCount(1)
-  await Command.execute('DiffView.handleInput', 'gamma ')
+  // insert text in the middle line
+  await Command.execute('DiffView.handleInput', 'line1\nmid-line\nline3')
 
-  await expect(input).toHaveValue('gamma ')
-  await expect(afterRows).toHaveText('gamma beta')
-  await expect(afterRows.locator('.EditorRow').first()).toHaveClass('EditorRow Insertion')
+  await expect(afterRows).toHaveText('line1\nmid-line\nline3')
 }

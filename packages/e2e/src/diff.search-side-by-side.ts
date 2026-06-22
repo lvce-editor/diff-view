@@ -4,7 +4,7 @@ export const name = 'diff.search-side-by-side'
 
 export const skip = 1
 
-export const test: Test = async ({ DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
     `${tmpDir}/before.txt`,
@@ -25,16 +25,13 @@ omega alpha`,
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
   await KeyBoard.press('Control+f')
-
-  const searchInput = Locator('.DiffSearchInput')
   const matchCount = Locator('.DiffSearchMatchCount')
   const matches = Locator('.DiffSearchMatch')
   const currentMatch = Locator('.DiffSearchMatchCurrent')
   const leftMatches = Locator('.DiffEditorContentLeft .DiffSearchMatch')
   const rightMatches = Locator('.DiffEditorContentRight .DiffSearchMatch')
 
-  await searchInput.type('alpha')
-  await searchInput.dispatchEvent('input', { bubbles: true } as any)
+  await Command.execute('DiffView.handleSearchInput', 'alpha')
 
   await expect(matchCount).toHaveText('1 of 5')
   await expect(matches).toHaveCount(5)

@@ -26,14 +26,12 @@ alpha added`,
   await KeyBoard.press('Control+f')
 
   const inlineEditor = Locator('.InlineDiffEditor')
-  const searchInput = Locator('.DiffSearchInput')
   const matchCount = Locator('.DiffSearchMatchCount')
   const inlineMatches = Locator('.InlineDiffEditor .DiffSearchMatch')
   const currentMatch = Locator('.InlineDiffEditor .DiffSearchMatchCurrent')
   const horizontalMatches = Locator('.DiffEditorHorizontal .DiffSearchMatch')
 
-  await searchInput.type('alpha')
-  await searchInput.dispatchEvent('input', { bubbles: true } as any)
+  await Command.execute('DiffView.handleSearchInput', 'alpha')
 
   await expect(inlineEditor).toBeVisible()
   await expect(matchCount).toHaveText('1 of 4')

@@ -7,11 +7,6 @@ import { getKeyBindings } from '../src/parts/GetKeyBindings/GetKeyBindings.ts'
 test('getKeyBindings includes diff editor editing keybindings', (): void => {
   expect(getKeyBindings()).toEqual([
     {
-      command: 'Source Control.acceptInput',
-      key: KeyModifier.CtrlCmd | KeyCode.Enter,
-      when: WhenExpression.FocusSourceControlInput,
-    },
-    {
       command: 'DiffView.insertLineBreak',
       key: KeyCode.Enter,
       when: DiffEditorWhenExpression.FocusDiffEditorText,

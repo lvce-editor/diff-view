@@ -250,6 +250,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 10px 0 6px;
   white-space: pre;
+  flex-shrink: 0;
 }
 
 .DiffEditor .DiffEditorLineNumber {

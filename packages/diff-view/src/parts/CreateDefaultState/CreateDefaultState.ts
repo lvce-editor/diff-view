@@ -40,6 +40,8 @@ export const createDefaultState = (): DiffViewState => ({
   leftEditor: {
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    selectionStart: 0,
+    selectionEnd: 0,
   },
   leftWidth: 48,
   lineNumbers: true,
@@ -56,6 +58,8 @@ export const createDefaultState = (): DiffViewState => ({
   rightEditor: {
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    selectionStart: 0,
+    selectionEnd: 0,
   },
   rightWidth: 48,
   root: '/',

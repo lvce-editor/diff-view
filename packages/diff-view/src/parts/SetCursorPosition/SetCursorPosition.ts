@@ -7,6 +7,8 @@ export const setCursorPosition = (state: DiffViewState, cursorColumnIndex: numbe
       ...state.rightEditor,
       cursorColumnIndex,
       cursorRowIndex,
+      selectionStart: cursorColumnIndex,
+      selectionEnd: cursorColumnIndex,
     },
   }
 }

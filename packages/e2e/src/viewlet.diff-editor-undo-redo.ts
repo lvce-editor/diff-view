@@ -2,7 +2,7 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.diff-editor-undo-redo'
 
-export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, KeyBoard, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, KeyBoard, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, 'start')
   await FileSystem.writeFile(`${tmpDir}/after.txt`, 'start')

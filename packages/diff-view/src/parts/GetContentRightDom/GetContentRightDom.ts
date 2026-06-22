@@ -38,9 +38,9 @@ const getInputWrapperDom = (inputValue: string, caretPosition = inputValue.lengt
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    type: VirtualDomElements.TextArea,
     selectionEnd: caretPosition,
     selectionStart: caretPosition,
+    type: VirtualDomElements.TextArea,
     value: inputValue,
   },
 ]

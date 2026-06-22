@@ -87,8 +87,8 @@ export const getContentRightDom = ({
     return [
       {
         ...content,
-      onPointerDown: DomEventListenerFunctions.HandleClickRightSide,
-      }
+        onPointerDown: DomEventListenerFunctions.HandleClickRightSide,
+      },
       ...rest,
     ]
   }
@@ -99,7 +99,7 @@ export const getContentRightDom = ({
       ...content,
       childCount: content.childCount + 2,
       onPointerDown: DomEventListenerFunctions.HandleClickRightSide,
-    }
+    },
     ...rest,
     ...cursorDom,
     ...getInputWrapperDom(inputValue),

@@ -17,7 +17,6 @@ test('applyEditInput returns state when input value is unchanged', async (): Pro
   const result = await applyEditInput(state, 'abc')
 
   expect(result).toBe(state)
-  diffWorkerRpc.restore()
 })
 
 test('applyEditInput inserts text at cursor position', async (): Promise<void> => {
@@ -43,7 +42,6 @@ test('applyEditInput inserts text at cursor position', async (): Promise<void> =
   const result = await applyEditInput(state, 'hello ')
 
   expect(result.contentRight).toBe('hello world')
-  diffWorkerRpc.restore()
 })
 
 test('applyEditInput returns state when renderModeRight is not text', async (): Promise<void> => {

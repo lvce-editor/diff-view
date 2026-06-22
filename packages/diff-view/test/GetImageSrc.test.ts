@@ -2,7 +2,7 @@ import { expect, test } from '@jest/globals'
 import { getImageSrc } from '../src/parts/GetImageSrc/GetImageSrc.ts'
 
 test('getImageSrc returns data uri for data protocol', (): void => {
-  const result = getImageSrc('data:image/png;base64,abc')
+  const result = getImageSrc('data://image/png;base64,abc')
   expect(result).toBe('data:image/png;base64,abc')
 })
 

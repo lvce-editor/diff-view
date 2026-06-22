@@ -29,7 +29,6 @@ test('deleteLeft deletes a character to the left of the cursor', async (): Promi
   const result = await deleteLeft(state)
 
   expect(result.contentRight).toBe('hell world')
-  diffWorkerRpc.restore()
 })
 
 test('deleteLeft returns state when cursor is at the beginning', async (): Promise<void> => {
@@ -75,5 +74,4 @@ test('deleteLeft uses inputValue when present', async (): Promise<void> => {
   const result = await deleteLeft(state)
 
   expect(result.inputValue).toBe('ab')
-  diffWorkerRpc.restore()
 })

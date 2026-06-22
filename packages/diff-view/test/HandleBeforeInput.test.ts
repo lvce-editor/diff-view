@@ -27,7 +27,6 @@ test('handleBeforeInput applies insertText with data', async (): Promise<void> =
 
   expect(result.contentRight).toBe('abeta')
   expect(diffWorkerRpc.invocations.length).toBeGreaterThan(0)
-  diffWorkerRpc.restore()
 })
 
 test('handleBeforeInput returns state unchanged for unknown input types', async (): Promise<void> => {

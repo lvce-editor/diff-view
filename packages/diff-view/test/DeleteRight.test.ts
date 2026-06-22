@@ -29,7 +29,6 @@ test('deleteRight deletes a character to the right of the cursor', async (): Pro
   const result = await deleteRight(state)
 
   expect(result.contentRight).toBe('ello world')
-  diffWorkerRpc.restore()
 })
 
 test('deleteRight returns state when cursor is at the end', async (): Promise<void> => {

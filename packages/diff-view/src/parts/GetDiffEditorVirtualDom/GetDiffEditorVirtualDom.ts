@@ -159,7 +159,18 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)
   if (searchVisible) {
-    return getDiffEditorWithSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive, contentLeft, contentRight, searchQuery)
+    return getDiffEditorWithSearchDom(
+      diffEditorLayoutClass,
+      sashLayoutClass,
+      leftDom,
+      rightDom,
+      buttonsDom,
+      scrollBarDom,
+      scrollBarActive,
+      contentLeft,
+      contentRight,
+      searchQuery,
+    )
   }
   return getDiffEditorWithoutSearchDom(diffEditorLayoutClass, sashLayoutClass, leftDom, rightDom, buttonsDom, scrollBarDom, scrollBarActive)
 }

@@ -25,7 +25,7 @@ export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string
 
   return [
     {
-      childCount: 1,
+      childCount: 2,
       className: widgetClass,
       type: VirtualDomElements.Div,
     },

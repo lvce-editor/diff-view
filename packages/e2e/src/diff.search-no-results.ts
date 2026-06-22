@@ -15,7 +15,7 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   await Command.execute('DiffView.showSearch')
   // await KeyBoard.press('Control+f')
 
-  const searchInput = Locator('.DiffSearchInput')
+  // const searchInput = Locator('.DiffSearchInput')
 
   const searchWidget = Locator('.DiffSearchWidget')
   const matchCount = Locator('.DiffSearchMatchCount')

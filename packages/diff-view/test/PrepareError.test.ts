@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
-import { ErrorWorker } from '@lvce-editor/rpc-registry'
+import { RpcId } from '@lvce-editor/constants'
+import { registerMockRpc } from '@lvce-editor/rpc-registry'
 import { prepareError } from '../src/parts/PrepareError/PrepareError.ts'
 
 test('prepareError returns message and stack from error worker', async (): Promise<void> => {
-  const errorWorkerRpc = ErrorWorker.registerMockRpc({
+  const mockRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (error: unknown): Promise<unknown> => {
       return { message: 'prepared message', stack: 'prepared stack' }
     },
@@ -16,11 +17,11 @@ test('prepareError returns message and stack from error worker', async (): Promi
     message: 'prepared message',
     stack: 'prepared stack',
   })
-  errorWorkerRpc.restore()
+  expect(mockRpc.invocations).toEqual([['Errors.prepare', expect.any(Error)]])
 })
 
 test('prepareError falls back to original error when prepared result is null', async (): Promise<void> => {
-  const errorWorkerRpc = ErrorWorker.registerMockRpc({
+  const mockRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (): Promise<unknown> => {
       return null
     },
@@ -34,11 +35,11 @@ test('prepareError falls back to original error when prepared result is null', a
     message: 'original message',
     stack: expect.any(String),
   })
-  errorWorkerRpc.restore()
+  expect(mockRpc.invocations).toEqual([['Errors.prepare', expect.any(Error)]])
 })
 
 test('prepareError falls back to original error when worker throws', async (): Promise<void> => {
-  const errorWorkerRpc = ErrorWorker.registerMockRpc({
+  const mockRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (): Promise<unknown> => {
       throw new Error('worker error')
     },
@@ -52,11 +53,11 @@ test('prepareError falls back to original error when worker throws', async (): P
     message: 'original message',
     stack: expect.any(String),
   })
-  errorWorkerRpc.restore()
+  expect(mockRpc.invocations).toEqual([['Errors.prepare', expect.any(Error)]])
 })
 
 test('prepareError extracts codeFrame from prepared error', async (): Promise<void> => {
-  const errorWorkerRpc = ErrorWorker.registerMockRpc({
+  const mockRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (): Promise<unknown> => {
       return { codeFrame: '  at line 10', message: '', stack: '' }
     },
@@ -69,11 +70,11 @@ test('prepareError extracts codeFrame from prepared error', async (): Promise<vo
     message: 'string error',
     stack: '',
   })
-  errorWorkerRpc.restore()
+  expect(mockRpc.invocations).toEqual([['Errors.prepare', 'string error']])
 })
 
 test('prepareError handles non-string codeFrame', async (): Promise<void> => {
-  const errorWorkerRpc = ErrorWorker.registerMockRpc({
+  const mockRpc = registerMockRpc(RpcId.ErrorWorker, {
     'Errors.prepare': async (): Promise<unknown> => {
       return { codeFrame: 123, message: 'msg', stack: 'stack' }
     },
@@ -86,5 +87,5 @@ test('prepareError handles non-string codeFrame', async (): Promise<void> => {
     message: 'msg',
     stack: 'stack',
   })
-  errorWorkerRpc.restore()
+  expect(mockRpc.invocations).toEqual([['Errors.prepare', expect.any(Error)]])
 })

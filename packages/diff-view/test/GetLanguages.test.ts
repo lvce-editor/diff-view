@@ -1,9 +1,10 @@
 import { expect, test } from '@jest/globals'
 import { ExtensionManagementWorker } from '@lvce-editor/rpc-registry'
-import { getLanguages } from '../src/parts/GetLanguages/GetLanguages.ts'
+import { clearLanguageCache, getLanguages } from '../src/parts/GetLanguages/GetLanguages.ts'
 
 test('getLanguages returns languages from the extension worker', async (): Promise<void> => {
-  const extensionWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+  clearLanguageCache()
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
       return [{ id: 'typescript', extensions: ['.ts'] }]
     },
@@ -12,12 +13,13 @@ test('getLanguages returns languages from the extension worker', async (): Promi
   const result = await getLanguages(1, '/assets')
 
   expect(result).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
-  expect(extensionWorkerRpc.invocations).toEqual([['Extensions.getLanguages', 1, '/assets']])
+  expect(mockRpc.invocations).toEqual([['Extensions.getLanguages', 1, '/assets']])
 })
 
 test('getLanguages caches results and returns cached on repeated calls', async (): Promise<void> => {
+  clearLanguageCache()
   let callCount = 0
-  const extensionWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
       callCount++
       return [{ id: 'typescript', extensions: ['.ts'] }]
@@ -33,8 +35,9 @@ test('getLanguages caches results and returns cached on repeated calls', async (
 })
 
 test('getLanguages bypasses cache for different platform', async (): Promise<void> => {
+  clearLanguageCache()
   let callCount = 0
-  const extensionWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (): Promise<readonly unknown[]> => {
       callCount++
       return [{ id: 'typescript', extensions: ['.ts'] }]
@@ -44,11 +47,13 @@ test('getLanguages bypasses cache for different platform', async (): Promise<voi
   await getLanguages(1, '/assets')
   await getLanguages(2, '/assets')
 
+  expect(mockRpc.invocations.length).toBe(2)
   expect(callCount).toBe(2)
 })
 
 test('getLanguages returns empty array when extensions return non-array', async (): Promise<void> => {
-  const extensionWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+  clearLanguageCache()
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (): Promise<unknown> => {
       return null
     },
@@ -60,7 +65,8 @@ test('getLanguages returns empty array when extensions return non-array', async 
 })
 
 test('getLanguages returns empty array when extension worker throws', async (): Promise<void> => {
-  const extensionWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+  clearLanguageCache()
+  using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (): Promise<unknown> => {
       throw new Error('network error')
     },
@@ -68,5 +74,6 @@ test('getLanguages returns empty array when extension worker throws', async (): 
 
   const result = await getLanguages(1, '/assets')
 
+  expect(mockRpc.invocations).toEqual([['Extensions.getLanguages', 1, '/assets']])
   expect(result).toEqual([])
 })

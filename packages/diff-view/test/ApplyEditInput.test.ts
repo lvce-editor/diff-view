@@ -16,7 +16,7 @@ test('applyEditInput returns state when input value is unchanged', async (): Pro
 
   const result = await applyEditInput(state, 'abc')
 
-  expect(mockRpc.invocances).toEqual([])
+  expect(mockRpc.invocations).toEqual([])
   expect(result).toBe(state)
 })
 
@@ -42,6 +42,7 @@ test('applyEditInput inserts text at cursor position', async (): Promise<void> =
 
   const result = await applyEditInput(state, 'hello ')
 
+  expect(mockRpc.invocations.length).toBeGreaterThan(0)
   expect(result.contentRight).toBe('hello world')
 })
 

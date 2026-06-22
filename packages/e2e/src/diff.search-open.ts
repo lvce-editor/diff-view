@@ -16,10 +16,7 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   // const searchWidget = Locator('.DiffSearchWidget')
   const searchInput = Locator('.DiffSearchInput')
-  const matchCount = Locator('.DiffSearchMatchCount')
-  const previousButton = Locator('.DiffSearchPrevious')
-  const nextButton = Locator('.DiffSearchNext')
-  const closeButton = Locator('.DiffSearchClose')
+  // elements available: match count, navigation and close buttons
 
   // await expect(searchWidget).toBeVisible()
   // await expect(searchInput).toBeFocused() // TODO

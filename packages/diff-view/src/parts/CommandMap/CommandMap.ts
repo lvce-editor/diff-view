@@ -86,6 +86,7 @@ export const commandMap = {
   'DiffView.moveCursorUp': wrapCommand(moveCursorUp),
   'DiffView.render2': render2,
   'DiffView.renderEventListeners': renderEventListeners,
+  'DiffView.resize': wrapCommand(handleResize),
   'DiffView.saveState': saveState,
   'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),

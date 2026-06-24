@@ -8,6 +8,7 @@ import { getKeyBindings } from '../GetKeyBindings/GetKeyBindings.ts'
 import { getMenuEntries2 } from '../GetMenuEntries2/GetMenuEntries2.ts'
 import { getMenuEntries } from '../GetMenuEntries/GetMenuEntries.ts'
 import { getMenuIds } from '../GetMenuIds/GetMenuIds.ts'
+import { handleBeforeInput } from '../HandleBeforeInput/HandleBeforeInput.ts'
 import { handleClickAction } from '../HandleClickAction/HandleClickAction.ts'
 import { handleClickAt } from '../HandleClickAt/HandleClickAt.ts'
 import { handleClickLeftSide } from '../HandleClickLeftSide/HandleClickLeftSide.ts'
@@ -26,6 +27,7 @@ import { handleScrollBarPointerMove } from '../HandleScrollBarPointerMove/Handle
 import { handleScrollBarPointerUp } from '../HandleScrollBarPointerUp/HandleScrollBarPointerUp.ts'
 import { handleSearchInput } from '../HandleSearchInput/HandleSearchInput.ts'
 import { handleWheel } from '../HandleWheel/HandleWheel.ts'
+import { handleWorkspaceChange } from '../HandleWorkspaceChange/HandleWorkspaceChange.ts'
 import { hideSearch } from '../HideSearch/HideSearch.ts'
 import * as Initialize from '../Initialize/Initialize.ts'
 import { insertLineBreak } from '../InsertLineBreak/InsertLineBreak.ts'
@@ -39,6 +41,7 @@ import { saveState } from '../SaveState/SaveState.ts'
 import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setSelection } from '../SetSelection/SetSelection.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
+import { setFontFamily } from '../SetFontFamily/SetFontFamily.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
 import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
@@ -55,6 +58,7 @@ export const commandMap = {
   'DiffView.getMenuEntries': getMenuEntries,
   'DiffView.getMenuEntries2': getMenuEntries2,
   'DiffView.getMenuIds': getMenuIds,
+  'DiffView.handleBeforeInput': wrapCommand(handleBeforeInput),
   'DiffView.handleClickAction': wrapCommand(handleClickAction),
   'DiffView.handleClickAt': wrapCommand(handleClickAt),
   'DiffView.handleClickLeftSide': wrapCommand(handleClickLeftSide),
@@ -73,6 +77,7 @@ export const commandMap = {
   'DiffView.handleScrollBarPointerUp': wrapCommand(handleScrollBarPointerUp),
   'DiffView.handleSearchInput': wrapCommand(handleSearchInput),
   'DiffView.handleWheel': wrapCommand(handleWheel),
+  'DiffView.handleWorkspaceChange': wrapCommand(handleWorkspaceChange),
   'DiffView.hideSearch': wrapCommand(hideSearch),
   'DiffView.initialize': Initialize.initialize,
   'DiffView.insertLineBreak': wrapCommand(insertLineBreak),
@@ -92,6 +97,7 @@ export const commandMap = {
   'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
   'DiffView.setSelection': wrapCommand(setSelection),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
+  'DiffView.setFontFamily': wrapCommand(setFontFamily),
   'DiffView.setLayout': wrapCommand(setLayout),
   'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,

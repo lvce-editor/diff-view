@@ -17,6 +17,7 @@ export const createDefaultState = (): DiffViewState => ({
   finalDeltaY: 0,
   focus: 0,
   focusVersion: 0,
+  fontFamily: 'monospace',
   gitRoot: '',
   gutterWidthVariable: 9,
   handleOffset: 0,

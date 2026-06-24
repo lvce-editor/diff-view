@@ -3,7 +3,6 @@ import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 export const handleSearchInput = async (state: DiffViewState, value: string): Promise<DiffViewState> => {
   return {
     ...state,
-    searchQuery: value,
     leftEditor: {
       ...state.leftEditor,
       searchQuery: value,
@@ -12,5 +11,6 @@ export const handleSearchInput = async (state: DiffViewState, value: string): Pr
       ...state.rightEditor,
       searchQuery: value,
     },
+    searchQuery: value,
   }
 }

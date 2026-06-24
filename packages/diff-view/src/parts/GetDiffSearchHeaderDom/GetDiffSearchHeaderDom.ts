@@ -16,16 +16,9 @@ const countOccurrences = (text: string, query: string): number => {
   return count
 }
 
-export const getDiffSearchHeaderDom = (
-  contentLeft: string,
-  contentRight: string,
-  queryLeft: string,
-  queryRight: string,
-): readonly VirtualDomNode[] => {
-  const qLeft = queryLeft || ''
-  const qRight = queryRight || ''
-  const leftCount = countOccurrences(contentLeft || '', qLeft)
-  const rightCount = countOccurrences(contentRight || '', qRight)
+export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string, queryLeft = '', queryRight = ''): readonly VirtualDomNode[] => {
+  const leftCount = countOccurrences(contentLeft || '', queryLeft)
+  const rightCount = countOccurrences(contentRight || '', queryRight)
   const total = leftCount + rightCount
   const widgetClass = total === 0 ? 'DiffSearchWidget DiffSearchWidgetNoResults' : 'DiffSearchWidget'
 
@@ -46,7 +39,7 @@ export const getDiffSearchHeaderDom = (
       inputType: 'search',
       placeholder: `${DiffStrings.search()} (left)`,
       type: VirtualDomElements.Input,
-      value: qLeft,
+      value: queryLeft,
     },
     {
       childCount: 0,
@@ -60,7 +53,7 @@ export const getDiffSearchHeaderDom = (
       inputType: 'search',
       placeholder: `${DiffStrings.search()} (right)`,
       type: VirtualDomElements.Input,
-      value: qRight,
+      value: queryRight,
     },
     {
       childCount: 0,

@@ -62,7 +62,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const rightCursorGutterWidth = showLineNumbers ? gutterWidthVariable + CursorConstants.GutterPaddingWidth : 0
-  const rightCursorLeft = rightCursorGutterWidth + CursorConstants.RowPaddingLeft + rightEditor.cursorColumnIndex * CursorConstants.CharWidth
+  const rightCursorLeft = rightCursorGutterWidth + CursorConstants.RowPaddingLeft + rightEditor.cursorColumnIndex * CursorConstants.getCharWidth(newState)
   const rightCursorTop = (rightEditor.cursorRowIndex - minLineY) * CursorConstants.LineHeight
   const css = `
 :root {

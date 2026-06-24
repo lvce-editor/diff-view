@@ -7,6 +7,12 @@ const languageCache = {
   platform: -1,
 }
 
+export const clearLanguageCache = (): void => {
+  languageCache.platform = -1
+  languageCache.assetDir = ''
+  languageCache.languages = []
+}
+
 export const getLanguages = async (platform: number, assetDir: string): Promise<readonly SyntaxLanguageContribution[]> => {
   if (languageCache.platform === platform && languageCache.assetDir === assetDir) {
     return languageCache.languages

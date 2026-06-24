@@ -86,6 +86,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
+  --DiffFontFamily: ${newState.fontFamily};
 }
 
 
@@ -230,7 +231,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  font-family: monospace;
+  font-family: var(--DiffFontFamily, monospace);
   font-variant-numeric: tabular-nums;
   overflow: hidden;
   text-align: right;
@@ -249,6 +250,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   line-height: var(--ItemHeight);
   padding: 0 10px 0 6px;
   white-space: pre;
+  flex-shrink: 0;
 }
 
 .DiffEditor .DiffEditorLineNumber {
@@ -285,7 +287,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   contain: layout paint style;
   cursor: text;
   flex: 1 1 auto;
-  font-family: monospace;
+  font-family: var(--DiffFontFamily, monospace);
   height: 100%;
   min-width: 0;
   overflow: hidden;
@@ -465,7 +467,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
 
 :root {
  --DiffSeparatorBackground: gray;
- --DiffSeparatorWidth: 8px;
+ --DiffSeparatorWidth: 6px;
 
 }
 
@@ -484,7 +486,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   border-radius: 6px;
   box-sizing: border-box;
   color: rgba(255, 255, 255, 0.86);
-  font-family: monospace;
+  font-family: var(--DiffFontFamily, monospace);
   font-size: 12px;
   line-height: 1.5;
   max-width: 100%;

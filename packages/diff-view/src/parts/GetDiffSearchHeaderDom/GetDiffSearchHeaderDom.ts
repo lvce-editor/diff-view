@@ -21,7 +21,7 @@ export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string
   const leftCount = countOccurrences(contentLeft || '', query)
   const rightCount = countOccurrences(contentRight || '', q)
   const total = leftCount + rightCount
-  const widgetClass = total === 0 ? 'DiffSearchWidget DiffSearchWidgetNoResults' : 'DiffSearchWidget'
+  const widgetClass = total === 0 && query ? 'DiffSearchWidget DiffSearchWidgetNoResults' : 'DiffSearchWidget'
 
   return [
     {

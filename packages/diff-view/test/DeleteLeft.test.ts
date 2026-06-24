@@ -13,17 +13,17 @@ test('deleteLeft deletes a character to the left of the cursor', async (): Promi
     ...createDefaultState(),
     contentLeft: 'alpha',
     contentRight: 'hello world',
-    rightEditor: {
-      cursorRowIndex: 0,
-      cursorColumnIndex: 5,
-    },
-    renderModeLeft: 'text' as const,
-    renderModeRight: 'text' as const,
+    deltaY: 0,
     errorLeftMessage: '',
     height: 40,
     itemHeight: 20,
     minimumSliderSize: 30,
-    deltaY: 0,
+    renderModeLeft: 'text' as const,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 5,
+      cursorRowIndex: 0,
+    },
   }
 
   const result = await deleteLeft(state)
@@ -37,8 +37,8 @@ test('deleteLeft returns state when cursor is at the beginning', async (): Promi
     contentLeft: 'alpha',
     contentRight: 'hello world',
     rightEditor: {
-      cursorRowIndex: 0,
       cursorColumnIndex: 0,
+      cursorRowIndex: 0,
     },
   }
 
@@ -57,18 +57,18 @@ test('deleteLeft uses inputValue when present', async (): Promise<void> => {
     ...createDefaultState(),
     contentLeft: 'alpha',
     contentRight: 'abc def',
-    inputValue: 'abc',
-    rightEditor: {
-      cursorRowIndex: 0,
-      cursorColumnIndex: 3,
-    },
-    renderModeLeft: 'text' as const,
-    renderModeRight: 'text' as const,
+    deltaY: 0,
     errorLeftMessage: '',
     height: 40,
+    inputValue: 'abc',
     itemHeight: 20,
     minimumSliderSize: 30,
-    deltaY: 0,
+    renderModeLeft: 'text' as const,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 3,
+      cursorRowIndex: 0,
+    },
   }
 
   const result = await deleteLeft(state)

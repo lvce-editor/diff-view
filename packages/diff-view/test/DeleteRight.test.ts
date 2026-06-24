@@ -12,23 +12,23 @@ test('deleteRight deletes a character to the right of the cursor', async (): Pro
   const state = {
     ...createDefaultState(),
     contentLeft: 'alpha',
-    contentRight: 'hello world',
-    rightEditor: {
-      cursorRowIndex: 0,
-      cursorColumnIndex: 0,
-    },
-    renderModeLeft: 'text' as const,
-    renderModeRight: 'text' as const,
+    contentRight: 'pear world',
+    deltaY: 0,
     errorLeftMessage: '',
     height: 40,
     itemHeight: 20,
     minimumSliderSize: 30,
-    deltaY: 0,
+    renderModeLeft: 'text' as const,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 1,
+      cursorRowIndex: 0,
+    },
   }
 
   const result = await deleteRight(state)
 
-  expect(result.contentRight).toBe('ello world')
+  expect(result.contentRight).toBe('par world')
 })
 
 test('deleteRight returns state when cursor is at the end', async (): Promise<void> => {
@@ -37,8 +37,8 @@ test('deleteRight returns state when cursor is at the end', async (): Promise<vo
     contentLeft: 'alpha',
     contentRight: 'hello world',
     rightEditor: {
-      cursorRowIndex: 0,
       cursorColumnIndex: 11,
+      cursorRowIndex: 0,
     },
   }
 
@@ -54,8 +54,8 @@ test('deleteRight returns state when inputValue is present', async (): Promise<v
     contentRight: 'abc def',
     inputValue: 'abc',
     rightEditor: {
-      cursorRowIndex: 0,
       cursorColumnIndex: 3,
+      cursorRowIndex: 0,
     },
   }
 

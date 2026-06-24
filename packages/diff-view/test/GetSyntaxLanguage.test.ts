@@ -2,12 +2,12 @@ import { expect, test } from '@jest/globals'
 import { getSyntaxLanguage } from '../src/parts/GetSyntaxLanguage/GetSyntaxLanguage.ts'
 
 const languages = [
-  { id: 'typescript', extensions: ['.ts'], tokenize: 'typescript' },
-  { id: 'javascript', extensions: ['.js'], tokenize: 'javascript' },
-  { id: 'json', extensions: ['.json'], tokenize: 'json' },
-  { id: 'markdown', extensions: ['.md'], tokenize: 'markdown' },
-  { id: 'env', fileNames: ['.env'], tokenize: 'env' },
-  { id: 'dockerfile', fileNames: ['Dockerfile'], tokenize: 'dockerfile' },
+  { extensions: ['.ts'], id: 'typescript', tokenize: 'typescript' },
+  { extensions: ['.js'], id: 'javascript', tokenize: 'javascript' },
+  { extensions: ['.json'], id: 'json', tokenize: 'json' },
+  { extensions: ['.md'], id: 'markdown', tokenize: 'markdown' },
+  { fileNames: ['.env'], id: 'env', tokenize: 'env' },
+  { fileNames: ['Dockerfile'], id: 'dockerfile', tokenize: 'dockerfile' },
 ]
 
 test('getSyntaxLanguage returns the correct language for a .ts file', (): void => {
@@ -51,6 +51,6 @@ test('getSyntaxLanguage handles empty languages list', (): void => {
 })
 
 test('getSyntaxLanguage handles language with no tokenizer', (): void => {
-  const result = getSyntaxLanguage('custom.ext', [{ id: 'custom', extensions: ['.ext'] }])
+  const result = getSyntaxLanguage('custom.ext', [{ extensions: ['.ext'], id: 'custom' }])
   expect(result).toEqual({ languageId: 'custom', tokenizerPath: '' })
 })

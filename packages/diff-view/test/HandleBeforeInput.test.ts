@@ -12,20 +12,20 @@ test('handleBeforeInput applies insertText with data', async (): Promise<void> =
   const state = {
     ...createDefaultState(),
     contentLeft: 'alpha',
-    contentRight: 'beta',
-    inputValue: '',
-    rightEditor: {
-      cursorRowIndex: 0,
-      cursorColumnIndex: 0,
-    },
-    renderModeRight: 'text' as const,
+    contentRight: 'eta',
     errorRightMessage: '',
+    inputValue: '',
     maxInputLines: 100,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 0,
+      cursorRowIndex: 0,
+    },
   }
 
-  const result = await handleBeforeInput(state, 'insertText', 'a')
+  const result = await handleBeforeInput(state, 'insertText', 'b')
 
-  expect(result.contentRight).toBe('abeta')
+  expect(result.contentRight).toBe('beta')
   expect(diffWorkerRpc.invocations.length).toBeGreaterThan(0)
 })
 

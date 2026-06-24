@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import * as ClassNames from '../src/parts/ClassNames/ClassNames.ts'
-import { InlineDiffRowType } from '../src/parts/GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getInlineDiffRowClassName } from '../src/parts/GetInlineDiffRowClassName/GetInlineDiffRowClassName.ts'
+import { InlineDiffRowType } from '../src/parts/GetInlineDiffRows/GetInlineDiffRows.ts'
 
 test('getInlineDiffRowClassName returns deletion class for Deletion type', (): void => {
   const row = { lineNumberLeft: 1, lineNumberRight: null, text: 'removed', type: InlineDiffRowType.Deletion }

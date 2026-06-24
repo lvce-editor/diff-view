@@ -1,7 +1,7 @@
 import { expect, test } from '@jest/globals'
 import { DiffWorker } from '@lvce-editor/rpc-registry'
-import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { applyEditInput } from '../src/parts/ApplyEditInput/ApplyEditInput.ts'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 
 test('applyEditInput returns state when input value is unchanged', async (): Promise<void> => {
   using mockRpc = DiffWorker.registerMockRpc({
@@ -30,14 +30,14 @@ test('applyEditInput inserts text at cursor position', async (): Promise<void> =
     ...createDefaultState(),
     contentLeft: 'left',
     contentRight: 'world',
-    inputValue: '',
-    rightEditor: {
-      cursorRowIndex: 0,
-      cursorColumnIndex: 0,
-    },
-    renderModeRight: 'text' as const,
     errorRightMessage: '',
+    inputValue: '',
     maxInputLines: 100,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 0,
+      cursorRowIndex: 0,
+    },
   }
 
   const result = await applyEditInput(state, 'hello ')

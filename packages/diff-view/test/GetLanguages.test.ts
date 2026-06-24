@@ -6,13 +6,13 @@ test('getLanguages returns languages from the extension worker', async (): Promi
   clearLanguageCache()
   using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
-      return [{ id: 'typescript', extensions: ['.ts'] }]
+      return [{ extensions: ['.ts'], id: 'typescript' }]
     },
   })
 
   const result = await getLanguages(1, '/assets')
 
-  expect(result).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
+  expect(result).toEqual([{ extensions: ['.ts'], id: 'typescript' }])
   expect(mockRpc.invocations).toEqual([['Extensions.getLanguages', 1, '/assets']])
 })
 
@@ -22,15 +22,15 @@ test('getLanguages caches results and returns cached on repeated calls', async (
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (platform: number, assetDir: string): Promise<readonly unknown[]> => {
       callCount++
-      return [{ id: 'typescript', extensions: ['.ts'] }]
+      return [{ extensions: ['.ts'], id: 'typescript' }]
     },
   })
 
   const result1 = await getLanguages(1, '/assets')
   const result2 = await getLanguages(1, '/assets')
 
-  expect(result1).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
-  expect(result2).toEqual([{ id: 'typescript', extensions: ['.ts'] }])
+  expect(result1).toEqual([{ extensions: ['.ts'], id: 'typescript' }])
+  expect(result2).toEqual([{ extensions: ['.ts'], id: 'typescript' }])
   expect(callCount).toBe(1)
 })
 
@@ -40,14 +40,14 @@ test('getLanguages bypasses cache for different platform', async (): Promise<voi
   using mockRpc = ExtensionManagementWorker.registerMockRpc({
     'Extensions.getLanguages': async (): Promise<readonly unknown[]> => {
       callCount++
-      return [{ id: 'typescript', extensions: ['.ts'] }]
+      return [{ extensions: ['.ts'], id: 'typescript' }]
     },
   })
 
   await getLanguages(1, '/assets')
   await getLanguages(2, '/assets')
 
-  expect(mockRpc.invocations.length).toBe(2)
+  expect(mockRpc.invocations).toHaveLength(2)
   expect(callCount).toBe(2)
 })
 

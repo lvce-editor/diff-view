@@ -22,11 +22,11 @@ interface GetContentRightDomOptions {
   readonly lineNumbers?: boolean
   readonly maxLineY?: number
   readonly minLineY?: number
+  readonly selectionEnd?: number
+  readonly selectionStart?: number
   readonly tokenizedLines?: readonly TokenizedLine[]
   readonly totalLineCount?: number
   readonly visibleLines?: readonly VisibleLine[]
-  readonly selectionStart?: number
-  readonly selectionEnd?: number
 }
 
 const getInputWrapperDom = (inputValue: string, selectionStart = inputValue.length, selectionEnd = selectionStart): readonly VirtualDomNode[] => [
@@ -60,6 +60,8 @@ export const getContentRightDom = ({
   lineNumbers = true,
   maxLineY,
   minLineY = 0,
+  selectionEnd,
+  selectionStart,
   tokenizedLines = [],
   totalLineCount,
   visibleLines = [],

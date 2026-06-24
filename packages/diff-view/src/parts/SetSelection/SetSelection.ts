@@ -5,10 +5,10 @@ export const setSelection = (state: DiffViewState, selectionStart: number, selec
     ...state,
     rightEditor: {
       ...state.rightEditor,
-      selectionStart,
-      selectionEnd,
       // keep cursor in sync with selection end for now
       cursorColumnIndex: selectionEnd,
+      selectionEnd,
+      selectionStart,
     },
   }
 }

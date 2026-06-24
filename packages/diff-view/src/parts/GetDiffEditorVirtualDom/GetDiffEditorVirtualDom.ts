@@ -152,11 +152,11 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           lineNumbers: showLineNumbers,
           maxLineY,
           minLineY,
+          selectionEnd: state.rightEditor.selectionEnd,
+          selectionStart: state.rightEditor.selectionStart,
           tokenizedLines: tokenizedLinesRight,
           totalLineCount: totalLineCountRight,
           visibleLines: visibleLinesRight,
-          selectionStart: state.rightEditor.selectionStart,
-          selectionEnd: state.rightEditor.selectionEnd,
         })
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
   const buttonsDom = getDiffEditorButtonsDom(diffMode, showWhitespace)

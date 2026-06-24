@@ -39,10 +39,10 @@ import { render2 } from '../Render2/Render2.ts'
 import { renderEventListeners } from '../RenderEventListeners/RenderEventListeners.ts'
 import { saveState } from '../SaveState/SaveState.ts'
 import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
-import { setSelection } from '../SetSelection/SetSelection.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setFontFamily } from '../SetFontFamily/SetFontFamily.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { setSelection } from '../SetSelection/SetSelection.ts'
 import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
@@ -95,10 +95,10 @@ export const commandMap = {
   'DiffView.resize': wrapCommand(handleResize),
   'DiffView.saveState': saveState,
   'DiffView.setCursorPosition': wrapCommand(setCursorPosition),
-  'DiffView.setSelection': wrapCommand(setSelection),
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setFontFamily': wrapCommand(setFontFamily),
   'DiffView.setLayout': wrapCommand(setLayout),
+  'DiffView.setSelection': wrapCommand(setSelection),
   'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),

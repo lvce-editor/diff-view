@@ -14,12 +14,16 @@ test('createDefaultState sets up image render defaults', (): void => {
   expect(result.leftEditor).toEqual({
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    selectionEnd: 0,
+    selectionStart: 0,
   })
   expect(result.renderModeLeft).toBe('text')
   expect(result.renderModeRight).toBe('text')
   expect(result.rightEditor).toEqual({
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    selectionEnd: 0,
+    selectionStart: 0,
   })
   expect(result.searchVisible).toBe(false)
   expect(result.showWhitespace).toBe(false)

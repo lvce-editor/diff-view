@@ -1,0 +1,36 @@
+import { expect, test } from '@jest/globals'
+import { DiffWorker } from '@lvce-editor/rpc-registry'
+import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
+import { handleBeforeInput } from '../src/parts/HandleBeforeInput/HandleBeforeInput.ts'
+
+test('handleBeforeInput applies insertText with data', async (): Promise<void> => {
+  const diffWorkerRpc = DiffWorker.registerMockRpc({
+    'Diff.diffInline': async (): Promise<readonly unknown[]> => {
+      return []
+    },
+  })
+  const state = {
+    ...createDefaultState(),
+    contentLeft: 'alpha',
+    contentRight: 'eta',
+    errorRightMessage: '',
+    inputValue: '',
+    maxInputLines: 100,
+    renderModeRight: 'text' as const,
+    rightEditor: {
+      cursorColumnIndex: 0,
+      cursorRowIndex: 0,
+    },
+  }
+
+  const result = await handleBeforeInput(state, 'insertText', 'b')
+
+  expect(result.contentRight).toBe('beta')
+  expect(diffWorkerRpc.invocations.length).toBeGreaterThan(0)
+})
+
+test('handleBeforeInput returns state unchanged for unknown input types', async (): Promise<void> => {
+  const state = createDefaultState()
+  const result = await handleBeforeInput(state, 'insertParagraph', '')
+  expect(result).toBe(state)
+})

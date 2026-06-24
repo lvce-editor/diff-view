@@ -34,8 +34,9 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       params: ['handleMouseOutAt', EventExpression.ClientX, EventExpression.ClientY],
     },
     {
-      name: DomEventListenersFunctions.HandleInput,
-      params: ['handleInput', EventExpression.TargetValue],
+      name: DomEventListenersFunctions.HandleBeforeInput,
+      params: ['handleBeforeInput', 'event.inputType', 'event.data'],
+      preventDefault: true,
     },
     {
       name: DomEventListenersFunctions.HandleContextMenu,

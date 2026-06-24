@@ -14,6 +14,7 @@ export interface EditorState {
 export interface DiffViewState {
   readonly allowedLinkSchemes: readonly string[]
   readonly assetDir: string
+  readonly charWidth: number
   readonly contentLeft: string
   readonly contentRight: string
   readonly deltaY: number
@@ -28,6 +29,7 @@ export interface DiffViewState {
   readonly focus: number
   readonly focusVersion: number
   readonly fontFamily: string
+  readonly fontSize: number
   readonly gitRoot: string
   readonly gutterWidthVariable: number
   readonly handleOffset: number
@@ -50,6 +52,7 @@ export interface DiffViewState {
   readonly layout: Layout
   readonly leftEditor: EditorState
   readonly leftWidth: number
+  readonly letterSpacing: number
   readonly lineNumbers: boolean
   readonly maxInputLines: number
   readonly maxLineY: number
@@ -84,10 +87,6 @@ export interface DiffViewState {
   readonly visibleLinesLeft: readonly VisibleLine[]
   readonly visibleLinesRight: readonly VisibleLine[]
   readonly width: number
-  readonly fontFamily: string
-  readonly fontSize: number
-  readonly letterSpacing: number
-  readonly charWidth: number
   readonly wordWrap: boolean
   readonly workspacePath: string
   readonly x: number

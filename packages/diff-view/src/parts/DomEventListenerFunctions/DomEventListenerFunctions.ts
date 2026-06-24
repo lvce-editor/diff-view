@@ -16,3 +16,4 @@ export const HandleScrollBarPointerMove = 15
 export const HandleScrollBarPointerUp = 16
 export const HandleClickLeftSide = 17
 export const HandleClickRightSide = 18
+export const HandleBeforeInput = 19

@@ -52,9 +52,10 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),
       }
   const scrollState = getScrollState(state.height, state.itemHeight, totalLineCount, state.minimumSliderSize, state.deltaY)
-  const syntaxHighlightingState = state.renderModeRight === 'text' && !state.errorRightMessage
-    ? await loadSyntaxHighlighting(state.contentLeft, contentRight, state.uriLeft, state.uriRight, state.platform, state.assetDir)
-    : undefined
+  const syntaxHighlightingState =
+    state.renderModeRight === 'text' && !state.errorRightMessage
+      ? await loadSyntaxHighlighting(state.contentLeft, contentRight, state.uriLeft, state.uriRight, state.platform, state.assetDir)
+      : undefined
   const nextState = {
     ...state,
     contentRight,
@@ -62,9 +63,9 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
     inlineChanges,
     inputSource: InputSource.User,
     inputValue,
-    scrollBarBackgroundImage: getScrollBarBackgroundImage(inlineChanges, totalLineCount),
     languageIdLeft: syntaxHighlightingState?.languageIdLeft || state.languageIdLeft,
     languageIdRight: syntaxHighlightingState?.languageIdRight || state.languageIdRight,
+    scrollBarBackgroundImage: getScrollBarBackgroundImage(inlineChanges, totalLineCount),
     tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || state.tokenizedLinesLeft,
     tokenizedLinesRight: syntaxHighlightingState?.tokenizedLinesRight || [],
     totalLineCount,

@@ -6,6 +6,7 @@ import { getScrollBarBackgroundImage } from '../GetScrollBarBackgroundImage/GetS
 import { getScrollState } from '../GetScrollState/GetScrollState.ts'
 import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesState.ts'
 import * as InputSource from '../InputSource/InputSource.ts'
+import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
 
 const getBaseContentRight = (state: DiffViewState): string => {
   if (state.inputValue && state.contentRight.startsWith(state.inputValue)) {
@@ -51,6 +52,10 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),
       }
   const scrollState = getScrollState(state.height, state.itemHeight, totalLineCount, state.minimumSliderSize, state.deltaY)
+  const syntaxHighlightingState =
+    state.renderModeRight === 'text' && !state.errorRightMessage
+      ? await loadSyntaxHighlighting(state.contentLeft, contentRight, state.uriLeft, state.uriRight, state.platform, state.assetDir)
+      : undefined
   const nextState = {
     ...state,
     contentRight,
@@ -58,8 +63,11 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
     inlineChanges,
     inputSource: InputSource.User,
     inputValue,
+    languageIdLeft: syntaxHighlightingState?.languageIdLeft || state.languageIdLeft,
+    languageIdRight: syntaxHighlightingState?.languageIdRight || state.languageIdRight,
     scrollBarBackgroundImage: getScrollBarBackgroundImage(inlineChanges, totalLineCount),
-    tokenizedLinesRight: [],
+    tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || state.tokenizedLinesLeft,
+    tokenizedLinesRight: syntaxHighlightingState?.tokenizedLinesRight || [],
     totalLineCount,
     totalLineCountLeft,
     totalLineCountRight,

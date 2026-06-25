@@ -22,12 +22,14 @@ interface GetContentRightDomOptions {
   readonly lineNumbers?: boolean
   readonly maxLineY?: number
   readonly minLineY?: number
+  readonly selectionEnd?: number
+  readonly selectionStart?: number
   readonly tokenizedLines?: readonly TokenizedLine[]
   readonly totalLineCount?: number
   readonly visibleLines?: readonly VisibleLine[]
 }
 
-const getInputWrapperDom = (inputValue: string, caretPosition = inputValue.length): readonly VirtualDomNode[] => [
+const getInputWrapperDom = (inputValue: string, selectionStart = inputValue.length, selectionEnd = selectionStart): readonly VirtualDomNode[] => [
   {
     childCount: 1,
     className: ClassNames.DiffEditorInputWrapper,
@@ -38,8 +40,8 @@ const getInputWrapperDom = (inputValue: string, caretPosition = inputValue.lengt
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    selectionEnd: caretPosition,
-    selectionStart: caretPosition,
+    selectionEnd: selectionEnd,
+    selectionStart: selectionStart,
     type: VirtualDomElements.TextArea,
     value: inputValue,
   },
@@ -58,6 +60,8 @@ export const getContentRightDom = ({
   lineNumbers = true,
   maxLineY,
   minLineY = 0,
+  selectionEnd,
+  selectionStart,
   tokenizedLines = [],
   totalLineCount,
   visibleLines = [],
@@ -102,6 +106,6 @@ export const getContentRightDom = ({
     },
     ...rest,
     ...cursorDom,
-    ...getInputWrapperDom(inputValue),
+    ...getInputWrapperDom(inputValue, selectionStart ?? inputValue.length, selectionEnd ?? selectionStart ?? inputValue.length),
   ]
 }

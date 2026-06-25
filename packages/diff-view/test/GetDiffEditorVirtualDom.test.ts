@@ -286,8 +286,8 @@ test('getDiffEditorVirtualDom renders the hidden right editor input for text pan
     className: ClassNames.DiffEditorInput,
     name: InputName.DiffEditorInput,
     onInput: DomEventListenerFunctions.HandleInput,
-    selectionEnd: 5,
-    selectionStart: 5,
+    selectionEnd: 0,
+    selectionStart: 0,
     type: VirtualDomElements.TextArea,
     value: 'typed',
   })

@@ -43,6 +43,7 @@ export const createDefaultState = (): DiffViewState => ({
   leftEditor: {
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    searchQuery: '',
   },
   leftWidth: 48,
   letterSpacing: 0,
@@ -60,6 +61,7 @@ export const createDefaultState = (): DiffViewState => ({
   rightEditor: {
     cursorColumnIndex: 0,
     cursorRowIndex: 0,
+    searchQuery: '',
   },
   rightWidth: 48,
   root: '/',

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "workspaces": {
+    ".": {
+      "project": ["*.js"],
+      "ignoreDependencies": ["@lerna/legacy-package-management"]
+    },
+    "packages/build": {
+      "project": ["src/**/*.js", "src/**/*.ts"],
+      "ignoreDependencies": ["@lvce-editor/verror", "dts-bundle-generator", "esbuild"]
+    },
+    "packages/diff-view": {
+      "entry": ["src/diffViewWorkerMain.ts", "test/**/*.test.ts"],
+      "project": ["src/**/*.js", "src/**/*.ts", "test/**/*.ts"]
+    },
+    "packages/e2e": {
+      "entry": ["src/**/*.ts", "scripts/**/*.js"],
+      "project": ["src/**/*.ts", "scripts/**/*.js"]
+    },
+    "packages/server": {
+      "project": ["src/**/*.js"]
+    }
+  }
+}

@@ -6,7 +6,7 @@ export type RenderMode = 'text' | 'image'
 export type Layout = 'vertical' | 'horizontal'
 export type DiffMode = 'inline' | 'side-by-side'
 
-export interface EditorState {
+interface EditorState {
   readonly cursorColumnIndex: number
   readonly cursorRowIndex: number
 }

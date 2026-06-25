@@ -9,4 +9,3 @@ export const { getKeys } = registry
 export const { registerCommands } = registry
 export const { set } = registry
 export const { wrapCommand } = registry
-export const { wrapGetter } = registry

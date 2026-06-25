@@ -1,8 +1,6 @@
-export const HandleClickAt = 1
 export const HandleContextMenu = 2
 export const HandleFocus = 3
 export const HandleInput = 4
-export const HandleMouseOut = 5
 export const HandleMouseOutAt = 6
 export const HandleMouseOver = 7
 export const HandleMouseOverAt = 8

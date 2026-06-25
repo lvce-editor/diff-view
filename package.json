@@ -18,7 +18,7 @@
     "e2e:webkit:headless": "cd packages/e2e && npm run e2e:webkit:headless",
     "format": "prettier --write .",
     "postinstall": "lerna bootstrap --ci",
-    "lint": "eslint . && prettier --check .",
+    "lint": "eslint . && prettier --check . && npx --yes knip@6.20.0 --no-config-hints",
     "test": "lerna run test",
     "test-integration": "lerna run test-integration",
     "trigger-ci-branches": "bash packages/build/trigger-ci-branches.sh",

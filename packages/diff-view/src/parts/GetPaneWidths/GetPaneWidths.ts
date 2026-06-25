@@ -11,7 +11,7 @@ export const getSashWidth = (): number => {
   return SASH_WIDTH
 }
 
-export const getMinimumPaneWidth = (width: number): number => {
+const getMinimumPaneWidth = (width: number): number => {
   return Math.min(DEFAULT_MINIMUM_PANE_WIDTH, Math.floor(getAvailableSize(width) / 2))
 }
 

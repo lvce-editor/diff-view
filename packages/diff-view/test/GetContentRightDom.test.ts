@@ -7,7 +7,7 @@ import { getContentRightDom } from '../src/parts/GetContentRightDom/GetContentRi
 import * as InputName from '../src/parts/InputName/InputName.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
-test.skip('getContentRightDom renders each right line inside an EditorRow', (): void => {
+test('getContentRightDom renders each right line inside an EditorRow', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'after-content\nsecond-line',
@@ -61,7 +61,7 @@ test.skip('getContentRightDom renders each right line inside an EditorRow', (): 
   ])
 })
 
-test.skip('getContentRightDom renders cursor for editable right content', (): void => {
+test('getContentRightDom renders cursor for editable right content', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'after-content',
@@ -128,13 +128,15 @@ test.skip('getContentRightDom renders cursor for editable right content', (): vo
       className: ClassNames.DiffEditorInput,
       name: InputName.DiffEditorInput,
       onInput: DomEventListenerFunctions.HandleInput,
-      type: VirtualDomElements.Input,
+      selectionEnd: 0,
+      selectionStart: 0,
+      type: VirtualDomElements.TextArea,
       value: '',
     },
   ])
 })
 
-test.skip('getContentRightDom renders load errors when available', (): void => {
+test('getContentRightDom renders load errors when available', (): void => {
   const result = getContentRightDom({
     contentRight: '',
     errorMessage: 'permission denied',
@@ -156,7 +158,7 @@ test.skip('getContentRightDom renders load errors when available', (): void => {
   ])
 })
 
-test.skip('getContentRightDom renders paired deletion and insertion on the same row', (): void => {
+test('getContentRightDom renders paired deletion and insertion on the same row', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'shared-line\nadded-line',
@@ -215,7 +217,7 @@ test.skip('getContentRightDom renders paired deletion and insertion on the same 
   ])
 })
 
-test.skip('getContentRightDom renders syntax-highlighted token spans', (): void => {
+test('getContentRightDom renders syntax-highlighted token spans', (): void => {
   const result = getContentRightDom({
     allowedLinkSchemes: defaultAllowedLinkSchemes,
     contentRight: 'const answer = 1',

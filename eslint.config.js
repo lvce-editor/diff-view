@@ -1,13 +1,13 @@
-import config from '@lvce-editor/eslint-config'
+import * as config from '@lvce-editor/eslint-config'
 
 export default [
-  ...config,
+  ...config.default,
+  ...config.recommendedRegex,
+  ...config.recommendedActions,
   {
     files: ['packages/e2e/**/*.ts'],
     rules: {
       '@cspell/spellchecker': 'off',
-      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-      '@typescript-eslint/prefer-readonly-parameter-types': 'off',
     },
   },
 ]

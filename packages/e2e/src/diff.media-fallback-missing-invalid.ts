@@ -4,6 +4,8 @@ export const name = 'diff.media-fallback-missing-invalid'
 
 export const skip = 1
 
+const svgDataUriRegex = /^data:image\/svg\+xml;/
+
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await Workspace.setPath(tmpDir)
@@ -15,7 +17,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const afterPane = Locator('.DiffPane--after')
   const afterImage = Locator('.DiffPane--after .ImageElement')
   await expect(beforePane).toContainText('Failed to load image')
-  await expect(afterImage).toHaveAttribute('src', /^data:image\/svg\+xml;/ as unknown as string)
+  await expect(afterImage).toHaveAttribute('src', svgDataUriRegex as unknown as string)
 
   await FileSystem.writeFile(`${tmpDir}/left-invalid.mp4`, 'not a video')
   await DiffView.open(`${tmpDir}/left-invalid.mp4`, `${tmpDir}/missing-right.mp4`)

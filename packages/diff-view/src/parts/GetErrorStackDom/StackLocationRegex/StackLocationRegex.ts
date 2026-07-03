@@ -3,6 +3,8 @@ export interface StackLocationMatch {
   readonly text: string
 }
 
+const whitespaceRegex = /\s/
+
 const isSchemeCharacter = (char: string): boolean => {
   return (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9') || char === '+' || char === '.' || char === '-'
 }
@@ -12,7 +14,7 @@ const isSchemeStart = (char: string): boolean => {
 }
 
 const isLocationBoundary = (stackLine: string, index: number): boolean => {
-  return index === 0 || stackLine[index - 1] === '(' || /\s/.test(stackLine[index - 1])
+  return index === 0 || stackLine[index - 1] === '(' || whitespaceRegex.test(stackLine[index - 1])
 }
 
 const getSchemeLocationStart = (stackLine: string, locationEnd: number): number => {

@@ -13,9 +13,11 @@ export interface SyntaxLanguageInfo {
   readonly tokenizerPath: string
 }
 
+const queryOrHashRegex = /[?#]/
+
 const getFileName = (uri: string): string => {
   const protocol = getProtocol(uri)
-  const path = getPath(protocol, uri).split(/[?#]/, 1)[0]
+  const path = getPath(protocol, uri).split(queryOrHashRegex, 1)[0]
   const lastSlashIndex = Math.max(path.lastIndexOf('/'), path.lastIndexOf('\\'))
   if (lastSlashIndex === -1) {
     return path

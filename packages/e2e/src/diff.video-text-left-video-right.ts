@@ -4,6 +4,8 @@ export const name = 'diff.video-text-left-video-right'
 
 export const skip = 1
 
+const mp4DataUriRegex = /^data:video\/mp4;base64,/
+
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/left.txt`, 'fixture')
@@ -16,5 +18,5 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator }) => {
 
   await expect(beforePane).toContainText('const leftValue = 42')
   await expect(afterVideo).toHaveAttribute('title', 'right.mp4')
-  await expect(afterVideo).toHaveAttribute('src', /^data:video\/mp4;base64,/ as unknown as string)
+  await expect(afterVideo).toHaveAttribute('src', mp4DataUriRegex as unknown as string)
 }

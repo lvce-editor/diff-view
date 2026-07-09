@@ -58,7 +58,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const scrollBarThumbTop = getScrollBarThumbTop(height, scrollBarHeight, deltaY, finalDeltaY)
   const { layout } = newState
   const gutterWidth = 'var(--GutterWidth)'
-  const gutterPaddingWidth = 20
+  const gutterPaddingWidth = CursorConstants.GutterPaddingWidth
   const inlineGutterExtraWidth = 9 + gutterPaddingWidth
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const rightCursorGutterWidth = showLineNumbers ? gutterWidthVariable + CursorConstants.GutterPaddingWidth : 0

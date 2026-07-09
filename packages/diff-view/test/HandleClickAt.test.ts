@@ -12,7 +12,7 @@ test('handleClickAt focuses the editable right side for horizontal layout clicks
     x: 10,
   }
 
-  const result = handleClickAt(state, 10 + 40 + 18 + 20 + 12 + 27, 40, '')
+  const result = handleClickAt(state, 10 + 40 + 18 + 28 + 12 + 27, 40, '')
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
@@ -45,7 +45,7 @@ test('handleClickAt focuses the editable right side for vertical layout clicks',
     y: 10,
   }
 
-  const result = handleClickAt(state, 18 + 20 + 12 + 18, 10 + 40 + 60, '')
+  const result = handleClickAt(state, 18 + 28 + 12 + 18, 10 + 40 + 60, '')
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,

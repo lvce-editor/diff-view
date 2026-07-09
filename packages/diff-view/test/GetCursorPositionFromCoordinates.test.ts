@@ -12,7 +12,7 @@ test('getCursorPositionFromCoordinates computes cursor position in horizontal la
     y: 20,
   }
 
-  const result = getCursorPositionFromCoordinates(state, 10 + 100 + 18 + 20 + 12 + 27, 20 + 40)
+  const result = getCursorPositionFromCoordinates(state, 10 + 100 + 18 + 28 + 12 + 27, 20 + 40)
 
   expect(result).toEqual({
     cursorColumnIndex: 3,
@@ -31,7 +31,7 @@ test('getCursorPositionFromCoordinates computes cursor position in vertical layo
     y: 20,
   }
 
-  const result = getCursorPositionFromCoordinates(state, 10 + 18 + 20 + 12 + 18, 20 + 100 + 60)
+  const result = getCursorPositionFromCoordinates(state, 10 + 18 + 28 + 12 + 18, 20 + 100 + 60)
 
   expect(result).toEqual({
     cursorColumnIndex: 2,
@@ -48,7 +48,7 @@ test('getCursorPositionFromCoordinates includes minLineY', (): void => {
     y: 0,
   }
 
-  const result = getCursorPositionFromCoordinates(state, 9 + 20 + 12, 40)
+  const result = getCursorPositionFromCoordinates(state, 9 + 28 + 12, 40)
 
   expect(result).toEqual({
     cursorColumnIndex: 0,

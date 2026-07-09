@@ -10,7 +10,7 @@ test('getNextPaneSizes preserves the current pane ratio for horizontal layout', 
   }
 
   expect(getNextPaneSizes(state, 'horizontal', 404, 100)).toEqual({
-    leftWidth: 300,
+    leftWidth: 298,
     rightWidth: 100,
   })
 })
@@ -23,7 +23,7 @@ test('getNextPaneSizes uses height for vertical layout', (): void => {
   }
 
   expect(getNextPaneSizes(state, 'vertical', 404, 204)).toEqual({
-    leftWidth: 150,
+    leftWidth: 148,
     rightWidth: 50,
   })
 })
@@ -36,7 +36,7 @@ test('getNextPaneSizes falls back to equal panes without existing pane sizes', (
   }
 
   expect(getNextPaneSizes(state, 'horizontal', 304, 100)).toEqual({
-    leftWidth: 150,
-    rightWidth: 150,
+    leftWidth: 149,
+    rightWidth: 149,
   })
 })

@@ -82,6 +82,21 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('background-image: var(--ScrollBarBackgroundImage);')
 })
 
+test('renderCss uses the default separator width for sash sizing', (): void => {
+  const oldState = createDefaultState()
+  const newState = {
+    ...oldState,
+    id: 1,
+  }
+
+  const result = renderCss(oldState, newState)
+
+  expect(result[2]).toContain('.SashVertical {\n  cursor: col-resize;\n  width: 6px;\n}')
+  expect(result[2]).toContain('.SashHorizontal {\n  cursor: row-resize;\n  height: 6px;\n}')
+  expect(result[2]).toContain('--DiffSeparatorWidth: 6px;')
+  expect(result[2]).toContain('width: var(--DiffSeparatorWidth);')
+})
+
 test('renderCss renders height utility classes for empty line numbers', (): void => {
   const oldState = createDefaultState()
   const newState = {

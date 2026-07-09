@@ -1,6 +1,6 @@
 import { clamp } from '../Clamp/Clamp.ts'
 
-const SASH_WIDTH = 4
+const SASH_WIDTH = 6
 const DEFAULT_MINIMUM_PANE_WIDTH = 50
 
 const getAvailableSize = (size: number): number => {

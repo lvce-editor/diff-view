@@ -7,8 +7,8 @@ import { handleSashPointerUp } from '../src/parts/HandleSashPointerUp/HandleSash
 test('sash pointer handlers resize left and right panes while dragging', (): void => {
   const state = {
     ...createDefaultState(),
-    leftWidth: 148,
-    rightWidth: 148,
+    leftWidth: 147,
+    rightWidth: 147,
     width: 300,
     x: 10,
   }
@@ -19,18 +19,18 @@ test('sash pointer handlers resize left and right panes while dragging', (): voi
 
   expect(downState).toMatchObject({
     isResizing: true,
-    resizeOffsetX: 12,
+    resizeOffsetX: 13,
   })
   expect(moveState).toMatchObject({
     isResizing: true,
-    leftWidth: 188,
-    rightWidth: 108,
+    leftWidth: 187,
+    rightWidth: 107,
   })
   expect(upState).toMatchObject({
     isResizing: false,
-    leftWidth: 188,
+    leftWidth: 187,
     resizeOffsetX: 0,
-    rightWidth: 108,
+    rightWidth: 107,
   })
 })
 
@@ -38,9 +38,9 @@ test('sash pointer move clamps widths to keep both panes visible', (): void => {
   const state = {
     ...createDefaultState(),
     isResizing: true,
-    leftWidth: 148,
-    resizeOffsetX: 12,
-    rightWidth: 148,
+    leftWidth: 147,
+    resizeOffsetX: 13,
+    rightWidth: 147,
     width: 300,
     x: 10,
   }
@@ -49,7 +49,7 @@ test('sash pointer move clamps widths to keep both panes visible', (): void => {
 
   expect(result).toMatchObject({
     leftWidth: 50,
-    rightWidth: 246,
+    rightWidth: 244,
   })
 })
 
@@ -58,8 +58,8 @@ test('sash pointer handlers resize stacked panes vertically', (): void => {
     ...createDefaultState(),
     height: 300,
     layout: 'vertical' as const,
-    leftWidth: 148,
-    rightWidth: 148,
+    leftWidth: 147,
+    rightWidth: 147,
     y: 10,
   }
 
@@ -70,17 +70,17 @@ test('sash pointer handlers resize stacked panes vertically', (): void => {
   expect(downState).toMatchObject({
     isResizing: true,
     resizeOffsetX: 0,
-    resizeOffsetY: 12,
+    resizeOffsetY: 13,
   })
   expect(moveState).toMatchObject({
     isResizing: true,
-    leftWidth: 188,
-    rightWidth: 108,
+    leftWidth: 187,
+    rightWidth: 107,
   })
   expect(upState).toMatchObject({
     isResizing: false,
-    leftWidth: 188,
+    leftWidth: 187,
     resizeOffsetY: 0,
-    rightWidth: 108,
+    rightWidth: 107,
   })
 })

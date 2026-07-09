@@ -5,6 +5,8 @@ import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
+const ScrollBarWidth = 44
+
 const getEmptyLineNumberHeights = (visibleLines: readonly VisibleLine[], itemHeight: number): readonly number[] => {
   const heights: number[] = []
   let emptyLineCount = 0
@@ -86,6 +88,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   --ScrollBarHeight: ${scrollBarHeight}px;
   --ScrollBarBackgroundImage: ${scrollBarBackgroundImage};
   --ScrollBarThumbTop: ${scrollBarThumbTop}px;
+  --ScrollBarWidth: ${ScrollBarWidth}px;
   --DiffFontFamily: ${newState.fontFamily};
 }
 
@@ -452,7 +455,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   position: absolute;
   right: 2px;
   top: 0;
-  width: 8px;
+  width: var(--ScrollBarWidth);
 }
 
 .DiffScrollBarThumb {

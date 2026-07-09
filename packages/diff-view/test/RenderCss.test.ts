@@ -52,6 +52,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).not.toContain('--DiffEditorSashLeft')
   expect(result[2]).not.toContain('left: var(--DiffEditorSashLeft);')
   expect(result[2]).toContain('--ScrollBarHeight: 40px;')
+  expect(result[2]).toContain('--ScrollBarWidth: 44px;')
   expect(result[2]).toContain('.DiffEditorHorizontal {')
   expect(result[2]).toContain('.DiffEditorVertical {')
   expect(result[2]).toContain('.DiffEditorWithSearch.DiffEditorHorizontal,\n.DiffEditorWithSearch.DiffEditorVertical {\n  flex-direction: column;\n}')
@@ -79,6 +80,7 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('overflow: auto;')
   expect(result[2]).toContain('text-underline-offset: 2px;')
   expect(result[2]).toContain('.DiffScrollBarThumb {')
+  expect(result[2]).toContain('width: var(--ScrollBarWidth);')
   expect(result[2]).toContain('background-image: var(--ScrollBarBackgroundImage);')
 })
 

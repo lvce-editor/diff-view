@@ -112,6 +112,7 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await expect(beforePane).toContainText('"version": "1.0.0"')
   await expect(afterPane).toContainText('"version": "1.0.1"')
   await expect(scrollBar).toHaveCount(1)
+  await expect(scrollBar).toHaveCSS('width', '44px')
 
   // await Command.execute('DiffView.handleWheel', 0, 999_999)
 

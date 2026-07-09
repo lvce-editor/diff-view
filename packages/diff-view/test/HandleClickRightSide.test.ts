@@ -9,7 +9,7 @@ test('handleClickRightSide focuses the editable right side', (): void => {
     totalLineCountRight: 2,
   }
 
-  const result = handleClickRightSide(state, 41, 20)
+  const result = handleClickRightSide(state, 49, 20)
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
@@ -29,7 +29,7 @@ test('handleClickRightSide increments focusVersion when already focused', (): vo
     totalLineCountRight: 3,
   }
 
-  const result = handleClickRightSide(state, 98, 40)
+  const result = handleClickRightSide(state, 106, 40)
 
   expect(result).toMatchObject({
     focus: DiffEditorWhenExpression.FocusDiffEditorText,

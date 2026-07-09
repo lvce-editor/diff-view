@@ -15,6 +15,6 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   await Command.execute('DiffView.setCursorPosition', 3, 2)
 
-  await expect(cursor).toHaveCSS('left', '68px')
+  await expect(cursor).toHaveCSS('left', '76px')
   await expect(cursor).toHaveCSS('top', '40px')
 }

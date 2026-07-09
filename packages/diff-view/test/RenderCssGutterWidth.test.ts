@@ -13,6 +13,6 @@ test('renderCss exposes gutter width as a css variable and uses it for gutter si
   const result = renderCss(oldState, newState)
 
   expect(result[2]).toContain('--GutterWidth: 27px;')
-  expect(result[2]).toContain('width: calc(var(--GutterWidth) + 20px);')
+  expect(result[2]).toContain('width: calc(var(--GutterWidth) + 28px);')
   expect(result[2]).toContain('.InlineDiffEditor .DiffEditorGutter {')
 })

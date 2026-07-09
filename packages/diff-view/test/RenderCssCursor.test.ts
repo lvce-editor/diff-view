@@ -33,7 +33,7 @@ test('renderCss sets right cursor position css variables', (): void => {
   const result = renderCss(oldState, newState)
 
   expect(result[2]).toContain('.EditorCursorRight {')
-  expect(result[2]).toContain('--CursorLeft: 77px;')
+  expect(result[2]).toContain('--CursorLeft: 85px;')
   expect(result[2]).toContain('--CursorTop: 20px;')
   expect(result[2]).toContain('left: var(--CursorLeft);')
   expect(result[2]).toContain('top: var(--CursorTop);')

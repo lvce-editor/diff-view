@@ -15,6 +15,6 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   await Command.execute('DiffView.handleClickRightSide', -100, -100)
 
-  await expect(cursor).toHaveCSS('left', '41px')
+  await expect(cursor).toHaveCSS('left', '49px')
   await expect(cursor).toHaveCSS('top', '0px')
 }

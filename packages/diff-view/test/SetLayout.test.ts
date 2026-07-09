@@ -6,8 +6,8 @@ test('setLayout switches to vertical mode using the available height', (): void 
   const state = {
     ...createDefaultState(),
     height: 200,
-    leftWidth: 148,
-    rightWidth: 148,
+    leftWidth: 147,
+    rightWidth: 147,
     width: 300,
   }
 
@@ -15,10 +15,10 @@ test('setLayout switches to vertical mode using the available height', (): void 
 
   expect(result).toMatchObject({
     layout: 'vertical',
-    leftWidth: 98,
+    leftWidth: 97,
     resizeOffsetX: 0,
     resizeOffsetY: 0,
-    rightWidth: 98,
+    rightWidth: 97,
   })
 })
 
@@ -27,8 +27,8 @@ test('setLayout switches back to horizontal mode using the available width', ():
     ...createDefaultState(),
     height: 200,
     layout: 'vertical' as const,
-    leftWidth: 98,
-    rightWidth: 98,
+    leftWidth: 97,
+    rightWidth: 97,
     width: 300,
   }
 
@@ -36,7 +36,7 @@ test('setLayout switches back to horizontal mode using the available width', ():
 
   expect(result).toMatchObject({
     layout: 'horizontal',
-    leftWidth: 148,
-    rightWidth: 148,
+    leftWidth: 147,
+    rightWidth: 147,
   })
 })

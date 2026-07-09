@@ -28,10 +28,10 @@ test('handleResize updates scroll bounds and visible lines for a smaller viewpor
     deltaY: 20,
     finalDeltaY: 20,
     height: 40,
-    leftWidth: 128,
+    leftWidth: 127,
     maxLineY: 3,
     minLineY: 1,
-    rightWidth: 128,
+    rightWidth: 127,
     scrollBarActive: true,
     scrollBarHeight: 30,
     visibleLinesLeft: [

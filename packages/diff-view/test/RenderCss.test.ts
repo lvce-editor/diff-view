@@ -60,8 +60,9 @@ test('renderCss renders left and right widths as css variables', (): void => {
   expect(result[2]).toContain('.DiffEditorContentLeft {')
   expect(result[2]).toContain('.DiffEditorContentRight {')
   expect(result[2]).toContain(
-    '.DiffEditorContentLeft,\n.DiffEditorContentRight {\n  align-items: stretch;\n  display: flex;\n  min-height: 0;\n  min-width: 0;\n  overflow: hidden;\n  position: relative;\n}',
+    '.DiffEditorContentLeft,\n.DiffEditorContentRight {\n  align-items: stretch;\n  display: flex;\n  flex: none !important;\n  min-height: 0;\n  min-width: 0;\n  overflow: hidden;\n  position: relative;\n}',
   )
+  expect(result[2]).not.toContain('.DiffEditorContent {\n  flex: unset !important')
   expect(result[2]).toContain('user-select: text;')
   expect(result[2]).toContain(
     '.DiffEditorRows {\n  background: var(--DiffBackground);\n  contain: layout paint style;\n  cursor: text;\n  flex: 1 1 auto;\n  font-family: var(--DiffFontFamily, monospace);\n  height: 100%;\n  min-width: 0;\n  overflow: hidden;\n}',

@@ -220,6 +220,7 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
 .DiffEditorContentRight {
   align-items: stretch;
   display: flex;
+  flex: none !important;
   min-height: 0;
   min-width: 0;
   overflow: hidden;
@@ -509,9 +510,6 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
 }
 
 
-.DiffEditorContent {
-  flex: unset !important
-}
 `
   return [ViewletCommand.SetCss, id, css]
 }

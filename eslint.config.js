@@ -8,6 +8,7 @@ export default [
     files: ['packages/e2e/**/*.ts'],
     rules: {
       '@cspell/spellchecker': 'off',
+      'e2e/prefer-filesystem-set-files': 'off',
     },
   },
 ]

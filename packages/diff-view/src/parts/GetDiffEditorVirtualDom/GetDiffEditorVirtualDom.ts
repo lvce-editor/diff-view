@@ -152,6 +152,8 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
           lineNumbers: showLineNumbers,
           maxLineY,
           minLineY,
+          selectionEnd: state.rightEditor.selectionEnd,
+          selectionStart: state.rightEditor.selectionStart,
           tokenizedLines: tokenizedLinesRight,
           totalLineCount: totalLineCountRight,
           visibleLines: visibleLinesRight,

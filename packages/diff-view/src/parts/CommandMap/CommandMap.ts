@@ -42,6 +42,7 @@ import { setCursorPosition } from '../SetCursorPosition/SetCursorPosition.ts'
 import { setDiffMode } from '../SetDiffMode/SetDiffMode.ts'
 import { setFontFamily } from '../SetFontFamily/SetFontFamily.ts'
 import { setLayout } from '../SetLayout/SetLayout.ts'
+import { setSelection } from '../SetSelection/SetSelection.ts'
 import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
@@ -97,6 +98,7 @@ export const commandMap = {
   'DiffView.setDiffMode': wrapCommand(setDiffMode),
   'DiffView.setFontFamily': wrapCommand(setFontFamily),
   'DiffView.setLayout': wrapCommand(setLayout),
+  'DiffView.setSelection': wrapCommand(setSelection),
   'DiffView.showSearch': wrapCommand(showSearch),
   'DiffView.terminate': terminate,
   'DiffView.toggleDiffMode': wrapCommand(toggleDiffMode),

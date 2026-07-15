@@ -10,5 +10,7 @@ test('setCursorPosition updates the right editor cursor position', (): void => {
   expect(result.rightEditor).toEqual({
     cursorColumnIndex: 3,
     cursorRowIndex: 2,
+    selectionEnd: 3,
+    selectionStart: 3,
   })
 })

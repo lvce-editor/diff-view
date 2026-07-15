@@ -9,6 +9,8 @@ export type DiffMode = 'inline' | 'side-by-side'
 interface EditorState {
   readonly cursorColumnIndex: number
   readonly cursorRowIndex: number
+  readonly selectionEnd: number
+  readonly selectionStart: number
 }
 
 export interface DiffViewState {

@@ -16,10 +16,9 @@ const countOccurrences = (text: string, query: string): number => {
   return count
 }
 
-export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string, query: string): readonly VirtualDomNode[] => {
-  const q = query || ''
-  const leftCount = countOccurrences(contentLeft || '', query)
-  const rightCount = countOccurrences(contentRight || '', q)
+export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string, queryLeft = '', queryRight = ''): readonly VirtualDomNode[] => {
+  const leftCount = countOccurrences(contentLeft || '', queryLeft)
+  const rightCount = countOccurrences(contentRight || '', queryRight)
   const total = leftCount + rightCount
   const widgetClass = total === 0 && query ? 'DiffSearchWidget DiffSearchWidgetNoResults' : 'DiffSearchWidget'
 
@@ -30,22 +29,36 @@ export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 2,
+      childCount: 4,
       className: widgetClass,
       type: VirtualDomElements.Div,
     },
     {
       childCount: 0,
-      className: ClassNames.DiffSearchInput,
+      className: `${ClassNames.DiffSearchInput} DiffSearchInputLeft`,
       inputType: 'search',
-      placeholder: DiffStrings.search(),
+      placeholder: `${DiffStrings.search()} (left)`,
       type: VirtualDomElements.Input,
-      value: q,
+      value: queryLeft,
     },
     {
       childCount: 0,
-      className: 'DiffSearchMatchCount',
-      text: `${total} of ${total}`,
+      className: 'DiffSearchMatchCount DiffSearchMatchCountLeft',
+      text: `${leftCount} matches`,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: `${ClassNames.DiffSearchInput} DiffSearchInputRight`,
+      inputType: 'search',
+      placeholder: `${DiffStrings.search()} (right)`,
+      type: VirtualDomElements.Input,
+      value: queryRight,
+    },
+    {
+      childCount: 0,
+      className: 'DiffSearchMatchCount DiffSearchMatchCountRight',
+      text: `${rightCount} matches`,
       type: VirtualDomElements.Div,
     },
   ]

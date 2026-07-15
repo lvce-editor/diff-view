@@ -331,9 +331,17 @@ test('getDiffEditorVirtualDom renders search when visible', (): void => {
   })
   expect(result).toContainEqual({
     childCount: 0,
-    className: ClassNames.DiffSearchInput,
+    className: `${ClassNames.DiffSearchInput} DiffSearchInputLeft`,
     inputType: 'search',
-    placeholder: 'Search',
+    placeholder: 'Search (left)',
+    type: VirtualDomElements.Input,
+    value: '',
+  })
+  expect(result).toContainEqual({
+    childCount: 0,
+    className: `${ClassNames.DiffSearchInput} DiffSearchInputRight`,
+    inputType: 'search',
+    placeholder: 'Search (right)',
     type: VirtualDomElements.Input,
     value: '',
   })

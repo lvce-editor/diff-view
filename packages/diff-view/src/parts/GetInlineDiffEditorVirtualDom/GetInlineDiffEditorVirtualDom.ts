@@ -16,7 +16,8 @@ export const getInlineDiffEditorVirtualDom = (
   minLineY: number,
   maxLineY: number,
   searchVisible: boolean,
-  searchQuery: string,
+  searchQueryLeft: string,
+  searchQueryRight: string,
   showWhitespace: boolean,
 ): readonly VirtualDomNode[] => {
   const rows = getInlineDiffRows(contentLeft, contentRight)
@@ -36,7 +37,7 @@ export const getInlineDiffEditorVirtualDom = (
       ]
     : []
   const scrollBarDom = scrollBarActive ? getScrollBarDom() : []
-  const searchHeaderDom = searchVisible ? getDiffSearchHeaderDom(contentLeft, contentRight, searchQuery) : []
+  const searchHeaderDom = searchVisible ? getDiffSearchHeaderDom(contentLeft, contentRight, searchQueryLeft, searchQueryRight) : []
   return [
     {
       childCount: (scrollBarActive ? 3 : 2) + (searchVisible ? 1 : 0),

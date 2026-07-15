@@ -8,7 +8,7 @@ export const getImageRightDom = (uriRight: string, imageSrc: string): readonly V
     {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
-      onClick: DomEventListenerFunctions.HandleClickRightSide,
+      onPointerDown: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
     {

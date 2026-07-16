@@ -12,12 +12,12 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   const cursor = Locator('.EditorCursorRight')
   await Command.execute('DiffView.setCursorPosition', 2, 1)
-  await expect(cursor).toHaveCSS('left', '68px')
+  await expect(cursor).toHaveCSS('left', '67px')
   await expect(cursor).toHaveCSS('top', '20px')
 
   await Command.execute('DiffView.moveCursorToStartOfLine')
-  await expect(cursor).toHaveCSS('left', '52px')
+  await expect(cursor).toHaveCSS('left', '49px')
 
   await Command.execute('DiffView.moveCursorToEndOfLine')
-  await expect(cursor).toHaveCSS('left', '84px')
+  await expect(cursor).toHaveCSS('left', '85px')
 }

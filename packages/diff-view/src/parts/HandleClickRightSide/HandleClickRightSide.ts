@@ -9,6 +9,8 @@ export const handleClickRightSide = (state: DiffViewState, clientX: number, clie
     ...state,
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: state.focusVersion + 1,
+    inputSource: 0,
+    inputValue: '',
   }
   return setCursorPosition(focusedState, cursorPosition.cursorColumnIndex, cursorPosition.cursorRowIndex)
 }

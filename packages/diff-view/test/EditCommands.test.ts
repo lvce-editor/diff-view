@@ -17,6 +17,10 @@ test('insertLineBreak inserts a newline into the edit buffer', async (): Promise
     contentLeft: 'alpha',
     contentRight: 'gammaBeta',
     inputValue: 'gamma',
+    rightEditor: {
+      cursorColumnIndex: 5,
+      cursorRowIndex: 0,
+    },
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
   }
@@ -59,6 +63,10 @@ test('deleteLeft deletes the previous edit buffer character', async (): Promise<
     contentLeft: 'alpha',
     contentRight: 'gamma Beta',
     inputValue: 'gamma ',
+    rightEditor: {
+      cursorColumnIndex: 6,
+      cursorRowIndex: 0,
+    },
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
   }

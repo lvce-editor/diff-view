@@ -29,8 +29,10 @@ export const loadSyntaxHighlighting = async (
 ): Promise<SyntaxHighlightingState> => {
   try {
     const languages = await getLanguages(platform, assetDir)
-    const languageLeft = getSyntaxLanguage(uriLeft, languages)
-    const languageRight = getSyntaxLanguage(uriRight, languages)
+    const detectedLanguageLeft = getSyntaxLanguage(uriLeft, languages)
+    const detectedLanguageRight = getSyntaxLanguage(uriRight, languages)
+    const languageLeft = detectedLanguageLeft.languageId === 'unknown' ? detectedLanguageRight : detectedLanguageLeft
+    const languageRight = detectedLanguageRight
     const uniqueLanguages = getUniqueLanguages(languageLeft, languageRight)
     await Promise.all(uniqueLanguages.map(loadTokenizer))
     const [tokenizedLinesLeft, tokenizedLinesRight] = await Promise.all([tokenizeCodeBlock(contentLeft, languageLeft), tokenizeCodeBlock(contentRight, languageRight)])

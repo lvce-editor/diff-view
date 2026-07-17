@@ -11,7 +11,7 @@ const getLargeFileContent = (bottomLine: string): string => {
 
 export const name = 'diff.diff-editor-scrolling'
 
-export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/file-1.txt`, getLargeFileContent('bottom change before'))
   await FileSystem.writeFile(`${tmpDir}/file-2.txt`, getLargeFileContent('bottom change after'))
@@ -24,7 +24,12 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   })
   await expect(line1).toBeVisible()
 
-  await Command.execute(`DiffView.handleWheel`, 9, 9_999_999)
+  const contentRight = Locator('.DiffEditorContentRight')
+  await contentRight.dispatchEvent('wheel', {
+    bubbles: true,
+    deltaMode: 0,
+    deltaY: 9_999_999,
+  } as unknown as string)
 
   const line1800 = Locator('.DiffEditorContentLeft .DiffEditorLineNumber', {
     hasText: '1800',

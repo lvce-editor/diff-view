@@ -68,11 +68,11 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const rightCursorTop = (rightEditor.cursorRowIndex - minLineY) * CursorConstants.LineHeight
   const css = `
 :root {
-  --DiffBackground: #0b0d10;
-  --DiffForeground: rgba(255, 255, 255, 0.88);
-  --DiffGutterBackground: #0f1218;
-  --DiffGutterForeground: rgba(255, 255, 255, 0.58);
-  --DiffSeparatorColor: rgba(255, 255, 255, 0.12);
+  --DiffBackground: var(--MainBackground);
+  --DiffForeground: var(--EditorForeground);
+  --DiffGutterBackground: var(--SideBarBackground);
+  --DiffGutterForeground: var(--SideBarForeground);
+  --DiffSeparatorColor: var(--SideBarBorder);
   --DiffMissingLineBackground: rgba(255, 255, 255, 0.035);
   --DiffDeletionBackground: rgba(248, 81, 73, 0.2);
   --DiffDeletionForeground: #ffb3ad;
@@ -312,8 +312,8 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   z-index: 1;
 }
 
-.EditorCursor {
-  background: red;
+.DiffEditor .EditorCursor {
+  background: var(--EditorCursorBackground);
   height: var(--ItemHeight);
   left: var(--CursorLeft);
   position: absolute;

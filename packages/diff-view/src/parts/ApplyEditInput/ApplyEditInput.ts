@@ -8,41 +8,24 @@ import { getVisibleLinesState } from '../GetVisibleLinesState/GetVisibleLinesSta
 import * as InputSource from '../InputSource/InputSource.ts'
 import { loadSyntaxHighlighting } from '../LoadSyntaxHighlighting/LoadSyntaxHighlighting.ts'
 
-const getBaseContentRight = (state: DiffViewState): string => {
-  if (state.inputValue && state.contentRight.startsWith(state.inputValue)) {
-    return state.contentRight.slice(state.inputValue.length)
-  }
-  return state.contentRight
-}
-
 export const applyEditInput = async (state: DiffViewState, inputValue: string): Promise<DiffViewState> => {
   if (inputValue === state.inputValue || state.renderModeRight !== 'text' || state.errorRightMessage || getLineCount(inputValue) > state.maxInputLines) {
     return state
   }
 
   const { totalLineCountLeft } = state
-  // compute base content without any previously-applied input buffer
-  const baseContent = getBaseContentRight(state)
-
-  // derive insertion index from cursor position (row/column)
-  // compute full content index (including any previously-applied inputValue prefix)
-  const fullLines = state.contentRight ? state.contentRight.split('\n') : ['']
-  const fullCursorRow = Math.max(0, Math.min(state.rightEditor.cursorRowIndex, fullLines.length - 1))
-  const fullCurrentLine = fullLines[fullCursorRow] ?? ''
-  const fullCursorCol = Math.max(0, Math.min(state.rightEditor.cursorColumnIndex, fullCurrentLine.length))
-  let fullIndex = 0
-  for (let i = 0; i < fullCursorRow; i++) {
-    fullIndex += (fullLines[i] ?? '').length + 1
-  }
-  fullIndex += fullCursorCol
-
-  const prefixLength = state.inputValue && state.contentRight.startsWith(state.inputValue) ? state.inputValue.length : 0
-  const index = Math.max(0, fullIndex - prefixLength)
-  // base content split into lines is available if needed
-
-  const before = baseContent.slice(0, index)
-  const after = baseContent.slice(index)
+  const { cursorColumnIndex, cursorRowIndex } = state.rightEditor
+  const precedingLines = state.contentRight.split('\n').slice(0, cursorRowIndex).join('\n')
+  const fullIndex = precedingLines.length + (cursorRowIndex === 0 ? 0 : 1) + cursorColumnIndex
+  const inputStart = Math.max(fullIndex - state.inputValue.length, 0)
+  const before = state.contentRight.slice(0, inputStart)
+  const after = state.contentRight.slice(fullIndex)
   const contentRight = `${before}${inputValue}${after}`
+  const linesBeforeCursor = `${before}${inputValue}`.split('\n')
+  const rightEditor = {
+    cursorColumnIndex: (linesBeforeCursor.at(-1) || '').length,
+    cursorRowIndex: linesBeforeCursor.length - 1,
+  }
   const totalLineCountRight = getLineCount(contentRight)
   const canComputeInlineDiff = state.renderModeLeft === 'text' && !state.errorLeftMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
@@ -65,6 +48,7 @@ export const applyEditInput = async (state: DiffViewState, inputValue: string): 
     inputValue,
     languageIdLeft: syntaxHighlightingState?.languageIdLeft || state.languageIdLeft,
     languageIdRight: syntaxHighlightingState?.languageIdRight || state.languageIdRight,
+    rightEditor,
     scrollBarBackgroundImage: getScrollBarBackgroundImage(inlineChanges, totalLineCount),
     tokenizedLinesLeft: syntaxHighlightingState?.tokenizedLinesLeft || state.tokenizedLinesLeft,
     tokenizedLinesRight: syntaxHighlightingState?.tokenizedLinesRight || [],

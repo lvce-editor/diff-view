@@ -2,11 +2,12 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.text-cursor'
 
-export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, 'alpha')
   await FileSystem.writeFile(`${tmpDir}/after.txt`, 'beta')
   await Workspace.setPath(tmpDir)
+  await Command.execute('ColorTheme.setColorTheme', 'slime')
 
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
@@ -14,9 +15,11 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
   const beforeLineNumber = Locator('.DiffEditorContentLeft .DiffEditorLineNumber').first()
   const sash = Locator('.SashVertical').first()
+  const cursor = Locator('.EditorCursorRight')
 
   await expect(beforeRows).toHaveCSS('cursor', 'text')
   await expect(afterRows).toHaveCSS('cursor', 'text')
   await expect(beforeLineNumber).toHaveCSS('cursor', 'auto')
   await expect(sash).toHaveCSS('cursor', 'col-resize')
+  await expect(cursor).toHaveCSS('background-color', 'rgb(168, 223, 90)')
 }

@@ -6,6 +6,7 @@ import { handleClickAt } from '../src/parts/HandleClickAt/HandleClickAt.ts'
 test('handleClickAt focuses the editable right side for horizontal layout clicks', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none\ntwo',
     gutterWidthVariable: 18,
     leftWidth: 40,
     totalLineCountRight: 3,
@@ -38,6 +39,7 @@ test('handleClickAt ignores horizontal layout clicks in the left side', (): void
 test('handleClickAt focuses the editable right side for vertical layout clicks', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none\ntwo\nthree',
     gutterWidthVariable: 18,
     layout: 'vertical' as const,
     leftWidth: 40,

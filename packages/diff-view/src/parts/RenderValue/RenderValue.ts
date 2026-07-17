@@ -4,5 +4,5 @@ import * as InputName from '../InputName/InputName.ts'
 
 export const renderValue = (oldState: DiffViewState, newState: DiffViewState): any => {
   const { id, inputValue } = newState
-  return [ViewletCommand.SetValueByName, id, InputName.SourceControlInput, inputValue]
+  return [ViewletCommand.SetValueByName, id, InputName.DiffEditorInput, inputValue]
 }

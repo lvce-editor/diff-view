@@ -5,6 +5,7 @@ import { getCursorPositionFromCoordinates } from '../src/parts/GetCursorPosition
 test('getCursorPositionFromCoordinates computes cursor position in horizontal layout', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none\ntwo',
     gutterWidthVariable: 18,
     leftWidth: 100,
     totalLineCountRight: 3,
@@ -23,6 +24,7 @@ test('getCursorPositionFromCoordinates computes cursor position in horizontal la
 test('getCursorPositionFromCoordinates computes cursor position in vertical layout', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none\ntwo\nthree',
     gutterWidthVariable: 18,
     layout: 'vertical' as const,
     leftWidth: 100,
@@ -82,5 +84,19 @@ test('getCursorPositionFromCoordinates clamps rows to the last right editor line
   expect(result).toEqual({
     cursorColumnIndex: 0,
     cursorRowIndex: 2,
+  })
+})
+
+test('getCursorPositionFromCoordinates clamps columns to the line length', (): void => {
+  const state = {
+    ...createDefaultState(),
+    contentRight: 'abc',
+  }
+
+  const result = getCursorPositionFromCoordinates(state, 1000, 0)
+
+  expect(result).toEqual({
+    cursorColumnIndex: 3,
+    cursorRowIndex: 0,
   })
 })

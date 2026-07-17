@@ -2,8 +2,6 @@ import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'diff.css-three-lines-added-light-theme'
 
-export const skip = 1
-
 export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(
@@ -27,11 +25,13 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   await DiffView.open(`${tmpDir}/before.css`, `${tmpDir}/after.css`)
 
   const main = Locator('.Main')
+  const diffEditor = Locator('.DiffEditor')
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
   const insertedRows = Locator('.DiffEditorContentRight .EditorRow.Insertion')
 
   await expect(main).toHaveCSS('background-color', 'rgb(248, 249, 250)')
+  await expect(diffEditor).toHaveCSS('background-color', 'rgb(248, 249, 250)')
   await expect(beforePane).toContainText('.button')
   await expect(afterPane).toContainText('.button')
   await expect(afterPane).toContainText('color: red')

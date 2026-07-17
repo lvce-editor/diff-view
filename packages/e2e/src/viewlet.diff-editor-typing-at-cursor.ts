@@ -1,9 +1,7 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
 export const name = 'viewlet.diff-editor-typing-at-cursor'
-export const skip = 1
-
-export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locator, Workspace }) => {
+export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
   await FileSystem.writeFile(`${tmpDir}/before.txt`, 'hello')
   await FileSystem.writeFile(`${tmpDir}/after.txt`, 'helloWorld')
@@ -15,9 +13,13 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   const input = Locator('.DiffEditorInput')
 
   await expect(input).toHaveCount(1)
-  // place caret between 'hello' and 'World'
-  await Command.execute('DiffView.handleInput', ' ')
+  await DiffView.handleClickAt(100_000, 0, 'DiffEditorRows')
+  await expect(input).toBeFocused()
+  const cursor = Locator('.EditorCursorRight')
+  await expect(cursor).toHaveCSS('left', '139px')
+  await input.type(' abc')
 
-  await expect(input).toHaveValue(' ')
-  await expect(afterRows).toHaveText('hello World')
+  await expect(input).toHaveValue(' abc')
+  await expect(afterRows).toHaveText('helloWorld abc')
+  await expect(cursor).toHaveCSS('left', '175px')
 }

@@ -39,6 +39,10 @@ export const renderEventListeners = (): readonly DomEventListener[] => {
       preventDefault: true,
     },
     {
+      name: DomEventListenersFunctions.HandleInput,
+      params: ['handleInput', EventExpression.TargetValue],
+    },
+    {
       name: DomEventListenersFunctions.HandleContextMenu,
       params: ['handleContextMenu', EventExpression.Button, EventExpression.ClientX, EventExpression.ClientY],
       preventDefault: true,

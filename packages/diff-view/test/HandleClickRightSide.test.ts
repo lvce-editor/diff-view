@@ -6,6 +6,7 @@ import { handleClickRightSide } from '../src/parts/HandleClickRightSide/HandleCl
 test('handleClickRightSide focuses the editable right side', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none',
     totalLineCountRight: 2,
   }
 
@@ -24,6 +25,7 @@ test('handleClickRightSide focuses the editable right side', (): void => {
 test('handleClickRightSide increments focusVersion when already focused', (): void => {
   const state = {
     ...createDefaultState(),
+    contentRight: 'zero\none\ntwo',
     focus: DiffEditorWhenExpression.FocusDiffEditorText,
     focusVersion: 4,
     totalLineCountRight: 3,

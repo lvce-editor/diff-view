@@ -68,6 +68,10 @@ test('handleInput applies the hidden input value before the stable right content
     contentLeft: 'alpha',
     contentRight: 'gamma beta',
     inputValue: 'gamma ',
+    rightEditor: {
+      cursorColumnIndex: 6,
+      cursorRowIndex: 0,
+    },
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
   }
@@ -91,6 +95,10 @@ test('handleInput supports shrinking the hidden input value', async (): Promise<
     contentLeft: 'alpha',
     contentRight: 'gamma Beta',
     inputValue: 'gamma ',
+    rightEditor: {
+      cursorColumnIndex: 6,
+      cursorRowIndex: 0,
+    },
     totalLineCountLeft: 1,
     totalLineCountRight: 1,
   }

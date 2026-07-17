@@ -14,8 +14,10 @@ export const getCursorPositionFromCoordinates = (state: DiffViewState, clientX: 
   const rawCursorColumnIndex = Math.floor((clientX - contentLeft - gutterWidth - CursorConstants.RowPaddingLeft) / charWidth)
   const rawCursorRowIndex = state.minLineY + Math.floor((clientY - contentTop) / CursorConstants.LineHeight)
   const maxCursorRowIndex = Math.max(state.totalLineCountRight - 1, 0)
+  const cursorRowIndex = Math.min(Math.max(rawCursorRowIndex, 0), maxCursorRowIndex)
+  const line = state.contentRight.split('\n')[cursorRowIndex] || ''
   return {
-    cursorColumnIndex: Math.max(rawCursorColumnIndex, 0),
-    cursorRowIndex: Math.min(Math.max(rawCursorRowIndex, 0), maxCursorRowIndex),
+    cursorColumnIndex: Math.min(Math.max(rawCursorColumnIndex, 0), line.length),
+    cursorRowIndex,
   }
 }

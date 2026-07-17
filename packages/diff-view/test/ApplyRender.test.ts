@@ -18,6 +18,6 @@ test('applyRender runs renderers in diff order', (): void => {
 
   expect(result).toEqual([
     [ViewletCommand.SetFocusContext, 2, 3],
-    [ViewletCommand.SetValueByName, 2, InputName.SourceControlInput, 'commit message'],
+    [ViewletCommand.SetValueByName, 2, InputName.DiffEditorInput, 'commit message'],
   ])
 })

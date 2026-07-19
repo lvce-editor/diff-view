@@ -1,5 +1,6 @@
 import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
+import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import { getDiffSearchHeaderDom } from '../GetDiffSearchHeaderDom/GetDiffSearchHeaderDom.ts'
@@ -18,6 +19,8 @@ export const getInlineDiffEditorVirtualDom = (
   searchVisible: boolean,
   searchQuery: string,
   showWhitespace: boolean,
+  tokenizedLinesLeft: readonly TokenizedLine[],
+  tokenizedLinesRight: readonly TokenizedLine[],
 ): readonly VirtualDomNode[] => {
   const rows = getInlineDiffRows(contentLeft, contentRight)
   const visibleRows = rows.slice(minLineY, maxLineY)
@@ -55,7 +58,9 @@ export const getInlineDiffEditorVirtualDom = (
       className: ClassNames.DiffEditorRows,
       type: VirtualDomElements.Div,
     },
-    ...visibleRows.flatMap(getInlineDiffRowDom),
+    ...visibleRows.flatMap((row) =>
+      getInlineDiffRowDom(row, row.lineNumberRight === null ? tokenizedLinesLeft[row.lineNumberLeft! - 1] : tokenizedLinesRight[row.lineNumberRight - 1]),
+    ),
     ...buttonsDom,
     ...scrollBarDom,
   ]

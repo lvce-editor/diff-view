@@ -695,29 +695,33 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
       type: VirtualDomElements.Div,
     },
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-    text('  same'),
+    text('  '),
+    text('same'),
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.EditorRowDeletion,
       type: VirtualDomElements.Div,
     },
-    text('- before'),
+    text('- '),
+    text('before'),
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.EditorRowInsertion,
       type: VirtualDomElements.Div,
     },
-    text('+ after'),
+    text('+ '),
+    text('after'),
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.EditorRow,
       type: VirtualDomElements.Div,
     },
-    text('  shared'),
+    text('  '),
+    text('shared'),
     {
       childCount: 2,
       className: ClassNames.DiffEditorButtons,
@@ -742,6 +746,29 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
     },
     text('Side by side'),
   ])
+})
+
+test('getDiffEditorVirtualDom renders syntax highlighting in inline mode', (): void => {
+  const result = getDiffEditorVirtualDom({
+    ...createDefaultState(),
+    contentLeft: 'name: Before',
+    contentRight: 'name: After',
+    diffMode: 'inline',
+    maxLineY: 2,
+    tokenizedLinesLeft: [['name', 'Token YamlPropertyName', ': ', 'Token Punctuation', 'Before', 'Token YamlPropertyValueString']],
+    tokenizedLinesRight: [['name', 'Token YamlPropertyName', ': ', 'Token Punctuation', 'After', 'Token YamlPropertyValueString']],
+    totalLineCount: 2,
+    uriLeft: '/tmp/before.yml',
+    uriRight: '/tmp/after.yml',
+  })
+
+  expect(result).toContainEqual({
+    childCount: 1,
+    className: 'Token YamlPropertyName',
+    type: VirtualDomElements.Span,
+  })
+  expect(result).toContainEqual(text('Before'))
+  expect(result).toContainEqual(text('After'))
 })
 
 test('getDiffEditorVirtualDom renders a horizontal sash for vertical layout', (): void => {

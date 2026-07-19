@@ -1,5 +1,6 @@
 import { VirtualDomElements, type VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
 export const getCursorDom = (): readonly VirtualDomNode[] => {
   return [
@@ -10,7 +11,7 @@ export const getCursorDom = (): readonly VirtualDomNode[] => {
     },
     {
       childCount: 0,
-      className: `${ClassNames.EditorCursor} ${ClassNames.EditorCursorRight}`,
+      className: mergeClassNames(ClassNames.EditorCursor, ClassNames.EditorCursorRight),
       type: VirtualDomElements.Div,
     },
   ]

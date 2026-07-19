@@ -46,7 +46,7 @@ export const getInlineDiffEditorVirtualDom = (
     ...searchHeaderDom,
     {
       childCount: contentChildCount,
-      className: `${ClassNames.DiffEditorContent} ${ClassNames.InlineDiffEditorContent}`,
+      className: mergeClassNames(ClassNames.DiffEditorContent, ClassNames.InlineDiffEditorContent),
       type: VirtualDomElements.Div,
     },
     ...lineNumberDom,

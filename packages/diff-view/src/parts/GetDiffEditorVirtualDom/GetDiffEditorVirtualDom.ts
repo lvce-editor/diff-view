@@ -12,6 +12,7 @@ import { getImageRightDom } from '../GetImageRightDom/GetImageRightDom.ts'
 import { getInlineDiffEditorVirtualDom } from '../GetInlineDiffEditorVirtualDom/GetInlineDiffEditorVirtualDom.ts'
 import { getSashDom } from '../GetSashDom/GetSashDom.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
 const getRootDom = (childCount: number, className: string): VirtualDomNode => {
   return {
@@ -26,7 +27,7 @@ const getRootDom = (childCount: number, className: string): VirtualDomNode => {
 const getEditorBodyDom = (diffEditorLayoutClass: string): VirtualDomNode => {
   return {
     childCount: 3,
-    className: `${ClassNames.DiffEditorBody} ${diffEditorLayoutClass}`,
+    className: mergeClassNames(ClassNames.DiffEditorBody, diffEditorLayoutClass),
     type: VirtualDomElements.Div,
   }
 }

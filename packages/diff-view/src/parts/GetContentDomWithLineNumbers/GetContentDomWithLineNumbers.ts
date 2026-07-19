@@ -2,6 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 import { getGutterDom } from './GetGutterDom/GetGutterDom.ts'
 import { getRowsDom } from './GetRowsDom/GetRowsDom.ts'
 
@@ -15,7 +16,7 @@ export const getContentDomWithLineNumbers = (
   return [
     {
       childCount: 2,
-      className: `${ClassNames.DiffEditorContent} ${contentClassName}`,
+      className: mergeClassNames(ClassNames.DiffEditorContent, contentClassName),
       type: VirtualDomElements.Div,
     },
     ...getGutterDom(visibleLines, itemHeight),

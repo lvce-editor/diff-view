@@ -113,7 +113,18 @@ export const getDiffEditorVirtualDom = (state: DiffViewState): readonly VirtualD
   } = state
   const canRenderInline = diffMode === 'inline' && renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   if (canRenderInline) {
-    return getInlineDiffEditorVirtualDom(contentLeft, contentRight, lineNumbers, minLineY, maxLineY, searchVisible, searchQuery, showWhitespace)
+    return getInlineDiffEditorVirtualDom(
+      contentLeft,
+      contentRight,
+      lineNumbers,
+      minLineY,
+      maxLineY,
+      searchVisible,
+      searchQuery,
+      showWhitespace,
+      tokenizedLinesLeft,
+      tokenizedLinesRight,
+    )
   }
 
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'

@@ -4,6 +4,7 @@ import { defaultAllowedLinkSchemes } from '../AllowedLinkSchemes/AllowedLinkSche
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getErrorCodeFrameDom } from '../GetErrorCodeFrameDom/GetErrorCodeFrameDom.ts'
 import { getErrorStackDom } from '../GetErrorStackDom/GetErrorStackDom.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
 export const getErrorDom = (
   contentClassName: string,
@@ -16,7 +17,7 @@ export const getErrorDom = (
   return [
     {
       childCount,
-      className: `${ClassNames.DiffEditorContent} ${contentClassName} ${ClassNames.DiffEditorError}`,
+      className: mergeClassNames(ClassNames.DiffEditorContent, contentClassName, ClassNames.DiffEditorError),
       type: VirtualDomElements.Div,
     },
     {

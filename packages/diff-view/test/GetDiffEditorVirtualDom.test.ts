@@ -385,6 +385,7 @@ test('getDiffEditorVirtualDom renders image panes when render mode is image', ()
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentLeft}`,
       onClick: DomEventListenerFunctions.HandleClickLeftSide,
+      role: 'presentation',
       type: VirtualDomElements.Div,
     },
     {

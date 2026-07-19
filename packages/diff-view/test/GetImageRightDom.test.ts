@@ -11,7 +11,6 @@ test('getImageRightDom renders an image element', (): void => {
       childCount: 1,
       className: `${ClassNames.DiffEditorContent} ${ClassNames.DiffEditorContentRight}`,
       onClick: DomEventListenerFunctions.HandleClickRightSide,
-      role: 'presentation',
       type: VirtualDomElements.Div,
     },
     {

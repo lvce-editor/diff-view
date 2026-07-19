@@ -14,6 +14,12 @@ export default [
     },
   },
   {
+    files: ['packages/diff-view/src/parts/{GetImageLeftDom,GetImageRightDom}/**/*.ts'],
+    rules: {
+      'virtual-dom/clickable-div-needs-role': 'off',
+    },
+  },
+  {
     files: ['packages/diff-view/test/**/*.ts'],
     rules: {
       'virtual-dom/clickable-div-needs-role': 'off',

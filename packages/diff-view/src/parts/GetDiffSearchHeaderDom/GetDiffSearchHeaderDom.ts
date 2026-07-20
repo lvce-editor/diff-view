@@ -3,6 +3,12 @@ import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 
+const diffSearchHeaderNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.DiffSearchHeader,
+  type: VirtualDomElements.Div,
+}
+
 const countOccurrences = (text: string, query: string): number => {
   if (!query) return 0
   let count = 0
@@ -24,11 +30,7 @@ export const getDiffSearchHeaderDom = (contentLeft: string, contentRight: string
   const widgetClass = total === 0 && query ? 'DiffSearchWidget DiffSearchWidgetNoResults' : 'DiffSearchWidget'
 
   return [
-    {
-      childCount: 1,
-      className: ClassNames.DiffSearchHeader,
-      type: VirtualDomElements.Div,
-    },
+    diffSearchHeaderNode,
     {
       childCount: 2,
       className: widgetClass,

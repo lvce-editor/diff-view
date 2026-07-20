@@ -6,6 +6,12 @@ import { getErrorCodeFrameDom } from '../GetErrorCodeFrameDom/GetErrorCodeFrameD
 import { getErrorStackDom } from '../GetErrorStackDom/GetErrorStackDom.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
+const diffEditorErrorMessageNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.DiffEditorErrorMessage,
+  type: VirtualDomElements.Div,
+}
+
 export const getErrorDom = (
   contentClassName: string,
   errorMessage: string,
@@ -20,11 +26,7 @@ export const getErrorDom = (
       className: mergeClassNames(ClassNames.DiffEditorContent, contentClassName, ClassNames.DiffEditorError),
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.DiffEditorErrorMessage,
-      type: VirtualDomElements.Div,
-    },
+    diffEditorErrorMessageNode,
     text(errorMessage),
     ...getErrorCodeFrameDom(errorCodeFrame),
     ...getErrorStackDom(errorStack, allowedLinkSchemes),

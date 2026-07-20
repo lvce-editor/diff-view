@@ -2,6 +2,11 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { text, VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 
+const errorCodeFrameLineNode: VirtualDomNode = {
+  childCount: 1,
+  type: VirtualDomElements.Div,
+}
+
 export const getErrorCodeFrameDom = (codeFrame: string): readonly VirtualDomNode[] => {
   if (!codeFrame) {
     return []
@@ -13,12 +18,6 @@ export const getErrorCodeFrameDom = (codeFrame: string): readonly VirtualDomNode
       className: ClassNames.DiffEditorErrorCodeFrame,
       type: VirtualDomElements.Div,
     },
-    ...lines.flatMap((line) => [
-      {
-        childCount: 1,
-        type: VirtualDomElements.Div,
-      },
-      text(line),
-    ]),
+    ...lines.flatMap((line) => [errorCodeFrameLineNode, text(line)]),
   ]
 }

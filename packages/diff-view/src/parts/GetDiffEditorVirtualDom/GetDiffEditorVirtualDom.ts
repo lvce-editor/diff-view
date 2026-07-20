@@ -45,7 +45,7 @@ const getDiffEditorWithSearchDom = (
   searchQuery: string,
 ): readonly VirtualDomNode[] => {
   return [
-    getRootDom(scrollBarActive ? 4 : 3, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass} ${ClassNames.DiffEditorWithSearch}`),
+    getRootDom(scrollBarActive ? 4 : 3, mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, diffEditorLayoutClass, ClassNames.DiffEditorWithSearch)),
     ...getDiffSearchHeaderDom(contentLeft, contentRight, searchQuery),
     getEditorBodyDom(diffEditorLayoutClass),
     ...leftDom,
@@ -66,7 +66,7 @@ const getDiffEditorWithoutSearchDom = (
   scrollBarActive: boolean,
 ): readonly VirtualDomNode[] => {
   return [
-    getRootDom(scrollBarActive ? 5 : 4, `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${diffEditorLayoutClass}`),
+    getRootDom(scrollBarActive ? 5 : 4, mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, diffEditorLayoutClass)),
     ...leftDom,
     getSashDom(sashLayoutClass),
     ...rightDom,

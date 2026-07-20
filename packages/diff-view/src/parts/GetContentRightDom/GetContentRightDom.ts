@@ -27,12 +27,14 @@ interface GetContentRightDomOptions {
   readonly visibleLines?: readonly VisibleLine[]
 }
 
+const diffEditorInputWrapperNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.DiffEditorInputWrapper,
+  type: VirtualDomElements.Div,
+}
+
 const getInputWrapperDom = (inputValue: string, caretPosition = inputValue.length): readonly VirtualDomNode[] => [
-  {
-    childCount: 1,
-    className: ClassNames.DiffEditorInputWrapper,
-    type: VirtualDomElements.Div,
-  },
+  diffEditorInputWrapperNode,
   {
     childCount: 0,
     className: ClassNames.DiffEditorInput,

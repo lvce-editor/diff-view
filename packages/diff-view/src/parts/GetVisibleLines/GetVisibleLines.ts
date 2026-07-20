@@ -6,6 +6,7 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import { getVisibleInlineDiffRows } from '../GetVisibleInlineDiffRows/GetVisibleInlineDiffRows.ts'
 import { getVisibleRows } from '../GetVisibleRows/GetVisibleRows.ts'
 import * as InlineDiffChangeType from '../InlineDiffChangeType/InlineDiffChangeType.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 import { VisibleLineType as VisibleLineTypeValue } from '../VisibleLine/VisibleLine.ts'
 import { getLine } from './GetLine/GetLine.ts'
 import { getTokens } from './GetTokens/GetTokens.ts'
@@ -185,7 +186,7 @@ const mergeChangedClassName = (className: string): string => {
   if (!className) {
     return ClassNames.DiffTokenChanged
   }
-  return `${className} ${ClassNames.DiffTokenChanged}`
+  return mergeClassNames(className, ClassNames.DiffTokenChanged)
 }
 
 const getTokenSlice = (token: VisibleLineToken, tokenStart: number, sliceStart: number, sliceEnd: number, type: string): VisibleLineToken => {

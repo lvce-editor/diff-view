@@ -6,16 +6,15 @@ import { getStackLineLabel } from '../GetStackLineLabel/GetStackLineLabel.ts'
 import { getStackLineLocation } from '../GetStackLineLocation/GetStackLineLocation.ts'
 import { getStackLinePrefix } from '../GetStackLinePrefix/GetStackLinePrefix.ts'
 
+const errorStackLineNode: VirtualDomNode = {
+  childCount: 1,
+  type: VirtualDomElements.Div,
+}
+
 export const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: readonly string[]): readonly VirtualDomNode[] => {
   const location = getStackLineLocation(stackLine)
   if (!location) {
-    return [
-      {
-        childCount: 1,
-        type: VirtualDomElements.Div,
-      },
-      text(stackLine),
-    ]
+    return [errorStackLineNode, text(stackLine)]
   }
   const prefix = getStackLinePrefix(stackLine)
   const href = getStackLineHref(location, allowedLinkSchemes)

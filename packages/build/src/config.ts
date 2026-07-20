@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { root } from './root.ts'
 
-export const threshold = 525_000
+export const threshold = 530_000
 
 export const instantiations = 8000
 

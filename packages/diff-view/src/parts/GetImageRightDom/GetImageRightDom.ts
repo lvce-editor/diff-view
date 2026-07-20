@@ -4,6 +4,12 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
+const imageContentNode: VirtualDomNode = {
+  childCount: 1,
+  className: ClassNames.ImageContent,
+  type: VirtualDomElements.Div,
+}
+
 export const getImageRightDom = (uriRight: string, imageSrc: string): readonly VirtualDomNode[] => {
   return [
     {
@@ -12,11 +18,7 @@ export const getImageRightDom = (uriRight: string, imageSrc: string): readonly V
       onClick: DomEventListenerFunctions.HandleClickRightSide,
       type: VirtualDomElements.Div,
     },
-    {
-      childCount: 1,
-      className: ClassNames.ImageContent,
-      type: VirtualDomElements.Div,
-    },
+    imageContentNode,
     {
       alt: uriRight,
       childCount: 0,

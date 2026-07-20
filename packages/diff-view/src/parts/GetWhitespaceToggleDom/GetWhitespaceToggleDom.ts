@@ -4,6 +4,7 @@ import * as ActionName from '../ActionName/ActionName.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DiffStrings from '../DiffStrings/DiffStrings.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
+import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
 /* eslint-disable  sonarjs/no-selector-parameter */
 const getLabel = (showWhitespace: boolean): string => {
@@ -12,7 +13,9 @@ const getLabel = (showWhitespace: boolean): string => {
 
 export const getWhitespaceToggleDom = (showWhitespace: boolean): readonly VirtualDomNode[] => {
   const label = getLabel(showWhitespace)
-  const className = showWhitespace ? `${ClassNames.DiffEditorWhitespaceToggle} ${ClassNames.DiffEditorWhitespaceToggleActive}` : ClassNames.DiffEditorWhitespaceToggle
+  const className = showWhitespace
+    ? mergeClassNames(ClassNames.DiffEditorWhitespaceToggle, ClassNames.DiffEditorWhitespaceToggleActive)
+    : ClassNames.DiffEditorWhitespaceToggle
   return [
     {
       childCount: 1,

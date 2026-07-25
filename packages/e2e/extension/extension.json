@@ -2,6 +2,7 @@
   "name": "diff-view-e2e",
   "activation": ["onWebView:diff-prototype"],
   "browser": "main.js",
+  "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'"],
   "rpc": [
     {
       "id": "test.diff-prototype-worker",

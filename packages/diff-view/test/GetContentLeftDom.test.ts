@@ -130,7 +130,7 @@ test('getContentLeftDom renders load errors when available', (): void => {
       childCount: 1,
       className: ClassNames.DiffEditorErrorStackLink,
       href: 'file:///tmp/missing-file.js',
-      rel: 'noreferrer',
+      rel: 'noopener noreferrer',
       target: '_blank',
       type: VirtualDomElements.A,
     },

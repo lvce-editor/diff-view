@@ -11,6 +11,13 @@ const errorStackLineNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const getPrefixDom = (prefix: string): readonly VirtualDomNode[] => {
+  if (!prefix) {
+    return []
+  }
+  return [text(prefix)]
+}
+
 export const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: readonly string[]): readonly VirtualDomNode[] => {
   const location = getStackLineLocation(stackLine)
   if (!location) {
@@ -24,12 +31,12 @@ export const getErrorStackLineDom = (stackLine: string, allowedLinkSchemes: read
       childCount: prefix ? 2 : 1,
       type: VirtualDomElements.Div,
     },
-    ...(prefix ? [text(prefix)] : []),
+    ...getPrefixDom(prefix),
     {
       childCount: 1,
       className: ClassNames.DiffEditorErrorStackLink,
       href,
-      rel: 'noreferrer',
+      rel: 'noopener noreferrer',
       target: '_blank',
       type: VirtualDomElements.A,
     },

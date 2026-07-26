@@ -4,6 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build:watch": "esbuild --format=esm --bundle --external:node:buffer --external:electron --external:ws --external:node:worker_threads --watch ../diff-view/src/diffViewWorkerMain.ts --outfile=../../.tmp/dist/dist/diffViewWorkerMain.js",
     "create:e2e-tests": "node --experimental-strip-types src/createE2ETests.ts",
     "measure": "node --experimental-strip-types src/measureMemory.ts",
     "measure:visible": "node --experimental-strip-types src/measureMemory.ts --no-headless",

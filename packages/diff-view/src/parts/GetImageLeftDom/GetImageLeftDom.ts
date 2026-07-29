@@ -10,14 +10,16 @@ const imageContentNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const diffEditorContentNode: VirtualDomNode = {
+  childCount: 1,
+  className: mergeClassNames(ClassNames.DiffEditorContent, ClassNames.DiffEditorContentLeft),
+  onClick: DomEventListenerFunctions.HandleClickLeftSide,
+  type: VirtualDomElements.Div,
+}
+
 export const getImageLeftDom = (uriLeft: string, imageSrc: string): readonly VirtualDomNode[] => {
   return [
-    {
-      childCount: 1,
-      className: mergeClassNames(ClassNames.DiffEditorContent, ClassNames.DiffEditorContentLeft),
-      onClick: DomEventListenerFunctions.HandleClickLeftSide,
-      type: VirtualDomElements.Div,
-    },
+    diffEditorContentNode,
     imageContentNode,
     {
       alt: uriLeft,

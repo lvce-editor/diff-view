@@ -8,13 +8,12 @@ const diffEditorSelectionsNode: VirtualDomNode = {
   type: VirtualDomElements.Div,
 }
 
+const editorCursorNode: VirtualDomNode = {
+  childCount: 0,
+  className: mergeClassNames(ClassNames.EditorCursor, ClassNames.EditorCursorRight),
+  type: VirtualDomElements.Div,
+}
+
 export const getCursorDom = (): readonly VirtualDomNode[] => {
-  return [
-    diffEditorSelectionsNode,
-    {
-      childCount: 0,
-      className: mergeClassNames(ClassNames.EditorCursor, ClassNames.EditorCursorRight),
-      type: VirtualDomElements.Div,
-    },
-  ]
+  return [diffEditorSelectionsNode, editorCursorNode]
 }

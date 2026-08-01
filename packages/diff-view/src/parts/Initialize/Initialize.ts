@@ -1,6 +1,5 @@
 import { TextMeasurementWorker } from '@lvce-editor/rpc-registry'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
-import { createExtensionHostRpc } from '../CreateExtensionHostRpc/CreateExtensionHostRpc.ts'
 import { createTextMeasurementWorkerRpc } from '../CreateTextMeasurementWorkerRpc/CreateTextMeasurementWorkerRpc.ts'
 import { getKeys, get as getDiffViewState, set as setDiffViewState } from '../DiffViewStates/DiffViewStates.ts'
 import { initializeDiffWorker } from '../InitializeDiffWorker/InitializeDiffWorker.ts'
@@ -30,7 +29,6 @@ const measureCharWidth = async (state: DiffViewState): Promise<number | undefine
 
 export const initialize = async (): Promise<void> => {
   await Promise.all([
-    createExtensionHostRpc(),
     createTextMeasurementWorkerRpc(),
     initializeDiffWorker(),
     initializeExtensionManagementWorker(),

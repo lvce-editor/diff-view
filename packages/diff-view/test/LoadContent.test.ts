@@ -1,23 +1,12 @@
 import { expect, jest, test } from '@jest/globals'
 import { RpcId } from '@lvce-editor/constants'
-import { DiffWorker, ExtensionHost, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
+import { DiffWorker, ExtensionManagementWorker, FileSystemWorker, SyntaxHighlightingWorker } from '@lvce-editor/rpc-registry'
 import { registerMockRpc } from '@lvce-editor/rpc-registry'
 import { createDefaultState } from '../src/parts/CreateDefaultState/CreateDefaultState.ts'
 import { loadContent } from '../src/parts/LoadContent/LoadContent.ts'
 import { VisibleLineType } from '../src/parts/VisibleLine/VisibleLine.ts'
 
 test('loadContent loads both sides of an inline diff uri', async (): Promise<void> => {
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostFileSystem.readFile': async (protocol: string, path: string): Promise<string> => {
-      if (protocol === 'data' && path === 'before-content') {
-        return 'before-content'
-      }
-      if (protocol === 'file' && path === '/tmp/after.txt') {
-        return 'after-content\nsecond-line'
-      }
-      throw new Error(`unexpected params: ${protocol} ${path}`)
-    },
-  })
   const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/after.txt') {
@@ -48,7 +37,6 @@ test('loadContent loads both sides of an inline diff uri', async (): Promise<voi
   const result = await loadContent(state, { minLineY: 1 })
 
   expect(diffWorkerRpc.invocations).toEqual([['Diff.diffInline', ['before-content'], ['after-content', 'second-line']]])
-  expect(extensionHostRpc.invocations).toEqual([])
   expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
   expect(result).toMatchObject({
     contentLeft: 'before-content',
@@ -129,11 +117,6 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
       }
     },
   })
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
-      throw new Error('should not invoke extension host')
-    },
-  })
   const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri === 'file:///tmp/missing.txt') {
@@ -158,7 +141,6 @@ test('loadContent stores pane load errors instead of throwing', async (): Promis
 
   const result = await loadContent(state, { minLineY: 0 })
 
-  expect(extensionHostRpc.invocations).toEqual([])
   expect(errorWorkerRpc.invocations).toEqual([['Errors.prepare', error]])
   expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/missing.txt']])
   expect(diffWorkerRpc.invocations).toEqual([])

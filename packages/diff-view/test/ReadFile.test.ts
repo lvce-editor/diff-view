@@ -1,49 +1,20 @@
 import { expect, test } from '@jest/globals'
-import { ExtensionHost, FileSystemWorker, RendererWorker } from '@lvce-editor/rpc-registry'
+import { ExtensionManagementWorker, FileSystemWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { readFile } from '../src/parts/ReadFile/ReadFile.ts'
 
 test('readFile returns empty content for untitled uri', async (): Promise<void> => {
-  const mockRpc = {
-    dispose: (): void => {},
-    invocations: [] as readonly unknown[][],
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
-      throw new Error('should not invoke rpc')
-    },
-    set: (): void => {},
-  }
-  ExtensionHost.set(mockRpc as any)
-
   const result = await readFile('untitled://Untitled-1')
 
   expect(result).toBe('')
-  expect(mockRpc.invocations).toEqual([])
 })
 
 test('readFile returns inline content for data uri', async (): Promise<void> => {
-  const mockRpc = {
-    dispose: (): void => {},
-    invocations: [] as readonly unknown[][],
-    invoke: async (method: string, ...params: readonly unknown[]): Promise<string> => {
-      mockRpc.invocations = [...mockRpc.invocations, [method, ...params]]
-      throw new Error(`unexpected method: ${method} ${params.join(' ')}`)
-    },
-    set: (): void => {},
-  }
-  ExtensionHost.set(mockRpc as any)
-
   const result = await readFile('data://before-content')
 
   expect(result).toBe('before-content')
-  expect(mockRpc.invocations).toEqual([])
 })
 
 test('readFile reads file content through file system worker', async (): Promise<void> => {
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
-      throw new Error('should not call extension host for file uris')
-    },
-  })
   const fileSystemWorkerRpc = FileSystemWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri !== 'file:///tmp/after.txt') {
@@ -56,15 +27,14 @@ test('readFile reads file content through file system worker', async (): Promise
   const result = await readFile('/tmp/after.txt')
 
   expect(result).toBe('after-content')
-  expect(extensionHostRpc.invocations).toEqual([])
   expect(fileSystemWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'file:///tmp/after.txt']])
 })
 
-test('readFile reads memfs content through the memory file system command', async (): Promise<void> => {
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'FileSystemMemory.readFile': async (path: string): Promise<string> => {
-      if (path !== '/workspace/file.txt') {
-        throw new Error(`unexpected params: ${path}`)
+test('readFile reads memfs content through the renderer file system', async (): Promise<void> => {
+  const rendererWorkerRpc = RendererWorker.registerMockRpc({
+    'FileSystem.readFile': async (uri: string): Promise<string> => {
+      if (uri !== 'memfs:///workspace/file.txt') {
+        throw new Error(`unexpected params: ${uri}`)
       }
       return 'memfs-content'
     },
@@ -73,15 +43,10 @@ test('readFile reads memfs content through the memory file system command', asyn
   const result = await readFile('memfs:///workspace/file.txt')
 
   expect(result).toBe('memfs-content')
-  expect(extensionHostRpc.invocations).toEqual([['FileSystemMemory.readFile', '/workspace/file.txt']])
+  expect(rendererWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'memfs:///workspace/file.txt']])
 })
 
 test('readFile reads fetch content through renderer file system', async (): Promise<void> => {
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostFileSystem.readFile': async (): Promise<string> => {
-      throw new Error('should not call extension host file system for fetch uris')
-    },
-  })
   const rendererWorkerRpc = RendererWorker.registerMockRpc({
     'FileSystem.readFile': async (uri: string): Promise<string> => {
       if (uri !== 'fetch:///playground/package-lock.json') {
@@ -94,22 +59,31 @@ test('readFile reads fetch content through renderer file system', async (): Prom
   const result = await readFile('fetch:///playground/package-lock.json')
 
   expect(result).toBe('fetch-content')
-  expect(extensionHostRpc.invocations).toEqual([])
   expect(rendererWorkerRpc.invocations).toEqual([['FileSystem.readFile', 'fetch:///playground/package-lock.json']])
 })
 
-test('readFile reads non-file protocols through extension host', async (): Promise<void> => {
-  const extensionHostRpc = ExtensionHost.registerMockRpc({
-    'ExtensionHostFileSystem.readFile': async (protocol: string, path: string): Promise<string> => {
-      if (protocol !== 'git' || path !== 'HEAD~1:src/file.ts') {
-        throw new Error(`unexpected params: ${protocol} ${path}`)
+test('readFile reads extension protocols through extension management worker', async (): Promise<void> => {
+  const extensionManagementWorkerRpc = ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeFileSystemProviderReadFile': async (protocol: string, uri: string): Promise<unknown> => {
+      if (protocol !== 'git-file-before' || uri !== 'git-file-before://file:///workspace/src/file.ts') {
+        throw new Error(`unexpected params: ${protocol} ${uri}`)
       }
-      return 'git-content'
+      return { found: true, result: 'git-content' }
     },
   })
 
-  const result = await readFile('git://HEAD~1:src/file.ts')
+  const result = await readFile('git-file-before://file:///workspace/src/file.ts')
 
   expect(result).toBe('git-content')
-  expect(extensionHostRpc.invocations).toEqual([['ExtensionHostFileSystem.readFile', 'git', 'HEAD~1:src/file.ts']])
+  expect(extensionManagementWorkerRpc.invocations).toEqual([
+    ['Extensions.executeFileSystemProviderReadFile', 'git-file-before', 'git-file-before://file:///workspace/src/file.ts'],
+  ])
+})
+
+test('readFile rejects when no isolated extension provides the protocol', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({ found: false }),
+  })
+
+  await expect(readFile('missing:///workspace/file.txt')).rejects.toThrow('no file system provider found for missing')
 })

@@ -1,6 +1,7 @@
+import { defineConfig } from 'eslint/config'
 import * as config from '@lvce-editor/eslint-config'
 
-export default [
+export default defineConfig([
   ...config.default,
   ...config.recommendedVirtualDom,
   ...config.recommendedRegex,
@@ -36,4 +37,4 @@ export default [
       'e2e/prefer-filesystem-set-files': 'off',
     },
   },
-]
+])

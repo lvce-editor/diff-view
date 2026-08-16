@@ -47,6 +47,8 @@ import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 
+const handleDirectMessagePort = (port: any): Promise<void> => handleMessagePort(port, commandMap)
+
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,
   'DiffView.create': Create2.create2,
@@ -67,7 +69,7 @@ export const commandMap = {
   'DiffView.handleCopy': wrapCommand(handleCopy),
   'DiffView.handleCut': wrapCommand(handleCut),
   'DiffView.handleInput': wrapCommand(handleInput),
-  'DiffView.handleMessagePort': handleMessagePort,
+  'DiffView.handleMessagePort': handleDirectMessagePort,
   'DiffView.handlePaste': wrapCommand(handlePaste),
   'DiffView.handleResize': wrapCommand(handleResize),
   'DiffView.handleSashPointerDown': wrapCommand(handleSashPointerDown),

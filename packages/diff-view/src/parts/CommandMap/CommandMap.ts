@@ -47,7 +47,7 @@ import { showSearch } from '../ShowSearch/ShowSearch.ts'
 import { toggleDiffMode } from '../ToggleDiffMode/ToggleDiffMode.ts'
 import { toggleWhitespace } from '../ToggleWhitespace/ToggleWhitespace.ts'
 
-const handleDirectMessagePort = (port: any): Promise<void> => handleMessagePort(port, commandMap)
+const handleDirectMessagePort = (port: any, setAsRendererProcess = true): Promise<void> => handleMessagePort(port, commandMap, setAsRendererProcess)
 
 export const commandMap = {
   'Diff.getCommandIds': getCommandIds,

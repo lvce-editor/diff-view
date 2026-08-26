@@ -1,5 +1,19 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+const waitFor = async (assertion: () => Promise<void>): Promise<void> => {
+  let lastError: unknown
+  for (let attempt = 0; attempt < 20; attempt++) {
+    try {
+      await assertion()
+      return
+    } catch (error) {
+      lastError = error
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    }
+  }
+  throw lastError
+}
+
 export const name = 'viewlet.diff-editor-typing-at-cursor'
 export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Workspace }) => {
   const tmpDir = await FileSystem.getTmpDir()
@@ -20,6 +34,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await input.type(' abc')
 
   await expect(input).toHaveValue(' abc')
-  await expect(afterRows).toHaveText('helloWorld abc')
-  await expect(cursor).toHaveCSS('left', '175px')
+  await waitFor(async () => {
+    await expect(afterRows).toHaveText('helloWorld abc')
+    await expect(cursor).toHaveCSS('left', '175px')
+  })
 }

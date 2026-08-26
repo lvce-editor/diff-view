@@ -1,5 +1,19 @@
 import type { Test } from '@lvce-editor/test-with-playwright'
 
+const waitFor = async (assertion: () => Promise<void>): Promise<void> => {
+  let lastError: unknown
+  for (let attempt = 0; attempt < 20; attempt++) {
+    try {
+      await assertion()
+      return
+    } catch (error) {
+      lastError = error
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    }
+  }
+  throw lastError
+}
+
 const getLargeFileContent = (bottomLine: string): string => {
   const lines: string[] = []
   for (let index = 1; index <= 1800; index++) {
@@ -34,5 +48,5 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   const line1800 = Locator('.DiffEditorContentLeft .DiffEditorLineNumber', {
     hasText: '1800',
   })
-  await expect(line1800).toBeVisible()
+  await waitFor(() => expect(line1800).toBeVisible())
 }

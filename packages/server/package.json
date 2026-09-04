@@ -10,10 +10,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@lvce-editor/server": "^0.104.6"
-  },
   "devDependencies": {
     "@types/node": "^26.0.0"
+  },
+  "dependencies": {
+    "@lvce-editor/server": "^0.112.27"
   }
 }

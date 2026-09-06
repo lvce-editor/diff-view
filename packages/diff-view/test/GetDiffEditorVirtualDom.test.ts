@@ -653,6 +653,7 @@ test('getDiffEditorVirtualDom renders inline mode as a single combined diff pane
     {
       childCount: 2,
       className: `${ClassNames.Viewlet} ${ClassNames.DiffEditor} ${ClassNames.InlineDiffEditor}`,
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     {

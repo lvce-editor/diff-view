@@ -2,6 +2,7 @@ import type { VirtualDomNode } from '@lvce-editor/virtual-dom-worker'
 import { VirtualDomElements } from '@lvce-editor/virtual-dom-worker'
 import type { TokenizedLine } from '../TokenizedLine/TokenizedLine.ts'
 import * as ClassNames from '../ClassNames/ClassNames.ts'
+import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 import { getDiffEditorButtonsDom } from '../GetDiffEditorButtonsDom/GetDiffEditorButtonsDom.ts'
 import { getDiffSearchHeaderDom } from '../GetDiffSearchHeaderDom/GetDiffSearchHeaderDom.ts'
 import { getInlineDiffLineNumberDom } from '../GetInlineDiffLineNumberDom/GetInlineDiffLineNumberDom.ts'
@@ -44,6 +45,7 @@ export const getInlineDiffEditorVirtualDom = (
     {
       childCount: (scrollBarActive ? 3 : 2) + (searchVisible ? 1 : 0),
       className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
+      onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     ...searchHeaderDom,

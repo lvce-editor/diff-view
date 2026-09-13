@@ -1,4 +1,5 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import { getDiffRowMap } from '../GetDiffRowMap/GetDiffRowMap.ts'
 
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return (
@@ -17,6 +18,8 @@ export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boole
     oldState.rightWidth === newState.rightWidth &&
     oldState.scrollBarBackgroundImage === newState.scrollBarBackgroundImage &&
     oldState.scrollBarHeight === newState.scrollBarHeight &&
-    oldState.totalLineCount === newState.totalLineCount
+    oldState.totalLineCount === newState.totalLineCount &&
+    getDiffRowMap(oldState).right.documentToDisplay[oldState.rightEditor.cursorRowIndex] ===
+      getDiffRowMap(newState).right.documentToDisplay[newState.rightEditor.cursorRowIndex]
   )
 }

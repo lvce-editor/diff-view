@@ -81,3 +81,15 @@ test('a document without diff information uses identity mapping', () => {
   expect(map.left.documentToDisplay).toEqual([0, 1, 2])
   expect(map.right.documentToDisplay).toEqual([0, 1])
 })
+
+test('clicking after a gap does not skip the next document line', () => {
+  const state = {
+    ...deletedLineState,
+    contentLeft: 'first\ndeleted\nnext\nlast',
+    contentRight: 'first\nnext\nlast',
+    inlineChanges: [...deletedLineState.inlineChanges, { leftIndex: 3, rightIndex: 2, type: 0 }],
+    totalLineCountLeft: 4,
+    totalLineCountRight: 3,
+  }
+  expect(getCursorPositionFromCoordinates(state, 1000, 40)).toEqual({ cursorColumnIndex: 4, cursorRowIndex: 1 })
+})

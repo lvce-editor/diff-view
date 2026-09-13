@@ -2,6 +2,7 @@ import { ViewletCommand } from '@lvce-editor/constants'
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import type { VisibleLine } from '../VisibleLine/VisibleLine.ts'
 import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
+import { getDiffRowMap } from '../GetDiffRowMap/GetDiffRowMap.ts'
 import { getSashWidth } from '../GetPaneWidths/GetPaneWidths.ts'
 import { getScrollBarThumbTop } from '../GetScrollBarThumbTop/GetScrollBarThumbTop.ts'
 
@@ -65,7 +66,8 @@ export const renderCss = (oldState: DiffViewState, newState: DiffViewState): any
   const showLineNumbers = lineNumbers && renderModeLeft === 'text' && renderModeRight === 'text'
   const rightCursorGutterWidth = showLineNumbers ? gutterWidthVariable + CursorConstants.GutterPaddingWidth : 0
   const rightCursorLeft = rightCursorGutterWidth + CursorConstants.RowPaddingLeft + rightEditor.cursorColumnIndex * CursorConstants.getCharWidth(newState)
-  const rightCursorTop = (rightEditor.cursorRowIndex - minLineY) * CursorConstants.LineHeight
+  const displayRowIndex = getDiffRowMap(newState).right.documentToDisplay[rightEditor.cursorRowIndex] ?? rightEditor.cursorRowIndex
+  const rightCursorTop = (displayRowIndex - minLineY) * CursorConstants.LineHeight
   const css = `
 :root {
   --DiffBackground: var(--MainBackground);

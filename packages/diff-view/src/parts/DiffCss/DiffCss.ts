@@ -1,15 +1,13 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
+import { getDiffRowMap } from '../GetDiffRowMap/GetDiffRowMap.ts'
 
 export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boolean => {
   return (
-    oldState.contentLeft === newState.contentLeft &&
-    oldState.contentRight === newState.contentRight &&
     oldState.deltaY === newState.deltaY &&
     oldState.diffMode === newState.diffMode &&
     oldState.finalDeltaY === newState.finalDeltaY &&
     oldState.gutterWidthVariable === newState.gutterWidthVariable &&
     oldState.height === newState.height &&
-    oldState.inlineChanges === newState.inlineChanges &&
     oldState.itemHeight === newState.itemHeight &&
     oldState.layout === newState.layout &&
     oldState.leftWidth === newState.leftWidth &&
@@ -20,6 +18,8 @@ export const isEqual = (oldState: DiffViewState, newState: DiffViewState): boole
     oldState.rightWidth === newState.rightWidth &&
     oldState.scrollBarBackgroundImage === newState.scrollBarBackgroundImage &&
     oldState.scrollBarHeight === newState.scrollBarHeight &&
-    oldState.totalLineCount === newState.totalLineCount
+    oldState.totalLineCount === newState.totalLineCount &&
+    getDiffRowMap(oldState).right.documentToDisplay[oldState.rightEditor.cursorRowIndex] ===
+      getDiffRowMap(newState).right.documentToDisplay[newState.rightEditor.cursorRowIndex]
   )
 }

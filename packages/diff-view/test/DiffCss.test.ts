@@ -31,6 +31,6 @@ test('isEqual returns false when right cursor position changes', (): void => {
 test('isEqual invalidates cursor layout when the alignment changes without moving the document cursor', () => {
   const state = createDefaultState()
   expect(isEqual(state, { ...state, inlineChanges: [{ leftIndex: 0, rightIndex: 0, type: 2 }] })).toBe(false)
-  expect(isEqual(state, { ...state, contentLeft: 'changed' })).toBe(false)
-  expect(isEqual(state, { ...state, contentRight: 'changed' })).toBe(false)
+  expect(isEqual(state, { ...state, contentLeft: 'changed' })).toBe(true)
+  expect(isEqual(state, { ...state, contentRight: 'changed' })).toBe(true)
 })

@@ -45,7 +45,7 @@ export const reloadContent = async (
   const gutterWidthVariable = getGutterWidthVariable(Math.max(totalLineCountLeft, totalLineCountRight))
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
-    ? await getInlineDiffState(contentLeft, contentRight)
+    ? await getInlineDiffState(contentLeft, contentRight, state.diffMode)
     : {
         inlineChanges: [],
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),

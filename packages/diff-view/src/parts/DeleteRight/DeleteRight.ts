@@ -42,7 +42,7 @@ export const deleteRight = async (state: DiffViewState): Promise<DiffViewState> 
   const totalLineCountRight = getLineCount(contentRight)
   const canComputeInlineDiff = state.renderModeLeft === 'text' && !state.errorLeftMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
-    ? await getInlineDiffState(state.contentLeft, contentRight)
+    ? await getInlineDiffState(state.contentLeft, contentRight, state.diffMode)
     : {
         inlineChanges: [],
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),

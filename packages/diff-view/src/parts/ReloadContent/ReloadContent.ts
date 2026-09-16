@@ -35,7 +35,7 @@ export const reloadContent = async (
   errorRightCodeFrame: string,
   errorRightStack: string,
 ): Promise<DiffViewState> => {
-  const { assetDir, height, itemHeight, knownImageExtensions, minimumSliderSize, minLineY, platform, uriLeft, uriRight } = state
+  const { assetDir, diffMode, height, itemHeight, knownImageExtensions, minimumSliderSize, minLineY, platform, uriLeft, uriRight } = state
   const renderModeLeft = getRenderMode(uriLeft, knownImageExtensions)
   const renderModeRight = getRenderMode(uriRight, knownImageExtensions)
   const displayedContentLeft = getDisplayedContent(contentLeft, errorLeftMessage, errorLeftCodeFrame, errorLeftStack)
@@ -45,7 +45,7 @@ export const reloadContent = async (
   const gutterWidthVariable = getGutterWidthVariable(Math.max(totalLineCountLeft, totalLineCountRight))
   const canComputeInlineDiff = renderModeLeft === 'text' && renderModeRight === 'text' && !errorLeftMessage && !errorRightMessage
   const { inlineChanges, totalLineCount } = canComputeInlineDiff
-    ? await getInlineDiffState(contentLeft, contentRight)
+    ? await getInlineDiffState(contentLeft, contentRight, diffMode)
     : {
         inlineChanges: [],
         totalLineCount: Math.max(totalLineCountLeft, totalLineCountRight),

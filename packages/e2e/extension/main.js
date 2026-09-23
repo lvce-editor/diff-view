@@ -1,3 +1,5 @@
+import { activate as activateExtensionApi, registerFileSystemProvider } from '@lvce-editor/api'
+
 const webViewProvider = {
   id: 'diff-prototype',
   async create() {},
@@ -13,9 +15,9 @@ const fileSystemProvider = {
   },
 }
 
-export const activate = () => {
+export const activate = async () => {
+  await activateExtensionApi()
   // @ts-ignore
   vscode.registerWebViewProvider(webViewProvider)
-  // @ts-ignore
-  vscode.registerFileSystemProvider(fileSystemProvider)
+  registerFileSystemProvider(fileSystemProvider)
 }

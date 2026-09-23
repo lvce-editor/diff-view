@@ -26,6 +26,11 @@
     "trigger-ci-branches": "bash packages/build/trigger-ci-branches.sh",
     "type-check": "tsc -b"
   },
+  "knip": {
+    "ignoreDependencies": [
+      "@lvce-editor/api"
+    ]
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,

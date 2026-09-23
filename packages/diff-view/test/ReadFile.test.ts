@@ -2,6 +2,11 @@ import { expect, test } from '@jest/globals'
 import { ExtensionManagementWorker, FileSystemWorker, RendererWorker } from '@lvce-editor/rpc-registry'
 import { readFile } from '../src/parts/ReadFile/ReadFile.ts'
 
+const createBlob = (parts: readonly string[]): unknown => {
+  const BlobConstructor = (globalThis as unknown as { readonly Blob: new (parts: readonly string[]) => unknown }).Blob
+  return new BlobConstructor(parts)
+}
+
 test('readFile returns empty content for untitled uri', async (): Promise<void> => {
   const result = await readFile('untitled://Untitled-1')
 
@@ -84,7 +89,7 @@ test('readFile decodes Blob content from extension file system providers', async
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({
       found: true,
-      result: new Blob(['before 😀\nafter'], { type: 'text/plain' }),
+      result: createBlob(['before 😀\nafter']),
     }),
   })
 
@@ -95,7 +100,7 @@ test('readFile returns empty content from an empty Blob extension provider', asy
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({
       found: true,
-      result: new Blob([]),
+      result: createBlob([]),
     }),
   })
 

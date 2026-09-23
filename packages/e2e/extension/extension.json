@@ -3,7 +3,7 @@
   "isolated": true,
   "activation": ["onWebView:diff-prototype", "onFileSystem:blob-fixture"],
   "fileSystemProviders": [{ "id": "blob-fixture" }],
-  "browser": "main.js",
+  "browser": ".tmp/main.js",
   "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'"],
   "rpc": [
     {

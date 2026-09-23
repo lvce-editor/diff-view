@@ -80,6 +80,36 @@ test('readFile reads extension protocols through extension management worker', a
   ])
 })
 
+test('readFile decodes Blob content from extension file system providers', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({
+      found: true,
+      result: new Blob(['before 😀\nafter'], { type: 'text/plain' }),
+    }),
+  })
+
+  await expect(readFile('remote-ssh:///workspace/file.txt')).resolves.toBe('before 😀\nafter')
+})
+
+test('readFile returns empty content from an empty Blob extension provider', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({
+      found: true,
+      result: new Blob([]),
+    }),
+  })
+
+  await expect(readFile('remote-ssh:///workspace/empty.txt')).resolves.toBe('')
+})
+
+test('readFile rejects invalid extension file system provider results', async (): Promise<void> => {
+  ExtensionManagementWorker.registerMockRpc({
+    'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({ found: true, result: { content: 'not text' } }),
+  })
+
+  await expect(readFile('remote-ssh:///workspace/file.txt')).rejects.toThrow('expected file system provider remote-ssh to return a string or Blob')
+})
+
 test('readFile rejects when no isolated extension provides the protocol', async (): Promise<void> => {
   ExtensionManagementWorker.registerMockRpc({
     'Extensions.executeFileSystemProviderReadFile': async (): Promise<unknown> => ({ found: false }),

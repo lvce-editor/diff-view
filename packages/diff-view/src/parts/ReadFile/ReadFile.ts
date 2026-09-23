@@ -12,10 +12,13 @@ const readExtensionFile = async (protocol: string, uri: string): Promise<string>
   if (!response.found) {
     throw new Error(`no file system provider found for ${protocol}`)
   }
-  if (typeof response.result !== 'string') {
-    throw new TypeError(`expected file system provider ${protocol} to return a string`)
+  if (typeof response.result === 'string') {
+    return response.result
   }
-  return response.result
+  if (response.result instanceof Blob) {
+    return response.result.text()
+  }
+  throw new TypeError(`expected file system provider ${protocol} to return a string or Blob`)
 }
 
 export const readFile = async (uri: string): Promise<string> => {

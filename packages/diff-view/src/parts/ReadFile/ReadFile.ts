@@ -7,15 +7,26 @@ interface FileSystemProviderResult {
   readonly result?: unknown
 }
 
+interface BlobLike {
+  readonly text: () => Promise<string>
+}
+
+const isBlobLike = (value: unknown): value is BlobLike => {
+  return typeof value === 'object' && value !== null && Object.prototype.toString.call(value) === '[object Blob]' && 'text' in value && typeof value.text === 'function'
+}
+
 const readExtensionFile = async (protocol: string, uri: string): Promise<string> => {
   const response = (await ExtensionManagementWorker.invoke('Extensions.executeFileSystemProviderReadFile', protocol, uri)) as FileSystemProviderResult
   if (!response.found) {
     throw new Error(`no file system provider found for ${protocol}`)
   }
-  if (typeof response.result !== 'string') {
-    throw new TypeError(`expected file system provider ${protocol} to return a string`)
+  if (typeof response.result === 'string') {
+    return response.result
   }
-  return response.result
+  if (isBlobLike(response.result)) {
+    return response.result.text()
+  }
+  throw new TypeError(`expected file system provider ${protocol} to return a string or Blob`)
 }
 
 export const readFile = async (uri: string): Promise<string> => {

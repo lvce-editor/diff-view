@@ -8,8 +8,8 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
   await DiffView.open('data://before content', 'blob-fixture:///workspace/file.txt')
 
   const leftRows = Locator('.DiffEditorContentLeft .DiffEditorRows')
-  const rightRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const rightRowsOrError = Locator('.DiffEditorContentRight .DiffEditorRows, .DiffEditorContentRight .DiffEditorErrorMessage')
 
   await expect(leftRows).toHaveText('before content')
-  await expect(rightRows).toHaveText('remote 😀 content')
+  await expect(rightRowsOrError).toHaveText('remote 😀 content')
 }

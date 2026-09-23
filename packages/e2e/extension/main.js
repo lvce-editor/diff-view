@@ -15,9 +15,11 @@ const fileSystemProvider = {
   },
 }
 
-export const activate = async () => {
+const main = async () => {
   await activateExtensionApi()
   // @ts-ignore
   vscode.registerWebViewProvider(webViewProvider)
   registerFileSystemProvider(fileSystemProvider)
 }
+
+main().catch(console.error)

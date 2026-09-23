@@ -1,10 +1,7 @@
 {
-  "id": "test.diff-view-e2e",
   "name": "diff-view-e2e",
-  "isolated": true,
-  "activation": ["onWebView:diff-prototype", "onFileSystem:blob-fixture"],
-  "fileSystemProviders": [{ "id": "blob-fixture" }],
-  "browser": ".tmp/main.js",
+  "activation": ["onWebView:diff-prototype"],
+  "browser": "main.js",
   "contentSecurityPolicy": ["default-src 'none'", "script-src 'self'"],
   "rpc": [
     {

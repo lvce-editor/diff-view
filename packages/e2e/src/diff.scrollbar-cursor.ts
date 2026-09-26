@@ -28,7 +28,8 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
     if (mode === 'inline') {
       await expect(diffRows).toContainText('bottom after')
     } else {
-      await expect(Locator('.DiffEditorContentRight .DiffEditorRows')).toContainText('bottom after')
+      const rightRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+      await expect(rightRows).toContainText('bottom after')
     }
   }
 }

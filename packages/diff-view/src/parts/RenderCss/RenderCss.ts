@@ -454,6 +454,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   background-color: rgba(128, 128, 128, 0.15);
   background-image: var(--ScrollBarBackgroundImage);
   border-radius: 4px;
+  cursor: default;
   height: 100%;
   position: absolute;
   right: 2px;
@@ -464,7 +465,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
 .DiffScrollBarThumb {
   background: rgba(128, 128, 128, 0.45);
   border-radius: 4px;
-  cursor: pointer;
+  cursor: default;
   height: var(--ScrollBarHeight);
   position: absolute;
   top: var(--ScrollBarThumbTop);

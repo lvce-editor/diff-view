@@ -11,11 +11,11 @@ const getLabel = (showWhitespace: boolean): string => {
   return showWhitespace ? DiffStrings.hideWhitespace() : DiffStrings.showWhitespace()
 }
 
+const activeWhitespaceToggleClassName = mergeClassNames(ClassNames.DiffEditorWhitespaceToggle, ClassNames.DiffEditorWhitespaceToggleActive)
+
 export const getWhitespaceToggleDom = (showWhitespace: boolean): readonly VirtualDomNode[] => {
   const label = getLabel(showWhitespace)
-  const className = showWhitespace
-    ? mergeClassNames(ClassNames.DiffEditorWhitespaceToggle, ClassNames.DiffEditorWhitespaceToggleActive)
-    : ClassNames.DiffEditorWhitespaceToggle
+  const className = showWhitespace ? activeWhitespaceToggleClassName : ClassNames.DiffEditorWhitespaceToggle
   return [
     {
       childCount: 1,

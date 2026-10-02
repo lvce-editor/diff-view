@@ -6,10 +6,12 @@ import { mergeClassNames } from '../../MergeClassNames/MergeClassNames.ts'
 import { getRowClassName } from '../GetRowClassName/GetRowClassName.ts'
 import { getTokenDom } from '../GetTokenDom/GetTokenDom.ts'
 
+const lineMissingClassName = mergeClassNames(ClassNames.EditorRow, ClassNames.DiffEditorLineMissing)
+
 export const getLineDom = (line: VisibleLine): readonly VirtualDomNode[] => {
   const children = line.tokens.length === 0 ? [text('')] : line.tokens.flatMap(getTokenDom)
   const childCount = line.tokens.length === 0 ? 1 : line.tokens.length
-  const className = line.lineNumber === -1 ? mergeClassNames(ClassNames.EditorRow, ClassNames.DiffEditorLineMissing) : getRowClassName(line.type)
+  const className = line.lineNumber === -1 ? lineMissingClassName : getRowClassName(line.type)
   return [
     {
       childCount,

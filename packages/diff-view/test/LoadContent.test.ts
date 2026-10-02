@@ -279,10 +279,10 @@ test('loadContent expands total line count for inline mode when replacements spl
     contentLeft: 'same\nbefore\nshared',
     contentRight: 'same\nafter\nshared',
     diffMode: 'inline',
-    finalDeltaY: 0,
+    finalDeltaY: 20,
     maxLineY: 3,
     minLineY: 0,
-    totalLineCount: 3,
+    totalLineCount: 4,
     visibleLinesLeft: [
       {
         lineNumber: 1,

@@ -1,5 +1,6 @@
 import type { DiffViewState } from '../DiffViewState/DiffViewState.ts'
 import * as CursorConstants from '../CursorConstants/CursorConstants.ts'
+import { getDiffRowMap } from '../GetDiffRowMap/GetDiffRowMap.ts'
 
 export interface CursorPosition {
   readonly cursorColumnIndex: number
@@ -14,7 +15,15 @@ export const getCursorPositionFromCoordinates = (state: DiffViewState, clientX: 
   const rawCursorColumnIndex = Math.floor((clientX - contentLeft - gutterWidth - CursorConstants.RowPaddingLeft) / charWidth)
   const rawCursorRowIndex = state.minLineY + Math.floor((clientY - contentTop) / CursorConstants.LineHeight)
   const maxCursorRowIndex = Math.max(state.totalLineCountRight - 1, 0)
-  const cursorRowIndex = Math.min(Math.max(rawCursorRowIndex, 0), maxCursorRowIndex)
+  const { displayToDocument } = getDiffRowMap(state).right
+  const displayRowIndex = Math.min(Math.max(rawCursorRowIndex, 0), displayToDocument.length - 1)
+  // A missing row has no cursor position. Prefer the following document line,
+  // or the last document line when clicking a trailing gap.
+  let mappedRowIndex = displayToDocument[displayRowIndex]
+  for (let index = displayRowIndex + 1; mappedRowIndex == null && index < displayToDocument.length; index++) {
+    mappedRowIndex = displayToDocument[index]
+  }
+  const cursorRowIndex = Math.min(Math.max(mappedRowIndex ?? maxCursorRowIndex, 0), maxCursorRowIndex)
   const line = state.contentRight.split('\n')[cursorRowIndex] || ''
   return {
     cursorColumnIndex: Math.min(Math.max(rawCursorColumnIndex, 0), line.length),

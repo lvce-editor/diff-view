@@ -1,0 +1,10 @@
+{
+  "id": "test.blob-file-system",
+  "isolated": true,
+  "fileSystemProviders": [
+    {
+      "id": "blob-fixture"
+    }
+  ],
+  "browser": ".tmp/main.js"
+}

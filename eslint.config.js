@@ -31,10 +31,25 @@ export default defineConfig([
     },
   },
   {
-    files: ['packages/e2e/**/*.ts'],
+    files: ['packages/{e2e,e2e-integration}/**/*.ts'],
     rules: {
       '@cspell/spellchecker': 'off',
       'e2e/prefer-filesystem-set-files': 'off',
     },
+  },
+  {
+    // The pinned application supplies its own Node runtime.
+    files: ['.github/workflows/integration.yml'],
+    rules: { 'github-actions/node-version-file': 'off', 'github-actions/on': 'off' },
+  },
+  {
+    // The application runner supplies mutable API objects to these scenarios.
+    files: ['packages/e2e-integration/src/**/*.ts'],
+    rules: { '@typescript-eslint/prefer-readonly-parameter-types': 'off' },
+  },
+  {
+    // The application runner supplies mutable API objects to these scenarios.
+    files: ['packages/e2e-integration/src/**/*.ts'],
+    rules: { '@typescript-eslint/prefer-readonly-parameter-types': 'off' },
   },
 ])

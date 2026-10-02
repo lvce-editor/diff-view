@@ -11,6 +11,9 @@ import { getInlineDiffRows } from '../GetInlineDiffRows/GetInlineDiffRows.ts'
 import { getScrollBarDom } from '../GetScrollBarDom/GetScrollBarDom.ts'
 import { mergeClassNames } from '../MergeClassNames/MergeClassNames.ts'
 
+const inlineDiffEditorClassName = mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor)
+const inlineDiffEditorContentClassName = mergeClassNames(ClassNames.DiffEditorContent, ClassNames.InlineDiffEditorContent)
+
 export const getInlineDiffEditorVirtualDom = (
   contentLeft: string,
   contentRight: string,
@@ -44,14 +47,14 @@ export const getInlineDiffEditorVirtualDom = (
   return [
     {
       childCount: (scrollBarActive ? 3 : 2) + (searchVisible ? 1 : 0),
-      className: mergeClassNames(ClassNames.Viewlet, ClassNames.DiffEditor, ClassNames.InlineDiffEditor),
+      className: inlineDiffEditorClassName,
       onWheel: DomEventListenerFunctions.HandleWheel,
       type: VirtualDomElements.Div,
     },
     ...searchHeaderDom,
     {
       childCount: contentChildCount,
-      className: mergeClassNames(ClassNames.DiffEditorContent, ClassNames.InlineDiffEditorContent),
+      className: inlineDiffEditorContentClassName,
       type: VirtualDomElements.Div,
     },
     ...lineNumberDom,

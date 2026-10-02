@@ -5,15 +5,19 @@ import { VisibleLineType, type VisibleLine } from '../VisibleLine/VisibleLine.ts
 
 type LineNumberType = VisibleLine['type'] | InlineDiffRow['type']
 
+const diffEditorLineNumberDeletionClassName = mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberDeletion)
+const diffEditorLineNumberInsertionClassName = mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberInsertion)
+const diffEditorLineNumberMetaClassName = mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberMeta)
+
 export const getLineNumberClassName = (type: LineNumberType = VisibleLineType.Normal): string => {
   if (type === VisibleLineType.Removed || type === InlineDiffRowType.Deletion) {
-    return mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberDeletion)
+    return diffEditorLineNumberDeletionClassName
   }
   if (type === VisibleLineType.Added || type === InlineDiffRowType.Insertion) {
-    return mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberInsertion)
+    return diffEditorLineNumberInsertionClassName
   }
   if (type === InlineDiffRowType.GitButtons || type === InlineDiffRowType.IncomingChange) {
-    return mergeClassNames(ClassNames.DiffEditorLineNumber, ClassNames.DiffEditorLineNumberMeta)
+    return diffEditorLineNumberMetaClassName
   }
   return ClassNames.DiffEditorLineNumber
 }

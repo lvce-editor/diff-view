@@ -35,11 +35,13 @@ export const test: Test = async ({ DiffView, expect, FileSystem, Locator, Worksp
 
   const beforePane = Locator('.DiffEditorContentLeft .DiffEditorRows')
   const afterPane = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const beforeKeywords = beforePane.locator('.Token.Keyword')
+  const afterKeywords = afterPane.locator('.Token.Keyword')
 
   await expect(beforePane).toContainText('int count = 1;')
   await expect(afterPane).toContainText('int count = 2;')
   await expect(beforePane).toContainText('return;')
   await expect(afterPane).toContainText('return;')
-  await expect(beforePane.locator('.Token.Keyword')).toHaveCount(5)
-  await expect(afterPane.locator('.Token.Keyword')).toHaveCount(5)
+  await expect(beforeKeywords).toHaveCount(5)
+  await expect(afterKeywords).toHaveCount(5)
 }

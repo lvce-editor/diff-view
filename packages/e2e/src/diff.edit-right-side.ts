@@ -12,6 +12,7 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
   await DiffView.open(`${tmpDir}/before.txt`, `${tmpDir}/after.txt`)
 
   const afterRows = Locator('.DiffEditorContentRight .DiffEditorRows')
+  const afterRow = afterRows.locator('.EditorRow').first()
   const input = Locator('.DiffEditorInput')
 
   await expect(input).toHaveCount(1)
@@ -19,5 +20,5 @@ export const test: Test = async ({ Command, DiffView, expect, FileSystem, Locato
 
   await expect(input).toHaveValue('gamma ')
   await expect(afterRows).toHaveText('gamma beta')
-  await expect(afterRows.locator('.EditorRow').first()).toHaveClass('EditorRow Insertion')
+  await expect(afterRow).toHaveClass('EditorRow Insertion')
 }

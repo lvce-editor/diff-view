@@ -29,6 +29,7 @@ export const DiffEditorWhitespaceToggleActive = 'DiffEditorWhitespaceToggleActiv
 export const DiffSearchHeader = 'DiffSearchHeader'
 export const DiffSearchInput = 'DiffSearchInput'
 export const DiffScrollBar = 'DiffScrollBar'
+export const DiffScrollBarTrack = 'DiffScrollBarTrack'
 export const DiffScrollBarThumb = 'DiffScrollBarThumb'
 export const DiffTokenChanged = 'DiffToken--changed'
 export const EditorCursor = 'EditorCursor'

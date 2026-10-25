@@ -4,8 +4,16 @@ import * as ClassNames from '../ClassNames/ClassNames.ts'
 import * as DomEventListenerFunctions from '../DomEventListenerFunctions/DomEventListenerFunctions.ts'
 
 const diffScrollBarNode: VirtualDomNode = {
-  childCount: 1,
+  childCount: 2,
   className: ClassNames.DiffScrollBar,
+  type: VirtualDomElements.Div,
+}
+
+const diffScrollBarTrackNode: VirtualDomNode = {
+  childCount: 0,
+  className: ClassNames.DiffScrollBarTrack,
+  name: 'scrollBarTrack',
+  onPointerDown: DomEventListenerFunctions.HandleScrollBarPointerDown,
   type: VirtualDomElements.Div,
 }
 
@@ -18,5 +26,5 @@ const diffScrollBarThumbNode: VirtualDomNode = {
 }
 
 export const getScrollBarDom = (): readonly VirtualDomNode[] => {
-  return [diffScrollBarNode, diffScrollBarThumbNode]
+  return [diffScrollBarNode, diffScrollBarTrackNode, diffScrollBarThumbNode]
 }

@@ -7,8 +7,15 @@ import { getScrollBarDom } from '../src/parts/GetScrollBarDom/GetScrollBarDom.ts
 test('getScrollBarDom renders the scrollbar track and thumb', (): void => {
   expect(getScrollBarDom()).toEqual([
     {
-      childCount: 1,
+      childCount: 2,
       className: ClassNames.DiffScrollBar,
+      type: VirtualDomElements.Div,
+    },
+    {
+      childCount: 0,
+      className: ClassNames.DiffScrollBarTrack,
+      name: 'scrollBarTrack',
+      onPointerDown: DomEventListenerFunctions.HandleScrollBarPointerDown,
       type: VirtualDomElements.Div,
     },
     {

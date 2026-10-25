@@ -462,6 +462,11 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   width: var(--ScrollBarWidth);
 }
 
+.DiffScrollBarTrack {
+  inset: 0;
+  position: absolute;
+}
+
 .DiffScrollBarThumb {
   background: rgba(128, 128, 128, 0.45);
   border-radius: 4px;
@@ -470,6 +475,7 @@ ${getEmptyLineNumberCss(newState.visibleLinesLeft, newState.visibleLinesRight, i
   position: absolute;
   top: var(--ScrollBarThumbTop);
   width: 100%;
+  z-index: 1;
 }
 
 :root {
